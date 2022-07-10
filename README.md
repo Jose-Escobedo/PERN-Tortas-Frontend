@@ -2,6 +2,8 @@
 
 ## _TORTAS MEXICO APP, PERN STACK_
 
+## _PostgreSQL, Express, React JS, Node JS_
+
 TORTAS MEXICO APP is a full-stack application using the PERN STACK.
 I have slowly been testing out ideas and discussing them with Tortas Mexico.
 I am now ready to create a full-stack application that will help this small business

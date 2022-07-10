@@ -1,4 +1,5 @@
 import AsadaFries from "./images/asada-fries.jpeg";
+
 export const SliderItems = [
   {
     id: 1,
@@ -20,5 +21,23 @@ export const SliderItems = [
     title: "Mexican Food",
     desc: "Check out on our new Catering feature!",
     bg: "fbf0f4",
+  },
+];
+
+export const categories = [
+  {
+    id: 1,
+    img: `${AsadaFries}`,
+    title: "Tortas",
+  },
+  {
+    id: 2,
+    img: `${AsadaFries}`,
+    title: "Burritos",
+  },
+  {
+    id: 3,
+    img: `${AsadaFries}`,
+    title: "Tacos",
   },
 ];

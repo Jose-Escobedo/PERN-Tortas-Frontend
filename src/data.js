@@ -41,3 +41,38 @@ export const categories = [
     title: "Tacos",
   },
 ];
+
+export const popularProducts = [
+  {
+    id: 1,
+    img: `${AsadaFries}`,
+  },
+  {
+    id: 2,
+    img: `${AsadaFries}`,
+  },
+  {
+    id: 3,
+    img: `${AsadaFries}`,
+  },
+  {
+    id: 4,
+    img: `${AsadaFries}`,
+  },
+  {
+    id: 5,
+    img: `${AsadaFries}`,
+  },
+  {
+    id: 6,
+    img: `${AsadaFries}`,
+  },
+  {
+    id: 7,
+    img: `${AsadaFries}`,
+  },
+  {
+    id: 8,
+    img: `${AsadaFries}`,
+  },
+];

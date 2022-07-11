@@ -67,6 +67,13 @@ const Center = styled.div`
 `;
 const Logo = styled.h1`
   font-weight: bold;
+  width: 100%;
+  @media screen and (max-width: 1200px) {
+    font-size: 1.5rem;
+  }
+  @media screen and (max-width: 900px) {
+    font-size: 1rem;
+  }
   ${mobile({ fontSize: "1.5 rem" })}
 `;
 const Right = styled.div`

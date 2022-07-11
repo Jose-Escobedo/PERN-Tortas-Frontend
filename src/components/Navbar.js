@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { FaSearch } from "react-icons/fa";
 import Badge from "@material-ui/core/Badge";
 import ShoppingCartOutlined from "@material-ui/icons/ShoppingCartOutlined";
-// import LogoImg from "../images/tortaslogo.svg";
+import { mobile } from "../responsive";
 const Navbar = () => {
   return (
     <Container>
@@ -11,7 +11,7 @@ const Navbar = () => {
         <Left>
           <Language>EN</Language>
           <SearchContainer>
-            <Input />
+            <Input placeholder="Search" />
             <FaSearch style={{ color: "gray", fontSize: "1rem" }} />
           </SearchContainer>
         </Left>
@@ -34,6 +34,7 @@ const Navbar = () => {
 
 const Container = styled.div`
   height: 60px;
+  ${mobile({ height: "50px" })}
 `;
 
 const Left = styled.div`
@@ -45,6 +46,7 @@ const Left = styled.div`
 const Language = styled.span`
   font-size: 1rem;
   cursor: pointer;
+  ${mobile({ display: "none" })}
 `;
 
 const SearchContainer = styled.div`
@@ -57,25 +59,29 @@ const SearchContainer = styled.div`
 
 const Input = styled.input`
   border: none;
+  ${mobile({ width: "50px" })}
 `;
 const Center = styled.div`
   flex: 1;
   text-align: center;
 `;
 const Logo = styled.h1`
-  width: 1005;
+  font-weight: bold;
+  ${mobile({ fontSize: "1.5 rem" })}
 `;
 const Right = styled.div`
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  ${mobile({ flex: 2, justifyContent: "center" })}
 `;
 
 const MenuItem = styled.div`
   font-size: 1rem;
   cursor: pointer;
   margin-left: 25px;
+  ${mobile({ fontSize: "12px", marginLeft: "10px" })}
 `;
 
 const Wrapper = styled.div`
@@ -83,5 +89,6 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  ${mobile({ padding: "10px 0px" })}
 `;
 export default Navbar;

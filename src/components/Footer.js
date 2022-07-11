@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { FaYelp, FaInstagram } from "react-icons/fa";
 import { SiGrubhub } from "react-icons/si";
 import { MailOutline, Phone, Room } from "@material-ui/icons";
+import { mobile } from "../responsive";
 
 const Footer = () => {
   return (
@@ -61,6 +62,7 @@ const Footer = () => {
 
 const Container = styled.div`
   display: flex;
+  ${mobile({ flexDirection: "column" })}
 `;
 const Left = styled.div`
   flex: 1;
@@ -91,6 +93,7 @@ const SocialIcon = styled.div`
 const Right = styled.div`
   flex: 1;
   padding: 1.3em;
+  ${mobile({ backgroundColor: "#fff8f8" })}
 `;
 
 const ContactItem = styled.div`
@@ -122,6 +125,7 @@ const ListItem = styled.li`
 const Center = styled.div`
   flex: 1;
   padding: 1.3em;
+  ${mobile({ display: "none" })}
 `;
 
 export default Footer;

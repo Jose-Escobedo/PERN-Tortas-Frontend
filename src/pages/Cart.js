@@ -136,6 +136,7 @@ const Bottom = styled.div`
 `;
 const Info = styled.div`
   display: flex;
+  flex-direction: column;
   flex: 3;
 `;
 

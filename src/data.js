@@ -29,16 +29,19 @@ export const categories = [
     id: 1,
     img: `${AsadaFries}`,
     title: "Tortas",
+    cat: "tortas",
   },
   {
     id: 2,
     img: `${AsadaFries}`,
     title: "Burritos",
+    cat: "burritos",
   },
   {
     id: 3,
     img: `${AsadaFries}`,
     title: "Tacos",
+    cat: "tacos",
   },
 ];
 

@@ -1,25 +1,39 @@
 import { Add, Remove } from "@material-ui/icons";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import Newsletter from "../components/Newsletter";
 import AsadaFries from "../images/asada-fries.jpeg";
+import { publicRequest } from "../requestMethods";
 import { mobile } from "../responsive";
 const Product = () => {
+  const location = useLocation();
+  const id = location.pathname.split("/")[2];
+  const [product, setProduct] = useState([]);
+
+  useEffect(() => {
+    const getProduct = async () => {
+      try {
+        const res = await publicRequest.get("/products/find/" + id);
+        setProduct(res.data);
+      } catch (error) {}
+    };
+    getProduct();
+  }, [id]);
+
   return (
     <Container>
       <Navbar />
       <Wrapper>
         <ImgContainer>
-          <Image src={AsadaFries} />
+          <Image src={product.img} />
         </ImgContainer>
         <InfoContainer>
-          <Title>Al Pastor Torta</Title>
-          <Desc>
-            BBQ pork. Authentic Mexican style grilled sandwich made with beans,
-            mayonnaise, lettuce, tomato, onions, avocado and jalapenos.
-          </Desc>
-          <Price>$ 12</Price>
+          <Title>{product.title}</Title>
+          <Desc>{product.desc}</Desc>
+          <Price>$ {product.price}</Price>
           <FilterContainer>
             <Filter>
               <FilterTitle>Extras</FilterTitle>

@@ -12,6 +12,9 @@ const Product = () => {
   const location = useLocation();
   const id = location.pathname.split("/")[2];
   const [product, setProduct] = useState([]);
+  const [quantity, setQuantity] = useState(1);
+  const [extras, setExtras] = useState("");
+  const [note, setNote] = useState("");
 
   useEffect(() => {
     const getProduct = async () => {
@@ -23,6 +26,14 @@ const Product = () => {
     getProduct();
   }, [id]);
 
+  const handleQuantity = (type) => {
+    if (type === "dec") {
+      quantity > 1 && setQuantity(quantity - 1);
+    } else {
+      setQuantity(quantity + 1);
+    }
+  };
+
   return (
     <Container>
       <Navbar />
@@ -31,27 +42,24 @@ const Product = () => {
           <Image src={product.img} />
         </ImgContainer>
         <InfoContainer>
-          <Title>{product.title}</Title>
+          <Title>{product.name}</Title>
           <Desc>{product.desc}</Desc>
           <Price>$ {product.price}</Price>
           <FilterContainer>
             <Filter>
               <FilterTitle>Extras</FilterTitle>
-              <FilterExtras>
-                <FilterExtrasOption>Add Guacamole</FilterExtrasOption>
-                <FilterExtrasOption>Add Cheese</FilterExtrasOption>
-                <FilterExtrasOption>Add Lettuce</FilterExtrasOption>
-                <FilterExtrasOption>Add Cilantro</FilterExtrasOption>
-                <FilterExtrasOption>Add Sour Cream</FilterExtrasOption>
-                <FilterExtrasOption>Add Pico de Gallo</FilterExtrasOption>
+              <FilterExtras onChange={(e) => setExtras(e.target.value)}>
+                {product.extras?.map((e) => (
+                  <FilterExtrasOption> {e}</FilterExtrasOption>
+                ))}
               </FilterExtras>
             </Filter>
           </FilterContainer>
           <AddContainer>
             <AmountContainer>
-              <Remove />
-              <Amount>1</Amount>
-              <Add />
+              <Remove onClick={() => handleQuantity("dec")} />
+              <Amount>{quantity}</Amount>
+              <Add onClick={() => handleQuantity("inc")} />
             </AmountContainer>
             <Button>ADD TO CART</Button>
           </AddContainer>

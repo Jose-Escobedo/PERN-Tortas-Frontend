@@ -1,4 +1,5 @@
 import { Add, Remove } from "@material-ui/icons";
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
@@ -34,6 +35,10 @@ const Product = () => {
     }
   };
 
+  const handleClick = () => {
+    //update cart
+  };
+
   return (
     <Container>
       <Navbar />
@@ -61,7 +66,7 @@ const Product = () => {
               <Amount>{quantity}</Amount>
               <Add onClick={() => handleQuantity("inc")} />
             </AmountContainer>
-            <Button>ADD TO CART</Button>
+            <Button onClick={handleClick}>ADD TO CART</Button>
           </AddContainer>
         </InfoContainer>
       </Wrapper>

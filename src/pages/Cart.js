@@ -2,7 +2,7 @@ import { Add, Remove } from "@material-ui/icons";
 import styled from "styled-components";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
-import AsadaFries from "./images/asada-fries.jpeg";
+import AsadaFries from "../images/asada-fries.jpeg";
 import { mobile } from "../responsive";
 const Cart = () => {
   return (

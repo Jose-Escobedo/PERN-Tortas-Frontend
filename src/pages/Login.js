@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { mobile } from "../responsive";
+import ChkTacos from "../images/chk-tacos.JPG";
 
 const Login = () => {
   return (

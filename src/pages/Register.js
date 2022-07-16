@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import ChkTacos from "./images/chk-tacos.JPG";
+import ChkTacos from "../images/chk-tacos.JPG";
 import { mobile } from "../responsive";
 
 const Register = () => {

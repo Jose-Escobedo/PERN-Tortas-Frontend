@@ -35,38 +35,47 @@ const Cart = () => {
         <Bottom>
           <Info>
             {cart.products.map((item) => {
-              <Product key={item._id}>
-                <ProductDetail>
-                  <Image src={AsadaFries} />
-                  <Details>
-                    <ProductName>
-                      <b>Product:</b>
-                      {item.name}
-                    </ProductName>
-                    <ProductId>
-                      <b>ID:</b>
-                      {item._id}
-                    </ProductId>
-                    <ProductExtras>{item.extras}</ProductExtras>
-                  </Details>
-                </ProductDetail>
-                <PriceDetail>
-                  <ProductAmountContainer>
-                    <Add />
-                    <ProductAmount>{item.quantity}</ProductAmount>
-                    <Remove />
-                  </ProductAmountContainer>
-                  <ProductPrice>$ {item.price * item.quantity}</ProductPrice>
-                </PriceDetail>
-              </Product>;
+              return (
+                <>
+                  <Product key={item._id}>
+                    <ProductDetail>
+                      <Image src={item.img} />
+                      <Details>
+                        <ProductName>
+                          <b>Product:</b>
+                          {item.name}
+                        </ProductName>
+                        <ProductId>
+                          <b>ID:</b>
+                          {item._id.slice(0, 6)}
+                        </ProductId>
+                        <ProductExtras>
+                          EXTRAS:<br></br>
+                          {item.extras.map((extra) => `${extra}, `)}
+                        </ProductExtras>
+                      </Details>
+                    </ProductDetail>
+                    <PriceDetail>
+                      <ProductAmountContainer>
+                        <Add />
+                        <ProductAmount>{item.quantity}</ProductAmount>
+                        <Remove />
+                      </ProductAmountContainer>
+                      <ProductPrice>
+                        $ {item.price * item.quantity}
+                      </ProductPrice>
+                    </PriceDetail>
+                  </Product>
+                  <Hr></Hr>
+                </>
+              );
             })}
-            <Hr></Hr>
           </Info>
           <Summary>
             <SummaryTitle>ORDER SUMMARY</SummaryTitle>
             <SummaryItem>
               <SummaryItemText>Subtotal</SummaryItemText>
-              <SummaryItemPrice>$24</SummaryItemPrice>
+              <SummaryItemPrice>$ {cart.subtotal}</SummaryItemPrice>
             </SummaryItem>
             <SummaryItem>
               <SummaryItemText>Delivery Fee</SummaryItemText>
@@ -74,11 +83,11 @@ const Cart = () => {
             </SummaryItem>
             <SummaryItem>
               <SummaryItemText>Taxes</SummaryItemText>
-              <SummaryItemPrice>$2.4</SummaryItemPrice>
+              <SummaryItemPrice>$ {cart.taxes.toFixed(2)}</SummaryItemPrice>
             </SummaryItem>
             <SummaryItem type="total">
               <SummaryItemText>Total</SummaryItemText>
-              <SummaryItemPrice>$31.40</SummaryItemPrice>
+              <SummaryItemPrice>$ {cart.total.toFixed(2)}</SummaryItemPrice>
             </SummaryItem>
             <Button>CHECKOUT NOW</Button>
           </Summary>

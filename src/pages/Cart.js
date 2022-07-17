@@ -3,22 +3,37 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
-import AsadaFries from "../images/asada-fries.jpeg";
-// import Caldo from "https://i.ibb.co/JdvYspQ/caldo.jpg";
-// import chkTacos from "https://i.ibb.co/WFxqH2Y/chk-tacos.jpg";
-// import enchRancheras from "https://i.ibb.co/L5QmBx5/coke-enchiladas.jpg";
-// import tortaCubana from "https://i.ibb.co/71RVm56/cubana.jpg";
-// import fishTacos from "https://i.ibb.co/R4hGjF3/fish-tacos.jpg";
-// import mole from "https://i.ibb.co/qRRw2SW/mole.jpg";
-// import sopes from "https://i.ibb.co/MkGLrFq/sopes.jpg";
-// import tamal from "https://i.ibb.co/LnWbsQQ/tamal.jpg";
+import StripeCheckout from "react-stripe-checkout";
 import { mobile } from "../responsive";
+import tortasLogo from "../images/tortaslogo.svg";
+import { useEffect, useState } from "react";
+import { userRequest } from "../requestMethods";
+import { useNavigate } from "react-router-dom";
+
+const KEY = process.env.REACT_APP_STRIPE;
+
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
-  cart.products.map((product) => {
-    console.log(product.name);
-  });
-  console.log(cart);
+  const [stripeToken, setStripeToken] = useState(null);
+  const navigate = useNavigate();
+
+  const onToken = (token) => {
+    setStripeToken(token);
+  };
+
+  useEffect(() => {
+    const makeRequest = async () => {
+      try {
+        const res = await userRequest.post("/checkout/payment", {
+          tokenId: stripeToken.id,
+          amount: 500,
+        });
+        navigate("/success", { data: res.data });
+      } catch {}
+    };
+    stripeToken && makeRequest();
+  }, [stripeToken, cart.total, navigate]);
+
   return (
     <Container>
       <Navbar />
@@ -89,7 +104,18 @@ const Cart = () => {
               <SummaryItemText>Total</SummaryItemText>
               <SummaryItemPrice>$ {cart.total.toFixed(2)}</SummaryItemPrice>
             </SummaryItem>
-            <Button>CHECKOUT NOW</Button>
+            <StripeCheckout
+              name="Tortas Mexico"
+              image={tortasLogo}
+              billingAddress
+              shippingAddress
+              description={`Your total is ${cart.total.toFixed(2)}`}
+              amount={cart.total * 100}
+              token={onToken}
+              stripeKey={KEY}
+            >
+              <Button>CHECKOUT NOW</Button>
+            </StripeCheckout>
           </Summary>
         </Bottom>
       </Wrapper>

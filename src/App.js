@@ -6,6 +6,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import ProductList from "./pages/ProductList";
 import Product from "./pages/Product";
+import Success from "./pages/Success";
 
 function App() {
   const user = true;
@@ -27,6 +28,7 @@ function App() {
         <Route exact path="/products/:cat" element={<ProductList />} />
         <Route exact path="/products" element={<ProductList />} />
         <Route exact path="/product/:id" element={<Product />} />
+        <Route exact path="/success" element={<Success />} />
       </Routes>
     </>
   );

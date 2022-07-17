@@ -7,8 +7,11 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import Newsletter from "../components/Newsletter";
 import AsadaFries from "../images/asada-fries.jpeg";
+import { addProduct } from "../redux/cartRedux";
 import { publicRequest } from "../requestMethods";
 import { mobile } from "../responsive";
+import { useDispatch } from "react-redux";
+
 const Product = () => {
   const location = useLocation();
   const id = location.pathname.split("/")[2];
@@ -16,6 +19,7 @@ const Product = () => {
   const [quantity, setQuantity] = useState(1);
   const [extras, setExtras] = useState("");
   const [note, setNote] = useState("");
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const getProduct = async () => {
@@ -36,7 +40,7 @@ const Product = () => {
   };
 
   const handleClick = () => {
-    //update cart
+    dispatch(addProduct({ ...product, quantity, extras }));
   };
 
   return (

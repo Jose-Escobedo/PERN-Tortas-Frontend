@@ -1,10 +1,24 @@
 import { Add, Remove } from "@material-ui/icons";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import AsadaFries from "../images/asada-fries.jpeg";
+// import Caldo from "https://i.ibb.co/JdvYspQ/caldo.jpg";
+// import chkTacos from "https://i.ibb.co/WFxqH2Y/chk-tacos.jpg";
+// import enchRancheras from "https://i.ibb.co/L5QmBx5/coke-enchiladas.jpg";
+// import tortaCubana from "https://i.ibb.co/71RVm56/cubana.jpg";
+// import fishTacos from "https://i.ibb.co/R4hGjF3/fish-tacos.jpg";
+// import mole from "https://i.ibb.co/qRRw2SW/mole.jpg";
+// import sopes from "https://i.ibb.co/MkGLrFq/sopes.jpg";
+// import tamal from "https://i.ibb.co/LnWbsQQ/tamal.jpg";
 import { mobile } from "../responsive";
 const Cart = () => {
+  const cart = useSelector((state) => state.cart);
+  cart.products.map((product) => {
+    console.log(product.name);
+  });
+  console.log(cart);
   return (
     <Container>
       <Navbar />
@@ -13,58 +27,40 @@ const Cart = () => {
         <Top>
           <TopButton>CONTINUE SHOPPING</TopButton>
           <TopTexts>
-            <TopText>Shopping Cart (2)</TopText>
+            <TopText>Shopping Cart ({cart.quantity})</TopText>
             <TopText>Your Wishlist (0)</TopText>
           </TopTexts>
           <TopButton type="filled">CHECKOUT NOW</TopButton>
         </Top>
         <Bottom>
           <Info>
-            <Product>
-              <ProductDetail>
-                <Image src={AsadaFries} />
-                <Details>
-                  <ProductName>
-                    <b>Product:</b>Al Pastor Torta
-                  </ProductName>
-                  <ProductId>
-                    <b>ID:</b>88888
-                  </ProductId>
-                  <ProductExtras></ProductExtras>
-                </Details>
-              </ProductDetail>
-              <PriceDetail>
-                <ProductAmountContainer>
-                  <Add />
-                  <ProductAmount>2</ProductAmount>
-                  <Remove />
-                </ProductAmountContainer>
-                <ProductPrice>$ 12</ProductPrice>
-              </PriceDetail>
-            </Product>
+            {cart.products.map((item) => {
+              <Product key={item._id}>
+                <ProductDetail>
+                  <Image src={AsadaFries} />
+                  <Details>
+                    <ProductName>
+                      <b>Product:</b>
+                      {item.name}
+                    </ProductName>
+                    <ProductId>
+                      <b>ID:</b>
+                      {item._id}
+                    </ProductId>
+                    <ProductExtras>{item.extras}</ProductExtras>
+                  </Details>
+                </ProductDetail>
+                <PriceDetail>
+                  <ProductAmountContainer>
+                    <Add />
+                    <ProductAmount>{item.quantity}</ProductAmount>
+                    <Remove />
+                  </ProductAmountContainer>
+                  <ProductPrice>$ {item.price * item.quantity}</ProductPrice>
+                </PriceDetail>
+              </Product>;
+            })}
             <Hr></Hr>
-            <Product>
-              <ProductDetail>
-                <Image src={AsadaFries} />
-                <Details>
-                  <ProductName>
-                    <b>Product:</b>Al Pastor Torta
-                  </ProductName>
-                  <ProductId>
-                    <b>ID:</b>88888
-                  </ProductId>
-                  <ProductExtras></ProductExtras>
-                </Details>
-              </ProductDetail>
-              <PriceDetail>
-                <ProductAmountContainer>
-                  <Add />
-                  <ProductAmount>2</ProductAmount>
-                  <Remove />
-                </ProductAmountContainer>
-                <ProductPrice>$ 12</ProductPrice>
-              </PriceDetail>
-            </Product>
           </Info>
           <Summary>
             <SummaryTitle>ORDER SUMMARY</SummaryTitle>

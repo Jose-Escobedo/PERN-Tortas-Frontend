@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { mobile } from "../responsive";
 import ChkTacos from "../images/chk-tacos.JPG";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { login } from "../redux/apiCalls";
 import { useDispatch, useSelector } from "react-redux";
 

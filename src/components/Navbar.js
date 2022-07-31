@@ -7,6 +7,7 @@ import { mobile } from "../responsive";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 const Navbar = () => {
+  const user = useSelector((state) => state.user.currentUser);
   const quantity = useSelector((state) => state.cart.quantity);
   console.log(quantity);
 
@@ -24,14 +25,39 @@ const Navbar = () => {
           <Logo>Tortas Mexico Studio City</Logo>
         </Center>
         <Right>
-          <MenuItem>REGISTER</MenuItem>
-          <MenuItem>SIGN IN</MenuItem>
+          {user ? (
+            <NavItem>
+              <Link to="/" style={{ textDecoration: "none", color: "black" }}>
+                LOGOUT
+              </Link>
+            </NavItem>
+          ) : (
+            <>
+              <NavItem>
+                <Link
+                  to="/register"
+                  style={{ textDecoration: "none", color: "black" }}
+                >
+                  REGISTER
+                </Link>
+              </NavItem>
+              <NavItem>
+                <Link
+                  to="/login"
+                  style={{ textDecoration: "none", color: "black" }}
+                >
+                  SIGN IN
+                </Link>
+              </NavItem>
+            </>
+          )}
+
           <Link to="/cart">
-            <MenuItem>
+            <NavItem>
               <Badge badgeContent={quantity} color="primary">
                 <ShoppingCartOutlined />
               </Badge>
-            </MenuItem>
+            </NavItem>
           </Link>
         </Right>
       </Wrapper>
@@ -41,6 +67,7 @@ const Navbar = () => {
 
 const Container = styled.div`
   height: 60px;
+
   ${mobile({ height: "50px" })}
 `;
 
@@ -91,7 +118,7 @@ const Right = styled.div`
   ${mobile({ flex: 2, justifyContent: "center" })}
 `;
 
-const MenuItem = styled.div`
+const NavItem = styled.div`
   font-size: 1rem;
   cursor: pointer;
   margin-left: 25px;

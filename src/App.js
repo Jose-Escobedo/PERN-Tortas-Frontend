@@ -25,7 +25,7 @@ function App() {
         <Route
           exact
           path="/register"
-          element={user ? <Navigate to="/" /> : <Login />}
+          element={user ? <Navigate to="/" /> : <Register />}
         />
         <Route exact path="/products/:cat" element={<ProductList />} />
         <Route exact path="/products" element={<ProductList />} />

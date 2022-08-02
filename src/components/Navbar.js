@@ -4,11 +4,20 @@ import { FaSearch } from "react-icons/fa";
 import Badge from "@material-ui/core/Badge";
 import ShoppingCartOutlined from "@material-ui/icons/ShoppingCartOutlined";
 import { mobile } from "../responsive";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { logout } from "../redux/apiCalls";
+
 const Navbar = () => {
   const user = useSelector((state) => state.user.currentUser);
   const quantity = useSelector((state) => state.cart.quantity);
+  const dispatch = useDispatch();
+  const { isFetching, error } = useSelector((state) => state.user);
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    logout(dispatch, user);
+  };
   console.log(quantity);
 
   return (
@@ -27,9 +36,8 @@ const Navbar = () => {
         <Right>
           {user ? (
             <NavItem>
-              <Link to="/" style={{ textDecoration: "none", color: "black" }}>
-                LOGOUT
-              </Link>
+              <Button onClick={handleClick}>LOGOUT</Button>
+              {error && <Error>Something went wrong...</Error>}
             </NavItem>
           ) : (
             <>
@@ -75,6 +83,19 @@ const Left = styled.div`
   flex: 1;
   display: flex;
   align-items: center;
+`;
+const Button = styled.button`
+  width: 100%;
+  border: none;
+  padding: 15px 20px;
+  background-color: teal;
+  color: white;
+  margin-bottom: 10px;
+  cursor: pointer;
+`;
+
+const Error = styled.span`
+  color: red;
 `;
 
 const Language = styled.span`
@@ -122,7 +143,8 @@ const NavItem = styled.div`
   font-size: 1rem;
   cursor: pointer;
   margin-left: 25px;
-  ${mobile({ fontSize: "12px", marginLeft: "10px" })}
+  margin-right: 25px;
+  ${mobile({ fontSize: "12px", marginRight: "25px", marginLeft: "10px" })}
 `;
 
 const Wrapper = styled.div`

@@ -8,6 +8,7 @@ import ProductList from "./pages/ProductList";
 import Product from "./pages/Product";
 import Success from "./pages/Success";
 import { useSelector } from "react-redux";
+import "@stripe/stripe-js";
 
 function App() {
   const user = useSelector((state) => state.user.currentUser);

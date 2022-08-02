@@ -1,4 +1,5 @@
 import { publicRequest } from "../requestMethods";
+import axios from "axios";
 import {
   loginFailure,
   loginStart,
@@ -20,9 +21,11 @@ export const login = async (dispatch, user) => {
 
 export const logout = async (dispatch, user) => {
   dispatch(logoutStart());
+  localStorage.removeItem("persist:root");
+  dispatch(logoutSuccess());
   try {
-    const res = await publicRequest.delete("/auth/logout", user);
-    dispatch(logoutSuccess());
+    const res = await publicRequest.get("/auth/logout", user);
+    dispatch(logoutSuccess(res));
   } catch (err) {
     dispatch(logoutFailure());
   }

@@ -25,10 +25,14 @@ const Navbar = () => {
     <Container>
       <Wrapper>
         <Left>
-          <TortasLogo src={tortaLogo}></TortasLogo>
+          <Link to="/">
+            <TortasLogo src={tortaLogo}></TortasLogo>
+          </Link>
         </Left>
         <Center>
-          <Logo>Tortas Mexico Studio City</Logo>
+          <Link to="/" style={{ textDecoration: "none", color: "black" }}>
+            <Logo>Tortas Mexico Studio City</Logo>
+          </Link>
         </Center>
         <Right>
           {user ? (

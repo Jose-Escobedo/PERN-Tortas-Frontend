@@ -10,63 +10,45 @@ import { userRequest } from "../requestMethods";
 import { useNavigate } from "react-router-dom";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
-
-import CheckoutForm from "./CheckoutForm";
+import { paymentRequest } from "@stripe/react-stripe-js";
+import axios from "axios";
 
 const KEY = process.env.REACT_APP_STRIPE;
-let stripePromise;
-const getStripe = () => {
-  if (!stripePromise) {
-    stripePromise = loadStripe(KEY);
-  }
+// let stripePromise;
+// const getStripe = () => {
+//   if (!stripePromise) {
+//     stripePromise = loadStripe(KEY);
+//   }
 
-  return stripePromise;
-};
+//   return stripePromise;
+// };
 
 const Cart = () => {
   const [clientSecret, setClientSecret] = useState("");
   const cart = useSelector((state) => state.cart);
   const navigate = useNavigate();
 
-  const item = {
-    price: "price_1LJQiGJZbyfOCwCq0CGQJI2l",
-    quantity: 1,
-  };
-
-  const checkoutOptions = {
-    lineItems: [item],
-    mode: "payment",
-    successUrl: `${window.location.origin}/success`,
-    cancelUrl: `${window.location.origin}/cancel`,
-  };
-
-  const redirectToCheckout = async () => {
-    console.log("redirectToCheckout");
-
-    const stripe = await getStripe();
-    const { error } = await stripe.redirectToCheckout(checkoutOptions);
-    console.log("Stripe checkout error", error);
-  };
-
-  // useEffect(() => {
-  //   const makeRequest = async () => {
-  //     try {
-  //       const res = await userRequest.post("/checkout/payment", {
-  //         items: cart,
-  //       });
-  //       setClientSecret(res.data.clientSecret);
-  //       navigate("/success", { data: res.data });
-  //     } catch {}
-  //   };
-  //   makeRequest();
-  // }, []);
-
-  const appearance = {
-    theme: "stripe",
-  };
-  const options = {
-    clientSecret,
-    appearance,
+  const redirectToCheckout = () => {
+    fetch("http://localhost:5000/api/checkout/payment", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${process.env.REACT_APP_STRIPE}`,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        price_data: {
+          currency: "usd",
+          unit_amount: 1000,
+          product_data: {
+            name: "name of the product",
+          },
+        },
+        quantity: 1,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => (window.location.href = data.url));
   };
 
   return (

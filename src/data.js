@@ -1,4 +1,9 @@
-import AsadaFries from "./images/asada-fries.jpeg";
+import AsadaFries from "./images/asada-fries-removebg.png";
+import Taquitos from "./images/taquitos-removebg.png";
+import Mole from "./images/mole-removebg.png";
+import WetBurrito from "./images/burrito-wet.JPG";
+import TortaCubana from "./images/cubana.jpg";
+import BucheTacos from "./images/tacos-buche.jpeg";
 
 export const SliderItems = [
   {
@@ -10,14 +15,14 @@ export const SliderItems = [
   },
   {
     id: 2,
-    img: `${AsadaFries}`,
+    img: `${Mole}`,
     title: "Mexican Food",
     desc: "Check out on our new Catering feature!",
     bg: "fcf1ed",
   },
   {
     id: 3,
-    img: `${AsadaFries}`,
+    img: `${Taquitos}`,
     title: "Mexican Food",
     desc: "Check out on our new Catering feature!",
     bg: "fbf0f4",
@@ -27,19 +32,19 @@ export const SliderItems = [
 export const categories = [
   {
     id: 1,
-    img: `${AsadaFries}`,
+    img: `${TortaCubana}`,
     title: "Tortas",
     cat: "tortas",
   },
   {
     id: 2,
-    img: `${AsadaFries}`,
+    img: `${WetBurrito}`,
     title: "Burritos",
     cat: "burritos",
   },
   {
     id: 3,
-    img: `${AsadaFries}`,
+    img: `${BucheTacos}`,
     title: "Tacos",
     cat: "tacos",
   },

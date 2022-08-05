@@ -7,6 +7,7 @@ import { mobile } from "../responsive";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from "../redux/apiCalls";
+import tortaLogo from "../images/tortaslogo.svg";
 
 const Navbar = () => {
   const user = useSelector((state) => state.user.currentUser);
@@ -24,11 +25,7 @@ const Navbar = () => {
     <Container>
       <Wrapper>
         <Left>
-          <Language>EN</Language>
-          <SearchContainer>
-            <Input placeholder="Search" />
-            <FaSearch style={{ color: "gray", fontSize: "1rem" }} />
-          </SearchContainer>
+          <TortasLogo src={tortaLogo}></TortasLogo>
         </Left>
         <Center>
           <Logo>Tortas Mexico Studio City</Logo>
@@ -75,8 +72,16 @@ const Navbar = () => {
 
 const Container = styled.div`
   height: 60px;
+  padding-bottom: 2em;
 
   ${mobile({ height: "50px" })}
+`;
+
+const TortasLogo = styled.img`
+  display: block;
+  width: 70px;
+  height: 70px;
+  padding: 0;
 `;
 
 const Left = styled.div`

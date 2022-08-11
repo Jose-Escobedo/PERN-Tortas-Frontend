@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
-import Newsletter from "../components/Newsletter";
+import Menu from "../components/Menu";
 import Products from "../components/Products";
 import { mobile } from "../responsive";
 
@@ -47,7 +47,7 @@ const ProductList = () => {
         </Filter>
       </FilterContainer>
       <Products cat={cat} filters={filters} sort={sort} />
-      <Newsletter />
+      <Menu />
       <Footer />
     </Container>
   );

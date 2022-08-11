@@ -5,12 +5,12 @@ import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
-import Newsletter from "../components/Newsletter";
 import AsadaFries from "../images/asada-fries.jpeg";
 import { addProduct } from "../redux/cartRedux";
 import { publicRequest } from "../requestMethods";
 import { mobile } from "../responsive";
 import { useDispatch, useSelector } from "react-redux";
+import Menu from "../components/Menu";
 
 const Product = () => {
   const location = useLocation();
@@ -75,7 +75,7 @@ const Product = () => {
           </AddContainer>
         </InfoContainer>
       </Wrapper>
-      <Newsletter />
+      <Menu />
       <Footer />
     </Container>
   );

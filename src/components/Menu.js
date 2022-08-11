@@ -2,17 +2,11 @@ import styled from "styled-components";
 import { Send } from "@material-ui/icons";
 import { mobile } from "../responsive";
 
-const Newsletter = () => {
+const Menu = () => {
   return (
     <Container>
-      <Title>Newsletter</Title>
-      <Desc>Get timely updates from us.</Desc>
-      <InputContainer>
-        <Input placeholder="Your email" />
-        <Button>
-          <Send />
-        </Button>
-      </InputContainer>
+      <Title>Menu</Title>
+      <Desc>Authentic Mexican Food</Desc>
     </Container>
   );
 };
@@ -55,4 +49,4 @@ const Button = styled.button`
   background-color: teal;
   color: white;
 `;
-export default Newsletter;
+export default Menu;

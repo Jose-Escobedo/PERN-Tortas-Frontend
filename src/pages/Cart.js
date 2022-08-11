@@ -4,29 +4,12 @@ import styled from "styled-components";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { mobile } from "../responsive";
-import tortasLogo from "../images/tortaslogo.svg";
-import { useEffect, useState } from "react";
-import { userRequest } from "../requestMethods";
 import { useNavigate } from "react-router-dom";
 import { removeProduct } from "../redux/cartRedux";
 import { useDispatch } from "react-redux";
-import { loadStripe } from "@stripe/stripe-js";
-import { Elements } from "@stripe/react-stripe-js";
-import { paymentRequest } from "@stripe/react-stripe-js";
-import axios from "axios";
-
-const KEY = process.env.REACT_APP_STRIPE;
-// let stripePromise;
-// const getStripe = () => {
-//   if (!stripePromise) {
-//     stripePromise = loadStripe(KEY);
-//   }
-
-//   return stripePromise;
-// };
+import { Link } from "react-router-dom";
 
 const Cart = () => {
-  const [clientSecret, setClientSecret] = useState("");
   const cart = useSelector((state) => state.cart);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -67,7 +50,9 @@ const Cart = () => {
       <Wrapper>
         <Title>YOUR CART</Title>
         <Top>
-          <TopButton>CONTINUE SHOPPING</TopButton>
+          <Link to="/">
+            <TopButton>CONTINUE SHOPPING</TopButton>
+          </Link>
           <TopTexts>
             <TopText>Shopping Cart ({cart.quantity})</TopText>
           </TopTexts>

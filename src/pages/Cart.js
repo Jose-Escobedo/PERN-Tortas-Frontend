@@ -70,7 +70,6 @@ const Cart = () => {
           <TopButton>CONTINUE SHOPPING</TopButton>
           <TopTexts>
             <TopText>Shopping Cart ({cart.quantity})</TopText>
-            <TopText>Your Wishlist (0)</TopText>
           </TopTexts>
           <TopButton type="filled">CHECKOUT NOW</TopButton>
         </Top>
@@ -116,7 +115,7 @@ const Cart = () => {
             <SummaryTitle>ORDER SUMMARY</SummaryTitle>
             <SummaryItem>
               <SummaryItemText>Subtotal</SummaryItemText>
-              <SummaryItemPrice>$ {cart.subtotal}</SummaryItemPrice>
+              <SummaryItemPrice>$ {cart.subtotal.toFixed(2)}</SummaryItemPrice>
             </SummaryItem>
             <SummaryItem>
               <SummaryItemText>Delivery Fee</SummaryItemText>

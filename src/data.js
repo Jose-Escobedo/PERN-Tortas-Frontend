@@ -7,14 +7,14 @@ import BucheTacos from "./images/tacos-buche.jpeg";
 
 export const SliderItems = [
   {
-    id: 1,
+    id: "62d006c9c020372b553c8946",
     img: `${AsadaFries}`,
     title: "Mexican Food",
     desc: "Our Delicious Asada Fries",
     bg: "f5fafd",
   },
   {
-    id: 2,
+    id: "62d00814c020372b553c894a",
     img: `${Mole}`,
     title: "Mexican Food",
     desc: "Our Tasty Pollo Con Mole",

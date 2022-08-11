@@ -4,8 +4,27 @@ import ArrowRightOutlined from "@material-ui/icons/ArrowRightOutlined";
 import { SliderItems } from "../data";
 import { useState } from "react";
 import { mobile } from "../responsive";
+import { useDispatch } from "react-redux";
+import { addProduct } from "../redux/cartRedux";
+import { publicRequest } from "../requestMethods";
 
 const Slider = () => {
+  const dispatch = useDispatch();
+  const quantity = 1;
+  const [product, setProduct] = useState([]);
+
+  const getProduct = (slideItem) => {
+    fetch(`http://localhost:5000/api/products/find/${slideItem}`)
+      .then((response) => response.json())
+      .then((data) => dispatch(addProduct({ ...data, quantity })))
+      .catch((error) => console.log(error));
+  };
+
+  const handleOrderNow = (item) => {
+    console.log(item.id);
+    getProduct(item.id);
+  };
+
   const [slideIndex, setSlideIndex] = useState(0);
 
   const handleClick = (direction) => {
@@ -30,7 +49,7 @@ const Slider = () => {
             <InfoContainer>
               <Title>{item.title}</Title>
               <Desc>{item.desc}</Desc>
-              <Button>Order Now</Button>
+              <Button onClick={() => handleOrderNow(item)}>Order Now</Button>
             </InfoContainer>
           </Slide>
         ))}

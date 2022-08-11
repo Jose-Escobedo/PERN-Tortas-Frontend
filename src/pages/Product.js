@@ -10,12 +10,13 @@ import AsadaFries from "../images/asada-fries.jpeg";
 import { addProduct } from "../redux/cartRedux";
 import { publicRequest } from "../requestMethods";
 import { mobile } from "../responsive";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const Product = () => {
   const location = useLocation();
   const id = location.pathname.split("/")[2];
   const [product, setProduct] = useState([]);
+  const cart = useSelector((state) => state.cart);
   const [quantity, setQuantity] = useState(1);
   const [extras, setExtras] = useState("");
   const [note, setNote] = useState("");

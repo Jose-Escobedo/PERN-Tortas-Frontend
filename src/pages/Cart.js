@@ -8,6 +8,8 @@ import tortasLogo from "../images/tortaslogo.svg";
 import { useEffect, useState } from "react";
 import { userRequest } from "../requestMethods";
 import { useNavigate } from "react-router-dom";
+import { removeProduct } from "../redux/cartRedux";
+import { useDispatch } from "react-redux";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import { paymentRequest } from "@stripe/react-stripe-js";
@@ -27,6 +29,12 @@ const Cart = () => {
   const [clientSecret, setClientSecret] = useState("");
   const cart = useSelector((state) => state.cart);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleRemoveItem = (item) => {
+    console.log(item);
+    dispatch(removeProduct(item));
+  };
 
   const redirectToCheckout = () => {
     fetch("http://localhost:5000/api/checkout/payment", {
@@ -45,6 +53,8 @@ const Cart = () => {
           },
         },
         quantity: 1,
+        total: cart.total.toFixed(2),
+        cart: cart,
       }),
     })
       .then((response) => response.json())
@@ -66,42 +76,41 @@ const Cart = () => {
         </Top>
         <Bottom>
           <Info>
-            {cart.products.map((item) => {
-              return (
-                <>
-                  <Product key={item._id}>
-                    <ProductDetail>
-                      <Image src={item.img} />
-                      <Details>
-                        <ProductName>
-                          <b>Product:</b>
-                          {item.name}
-                        </ProductName>
-                        <ProductId>
-                          <b>ID:</b>
-                          {item._id.slice(0, 6)}
-                        </ProductId>
-                        <ProductExtras>
-                          EXTRAS:<br></br>
-                          {item.extras.map((extra) => `${extra}, `)}
-                        </ProductExtras>
-                      </Details>
-                    </ProductDetail>
-                    <PriceDetail>
-                      <ProductAmountContainer>
-                        <Add />
-                        <ProductAmount>{item.quantity}</ProductAmount>
-                        <Remove />
-                      </ProductAmountContainer>
-                      <ProductPrice>
-                        $ {item.price * item.quantity}
-                      </ProductPrice>
-                    </PriceDetail>
-                  </Product>
-                  <Hr></Hr>
-                </>
-              );
-            })}
+            {cart.products.map((item) => (
+              <div key={item._id}>
+                <Product>
+                  <ProductDetail>
+                    <Image
+                      src={item.img}
+                      onClick={() => handleRemoveItem(item)}
+                    />
+                    <Details>
+                      <ProductName>
+                        <b>Product:</b>
+                        {item.name}
+                      </ProductName>
+                      <ProductId>
+                        <b>ID:</b>
+                        {item._id.slice(0, 6)}
+                      </ProductId>
+                      <ProductExtras>
+                        EXTRAS:<br></br>
+                        {item.extras.map((extra) => `${extra}, `)}
+                      </ProductExtras>
+                    </Details>
+                  </ProductDetail>
+                  <PriceDetail>
+                    <ProductAmountContainer>
+                      <Add />
+                      <ProductAmount>{item.quantity}</ProductAmount>
+                      <Remove style={{ cursor: "pointer" }} />
+                    </ProductAmountContainer>
+                    <ProductPrice>$ {item.price * item.quantity}</ProductPrice>
+                  </PriceDetail>
+                </Product>
+                <Hr></Hr>
+              </div>
+            ))}
           </Info>
           <Summary>
             <SummaryTitle>ORDER SUMMARY</SummaryTitle>

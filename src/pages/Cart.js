@@ -5,9 +5,14 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { mobile } from "../responsive";
 import { useNavigate } from "react-router-dom";
-import { removeProduct } from "../redux/cartRedux";
+import {
+  removeProduct,
+  decrementQuantity,
+  incrementQuantity,
+} from "../redux/cartRedux";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { RiDeleteBin6Line } from "react-icons/ri";
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
@@ -17,6 +22,14 @@ const Cart = () => {
   const handleRemoveItem = (item) => {
     console.log(item);
     dispatch(removeProduct(item));
+  };
+  const handleDecrementItem = (item) => {
+    console.log(item);
+    dispatch(decrementQuantity(item));
+  };
+  const handleIncrementItem = (item) => {
+    console.log(item);
+    dispatch(incrementQuantity(item));
   };
 
   const redirectToCheckout = () => {
@@ -64,10 +77,7 @@ const Cart = () => {
               <div key={item._id}>
                 <Product>
                   <ProductDetail>
-                    <Image
-                      src={item.img}
-                      onClick={() => handleRemoveItem(item)}
-                    />
+                    <Image src={item.img} />
                     <Details>
                       <ProductName>
                         <b>Product:</b>
@@ -85,11 +95,28 @@ const Cart = () => {
                   </ProductDetail>
                   <PriceDetail>
                     <ProductAmountContainer>
-                      <Add />
+                      <Add
+                        style={{ cursor: "pointer" }}
+                        onClick={() => handleIncrementItem(item)}
+                      />
                       <ProductAmount>{item.quantity}</ProductAmount>
-                      <Remove style={{ cursor: "pointer" }} />
+                      <Remove
+                        style={{ cursor: "pointer" }}
+                        onClick={() => handleDecrementItem(item)}
+                      />
                     </ProductAmountContainer>
                     <ProductPrice>$ {item.price * item.quantity}</ProductPrice>
+                    <RiDeleteBin6Line
+                      style={{
+                        paddingTop: "3em",
+                        paddingBottom: "1.3em",
+                        height: "25px",
+                        width: "25px",
+                        cursor: "pointer",
+                        color: "darkred",
+                      }}
+                      onClick={() => handleRemoveItem(item)}
+                    ></RiDeleteBin6Line>
                   </PriceDetail>
                 </Product>
                 <Hr></Hr>
@@ -204,6 +231,7 @@ const ProductAmountContainer = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 20px;
+  margin-top: 20px;
 `;
 const ProductAmount = styled.div`
   font-size: 1.5rem;

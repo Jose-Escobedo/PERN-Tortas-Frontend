@@ -105,7 +105,9 @@ const Cart = () => {
                         onClick={() => handleDecrementItem(item)}
                       />
                     </ProductAmountContainer>
-                    <ProductPrice>$ {item.price * item.quantity}</ProductPrice>
+                    <ProductPrice>
+                      $ {(item.price * item.quantity).toFixed(2)}
+                    </ProductPrice>
                     <RiDeleteBin6Line
                       style={{
                         paddingTop: "3em",

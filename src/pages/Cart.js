@@ -80,11 +80,11 @@ const Cart = () => {
                     <Image src={item.img} />
                     <Details>
                       <ProductName>
-                        <b>Product:</b>
+                        <b>Product: </b>
                         {item.name}
                       </ProductName>
                       <ProductId>
-                        <b>ID:</b>
+                        <b>ID: </b>
                         {item._id.slice(0, 6)}
                       </ProductId>
                       <ProductExtras>
@@ -278,6 +278,7 @@ const Button = styled.button`
   background-color: black;
   color: white;
   font-weight: 600;
+  cursor: pointer;
 `;
 
 export default Cart;

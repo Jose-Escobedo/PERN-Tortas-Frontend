@@ -1,9 +1,21 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+import styled from "styled-components";
+import Footer from "../components/Footer";
+import Navbar from "../components/Navbar";
 
 const Success = () => {
-  const location = useLocation();
-  return <div>Successful</div>;
+  return (
+    <>
+      <Navbar />
+      <SuccessContainer>Thank You for your Order!</SuccessContainer>
+      <Footer />
+    </>
+  );
 };
 
+export const SuccessContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 export default Success;

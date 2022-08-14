@@ -3,22 +3,57 @@ import styled from "styled-components";
 import Navbar from "../components/Navbar";
 import { useState } from "react";
 import { BsArrowRight } from "react-icons/bs";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import Footer from "../components/Footer";
+import { useNavigate } from "react-router-dom";
 
 const CheckoutInfo = ({ addNewFormData }) => {
+  const cart = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  function onShowAlert() {
+    console.log("Please fill out the required fields.");
+  }
+
   const blankForm = {
-    name: "",
+    dropoff_contact_given_name: "",
+    dropoff_contact_family_name: "",
     email: "",
-    message: "",
+    note: "",
+    dropoff_phone_number: "",
+    address: "",
   };
 
   const [newFormData, setFormData] = useState(blankForm);
 
-  const { name, email, message } = newFormData;
+  const {
+    dropoff_contact_given_name,
+    dropoff_contact_family_name,
+    email,
+    note,
+    dropoff_phone_number,
+    address,
+  } = newFormData;
 
-  const handleNameChange = (e) => {
+  const enabled =
+    email.length > 0 &&
+    dropoff_contact_family_name.length > 0 &&
+    dropoff_contact_given_name.length > 0 &&
+    dropoff_phone_number.length > 9 &&
+    address.length > 0;
+
+  const handleFirstNameChange = (e) => {
     setFormData({
       ...newFormData,
-      name: e.target.value,
+      dropoff_contact_given_name: e.target.value,
+    });
+  };
+  const handleLastNameChange = (e) => {
+    setFormData({
+      ...newFormData,
+      dropoff_contact_family_name: e.target.value,
     });
   };
 
@@ -29,10 +64,22 @@ const CheckoutInfo = ({ addNewFormData }) => {
     });
   };
 
-  const handleMessageChange = (e) => {
+  const handleNoteChange = (e) => {
     setFormData({
       ...newFormData,
-      message: e.target.value,
+      note: e.target.value,
+    });
+  };
+  const handlePhoneChange = (e) => {
+    setFormData({
+      ...newFormData,
+      dropoff_phone_number: e.target.value,
+    });
+  };
+  const handleAddressChange = (e) => {
+    setFormData({
+      ...newFormData,
+      address: e.target.value,
     });
   };
 
@@ -49,20 +96,62 @@ const CheckoutInfo = ({ addNewFormData }) => {
     setFormData(blankForm);
   };
 
+  const redirectToCheckout = (e) => {
+    if (!enabled) {
+      onShowAlert();
+    } else {
+      fetch("http://localhost:5000/api/checkout/payment", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${process.env.REACT_APP_STRIPE}`,
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          price_data: {
+            currency: "usd",
+            unit_amount: 1000,
+            product_data: {
+              name: "name of the product",
+            },
+          },
+          quantity: 1,
+          total: cart.total.toFixed(2),
+          cart: cart,
+          contact: newFormData,
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          window.location.href = data.url;
+        });
+    }
+  };
+
   return (
     <>
       <Navbar />
       <ContactFormStyled>
         <div className="wrapper">
+          <h1 className="delivery-title">Delivery Information</h1>
           <form id="form" className="form" onSubmit={handleFormSubmit}>
             <div className="form-group">
               <input
                 type="text"
-                id="name"
-                placeholder="NAME"
-                name="name"
-                value={newFormData.name}
-                onChange={handleNameChange}
+                id="first-name"
+                placeholder="FIRST NAME"
+                name="dropoff_contact_given_name"
+                value={newFormData.dropoff_contact_given_name}
+                onChange={handleFirstNameChange}
+                required
+              />
+              <input
+                type="text"
+                id="last-name"
+                placeholder="LAST NAME"
+                name="dropoff_contact_family_name"
+                value={newFormData.dropoff_contact_family_name}
+                onChange={handleLastNameChange}
                 required
               />
               <input
@@ -74,35 +163,53 @@ const CheckoutInfo = ({ addNewFormData }) => {
                 onChange={handleEmailChange}
                 required
               />
+              <input
+                type="phone"
+                id="phone"
+                placeholder="PHONE"
+                name="phone"
+                value={newFormData.phone}
+                onChange={handlePhoneChange}
+                required
+              />
+              <input
+                type="address"
+                id="address"
+                placeholder="ADDRESS"
+                name="address"
+                value={newFormData.address}
+                onChange={handleAddressChange}
+                required
+              />
               <textarea
                 rows="6"
-                placeholder="MESSAGE"
-                name="message"
-                value={newFormData.message}
-                onChange={handleMessageChange}
-                required
+                placeholder="NOTES"
+                name="note"
+                value={newFormData.note}
+                onChange={handleNoteChange}
               ></textarea>
               <button
-                className="btn btn-primary send-button"
+                className="send-button"
                 id="submit"
                 type="submit"
                 value="SEND"
+                onClick={redirectToCheckout}
               >
-                <div className="alt-send-button">
-                  <span className="send-text">CONTINUE TO PAYMENT</span>
-                  <BsArrowRight style={{ color: "white" }} />
-                </div>
+                <span className="send-text">CONTINUE TO PAYMENT</span>
+                <BsArrowRight style={{ color: "white" }} />
               </button>
             </div>
           </form>
 
-          <div className="copyright-container">
+          <div className="bottom-info-container">
+            <div>Securely processed by Stripe</div>
             <div className="copyright">
               Tortas Mexico Studio City &copy;2022
             </div>
           </div>
         </div>
       </ContactFormStyled>
+      <Footer />
     </>
   );
 };
@@ -119,9 +226,13 @@ const ContactFormStyled = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 1em;
+    padding: 2em 1em;
     position: relative;
     width: 100%;
+
+    .delivery-title {
+      font: 300 2rem "Montserrat", sans-serif;
+    }
 
     @media screen and (max-width: 1100px) {
       flex-direction: column;
@@ -166,6 +277,8 @@ const ContactFormStyled = styled.div`
   textarea {
     width: 100%;
     max-width: 100%;
+    min-width: 100%;
+    min-height: 20%;
     max-height: 20vh;
     background-color: transparent;
     color: black;
@@ -182,8 +295,9 @@ const ContactFormStyled = styled.div`
   }
   .send-button {
     margin-top: 15px;
-    width: 100%;
+    width: 102%;
     overflow: hidden;
+    min-height: 34px;
     border-radius: 0.2em;
     border: transparent;
     padding-top: 0.2em;
@@ -192,8 +306,6 @@ const ContactFormStyled = styled.div`
   }
 
   .alt-send-button {
-    width: 100%;
-    height: 34px;
   }
 
   .send-text {
@@ -204,12 +316,12 @@ const ContactFormStyled = styled.div`
     color: white;
   }
 
-  .copyright-container {
+  .bottom-info-container {
     width: 50%;
-    font-family: "Montserrat", sans-serif;
-    font-weight: 300;
+    font: 300 14px "Montserrat", sans-serif;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
     flex-direction: column;
     padding: 2em;
     @media screen and (max-width: 1100px) {
@@ -229,7 +341,7 @@ const ContactFormStyled = styled.div`
 
   .copyright {
     font: 300 14px "Montserrat", sans-serif;
-    color: var(--white-color);
+    color: black;
     letter-spacing: 1px;
     text-align: center;
     margin-top: 1.2rem;
@@ -238,4 +350,5 @@ const ContactFormStyled = styled.div`
     }
   }
 `;
+
 export default CheckoutInfo;

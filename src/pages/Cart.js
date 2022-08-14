@@ -32,31 +32,6 @@ const Cart = () => {
     dispatch(incrementQuantity(item));
   };
 
-  const redirectToCheckout = () => {
-    fetch("http://localhost:5000/api/checkout/payment", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${process.env.REACT_APP_STRIPE}`,
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        price_data: {
-          currency: "usd",
-          unit_amount: 1000,
-          product_data: {
-            name: "name of the product",
-          },
-        },
-        quantity: 1,
-        total: cart.total.toFixed(2),
-        cart: cart,
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => (window.location.href = data.url));
-  };
-
   return (
     <Container>
       <Navbar />
@@ -69,7 +44,9 @@ const Cart = () => {
           <TopTexts>
             <TopText>Shopping Cart ({cart.quantity})</TopText>
           </TopTexts>
-          <TopButton type="filled">CHECKOUT NOW</TopButton>
+          <Link to="/checkout">
+            <TopButton type="filled">CHECKOUT NOW</TopButton>
+          </Link>
         </Top>
         <Bottom>
           <Info>
@@ -143,8 +120,9 @@ const Cart = () => {
               <SummaryItemText>Total</SummaryItemText>
               <SummaryItemPrice>$ {cart.total.toFixed(2)}</SummaryItemPrice>
             </SummaryItem>
-
-            <Button onClick={redirectToCheckout}>CHECKOUT NOW</Button>
+            <Link to="/checkout">
+              <Button>CHECKOUT NOW</Button>
+            </Link>
           </Summary>
         </Bottom>
       </Wrapper>

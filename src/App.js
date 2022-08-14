@@ -9,6 +9,7 @@ import Product from "./pages/Product";
 import Success from "./pages/Success";
 import { useSelector } from "react-redux";
 import "@stripe/stripe-js";
+import CheckoutInfo from "./pages/CheckoutInfo";
 
 function App() {
   const user = useSelector((state) => state.user.currentUser);
@@ -32,6 +33,7 @@ function App() {
         <Route exact path="/products" element={<ProductList />} />
         <Route exact path="/product/:id" element={<Product />} />
         <Route exact path="/success" element={<Success />} />
+        <Route exact path="/checkout" element={<CheckoutInfo />} />
       </Routes>
     </>
   );

@@ -85,15 +85,9 @@ const CheckoutInfo = ({ addNewFormData }) => {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    console.log(e).then(
-      function (response) {
-        console.log("SUCCESS!", response.status, response.text);
-      },
-      function (error) {
-        console.log("FAILED...", error);
-      }
-    );
+    console.log(newFormData);
     setFormData(blankForm);
+    redirectToCheckout();
   };
 
   const redirectToCheckout = (e) => {
@@ -164,7 +158,7 @@ const CheckoutInfo = ({ addNewFormData }) => {
                 required
               />
               <input
-                type="phone"
+                type="number"
                 id="phone"
                 placeholder="PHONE"
                 name="phone"

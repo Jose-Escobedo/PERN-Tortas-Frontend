@@ -9,22 +9,22 @@ export const SliderItems = [
   {
     id: "62d006c9c020372b553c8946",
     img: `${AsadaFries}`,
-    title: "Mexican Food",
-    desc: "Our Delicious Asada Fries",
+    title: "Asada Fries",
+    desc: "Try Our Delicious Asada Fries",
     bg: "f5fafd",
   },
   {
     id: "62d00814c020372b553c894a",
     img: `${Mole}`,
-    title: "Mexican Food",
-    desc: "Our Tasty Pollo Con Mole",
+    title: "Pollo Con Mole",
+    desc: "Try Our Tasty Pollo Con Mole",
     bg: "fcf1ed",
   },
   {
     id: 3,
     img: `${Taquitos}`,
-    title: "Mexican Food",
-    desc: "Our Crispy Chicken Taquitos",
+    title: "Taquitos",
+    desc: "Try Our Crispy Chicken Taquitos",
     bg: "fbf0f4",
   },
 ];

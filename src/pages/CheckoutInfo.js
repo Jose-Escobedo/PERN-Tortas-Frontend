@@ -81,7 +81,7 @@ const CheckoutInfo = ({ addNewFormData }) => {
   const handleAddressChange = (e) => {
     setFormData({
       ...newFormData,
-      address: e.target.value,
+      address: e,
     });
   };
 
@@ -176,12 +176,13 @@ const CheckoutInfo = ({ addNewFormData }) => {
                 value={newFormData.address}
                 onChange={handleAddressChange}
                 required
-              /> */}
+              />  */}
               <Autocomplete
                 ref={inputRef}
                 apiKey={process.env.REACT_APP_PLACES}
                 onPlaceSelected={(selected, a, c) => {
-                  console.log(selected);
+                  console.log(selected.formatted_address);
+                  handleAddressChange(selected.formatted_address);
                 }}
                 options={{
                   types: ["address"],

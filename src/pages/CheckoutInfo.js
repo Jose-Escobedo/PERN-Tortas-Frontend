@@ -1,17 +1,19 @@
 import React from "react";
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { BsArrowRight } from "react-icons/bs";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
+import Autocomplete from "react-google-autocomplete";
 
 const CheckoutInfo = ({ addNewFormData }) => {
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const inputRef = useRef(null);
 
   function onShowAlert() {
     console.log("Please fill out the required fields.");
@@ -166,7 +168,7 @@ const CheckoutInfo = ({ addNewFormData }) => {
                 onChange={handlePhoneChange}
                 required
               />
-              <input
+              {/* <input
                 type="address"
                 id="address"
                 placeholder="ADDRESS"
@@ -174,7 +176,19 @@ const CheckoutInfo = ({ addNewFormData }) => {
                 value={newFormData.address}
                 onChange={handleAddressChange}
                 required
+              /> */}
+              <Autocomplete
+                ref={inputRef}
+                apiKey={process.env.REACT_APP_PLACES}
+                onPlaceSelected={(selected, a, c) => {
+                  console.log(selected);
+                }}
+                options={{
+                  types: ["address"],
+                  componentRestrictions: { country: "us" },
+                }}
               />
+
               <textarea
                 rows="6"
                 placeholder="NOTES"

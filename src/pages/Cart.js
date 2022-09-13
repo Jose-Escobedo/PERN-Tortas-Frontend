@@ -32,6 +32,8 @@ const Cart = () => {
     dispatch(incrementQuantity(item));
   };
 
+  const isGreaterThanTwenty = cart.subtotal > 20;
+
   return (
     <Container>
       <Navbar />
@@ -44,9 +46,11 @@ const Cart = () => {
           <TopTexts>
             <TopText>Shopping Cart ({cart.quantity})</TopText>
           </TopTexts>
-          <Link to="/checkout">
-            <TopButton type="filled">CHECKOUT NOW</TopButton>
-          </Link>
+          {isGreaterThanTwenty ? (
+            <Link to="/checkout">
+              <TopButton type="filled">CHECKOUT NOW</TopButton>
+            </Link>
+          ) : null}
         </Top>
         <Bottom>
           <Info>
@@ -120,9 +124,16 @@ const Cart = () => {
               <SummaryItemText>Total</SummaryItemText>
               <SummaryItemPrice>$ {cart.total.toFixed(2)}</SummaryItemPrice>
             </SummaryItem>
-            <Link to="/checkout">
-              <Button>CHECKOUT NOW</Button>
-            </Link>
+            {isGreaterThanTwenty ? (
+              <Link to="/checkout">
+                <Button>CHECKOUT NOW</Button>
+              </Link>
+            ) : (
+              <MinimumText>
+                Delivery subtotal minimum of $20 not met. Please add more items
+                to cart.
+              </MinimumText>
+            )}
           </Summary>
         </Bottom>
       </Wrapper>
@@ -257,6 +268,10 @@ const Button = styled.button`
   color: white;
   font-weight: 600;
   cursor: pointer;
+`;
+const MinimumText = styled.div`
+  color: red;
+  font-weight: bold;
 `;
 
 export default Cart;

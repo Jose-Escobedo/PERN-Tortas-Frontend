@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import Navbar from "../components/Navbar";
 import { useState, useRef } from "react";
 import { BsArrowRight } from "react-icons/bs";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
+import { addTip } from "../redux/cartRedux";
 import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
 import Autocomplete from "react-google-autocomplete";
@@ -13,11 +14,13 @@ const CheckoutInfo = ({ addNewFormData }) => {
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const inputRef = useRef(null);
 
-  function onShowAlert() {
-    console.log("Please fill out the required fields.");
-  }
+  const [tipTotal, setTipTotal] = useState(0);
+  const [cartTotal, setCartTotal] = useState(cart.total);
+
+  // function handleTip() {
+  //   dispatch(addTip());
+  // }
 
   const blankForm = {
     dropoff_contact_given_name: "",
@@ -25,7 +28,9 @@ const CheckoutInfo = ({ addNewFormData }) => {
     email: "",
     note: "",
     dropoff_phone_number: "",
+    dropoff_instructions: "",
     address: "",
+    tip: 0,
   };
 
   const [newFormData, setFormData] = useState(blankForm);
@@ -34,8 +39,9 @@ const CheckoutInfo = ({ addNewFormData }) => {
     dropoff_contact_given_name,
     dropoff_contact_family_name,
     email,
-    note,
     dropoff_phone_number,
+    dropoff_instructions,
+    tip,
     address,
   } = newFormData;
 
@@ -81,20 +87,37 @@ const CheckoutInfo = ({ addNewFormData }) => {
   const handleAddressChange = (e) => {
     setFormData({
       ...newFormData,
-      address: e,
+      address: e.target.value,
+    });
+  };
+
+  const handleTipChange = (e) => {
+    setFormData({
+      ...newFormData,
+      tip: e.target.value,
+    });
+    setTipTotal(e.target.value);
+  };
+  useEffect(() => {
+    setCartTotal(cart.total + tipTotal);
+  }, [tipTotal]);
+
+  const handleInstructionsChange = (e) => {
+    setFormData({
+      ...newFormData,
+      dropoff_instructions: e.target.value,
     });
   };
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
     console.log(newFormData);
-    setFormData(blankForm);
     redirectToCheckout();
   };
 
   const redirectToCheckout = (e) => {
     if (!enabled) {
-      onShowAlert();
+      return null;
     } else {
       fetch("http://localhost:5000/api/checkout/payment", {
         method: "POST",
@@ -160,7 +183,7 @@ const CheckoutInfo = ({ addNewFormData }) => {
                 required
               />
               <input
-                type="number"
+                type="text"
                 id="phone"
                 placeholder="PHONE"
                 name="phone"
@@ -168,35 +191,65 @@ const CheckoutInfo = ({ addNewFormData }) => {
                 onChange={handlePhoneChange}
                 required
               />
-              {/* <input
-                type="address"
-                id="address"
-                placeholder="ADDRESS"
-                name="address"
-                value={newFormData.address}
-                onChange={handleAddressChange}
-                required
-              />  */}
+
               <Autocomplete
-                ref={inputRef}
                 apiKey={process.env.REACT_APP_PLACES}
-                onPlaceSelected={(selected, a, c) => {
-                  console.log(selected.formatted_address);
-                  handleAddressChange(selected.formatted_address);
-                }}
+                placeholder="DELIVERY ADDRESS"
+                onChange={(event, value) => handleAddressChange(event)} // prints the selected value
                 options={{
                   types: ["address"],
                   componentRestrictions: { country: "us" },
                 }}
               />
 
+              <input
+                id="tip"
+                placeholder="TIP"
+                name="tip"
+                type="number"
+                step="1"
+                min={0}
+                max={200}
+                value={newFormData.tip}
+                onChange={(event, value) => handleTipChange(event)}
+              />
+
               <textarea
                 rows="6"
-                placeholder="NOTES"
-                name="note"
-                value={newFormData.note}
-                onChange={handleNoteChange}
+                placeholder="DELIVERY INSTRUCTIONS FOR DRIVER"
+                name="dropoff_instructions"
+                value={newFormData.dropoff_instructions}
+                onChange={handleInstructionsChange}
               ></textarea>
+
+              <Summary>
+                <SummaryTitle>ORDER SUMMARY</SummaryTitle>
+                <SummaryItem>
+                  <SummaryItemText>Subtotal</SummaryItemText>
+                  <SummaryItemPrice>
+                    $ {cart.subtotal.toFixed(2)}
+                  </SummaryItemPrice>
+                </SummaryItem>
+                <SummaryItem>
+                  <SummaryItemText>Delivery Fee</SummaryItemText>
+                  <SummaryItemPrice>$4.99</SummaryItemPrice>
+                </SummaryItem>
+                <SummaryItem>
+                  <SummaryItemText>Tip</SummaryItemText>
+                  <SummaryItemPrice>$ {newFormData.tip}</SummaryItemPrice>
+                </SummaryItem>
+                <SummaryItem>
+                  <SummaryItemText>Taxes</SummaryItemText>
+                  <SummaryItemPrice>$ {cart.taxes.toFixed(2)}</SummaryItemPrice>
+                </SummaryItem>
+                <SummaryItem type="total">
+                  <SummaryItemText>Total</SummaryItemText>
+                  <SummaryItemPrice>
+                    $ {cart.total.toFixed(2) + tipTotal.toFixed(2)}
+                  </SummaryItemPrice>
+                </SummaryItem>
+              </Summary>
+
               <button
                 className="send-button"
                 id="submit"
@@ -302,6 +355,7 @@ const ContactFormStyled = styled.div`
       font-size: 0.7rem;
     }
   }
+
   .send-button {
     margin-top: 15px;
     width: 102%;
@@ -359,5 +413,26 @@ const ContactFormStyled = styled.div`
     }
   }
 `;
+
+const Summary = styled.div`
+  flex: 1;
+  border: 0.5px sild lightgray;
+  border-radius: 10px;
+  padding: 20px;
+  height: 50vh;
+`;
+
+const SummaryTitle = styled.h1`
+  font-weight: 200;
+`;
+const SummaryItem = styled.div`
+  margin: 2em 0em;
+  display: flex;
+  justify-content: space-between;
+  font-weight: ${(props) => props.type === "total" && "500"};
+  font-size: ${(props) => props.type === "total" && "24px"};
+`;
+const SummaryItemText = styled.span``;
+const SummaryItemPrice = styled.span``;
 
 export default CheckoutInfo;

@@ -26,7 +26,6 @@ const CheckoutInfo = ({ addNewFormData }) => {
     dropoff_contact_given_name: "",
     dropoff_contact_family_name: "",
     email: "",
-    note: "",
     dropoff_phone_number: "",
     dropoff_instructions: "",
     address: "",
@@ -91,16 +90,17 @@ const CheckoutInfo = ({ addNewFormData }) => {
     });
   };
 
-  const handleTipChange = (e) => {
+  function handleTipChange(e) {
+    e.preventDefault();
+    const enteredNum = prompt("How much would you like to tip?");
     setFormData({
       ...newFormData,
-      tip: e.target.value,
+      tip: enteredNum,
     });
-    setTipTotal(e.target.value);
-  };
-  useEffect(() => {
-    setCartTotal(cart.total + tipTotal);
-  }, [tipTotal]);
+    setTipTotal(enteredNum);
+    const sum = Number(enteredNum) + cart.total;
+    setCartTotal(sum);
+  }
 
   const handleInstructionsChange = (e) => {
     setFormData({
@@ -202,7 +202,7 @@ const CheckoutInfo = ({ addNewFormData }) => {
                 }}
               />
 
-              <input
+              {/* <input
                 id="tip"
                 placeholder="TIP"
                 name="tip"
@@ -212,7 +212,8 @@ const CheckoutInfo = ({ addNewFormData }) => {
                 max={200}
                 value={newFormData.tip}
                 onChange={(event, value) => handleTipChange(event)}
-              />
+              /> */}
+              <button onClick={handleTipChange}>Tip Edit</button>
 
               <textarea
                 rows="6"
@@ -244,9 +245,7 @@ const CheckoutInfo = ({ addNewFormData }) => {
                 </SummaryItem>
                 <SummaryItem type="total">
                   <SummaryItemText>Total</SummaryItemText>
-                  <SummaryItemPrice>
-                    $ {cart.total.toFixed(2) + tipTotal.toFixed(2)}
-                  </SummaryItemPrice>
+                  <SummaryItemPrice>$ {cartTotal.toFixed(2)}</SummaryItemPrice>
                 </SummaryItem>
               </Summary>
 
@@ -418,12 +417,13 @@ const Summary = styled.div`
   flex: 1;
   border: 0.5px sild lightgray;
   border-radius: 10px;
-  padding: 20px;
+  padding: 40px 20px;
   height: 50vh;
 `;
 
 const SummaryTitle = styled.h1`
   font-weight: 200;
+  border-bottom: 1px solid black;
 `;
 const SummaryItem = styled.div`
   margin: 2em 0em;

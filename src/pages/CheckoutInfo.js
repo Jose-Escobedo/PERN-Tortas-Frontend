@@ -135,7 +135,7 @@ const CheckoutInfo = ({ addNewFormData }) => {
             },
           },
           quantity: 1,
-          total: cart.total.toFixed(2),
+          total: cartTotal.toFixed(2),
           cart: cart,
           contact: newFormData,
         }),

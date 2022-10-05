@@ -5,7 +5,7 @@ import { useState, useRef } from "react";
 import { BsArrowRight } from "react-icons/bs";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { addTip } from "../redux/cartRedux";
+import { addTip, setTotal } from "../redux/cartRedux";
 import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
 import Autocomplete from "react-google-autocomplete";
@@ -18,9 +18,15 @@ const CheckoutInfo = ({ addNewFormData }) => {
   const [tipTotal, setTipTotal] = useState(0);
   const [cartTotal, setCartTotal] = useState(cart.total);
 
-  // function handleTip() {
-  //   dispatch(addTip());
-  // }
+  useEffect(() => {
+    dispatch(addTip(0));
+  }, []);
+
+  const handleTip = (tip) => {
+    dispatch(addTip(tip));
+  };
+
+  const isGreaterThanTwenty = cart.subtotal > 20;
 
   const blankForm = {
     dropoff_contact_given_name: "",
@@ -100,6 +106,7 @@ const CheckoutInfo = ({ addNewFormData }) => {
     setTipTotal(enteredNum);
     const sum = Number(enteredNum) + cart.total;
     setCartTotal(sum);
+    handleTip(Number(enteredNum));
   }
 
   const handleInstructionsChange = (e) => {
@@ -112,6 +119,7 @@ const CheckoutInfo = ({ addNewFormData }) => {
   const handleFormSubmit = (e) => {
     e.preventDefault();
     console.log(newFormData);
+    dispatch(setTotal());
     redirectToCheckout();
   };
 
@@ -150,59 +158,60 @@ const CheckoutInfo = ({ addNewFormData }) => {
   return (
     <>
       <Navbar />
-      <ContactFormStyled>
-        <div className="wrapper">
-          <h1 className="delivery-title">Delivery Information</h1>
-          <form id="form" className="form" onSubmit={handleFormSubmit}>
-            <div className="form-group">
-              <input
-                type="text"
-                id="first-name"
-                placeholder="FIRST NAME"
-                name="dropoff_contact_given_name"
-                value={newFormData.dropoff_contact_given_name}
-                onChange={handleFirstNameChange}
-                required
-              />
-              <input
-                type="text"
-                id="last-name"
-                placeholder="LAST NAME"
-                name="dropoff_contact_family_name"
-                value={newFormData.dropoff_contact_family_name}
-                onChange={handleLastNameChange}
-                required
-              />
-              <input
-                type="email"
-                id="email"
-                placeholder="EMAIL"
-                name="email"
-                value={newFormData.email}
-                onChange={handleEmailChange}
-                required
-              />
-              <input
-                type="text"
-                id="phone"
-                placeholder="PHONE"
-                name="phone"
-                value={newFormData.phone}
-                onChange={handlePhoneChange}
-                required
-              />
+      {isGreaterThanTwenty ? (
+        <ContactFormStyled>
+          <div className="wrapper">
+            <h1 className="delivery-title">Delivery Information</h1>
+            <form id="form" className="form" onSubmit={handleFormSubmit}>
+              <div className="form-group">
+                <input
+                  type="text"
+                  id="first-name"
+                  placeholder="FIRST NAME"
+                  name="dropoff_contact_given_name"
+                  value={newFormData.dropoff_contact_given_name}
+                  onChange={handleFirstNameChange}
+                  required
+                />
+                <input
+                  type="text"
+                  id="last-name"
+                  placeholder="LAST NAME"
+                  name="dropoff_contact_family_name"
+                  value={newFormData.dropoff_contact_family_name}
+                  onChange={handleLastNameChange}
+                  required
+                />
+                <input
+                  type="email"
+                  id="email"
+                  placeholder="EMAIL"
+                  name="email"
+                  value={newFormData.email}
+                  onChange={handleEmailChange}
+                  required
+                />
+                <input
+                  type="text"
+                  id="phone"
+                  placeholder="PHONE"
+                  name="phone"
+                  value={newFormData.phone}
+                  onChange={handlePhoneChange}
+                  required
+                />
 
-              <Autocomplete
-                apiKey={process.env.REACT_APP_PLACES}
-                placeholder="DELIVERY ADDRESS"
-                onChange={(event, value) => handleAddressChange(event)} // prints the selected value
-                options={{
-                  types: ["address"],
-                  componentRestrictions: { country: "us" },
-                }}
-              />
+                <Autocomplete
+                  apiKey={process.env.REACT_APP_PLACES}
+                  placeholder="DELIVERY ADDRESS"
+                  onChange={(event, value) => handleAddressChange(event)} // prints the selected value
+                  options={{
+                    types: ["address"],
+                    componentRestrictions: { country: "us" },
+                  }}
+                />
 
-              {/* <input
+                {/* <input
                 id="tip"
                 placeholder="TIP"
                 name="tip"
@@ -213,63 +222,74 @@ const CheckoutInfo = ({ addNewFormData }) => {
                 value={newFormData.tip}
                 onChange={(event, value) => handleTipChange(event)}
               /> */}
-              <button onClick={handleTipChange}>Tip Edit</button>
+                <button onClick={handleTipChange}>Tip Edit</button>
 
-              <textarea
-                rows="6"
-                placeholder="DELIVERY INSTRUCTIONS FOR DRIVER"
-                name="dropoff_instructions"
-                value={newFormData.dropoff_instructions}
-                onChange={handleInstructionsChange}
-              ></textarea>
+                <textarea
+                  rows="6"
+                  placeholder="DELIVERY INSTRUCTIONS FOR DRIVER"
+                  name="dropoff_instructions"
+                  value={newFormData.dropoff_instructions}
+                  onChange={handleInstructionsChange}
+                ></textarea>
 
-              <Summary>
-                <SummaryTitle>ORDER SUMMARY</SummaryTitle>
-                <SummaryItem>
-                  <SummaryItemText>Subtotal</SummaryItemText>
-                  <SummaryItemPrice>
-                    $ {cart.subtotal.toFixed(2)}
-                  </SummaryItemPrice>
-                </SummaryItem>
-                <SummaryItem>
-                  <SummaryItemText>Delivery Fee</SummaryItemText>
-                  <SummaryItemPrice>$4.99</SummaryItemPrice>
-                </SummaryItem>
-                <SummaryItem>
-                  <SummaryItemText>Tip</SummaryItemText>
-                  <SummaryItemPrice>$ {newFormData.tip}</SummaryItemPrice>
-                </SummaryItem>
-                <SummaryItem>
-                  <SummaryItemText>Taxes</SummaryItemText>
-                  <SummaryItemPrice>$ {cart.taxes.toFixed(2)}</SummaryItemPrice>
-                </SummaryItem>
-                <SummaryItem type="total">
-                  <SummaryItemText>Total</SummaryItemText>
-                  <SummaryItemPrice>$ {cartTotal.toFixed(2)}</SummaryItemPrice>
-                </SummaryItem>
-              </Summary>
+                <Summary>
+                  <SummaryTitle>ORDER SUMMARY</SummaryTitle>
+                  <SummaryItem>
+                    <SummaryItemText>Subtotal</SummaryItemText>
+                    <SummaryItemPrice>
+                      $ {cart.subtotal.toFixed(2)}
+                    </SummaryItemPrice>
+                  </SummaryItem>
+                  <SummaryItem>
+                    <SummaryItemText>Delivery Fee</SummaryItemText>
+                    <SummaryItemPrice>$4.99</SummaryItemPrice>
+                  </SummaryItem>
+                  <SummaryItem>
+                    <SummaryItemText>Tip</SummaryItemText>
+                    <SummaryItemPrice>$ {cart.tip}</SummaryItemPrice>
+                  </SummaryItem>
+                  <SummaryItem>
+                    <SummaryItemText>Taxes</SummaryItemText>
+                    <SummaryItemPrice>
+                      $ {cart.taxes.toFixed(2)}
+                    </SummaryItemPrice>
+                  </SummaryItem>
+                  <SummaryItem type="total">
+                    <SummaryItemText>Total</SummaryItemText>
+                    <SummaryItemPrice>
+                      $ {cartTotal.toFixed(2)}
+                    </SummaryItemPrice>
+                  </SummaryItem>
+                </Summary>
 
-              <button
-                className="send-button"
-                id="submit"
-                type="submit"
-                value="SEND"
-                onClick={redirectToCheckout}
-              >
-                <span className="send-text">CONTINUE TO PAYMENT</span>
-                <BsArrowRight style={{ color: "white" }} />
-              </button>
-            </div>
-          </form>
+                <button
+                  className="send-button"
+                  id="submit"
+                  type="submit"
+                  value="SEND"
+                  onClick={redirectToCheckout}
+                >
+                  <span className="send-text">CONTINUE TO PAYMENT</span>
+                  <BsArrowRight style={{ color: "white" }} />
+                </button>
+              </div>
+            </form>
 
-          <div className="bottom-info-container">
-            <div>Securely processed by Stripe</div>
-            <div className="copyright">
-              Tortas Mexico Studio City &copy;2022
+            <div className="bottom-info-container">
+              <div>Securely processed by Stripe</div>
+              <div className="copyright">
+                Tortas Mexico Studio City &copy;2022
+              </div>
             </div>
           </div>
-        </div>
-      </ContactFormStyled>
+        </ContactFormStyled>
+      ) : (
+        <MinimumText>
+          Delivery subtotal minimum of $20 not met. Please add more items to
+          cart.
+        </MinimumText>
+      )}
+
       <Footer />
     </>
   );
@@ -434,5 +454,9 @@ const SummaryItem = styled.div`
 `;
 const SummaryItemText = styled.span``;
 const SummaryItemPrice = styled.span``;
+const MinimumText = styled.div`
+  color: red;
+  font-weight: bold;
+`;
 
 export default CheckoutInfo;

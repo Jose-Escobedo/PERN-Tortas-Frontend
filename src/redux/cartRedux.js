@@ -10,6 +10,7 @@ const cartSlice = createSlice({
     subtotal: 0,
     delivery: 4.99,
     total: 4.99,
+    totalWithTip: 4.99,
   },
   reducers: {
     addProduct: (state, action) => {
@@ -89,9 +90,11 @@ const cartSlice = createSlice({
     },
     addTip: (state, action) => {
       const tip = action.payload;
-      const total = state.total
       state.tip = tip;
-      state.total = state.total + state.tip;
+    },
+    setTotal: (state, action) => {
+      const finalizeTotal = state.total + state.tip;
+      state.totalWithTip = finalizeTotal;
     },
   },
 });
@@ -102,5 +105,6 @@ export const {
   decrementQuantity,
   incrementQuantity,
   addTip,
+  setTotal,
 } = cartSlice.actions;
 export default cartSlice.reducer;

@@ -19,7 +19,6 @@ const Navbar = () => {
     e.preventDefault();
     logout(dispatch, user);
   };
-  console.log(quantity);
 
   return (
     <Container>

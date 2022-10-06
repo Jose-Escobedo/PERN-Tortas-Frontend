@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
+import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import OrderList from "../components/OrderList";
 import { mobile } from "../responsive";
@@ -32,19 +33,28 @@ const Orders = () => {
   }, []);
 
   return (
-    <Container>
-      <Navbar />
-      <Wrapper>
-        <Title>{`${user.username.toUpperCase()}'S ORDERS`}</Title>
-        {userOrders?.map((item) => {
-          return <OrderList item={item} />;
-        })}
-      </Wrapper>
-    </Container>
+    <>
+      <Container>
+        <Navbar />
+        <Wrapper>
+          <Title>{`${user.username.toUpperCase()}'S ORDERS`}</Title>
+          {userOrders?.map((item) => {
+            return <OrderList item={item} />;
+          })}
+        </Wrapper>
+        <Footer />
+      </Container>
+    </>
   );
 };
 
-const Container = styled.div``;
+const Container = styled.div`
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
 const Wrapper = styled.div`
   padding: 1.3em;
   ${mobile({ padding: "10px" })}

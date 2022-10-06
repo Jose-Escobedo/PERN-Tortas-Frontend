@@ -5,7 +5,7 @@ import { useState, useRef } from "react";
 import { BsArrowRight } from "react-icons/bs";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { addTip, setTotal } from "../redux/cartRedux";
+import { addTip, clearCart, setTotal } from "../redux/cartRedux";
 import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
 import Autocomplete from "react-google-autocomplete";

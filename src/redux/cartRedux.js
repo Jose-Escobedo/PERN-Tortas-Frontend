@@ -96,6 +96,16 @@ const cartSlice = createSlice({
       const finalizeTotal = state.total + state.tip;
       state.totalWithTip = finalizeTotal;
     },
+    clearCart: (state, action) => {
+      state.products = [];
+      state.quantity = 0;
+      state.taxes = 0;
+      state.tip = 0;
+      state.subtotal = 0;
+      state.delivery = 4.99;
+      state.total = 4.99;
+      state.totalWithTip = 4.99;
+    },
   },
 });
 
@@ -106,5 +116,6 @@ export const {
   incrementQuantity,
   addTip,
   setTotal,
+  clearCart,
 } = cartSlice.actions;
 export default cartSlice.reducer;

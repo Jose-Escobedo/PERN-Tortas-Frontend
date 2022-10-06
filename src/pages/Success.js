@@ -2,8 +2,12 @@ import React from "react";
 import styled from "styled-components";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
+import { useDispatch } from "react-redux";
+import { clearCart } from "../redux/cartRedux";
 
 const Success = () => {
+  const dispatch = useDispatch();
+  dispatch(clearCart());
   return (
     <>
       <Navbar />

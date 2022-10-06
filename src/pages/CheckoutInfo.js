@@ -204,7 +204,12 @@ const CheckoutInfo = ({ addNewFormData }) => {
                 <Autocomplete
                   apiKey={process.env.REACT_APP_PLACES}
                   placeholder="DELIVERY ADDRESS"
-                  onChange={(event, value) => handleAddressChange(event)} // prints the selected value
+                  onChange={(event) =>
+                    setFormData({
+                      ...newFormData,
+                      address: event.target.value,
+                    })
+                  }
                   options={{
                     types: ["address"],
                     componentRestrictions: { country: "us" },

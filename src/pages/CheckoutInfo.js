@@ -17,6 +17,7 @@ const CheckoutInfo = ({ addNewFormData }) => {
 
   const [tipTotal, setTipTotal] = useState(0);
   const [cartTotal, setCartTotal] = useState(cart.total);
+  const [address, setAddress] = useState("");
 
   useEffect(() => {
     dispatch(addTip(0));
@@ -60,9 +61,9 @@ const CheckoutInfo = ({ addNewFormData }) => {
     );
 
     autocomplete.setFields(["address_component", "geometry"]);
-    autocomplete.addListener("place_changed", () =>
-      handleAddressChange(autocomplete)
-    );
+    autocomplete.addListener("place_changed", (e) => {
+      handleAddressChange(autocomplete);
+    });
   };
 
   const searchInput = useRef(null);
@@ -75,7 +76,7 @@ const CheckoutInfo = ({ addNewFormData }) => {
     email: "",
     dropoff_phone_number: "",
     dropoff_instructions: "",
-    address: "",
+    dropoff_location: "",
     tip: 0,
   };
 
@@ -88,7 +89,7 @@ const CheckoutInfo = ({ addNewFormData }) => {
     dropoff_phone_number,
     dropoff_instructions,
     tip,
-    address,
+    dropoff_location,
   } = newFormData;
 
   const enabled =
@@ -96,7 +97,7 @@ const CheckoutInfo = ({ addNewFormData }) => {
     dropoff_contact_family_name.length > 0 &&
     dropoff_contact_given_name.length > 0 &&
     dropoff_phone_number.length > 9 &&
-    address.length > 0;
+    dropoff_location.length > 0;
 
   const handleFirstNameChange = (e) => {
     setFormData({
@@ -132,7 +133,6 @@ const CheckoutInfo = ({ addNewFormData }) => {
   };
 
   const extractAddress = (place) => {
-    console.log(place);
     const address = {
       street_number: "",
       route: "",
@@ -181,9 +181,13 @@ const CheckoutInfo = ({ addNewFormData }) => {
   const handleAddressChange = (e) => {
     const place = e.getPlace();
     console.log(extractAddress(place));
+    console.log(
+      String(Object.values(extractAddress(place))).replace(/,/g, " ")
+    );
+    setAddress(String(Object.values(extractAddress(place))).replace(/,/g, " "));
     setFormData({
       ...newFormData,
-      address: extractAddress(place),
+      dropoff_location: address,
     });
   };
 
@@ -286,7 +290,7 @@ const CheckoutInfo = ({ addNewFormData }) => {
                   type="text"
                   id="phone"
                   placeholder="PHONE"
-                  name="phone"
+                  name="dropoff_phone_number"
                   value={newFormData.phone}
                   onChange={handlePhoneChange}
                   required
@@ -297,36 +301,10 @@ const CheckoutInfo = ({ addNewFormData }) => {
                   id="address"
                   ref={searchInput}
                   placeholder="DELIVERY ADDRESS"
-                  name="address"
+                  name="dropoff_location"
                   required
                 />
 
-                {/* <Autocomplete
-                  apiKey={process.env.REACT_APP_PLACES}
-                  placeholder="DELIVERY ADDRESS"
-                  onChange={(event) =>
-                    setFormData({
-                      ...newFormData,
-                      address: event.target.value,
-                    })
-                  }
-                  options={{
-                    types: ["address"],
-                    componentRestrictions: { country: "us" },
-                  }}
-                /> */}
-
-                {/* <input
-                id="tip"
-                placeholder="TIP"
-                name="tip"
-                type="number"
-                step="1"
-                min={0}
-                max={200}
-                value={newFormData.tip}
-                onChange={(event, value) => handleTipChange(event)}
-              /> */}
                 <button onClick={handleTipChange}>Tip Edit</button>
 
                 <textarea

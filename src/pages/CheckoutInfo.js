@@ -20,11 +20,52 @@ const CheckoutInfo = ({ addNewFormData }) => {
 
   useEffect(() => {
     dispatch(addTip(0));
+    initMapScript().then(() => {
+      initAutocomplete();
+    });
   }, []);
 
   const handleTip = (tip) => {
     dispatch(addTip(tip));
   };
+
+  const mapApiJs = "https://maps.googleapis.com/maps/api/js";
+  const apiKey = process.env.REACT_APP_PLACES;
+  const initMapScript = () => {
+    if (window.google) {
+      return Promise.resolve();
+    }
+    const src = `${mapApiJs}?key=${apiKey}&libraries=places&v=weekly`;
+    return loadAsyncScript(src);
+  };
+
+  function loadAsyncScript(src) {
+    return new Promise((resolve) => {
+      const script = document.createElement("script");
+      Object.assign(script, {
+        type: "text/javascript",
+        async: true,
+        src,
+      });
+      script.addEventListener("load", () => resolve(script));
+      document.head.appendChild(script);
+    });
+  }
+
+  const initAutocomplete = () => {
+    if (!searchInput.current) return;
+
+    const autocomplete = new window.google.maps.places.Autocomplete(
+      searchInput.current
+    );
+
+    autocomplete.setFields(["address_component", "geometry"]);
+    autocomplete.addListener("place_changed", () =>
+      handleAddressChange(autocomplete)
+    );
+  };
+
+  const searchInput = useRef(null);
 
   const isGreaterThanTwenty = cart.subtotal > 20;
 
@@ -89,10 +130,60 @@ const CheckoutInfo = ({ addNewFormData }) => {
       dropoff_phone_number: e.target.value,
     });
   };
+
+  const extractAddress = (place) => {
+    console.log(place);
+    const address = {
+      street_number: "",
+      route: "",
+      city: "",
+      state: "",
+      zip: "",
+      country: "",
+    };
+
+    if (!Array.isArray(place?.address_components)) {
+      return address;
+    }
+
+    place.address_components.forEach((component) => {
+      const types = component.types;
+      const value = component.long_name;
+
+      if (types.includes("street_number")) {
+        address.street_number = value;
+      }
+
+      if (types.includes("route")) {
+        address.route = value;
+      }
+
+      if (types.includes("neighborhood")) {
+        address.city = value;
+      }
+
+      if (types.includes("administrative_area_level_1")) {
+        address.state = value;
+      }
+
+      if (types.includes("postal_code")) {
+        address.zip = value;
+      }
+
+      if (types.includes("country")) {
+        address.country = value;
+      }
+    });
+
+    return address;
+  };
+
   const handleAddressChange = (e) => {
+    const place = e.getPlace();
+    console.log(extractAddress(place));
     setFormData({
       ...newFormData,
-      address: e.target.value,
+      address: extractAddress(place),
     });
   };
 
@@ -201,7 +292,16 @@ const CheckoutInfo = ({ addNewFormData }) => {
                   required
                 />
 
-                <Autocomplete
+                <input
+                  type="text"
+                  id="address"
+                  ref={searchInput}
+                  placeholder="DELIVERY ADDRESS"
+                  name="address"
+                  required
+                />
+
+                {/* <Autocomplete
                   apiKey={process.env.REACT_APP_PLACES}
                   placeholder="DELIVERY ADDRESS"
                   onChange={(event) =>
@@ -214,7 +314,7 @@ const CheckoutInfo = ({ addNewFormData }) => {
                     types: ["address"],
                     componentRestrictions: { country: "us" },
                   }}
-                />
+                /> */}
 
                 {/* <input
                 id="tip"

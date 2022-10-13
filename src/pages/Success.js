@@ -5,8 +5,9 @@ import Navbar from "../components/Navbar";
 import { useDispatch } from "react-redux";
 import { clearCart } from "../redux/cartRedux";
 
-const Success = () => {
+const Success = ({ address }) => {
   const dispatch = useDispatch();
+
   dispatch(clearCart());
   return (
     <>

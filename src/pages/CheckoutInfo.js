@@ -215,6 +215,33 @@ const CheckoutInfo = ({ addNewFormData }) => {
     });
   };
 
+  const handleOrderCreation = (e) => {
+    fetch("http://localhost:5000/api/orders", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        products: cart.products,
+        quantity: cart.quantity,
+        taxes: cart.taxes,
+        tip: cart.tip,
+        phone: newFormData.dropoff_phone_number,
+        subtotal: cart.subtotal,
+        address: address,
+        email: newFormData.email,
+        delivery: 4.99,
+        total: cart.total,
+        totalWithTip: cart.totalWithTip,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+      });
+  };
+
   const handleFormSubmit = (e) => {
     e.preventDefault();
     console.log(newFormData);
@@ -226,31 +253,32 @@ const CheckoutInfo = ({ addNewFormData }) => {
     if (!enabled) {
       return null;
     } else {
-      fetch("http://localhost:5000/api/checkout/payment", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${process.env.REACT_APP_STRIPE}`,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          price_data: {
-            currency: "usd",
-            unit_amount: 1000,
-            product_data: {
-              name: "name of the product",
-            },
-          },
-          quantity: 1,
-          total: cartTotal.toFixed(2),
-          cart: cart,
-          contact: newFormData,
-        }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          window.location.href = data.url;
-        });
+      // fetch("http://localhost:5000/api/checkout/payment", {
+      //   method: "POST",
+      //   headers: {
+      //     Authorization: `Bearer ${process.env.REACT_APP_STRIPE}`,
+      //     Accept: "application/json",
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify({
+      //     price_data: {
+      //       currency: "usd",
+      //       unit_amount: 1000,
+      //       product_data: {
+      //         name: "name of the product",
+      //       },
+      //     },
+      //     quantity: 1,
+      //     total: cartTotal.toFixed(2),
+      //     cart: cart,
+      //     contact: newFormData,
+      //   }),
+      // })
+      //   .then((response) => response.json())
+      //   .then((data) => {
+      //     window.location.href = data.url;
+      //   });
+      handleOrderCreation();
     }
   };
 

@@ -26,6 +26,13 @@ const CheckoutInfo = ({ addNewFormData }) => {
     });
   }, []);
 
+  useEffect(() => {
+    setFormData({
+      ...newFormData,
+      dropoff_location: address,
+    });
+  }, [address]);
+
   const handleTip = (tip) => {
     dispatch(addTip(tip));
   };
@@ -179,16 +186,13 @@ const CheckoutInfo = ({ addNewFormData }) => {
   };
 
   const handleAddressChange = (e) => {
+    console.log(e);
     const place = e.getPlace();
-    console.log(extractAddress(place));
-    console.log(
-      String(Object.values(extractAddress(place))).replace(/,/g, " ")
-    );
+    // console.log(extractAddress(place));
+    // console.log(
+    //   String(Object.values(extractAddress(place))).replace(/,/g, " ")
+    // );
     setAddress(String(Object.values(extractAddress(place))).replace(/,/g, " "));
-    setFormData({
-      ...newFormData,
-      dropoff_location: address,
-    });
   };
 
   function handleTipChange(e) {
@@ -291,7 +295,7 @@ const CheckoutInfo = ({ addNewFormData }) => {
                   id="phone"
                   placeholder="PHONE"
                   name="dropoff_phone_number"
-                  value={newFormData.phone}
+                  value={newFormData.dropoff_phone_number}
                   onChange={handlePhoneChange}
                   required
                 />

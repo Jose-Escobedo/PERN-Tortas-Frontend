@@ -12,27 +12,6 @@ const Orders = () => {
   const [userOrders, setUserOrders] = useState(null);
   const [products, setProducts] = useState([]);
 
-  // const [orderProductId, setOrderProductId] = useState(
-  //   String(userOrders?.products.map((item) => item._id)[0])
-  // );
-
-  useEffect(() => {
-    const getProduct = async () => {
-      try {
-        const res = await publicRequest.get("/products/find/");
-        setProducts(res.data);
-      } catch (error) {}
-    };
-  }, []);
-
-  const productArr = userOrders?.map((item) => {
-    return console.log(
-      item.products.map((innerItem) => {
-        return innerItem._id;
-      })
-    );
-  });
-
   const TOKEN = JSON.parse(
     JSON.parse(localStorage.getItem("persist:root"))?.user || "{}"
   )?.currentUser?.accessToken;
@@ -49,7 +28,7 @@ const Orders = () => {
         .then((response) => response.json())
         .then((data) => {
           setUserOrders(data);
-          data.map((item) => console.log(item));
+          console.log(data.map((item) => item));
         });
     };
     getOrders();

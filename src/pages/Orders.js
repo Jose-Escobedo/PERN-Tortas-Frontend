@@ -58,12 +58,17 @@ const Container = styled.div`
   justify-content: space-between;
 `;
 const Wrapper = styled.div`
-  padding: 1.3em;
-  ${mobile({ padding: "10px" })}
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3em;
+  border-top: 1px solid black;
+  ${mobile({ padding: "10px" })};
 `;
 const Title = styled.h1`
   font-weight: 300;
   text-align: center;
+  padding-bottom: 1em;
 `;
 
 export default Orders;

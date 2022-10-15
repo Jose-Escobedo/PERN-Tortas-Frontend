@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { publicRequest } from "../requestMethods";
+import tacoHuman from "../images/tacoHuman.png";
 
 const OrderList = ({ item }) => {
   const [products, setProducts] = useState([]);
@@ -33,10 +34,17 @@ const OrderList = ({ item }) => {
 
   return (
     <OrderListContainer>
-      <h2>{`${item.createdAt.slice(0, 10)}`}</h2>
-      <h2>{`${products.name}`}</h2>
-      <h2>{`${item.products.map((innerItem) => innerItem.quantity)}`}</h2>
-      <h2>{`$ ${item.totalWithTip.toFixed(2)}`}</h2>
+      <OrderWrapper>
+        <OrderLogo>
+          <img src={tacoHuman} />
+        </OrderLogo>
+        <OrderDetails>
+          <h2>{`${item.createdAt.slice(0, 10)}`}</h2>
+          <h2>{`${products.name}`}</h2>
+          <h2>{`${item.products.map((innerItem) => innerItem.quantity)}`}</h2>
+          <h2>{`$ ${item.totalWithTip.toFixed(2)}`}</h2>
+        </OrderDetails>
+      </OrderWrapper>
     </OrderListContainer>
   );
 };
@@ -46,7 +54,38 @@ const OrderListContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 40%;
+  border-bottom: 2px solid black;
+  background-size: 100% 200%;
+  background-image: linear-gradient(to bottom, white 50%, lightgrey 50%);
+  -webkit-transition: background-position 0.5s;
+  -moz-transition: background-position 0.5s;
+  transition: background-position 0.5s;
+  &:hover {
+    background-position: 0 -100%;
+  }
+`;
+
+const OrderWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 20px;
+`;
+const OrderDetails = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding: 1em 1em;
+`;
+
+const OrderLogo = styled.div`
+  img {
+    max-height: 130px;
+    min-height: 50px;
+    width: 100%;
+  }
 `;
 
 export default OrderList;

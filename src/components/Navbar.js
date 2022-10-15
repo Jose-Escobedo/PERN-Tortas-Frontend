@@ -35,10 +35,26 @@ const Navbar = () => {
         </Center>
         <Right>
           {user ? (
-            <NavItem>
-              <Button onClick={handleClick}>LOGOUT</Button>
-              {error && <Error>Something went wrong...</Error>}
-            </NavItem>
+            <>
+              <NavItem>
+                <OrderButton>
+                  <Link
+                    to="/orders"
+                    style={{
+                      color: "white",
+                      cursor: "pointer",
+                      textDecoration: "none",
+                    }}
+                  >
+                    MY ORDERS
+                  </Link>
+                </OrderButton>
+              </NavItem>
+              <NavItem>
+                <Button onClick={handleClick}>LOGOUT</Button>
+                {error && <Error>Something went wrong...</Error>}
+              </NavItem>
+            </>
           ) : (
             <>
               <NavItem>
@@ -97,6 +113,16 @@ const Button = styled.button`
   border: none;
   padding: 15px 20px;
   background-color: teal;
+  color: white;
+  margin-bottom: 10px;
+  cursor: pointer;
+`;
+
+const OrderButton = styled.button`
+  width: 100%;
+  border: none;
+  padding: 15px 20px;
+  background-color: black;
   color: white;
   margin-bottom: 10px;
   cursor: pointer;

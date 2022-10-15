@@ -14,6 +14,7 @@ const CheckoutInfo = ({ addNewFormData }) => {
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const user = useSelector((state) => state.user.currentUser);
 
   const [tipTotal, setTipTotal] = useState(0);
   const [cartTotal, setCartTotal] = useState(cart.total);
@@ -223,6 +224,7 @@ const CheckoutInfo = ({ addNewFormData }) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
+        _id: user._id,
         products: cart.products,
         quantity: cart.quantity,
         taxes: cart.taxes,

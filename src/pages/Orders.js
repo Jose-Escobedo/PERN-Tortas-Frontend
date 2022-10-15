@@ -5,10 +5,33 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import OrderList from "../components/OrderList";
 import { mobile } from "../responsive";
+import { publicRequest } from "../requestMethods";
 
 const Orders = () => {
   const user = useSelector((state) => state.user.currentUser);
   const [userOrders, setUserOrders] = useState(null);
+  const [products, setProducts] = useState([]);
+
+  // const [orderProductId, setOrderProductId] = useState(
+  //   String(userOrders?.products.map((item) => item._id)[0])
+  // );
+
+  useEffect(() => {
+    const getProduct = async () => {
+      try {
+        const res = await publicRequest.get("/products/find/");
+        setProducts(res.data);
+      } catch (error) {}
+    };
+  }, []);
+
+  const productArr = userOrders?.map((item) => {
+    return console.log(
+      item.products.map((innerItem) => {
+        return innerItem._id;
+      })
+    );
+  });
 
   const TOKEN = JSON.parse(
     JSON.parse(localStorage.getItem("persist:root"))?.user || "{}"
@@ -39,7 +62,7 @@ const Orders = () => {
         <Wrapper>
           <Title>{`${user.username.toUpperCase()}'S ORDERS`}</Title>
           {userOrders?.map((item) => {
-            return <OrderList item={item} />;
+            return <OrderList item={item} key={item._id} />;
           })}
         </Wrapper>
         <Footer />

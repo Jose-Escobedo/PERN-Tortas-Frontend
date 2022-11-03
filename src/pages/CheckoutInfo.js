@@ -19,7 +19,7 @@ const CheckoutInfo = ({ addNewFormData }) => {
   const [tipTotal, setTipTotal] = useState(0);
   const [cartTotal, setCartTotal] = useState(cart.total);
   const [address, setAddress] = useState("");
-
+  console.log("carts", cart);
   useEffect(() => {
     dispatch(addTip(0));
     initMapScript().then(() => {
@@ -235,12 +235,20 @@ const CheckoutInfo = ({ addNewFormData }) => {
         email: newFormData.email,
         delivery: 4.99,
         total: cart.total,
-        totalWithTip: cart.totalWithTip,
+        totalWithTip: cartTotal,
       }),
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        console.log("submitted", data);
+        const item = localStorage.getItem("persist:root");
+        let itemresult = JSON.parse(item);
+
+        const result = delete itemresult.cart && itemresult.order;
+        console.log("itemresult", itemresult);
+        console.log(result);
+        localStorage.setItem("persist:root", JSON.stringify(itemresult));
+        navigate("/", { replace: true });
       });
   };
 
@@ -384,7 +392,7 @@ const CheckoutInfo = ({ addNewFormData }) => {
                   id="submit"
                   type="submit"
                   value="SEND"
-                  onClick={redirectToCheckout}
+                  onClick={handleOrderCreation}
                 >
                   <span className="send-text">CONTINUE TO PAYMENT</span>
                   <BsArrowRight style={{ color: "white" }} />

@@ -52,7 +52,6 @@ const Navbar = () => {
               </NavItem>
               <NavItem>
                 <Button onClick={handleClick}>LOGOUT</Button>
-                {error && <Error>Something went wrong...</Error>}
               </NavItem>
             </>
           ) : (

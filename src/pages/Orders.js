@@ -74,6 +74,12 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 3em;
+  background: linear-gradient(
+    90deg,
+    rgba(24, 24, 71, 1) 0%,
+    rgba(10, 10, 23, 1) 35%,
+    rgba(0, 0, 0, 1) 100%
+  );
   border-top: 1px solid black;
   ${mobile({ padding: "10px" })};
 `;
@@ -81,12 +87,14 @@ const Title = styled.h1`
   font-weight: 300;
   text-align: center;
   padding-bottom: 1em;
+  color: white;
 `;
 
 const OrderEmpty = styled.h1`
   font-weight: 300;
   text-align: center;
   padding-bottom: 1em;
+  color: white;
 `;
 
 export default Orders;

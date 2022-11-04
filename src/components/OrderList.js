@@ -56,13 +56,11 @@ const OrderListContainer = styled.div`
   align-items: center;
   width: 40%;
   border-bottom: 2px solid black;
-  background-size: 100% 200%;
-  background-image: linear-gradient(to bottom, white 50%, lightgrey 50%);
-  -webkit-transition: background-position 0.5s;
-  -moz-transition: background-position 0.5s;
-  transition: background-position 0.5s;
+  transition: transform 0.5s;
+  background: white;
   &:hover {
-    background-position: 0 -100%;
+    transform: scale(1.1);
+    box-shadow: 2px 2px 5px grey, -2px -2px 5px grey;
   }
 `;
 

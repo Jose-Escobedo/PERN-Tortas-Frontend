@@ -35,7 +35,11 @@ function App() {
         <Route exact path="/product/:id" element={<Product />} />
         <Route exact path="/success" element={<Success />} />
         <Route exact path="/checkout" element={<CheckoutInfo />} />
-        <Route exact path="/orders" element={user ? <Orders /> : <Login />} />
+        <Route
+          exact
+          path="/orders"
+          element={user ? <Orders /> : <Navigate to="/" />}
+        />
       </Routes>
     </>
   );

@@ -196,6 +196,10 @@ const CheckoutInfo = ({ addNewFormData }) => {
     setAddress(String(Object.values(extractAddress(place))).replace(/,/g, " "));
   };
 
+  const handleErrorAddress = (e) => {
+    return <div>Please enter street number!</div>;
+  };
+
   function handleTipChange(e) {
     e.preventDefault();
     const enteredNum = prompt("How much would you like to tip?");
@@ -243,7 +247,6 @@ const CheckoutInfo = ({ addNewFormData }) => {
         console.log("submitted", data);
         const item = localStorage.getItem("persist:root");
         let itemresult = JSON.parse(item);
-
         const result = delete itemresult.cart && itemresult.order;
         console.log("itemresult", itemresult);
         console.log(result);
@@ -256,7 +259,7 @@ const CheckoutInfo = ({ addNewFormData }) => {
     e.preventDefault();
     console.log(newFormData);
     dispatch(setTotal());
-    redirectToCheckout();
+    // redirectToCheckout();
   };
 
   const redirectToCheckout = (e) => {

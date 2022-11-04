@@ -10,7 +10,8 @@ import { publicRequest } from "../requestMethods";
 const Orders = () => {
   const user = useSelector((state) => state.user.currentUser);
   const [userOrders, setUserOrders] = useState(null);
-  const [products, setProducts] = useState([]);
+
+  const [emptyOrders, setEmptyOrders] = useState(true);
 
   const TOKEN = JSON.parse(
     JSON.parse(localStorage.getItem("persist:root"))?.user || "{}"
@@ -27,12 +28,15 @@ const Orders = () => {
       })
         .then((response) => response.json())
         .then((data) => {
+          console.log(data);
           setUserOrders(data);
-          console.log(data.map((item) => item));
+          if (data) {
+            setEmptyOrders(false);
+          }
         });
     };
     getOrders();
-  }, []);
+  }, [user]);
 
   return (
     <>
@@ -40,9 +44,15 @@ const Orders = () => {
         <Navbar />
         <Wrapper>
           <Title>{`${user.username.toUpperCase()}'S ORDERS`}</Title>
-          {userOrders?.map((item) => {
-            return <OrderList item={item} key={item._id} />;
-          })}
+          {emptyOrders ? (
+            <>
+              <OrderEmpty>You have not placed an order yet.</OrderEmpty>
+            </>
+          ) : (
+            userOrders?.map((item) => {
+              return <OrderList item={item} key={item._id} />;
+            })
+          )}
         </Wrapper>
         <Footer />
       </Container>
@@ -66,6 +76,12 @@ const Wrapper = styled.div`
   ${mobile({ padding: "10px" })};
 `;
 const Title = styled.h1`
+  font-weight: 300;
+  text-align: center;
+  padding-bottom: 1em;
+`;
+
+const OrderEmpty = styled.h1`
   font-weight: 300;
   text-align: center;
   padding-bottom: 1em;

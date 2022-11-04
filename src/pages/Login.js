@@ -4,16 +4,19 @@ import ChkTacos from "../images/chk-tacos.JPG";
 import { useEffect, useState } from "react";
 import { login } from "../redux/apiCalls";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const { isFetching, error } = useSelector((state) => state.user);
+  const navigate = useNavigate();
 
   const handleClick = (e) => {
     e.preventDefault();
     login(dispatch, { username, password });
+    navigate("/", { replace: true });
   };
 
   return (

@@ -11,7 +11,7 @@ const Orders = () => {
   const user = useSelector((state) => state.user.currentUser);
   const [userOrders, setUserOrders] = useState(null);
 
-  const [emptyOrders, setEmptyOrders] = useState(true);
+  const [emptyOrders, setEmptyOrders] = useState(false);
 
   const TOKEN = JSON.parse(
     JSON.parse(localStorage.getItem("persist:root"))?.user || "{}"
@@ -30,11 +30,13 @@ const Orders = () => {
         .then((data) => {
           console.log(data);
           setUserOrders(data);
-          if (data) {
-            setEmptyOrders(false);
+
+          if (data.length === 0) {
+            setEmptyOrders(true);
           }
         });
     };
+
     getOrders();
   }, [user]);
 

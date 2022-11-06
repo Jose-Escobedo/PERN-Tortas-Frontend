@@ -6,7 +6,8 @@ import {
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
-
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { addProduct } from "../redux/cartRedux";
 
 const ProductItem = ({ item }) => {
@@ -15,6 +16,10 @@ const ProductItem = ({ item }) => {
 
   const handleClick = (item) => {
     dispatch(addProduct({ ...item, quantity }));
+    toast.success("Item has been added to Cart.", {
+      position: toast.POSITION.TOP_CENTER,
+      toastId: "success2",
+    });
   };
   return (
     <Container>

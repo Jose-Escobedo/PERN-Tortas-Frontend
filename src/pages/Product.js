@@ -11,6 +11,8 @@ import { publicRequest } from "../requestMethods";
 import { mobile } from "../responsive";
 import { useDispatch, useSelector } from "react-redux";
 import Menu from "../components/Menu";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Product = () => {
   const location = useLocation();
@@ -42,10 +44,15 @@ const Product = () => {
 
   const handleClick = () => {
     dispatch(addProduct({ ...product, quantity }));
+    toast.success("Item has been added to Cart.", {
+      position: toast.POSITION.TOP_CENTER,
+      toastId: "success3",
+    });
   };
 
   return (
     <Container>
+      <StyledToastContainer />
       <Navbar />
       <Wrapper>
         <ImgContainer>
@@ -86,6 +93,21 @@ const Product = () => {
     </Container>
   );
 };
+
+const StyledToastContainer = styled(ToastContainer).attrs({
+  className: "toast-container",
+  toastClassName: "toast",
+  bodyClassName: "body",
+  progressClassName: "progress",
+})`
+  .toast {
+    background-color: black;
+    color: white;
+  }
+  button[aria-label="close"] {
+    color: white;
+  }
+`;
 
 const Container = styled.div``;
 const Wrapper = styled.div`

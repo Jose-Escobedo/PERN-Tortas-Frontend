@@ -7,6 +7,8 @@ import { mobile } from "../responsive";
 import { useDispatch } from "react-redux";
 import { addProduct } from "../redux/cartRedux";
 import { publicRequest } from "../requestMethods";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Slider = () => {
   const dispatch = useDispatch();
@@ -23,6 +25,10 @@ const Slider = () => {
   const handleOrderNow = (item) => {
     console.log(item.id);
     getProduct(item.id);
+    toast.success("Item has been added to Cart.", {
+      position: toast.POSITION.TOP_CENTER,
+      toastId: "success1",
+    });
   };
 
   const [slideIndex, setSlideIndex] = useState(0);
@@ -60,6 +66,21 @@ const Slider = () => {
     </Container>
   );
 };
+
+const StyledToastContainer = styled(ToastContainer).attrs({
+  className: "toast-container",
+  toastClassName: "toast",
+  bodyClassName: "body",
+  progressClassName: "progress",
+})`
+  .toast {
+    background-color: black;
+    color: white;
+  }
+  button[aria-label="close"] {
+    color: white;
+  }
+`;
 
 const Container = styled.div`
   width: 100%;

@@ -28,7 +28,7 @@ const Orders = () => {
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log(data);
+          // console.log(data);
           setUserOrders(data);
 
           if (data.length === 0) {
@@ -39,6 +39,37 @@ const Orders = () => {
 
     getOrders();
   }, [user]);
+
+  let newArray;
+
+  if (userOrders?.length !== 0) {
+    userOrders?.map((item) => {
+      item.products.map((inn) => inn._id).map((innItem) => innItem);
+    });
+  }
+
+  //   idArray.forEach((item) => {
+  //     fetch(`http://localhost:5000/api/products/find/${item}`, {
+  //       method: "GET",
+  //       headers: {
+  //         Accept: "application/json",
+  //         "Content-Type": "application/json",
+  //       },
+  //     })
+  //       .then((response) => response.json())
+  //       .then((data) => {
+  //         setProducts(data);
+  //       });
+  //   });
+  // }, []);
+
+  // let idArray = [
+  //   userOrders.products
+  //     .map((innerItem) => innerItem._id)
+  //     .map((innItem) => innItem),
+  // ];
+
+  // console.log(userOrders);
 
   return (
     <>

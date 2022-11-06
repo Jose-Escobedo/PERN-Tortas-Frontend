@@ -162,6 +162,10 @@ const CheckoutInfo = ({ addNewFormData }) => {
         address.street_number = value;
       }
 
+      if (address.street_number != value) {
+        handleErrorAddress();
+      }
+
       if (types.includes("route")) {
         address.route = value;
       }
@@ -197,7 +201,7 @@ const CheckoutInfo = ({ addNewFormData }) => {
   };
 
   const handleErrorAddress = (e) => {
-    return <div>Please enter street number!</div>;
+    console.log("Please enter street number!");
   };
 
   function handleTipChange(e) {

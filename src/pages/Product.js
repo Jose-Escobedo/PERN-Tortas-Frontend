@@ -11,7 +11,7 @@ import { publicRequest } from "../requestMethods";
 import { mobile } from "../responsive";
 import { useDispatch, useSelector } from "react-redux";
 import Menu from "../components/Menu";
-import { ToastContainer, toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Product = () => {

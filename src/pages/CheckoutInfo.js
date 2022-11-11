@@ -294,8 +294,8 @@ const CheckoutInfo = ({ addNewFormData }) => {
         .then((response) => response.json())
         .then((data) => {
           window.location.href = data.url;
+          handleOrderCreation();
         });
-      handleOrderCreation();
     }
   };
 

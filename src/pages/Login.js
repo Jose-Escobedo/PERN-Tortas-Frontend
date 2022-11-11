@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { login } from "../redux/apiCalls";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -12,10 +14,14 @@ const Login = () => {
   const dispatch = useDispatch();
   const { isFetching, error } = useSelector((state) => state.user);
   const navigate = useNavigate();
+  const user = useSelector((state) => state.user.currentUser);
 
   const handleClick = (e) => {
     e.preventDefault();
     login(dispatch, { username, password });
+    toast.success(`Welcome Back!`, {
+      position: toast.POSITION.TOP_CENTER,
+    });
   };
 
   return (

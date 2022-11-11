@@ -67,21 +67,6 @@ const Slider = () => {
   );
 };
 
-const StyledToastContainer = styled(ToastContainer).attrs({
-  className: "toast-container",
-  toastClassName: "toast",
-  bodyClassName: "body",
-  progressClassName: "progress",
-})`
-  .toast {
-    background-color: black;
-    color: white;
-  }
-  button[aria-label="close"] {
-    color: white;
-  }
-`;
-
 const Container = styled.div`
   width: 100%;
   height: 100vh;

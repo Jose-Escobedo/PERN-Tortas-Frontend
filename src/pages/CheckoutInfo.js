@@ -9,6 +9,7 @@ import { addTip, clearCart, setTotal } from "../redux/cartRedux";
 import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
 import Autocomplete from "react-google-autocomplete";
+import io from "socket.io-client";
 
 const CheckoutInfo = ({ addNewFormData }) => {
   const cart = useSelector((state) => state.cart);
@@ -19,6 +20,12 @@ const CheckoutInfo = ({ addNewFormData }) => {
   const [tipTotal, setTipTotal] = useState(0);
   const [cartTotal, setCartTotal] = useState(cart.total);
   const [address, setAddress] = useState("");
+  const socket = io.connect("http://localhost/5000");
+
+  socket.on("paymentComplete", (data) => {
+    handleOrderCreation();
+  });
+
   console.log("carts", cart);
   useEffect(() => {
     dispatch(addTip(0));
@@ -294,7 +301,6 @@ const CheckoutInfo = ({ addNewFormData }) => {
         .then((response) => response.json())
         .then((data) => {
           window.location.href = data.url;
-          handleOrderCreation();
         });
     }
   };

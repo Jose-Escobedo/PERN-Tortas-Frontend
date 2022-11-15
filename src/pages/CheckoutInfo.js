@@ -9,7 +9,6 @@ import { addTip, clearCart, setTotal } from "../redux/cartRedux";
 import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
 import Autocomplete from "react-google-autocomplete";
-import io from "socket.io-client";
 
 const CheckoutInfo = ({ addNewFormData }) => {
   const cart = useSelector((state) => state.cart);
@@ -20,11 +19,10 @@ const CheckoutInfo = ({ addNewFormData }) => {
   const [tipTotal, setTipTotal] = useState(0);
   const [cartTotal, setCartTotal] = useState(cart.total);
   const [address, setAddress] = useState("");
-  const socket = io.connect("http://localhost/5000");
 
-  socket.on("paymentComplete", (data) => {
-    handleOrderCreation();
-  });
+  const handleStripePayment = () => {};
+
+  useEffect(() => {}, []);
 
   console.log("carts", cart);
   useEffect(() => {
@@ -293,6 +291,7 @@ const CheckoutInfo = ({ addNewFormData }) => {
             },
           },
           quantity: 1,
+          userId: user._id,
           total: cartTotal.toFixed(2),
           cart: cart,
           contact: newFormData,
@@ -405,7 +404,6 @@ const CheckoutInfo = ({ addNewFormData }) => {
                   id="submit"
                   type="submit"
                   value="SEND"
-                  onClick={handleOrderCreation}
                 >
                   <span className="send-text">CONTINUE TO PAYMENT</span>
                   <BsArrowRight style={{ color: "white" }} />

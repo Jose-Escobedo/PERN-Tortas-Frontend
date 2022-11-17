@@ -28,8 +28,6 @@ const OrderList = ({ item }) => {
     // getProducts();
   });
 
-  // console.log(products.name);
-
   return (
     <OrderListContainer>
       <OrderWrapper>
@@ -38,9 +36,8 @@ const OrderList = ({ item }) => {
         </OrderLogo>
         <OrderDetails>
           <h2>{`${item.createdAt.slice(0, 10)}`}</h2>
-          <h2>{`${products.name}`}</h2>
-          <h2>{`Quantity: ${item.products.map(
-            (innerItem) => innerItem.quantity
+          <h2>{`${item.products.map(
+            (innerItem) => `${innerItem.quantity} ${innerItem.name} `
           )}`}</h2>
           <h2>{`Tip: $ ${item.tip}`}</h2>
           <h2>{`Order Total: $ ${item.totalWithTip.toFixed(2)}`}</h2>

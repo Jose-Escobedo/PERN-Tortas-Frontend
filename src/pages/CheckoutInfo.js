@@ -22,25 +22,17 @@ const CheckoutInfo = ({ addNewFormData }) => {
 
   const handleStripePayment = () => {};
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    setTotal(cartTotal);
+  }, [cartTotal]);
 
   console.log("cart", cart.products);
-  // function selectProps(...props) {
-  //   return function (obj) {
-  //     const newObj = {};
-  //     props.forEach((name) => {
-  //       newObj[name] = obj[name];
-  //     });
-
-  //     return newObj;
-  //   };
-  // }
-
-  // const newCartArr = cart.products.map(selectProps("name", "quantity"));
-  // console.log(newCartArr);
 
   useEffect(() => {
-    dispatch(addTip(0));
+    // dispatch(addTip(0));
+    // if (tipTotal === null) {
+    //   setTipTotal(0);
+    // }
     initMapScript().then(() => {
       initAutocomplete();
     });
@@ -225,15 +217,13 @@ const CheckoutInfo = ({ addNewFormData }) => {
 
   function handleTipChange(e) {
     e.preventDefault();
-    const enteredNum = prompt("How much would you like to tip?");
     setFormData({
       ...newFormData,
-      tip: enteredNum,
+      tip: e.target.value,
     });
-    setTipTotal(enteredNum);
-    const sum = Number(enteredNum) + cart.total;
+    const sum = Number(e.target.value) + cart.total;
     setCartTotal(sum);
-    handleTip(Number(enteredNum));
+    handleTip(Number(e.target.value));
   }
 
   const handleInstructionsChange = (e) => {
@@ -280,8 +270,8 @@ const CheckoutInfo = ({ addNewFormData }) => {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
+    dispatch(setTotal(cartTotal));
     console.log(newFormData);
-    dispatch(setTotal());
     redirectToCheckout();
   };
 
@@ -308,7 +298,7 @@ const CheckoutInfo = ({ addNewFormData }) => {
           userId: user._id,
           address: address,
           phone: newFormData.dropoff_phone_number,
-          tip: cart.tip,
+          tip: newFormData.tip,
           email: newFormData.email,
           taxes: cart.taxes,
           totalWithTip: cartTotal.toFixed(2),
@@ -380,7 +370,14 @@ const CheckoutInfo = ({ addNewFormData }) => {
                   required
                 />
 
-                <button onClick={handleTipChange}>Tip Edit</button>
+                <input
+                  type="text"
+                  id="tip"
+                  placeholder="TIP FOR DRIVER"
+                  name="tip"
+                  value={newFormData.tip}
+                  onChange={handleTipChange}
+                />
 
                 <textarea
                   rows="6"

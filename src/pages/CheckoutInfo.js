@@ -24,7 +24,21 @@ const CheckoutInfo = ({ addNewFormData }) => {
 
   useEffect(() => {}, []);
 
-  console.log("carts", cart);
+  console.log("cart", cart.products);
+  // function selectProps(...props) {
+  //   return function (obj) {
+  //     const newObj = {};
+  //     props.forEach((name) => {
+  //       newObj[name] = obj[name];
+  //     });
+
+  //     return newObj;
+  //   };
+  // }
+
+  // const newCartArr = cart.products.map(selectProps("name", "quantity"));
+  // console.log(newCartArr);
+
   useEffect(() => {
     dispatch(addTip(0));
     initMapScript().then(() => {
@@ -292,6 +306,13 @@ const CheckoutInfo = ({ addNewFormData }) => {
           },
           quantity: 1,
           userId: user._id,
+          address: address,
+          phone: newFormData.dropoff_phone_number,
+          tip: cart.tip,
+          email: newFormData.email,
+          taxes: cart.taxes,
+          totalWithTip: cartTotal.toFixed(2),
+          subtotal: cart.subtotal,
           total: cartTotal.toFixed(2),
           cart: cart,
           contact: newFormData,

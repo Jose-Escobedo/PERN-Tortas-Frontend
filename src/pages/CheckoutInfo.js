@@ -8,7 +8,6 @@ import { useSelector } from "react-redux";
 import { addTip, clearCart, setTotal } from "../redux/cartRedux";
 import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
-import Autocomplete from "react-google-autocomplete";
 
 const CheckoutInfo = ({ addNewFormData }) => {
   const cart = useSelector((state) => state.cart);
@@ -19,8 +18,32 @@ const CheckoutInfo = ({ addNewFormData }) => {
   const [tipTotal, setTipTotal] = useState(0);
   const [cartTotal, setCartTotal] = useState(cart.total);
   const [address, setAddress] = useState("");
+  const [coordinates, setCoordinates] = useState([34.25344, -118.29516]);
+  const [directionsMatrixAddress, setDirectionsMatrixAddress] = useState([
+    34.25344, -118.29516,
+  ]);
 
-  const handleStripePayment = () => {};
+  const mapApiJs = "https://maps.googleapis.com/maps/api/js";
+  const apiKey = process.env.REACT_APP_PLACES;
+
+  const handleRouteDistance = (response, status) => {
+    if (status == "OK") {
+      var origins = response.originAddresses;
+      var destinations = response.destinationAddresses;
+
+      for (var i = 0; i < origins.length; i++) {
+        var results = response.rows[i].elements;
+        for (var j = 0; j < results.length; j++) {
+          var element = results[j];
+          var distance = element.distance.text;
+          var duration = element.duration.text;
+          var from = origins[i];
+          var to = destinations[j];
+          console.log("Distance:", distance);
+        }
+      }
+    } else console.log("ERROR", response);
+  };
 
   useEffect(() => {
     setTotal(cartTotal);
@@ -29,28 +52,20 @@ const CheckoutInfo = ({ addNewFormData }) => {
   console.log("cart", cart.products);
 
   useEffect(() => {
-    // dispatch(addTip(0));
-    // if (tipTotal === null) {
-    //   setTipTotal(0);
-    // }
     initMapScript().then(() => {
       initAutocomplete();
+      initDirectionsMatrix();
     });
-  }, []);
+  }, [directionsMatrixAddress]);
 
-  useEffect(() => {
-    setFormData({
-      ...newFormData,
-      dropoff_location: address,
-    });
-  }, [address]);
+  // useEffect(() => {
+  //   handleRouteDistance();
+  // }, [directionsMatrixAddress]);
 
   const handleTip = (tip) => {
     dispatch(addTip(tip));
   };
 
-  const mapApiJs = "https://maps.googleapis.com/maps/api/js";
-  const apiKey = process.env.REACT_APP_PLACES;
   const initMapScript = () => {
     if (window.google) {
       return Promise.resolve();
@@ -72,6 +87,25 @@ const CheckoutInfo = ({ addNewFormData }) => {
     });
   }
 
+  const initDirectionsMatrix = () => {
+    const google = window.google;
+    var origin1 = new google.maps.LatLng(34.140511, -118.371468);
+    var destinationB = new google.maps.LatLng(
+      directionsMatrixAddress[0],
+      directionsMatrixAddress[1]
+    );
+    var service = new google.maps.DistanceMatrixService();
+    service.getDistanceMatrix(
+      {
+        origins: [origin1],
+        destinations: [destinationB],
+        travelMode: "DRIVING",
+        unitSystem: google.maps.UnitSystem.IMPERIAL,
+      },
+      handleRouteDistance
+    );
+  };
+
   const initAutocomplete = () => {
     if (!searchInput.current) return;
 
@@ -81,6 +115,13 @@ const CheckoutInfo = ({ addNewFormData }) => {
 
     autocomplete.setFields(["address_component", "geometry"]);
     autocomplete.addListener("place_changed", (e) => {
+      var place = autocomplete.getPlace();
+      console.log("Latitude", place.geometry.location.lat());
+      console.log("Longitude", place.geometry.location.lng());
+      setDirectionsMatrixAddress([
+        place.geometry.location.lat(),
+        place.geometry.location.lng(),
+      ]);
       handleAddressChange(autocomplete);
     });
   };
@@ -173,10 +214,6 @@ const CheckoutInfo = ({ addNewFormData }) => {
         address.street_number = value;
       }
 
-      if (address.street_number != value) {
-        handleErrorAddress();
-      }
-
       if (types.includes("route")) {
         address.route = value;
       }
@@ -202,7 +239,6 @@ const CheckoutInfo = ({ addNewFormData }) => {
   };
 
   const handleAddressChange = (e) => {
-    console.log(e);
     const place = e.getPlace();
     // console.log(extractAddress(place));
     // console.log(
@@ -258,13 +294,6 @@ const CheckoutInfo = ({ addNewFormData }) => {
       .then((response) => response.json())
       .then((data) => {
         console.log("submitted", data);
-        // const item = localStorage.getItem("persist:root");
-        // let itemresult = JSON.parse(item);
-        // const result = delete itemresult.cart && itemresult.order;
-        // console.log("itemresult", itemresult);
-        // console.log(result);
-        // localStorage.setItem("persist:root", JSON.stringify(itemresult));
-        // navigate("/", { replace: true });
       });
   };
 

@@ -18,9 +18,8 @@ const CheckoutInfo = ({ addNewFormData }) => {
   const [tipTotal, setTipTotal] = useState(0);
   const [cartTotal, setCartTotal] = useState(cart.total);
   const [address, setAddress] = useState("");
-  const [coordinates, setCoordinates] = useState([34.25344, -118.29516]);
   const [directionsMatrixAddress, setDirectionsMatrixAddress] = useState([
-    34.25344, -118.29516,
+    34.140511, -118.371468,
   ]);
 
   const mapApiJs = "https://maps.googleapis.com/maps/api/js";
@@ -40,14 +39,11 @@ const CheckoutInfo = ({ addNewFormData }) => {
           var from = origins[i];
           var to = destinations[j];
           console.log("Distance:", distance);
+          console.log("Address:", destinations);
         }
       }
     } else console.log("ERROR", response);
   };
-
-  useEffect(() => {
-    setTotal(cartTotal);
-  }, [cartTotal]);
 
   console.log("cart", cart.products);
 
@@ -56,11 +52,14 @@ const CheckoutInfo = ({ addNewFormData }) => {
       initAutocomplete();
       initDirectionsMatrix();
     });
-  }, [directionsMatrixAddress]);
+  }, []);
 
-  // useEffect(() => {
-  //   handleRouteDistance();
-  // }, [directionsMatrixAddress]);
+  useEffect(() => {
+    setFormData({
+      ...newFormData,
+      dropoff_location: address,
+    });
+  }, [address]);
 
   const handleTip = (tip) => {
     dispatch(addTip(tip));
@@ -116,12 +115,11 @@ const CheckoutInfo = ({ addNewFormData }) => {
     autocomplete.setFields(["address_component", "geometry"]);
     autocomplete.addListener("place_changed", (e) => {
       var place = autocomplete.getPlace();
+
+      handleDirectionsMatrix(autocomplete);
       console.log("Latitude", place.geometry.location.lat());
       console.log("Longitude", place.geometry.location.lng());
-      setDirectionsMatrixAddress([
-        place.geometry.location.lat(),
-        place.geometry.location.lng(),
-      ]);
+      console.log(place);
       handleAddressChange(autocomplete);
     });
   };
@@ -137,7 +135,7 @@ const CheckoutInfo = ({ addNewFormData }) => {
     dropoff_phone_number: "",
     dropoff_instructions: "",
     dropoff_location: "",
-    tip: 0,
+    tip: "",
   };
 
   const [newFormData, setFormData] = useState(blankForm);
@@ -247,6 +245,15 @@ const CheckoutInfo = ({ addNewFormData }) => {
     setAddress(String(Object.values(extractAddress(place))).replace(/,/g, " "));
   };
 
+  const handleDirectionsMatrix = (e) => {
+    const place = e.getPlace();
+    setDirectionsMatrixAddress([
+      place.geometry.location.lat(),
+      place.geometry.location.lng(),
+    ]);
+    initDirectionsMatrix();
+  };
+
   const handleErrorAddress = (e) => {
     console.log("Please enter street number!");
   };
@@ -306,7 +313,7 @@ const CheckoutInfo = ({ addNewFormData }) => {
 
   const redirectToCheckout = (e) => {
     if (!enabled) {
-      return null;
+      console.log("!enabled:", newFormData);
     } else {
       fetch("http://localhost:5000/api/checkout/payment", {
         method: "POST",

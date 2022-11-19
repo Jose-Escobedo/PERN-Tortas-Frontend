@@ -90,9 +90,6 @@ const cartSlice = createSlice({
     },
     addTip: (state, action) => {
       const tip = action.payload;
-      if (tip === null) {
-        tip = 0;
-      }
       state.tip = tip;
     },
     setTotal: (state, action) => {

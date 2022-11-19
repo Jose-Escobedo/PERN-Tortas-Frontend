@@ -334,6 +334,24 @@ const CheckoutInfo = ({ addNewFormData }) => {
       });
   };
 
+  function tipValidation(evt) {
+    var theEvent = evt || window.event;
+
+    // Handle paste
+    if (evt.type === "paste") {
+      key = evt.clipboardData.getData("text/plain");
+    } else {
+      // Handle key press
+      var key = theEvent.keyCode || theEvent.which;
+      key = String.fromCharCode(key);
+    }
+    var regex = /[0-9]|\./;
+    if (!regex.test(key)) {
+      theEvent.returnValue = false;
+      if (theEvent.preventDefault) theEvent.preventDefault();
+    }
+  }
+
   const handleFormSubmit = (e) => {
     e.preventDefault();
     dispatch(setTotal(cartTotal));
@@ -449,6 +467,12 @@ const CheckoutInfo = ({ addNewFormData }) => {
                   placeholder="TIP FOR DRIVER"
                   name="tip"
                   value={newFormData.tip}
+                  onKeyPress={tipValidation}
+                  onPaste={(e) => {
+                    e.preventDefault();
+                    return false;
+                  }}
+                  maxlength="3"
                   onChange={handleTipChange}
                 />
 

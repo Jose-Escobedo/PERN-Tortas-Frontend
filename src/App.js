@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 import "@stripe/stripe-js";
 import CheckoutInfo from "./pages/CheckoutInfo";
 import Orders from "./pages/Orders";
+import OptionalDelivery from "./pages/OptionalDelivery";
 
 function App() {
   const user = useSelector((state) => state.user.currentUser);
@@ -35,6 +36,7 @@ function App() {
         <Route exact path="/product/:id" element={<Product />} />
         <Route exact path="/success" element={<Success />} />
         <Route exact path="/checkout" element={<CheckoutInfo />} />
+        <Route exact path="/optionaldelivery" element={<OptionalDelivery />} />
         <Route
           exact
           path="/orders"

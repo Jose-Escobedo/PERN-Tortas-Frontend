@@ -480,6 +480,7 @@ const CheckoutInfo = ({ addNewFormData }) => {
                   rows="6"
                   placeholder="DELIVERY INSTRUCTIONS FOR DRIVER"
                   name="dropoff_instructions"
+                  id="dropoff_instructions"
                   value={newFormData.dropoff_instructions}
                   onChange={handleInstructionsChange}
                 ></textarea>
@@ -552,6 +553,14 @@ const ContactFormStyled = styled.div`
   display: flex;
   flex-direction: column;
   border: 1px solid black;
+  color: white;
+
+  background: linear-gradient(
+    90deg,
+    rgba(24, 24, 71, 1) 0%,
+    rgba(10, 10, 23, 1) 35%,
+    rgba(0, 0, 0, 1) 100%
+  );
 
   .wrapper {
     display: flex;
@@ -580,6 +589,8 @@ const ContactFormStyled = styled.div`
     display: flex;
     flex-direction: column;
     padding: 2em;
+    border-color: white;
+    color: white;
     @media screen and (max-width: 1100px) {
       width: 100%;
       padding: 0.5em;
@@ -606,6 +617,164 @@ const ContactFormStyled = styled.div`
     }
   }
 
+  #first-name {
+    color: white;
+    border-color: white;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    ::placeholder {
+      /* Chrome, Firefox, Opera, Safari 10.1+ */
+      color: white;
+      opacity: 1; /* Firefox */
+    }
+    input:focus,
+    textarea:focus,
+    select:focus {
+      outline: none;
+    }
+
+    :-ms-input-placeholder {
+      /* Internet Explorer 10-11 */
+      color: white;
+    }
+
+    ::-ms-input-placeholder {
+      /* Microsoft Edge */
+      color: white;
+    }
+  }
+  #last-name {
+    color: white;
+    border-color: white;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    ::placeholder {
+      /* Chrome, Firefox, Opera, Safari 10.1+ */
+      color: white;
+      opacity: 1; /* Firefox */
+    }
+
+    :-ms-input-placeholder {
+      /* Internet Explorer 10-11 */
+      color: white;
+    }
+
+    ::-ms-input-placeholder {
+      /* Microsoft Edge */
+      color: white;
+    }
+  }
+  #email {
+    color: white;
+    border-color: white;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    ::placeholder {
+      /* Chrome, Firefox, Opera, Safari 10.1+ */
+      color: white;
+      opacity: 1; /* Firefox */
+    }
+
+    :-ms-input-placeholder {
+      /* Internet Explorer 10-11 */
+      color: white;
+    }
+
+    ::-ms-input-placeholder {
+      /* Microsoft Edge */
+      color: white;
+    }
+  }
+  #phone {
+    color: white;
+    border-color: white;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    ::placeholder {
+      /* Chrome, Firefox, Opera, Safari 10.1+ */
+      color: white;
+      opacity: 1; /* Firefox */
+    }
+
+    :-ms-input-placeholder {
+      /* Internet Explorer 10-11 */
+      color: white;
+    }
+
+    ::-ms-input-placeholder {
+      /* Microsoft Edge */
+      color: white;
+    }
+  }
+  #address {
+    color: white;
+    border-color: white;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    ::placeholder {
+      /* Chrome, Firefox, Opera, Safari 10.1+ */
+      color: white;
+      opacity: 1; /* Firefox */
+    }
+
+    :-ms-input-placeholder {
+      /* Internet Explorer 10-11 */
+      color: white;
+    }
+
+    ::-ms-input-placeholder {
+      /* Microsoft Edge */
+      color: white;
+    }
+  }
+  #tip {
+    color: white;
+    border-color: white;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    ::placeholder {
+      /* Chrome, Firefox, Opera, Safari 10.1+ */
+      color: white;
+      opacity: 1; /* Firefox */
+    }
+
+    :-ms-input-placeholder {
+      /* Internet Explorer 10-11 */
+      color: white;
+    }
+
+    ::-ms-input-placeholder {
+      /* Microsoft Edge */
+      color: white;
+    }
+  }
+  #dropoff_instructions {
+    color: white;
+    border-color: white;
+    margin-top: 2rem;
+    ::placeholder {
+      /* Chrome, Firefox, Opera, Safari 10.1+ */
+      color: white;
+      opacity: 1; /* Firefox */
+    }
+
+    :-ms-input-placeholder {
+      /* Internet Explorer 10-11 */
+      color: white;
+    }
+
+    ::-ms-input-placeholder {
+      /* Microsoft Edge */
+      color: white;
+    }
+  }
+
   textarea {
     width: 100%;
     max-width: 100%;
@@ -613,7 +782,7 @@ const ContactFormStyled = styled.div`
     min-height: 20%;
     max-height: 20vh;
     background-color: transparent;
-    color: black;
+    color: white;
     letter-spacing: 1px;
     border: 1px solid black;
     padding: 0.5em 0.5em;
@@ -657,6 +826,7 @@ const ContactFormStyled = styled.div`
     align-items: center;
     flex-direction: column;
     padding: 2em;
+    color: white;
     @media screen and (max-width: 1100px) {
       font-size: 0.5rem;
       padding: 1em;
@@ -674,7 +844,6 @@ const ContactFormStyled = styled.div`
 
   .copyright {
     font: 300 14px "Montserrat", sans-serif;
-    color: black;
     letter-spacing: 1px;
     text-align: center;
     margin-top: 1.2rem;
@@ -694,7 +863,7 @@ const Summary = styled.div`
 
 const SummaryTitle = styled.h1`
   font-weight: 200;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid white;
 `;
 const SummaryItem = styled.div`
   margin: 2em 0em;

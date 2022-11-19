@@ -125,7 +125,7 @@ const Cart = () => {
               <SummaryItemPrice>$ {cart.total.toFixed(2)}</SummaryItemPrice>
             </SummaryItem>
             {isGreaterThanTwenty ? (
-              <Link to="/checkout">
+              <Link to="/optionaldelivery">
                 <Button>CHECKOUT NOW</Button>
               </Link>
             ) : (

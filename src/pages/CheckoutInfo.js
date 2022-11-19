@@ -344,6 +344,8 @@ const CheckoutInfo = ({ addNewFormData }) => {
   const redirectToCheckout = (e) => {
     if (!enabled) {
       console.log("!enabled:", newFormData);
+    } else if (fiveMileRadius) {
+      console.log("FiveMileRadius", fiveMileRadius);
     } else {
       fetch("http://localhost:5000/api/checkout/payment", {
         method: "POST",

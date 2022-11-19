@@ -21,6 +21,8 @@ const CheckoutInfo = ({ addNewFormData }) => {
   const [directionsMatrixAddress, setDirectionsMatrixAddress] = useState([
     34.140511, -118.371468,
   ]);
+  const [fiveMileRadius, setFiveMileRadius] = useState();
+  const [routeDistance, setRouteDistance] = useState();
 
   const mapApiJs = "https://maps.googleapis.com/maps/api/js";
   const apiKey = process.env.REACT_APP_PLACES;
@@ -40,6 +42,7 @@ const CheckoutInfo = ({ addNewFormData }) => {
           var to = destinations[j];
           console.log("Distance:", distance);
           console.log("Address:", destinations);
+          setRouteDistance(distance);
         }
       }
     } else console.log("ERROR", response);
@@ -57,15 +60,15 @@ const CheckoutInfo = ({ addNewFormData }) => {
     });
   }, [address]);
 
-  // useEffect(() => {
-  //   setFormData({
-  //     ...newFormData,
-  //     dropoff_location: address,
-  //   });
-
-  //     initDirectionsMatrix();
-
-  // }, [address]);
+  useEffect(() => {
+    if (routeDistance?.includes("ft")) {
+      setFiveMileRadius(false);
+    } else if (Number(routeDistance?.replace(/[^0-9\.]+/g, "")) > 5.0) {
+      setFiveMileRadius(true);
+    } else {
+      setFiveMileRadius(false);
+    }
+  }, [routeDistance]);
 
   const handleTip = (tip) => {
     dispatch(addTip(tip));
@@ -385,6 +388,11 @@ const CheckoutInfo = ({ addNewFormData }) => {
         <ContactFormStyled>
           <div className="wrapper">
             <h1 className="delivery-title">Delivery Information</h1>
+            {fiveMileRadius ? (
+              <h1 style={{ color: "red" }} className="check-radius">
+                Delivery distance too far.
+              </h1>
+            ) : null}
             <form id="form" className="form" onSubmit={handleFormSubmit}>
               <div className="form-group">
                 <input

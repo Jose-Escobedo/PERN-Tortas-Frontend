@@ -50,16 +50,22 @@ const CheckoutInfo = ({ addNewFormData }) => {
   useEffect(() => {
     initMapScript().then(() => {
       initAutocomplete();
-      initDirectionsMatrix();
     });
-  }, []);
-
-  useEffect(() => {
     setFormData({
       ...newFormData,
       dropoff_location: address,
     });
   }, [address]);
+
+  // useEffect(() => {
+  //   setFormData({
+  //     ...newFormData,
+  //     dropoff_location: address,
+  //   });
+
+  //     initDirectionsMatrix();
+
+  // }, [address]);
 
   const handleTip = (tip) => {
     dispatch(addTip(tip));
@@ -86,7 +92,28 @@ const CheckoutInfo = ({ addNewFormData }) => {
     });
   }
 
-  const initDirectionsMatrix = () => {
+  // const initDirectionsMatrix = () => {
+  //   const google = window.google;
+  //   var origin1 = new google.maps.LatLng(34.140511, -118.371468);
+  //   var destinationB = new google.maps.LatLng(
+  //     directionsMatrixAddress[0],
+  //     directionsMatrixAddress[1]
+  //   );
+  //   var service = new google.maps.DistanceMatrixService();
+  //   service.getDistanceMatrix(
+  //     {
+  //       origins: [origin1],
+  //       destinations: [destinationB],
+  //       travelMode: "DRIVING",
+  //       unitSystem: google.maps.UnitSystem.IMPERIAL,
+  //     },
+  //     handleRouteDistance
+  //   );
+  // };
+
+  const initAutocomplete = () => {
+    //handle initdirectionsmatrix logic
+
     const google = window.google;
     var origin1 = new google.maps.LatLng(34.140511, -118.371468);
     var destinationB = new google.maps.LatLng(
@@ -103,9 +130,9 @@ const CheckoutInfo = ({ addNewFormData }) => {
       },
       handleRouteDistance
     );
-  };
 
-  const initAutocomplete = () => {
+    //handleautocomplete logic
+
     if (!searchInput.current) return;
 
     const autocomplete = new window.google.maps.places.Autocomplete(
@@ -150,6 +177,7 @@ const CheckoutInfo = ({ addNewFormData }) => {
     dropoff_location,
   } = newFormData;
 
+  //Handle validation for form input
   const enabled =
     email.length > 0 &&
     dropoff_contact_family_name.length > 0 &&
@@ -251,7 +279,6 @@ const CheckoutInfo = ({ addNewFormData }) => {
       place.geometry.location.lat(),
       place.geometry.location.lng(),
     ]);
-    initDirectionsMatrix();
   };
 
   const handleErrorAddress = (e) => {

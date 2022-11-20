@@ -84,7 +84,7 @@ const DeliveryWrapper = styled.div`
 `;
 
 const DeliveryButton = styled.button`
-  padding: 1.3em;
+  padding: 0.7em;
   border: none;
   cursor: pointer;
   font-size: 3rem;
@@ -92,6 +92,24 @@ const DeliveryButton = styled.button`
   margin-bottom: 1.5rem;
   border-radius: 20px;
   background: lightgrey;
+  box-shadow: 2 2px 3px rgba(0, 0, 0.1, 0.1);
+  -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  :hover {
+    transform: scale(1.1);
+  }
+  :after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    right: 0;
+    left: 0;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
 
   .click-btn {
     display: flex;
@@ -121,12 +139,6 @@ const DeliveryButton = styled.button`
       content: "";
     }
 
-    &::before {
-      width: 100%;
-      left: 0;
-      background-color: white;
-      z-index: -1;
-    }
     &::after {
       width: 0;
       left: 50%;
@@ -161,7 +173,7 @@ const PickupWrapper = styled.div`
 `;
 
 const PickupButton = styled.button`
-  padding: 1.3em;
+  padding: 0.7em;
   border: none;
   cursor: pointer;
   font-size: 3rem;
@@ -169,6 +181,24 @@ const PickupButton = styled.button`
   margin-bottom: 1.5rem;
   border-radius: 20px;
   background: lightgrey;
+  box-shadow: 2 2px 3px rgba(0, 0, 0.1, 0.1);
+  -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  :hover {
+    transform: scale(1.1);
+  }
+  :after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    right: 0;
+    left: 0;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
 
   .click-btn {
     display: flex;
@@ -196,13 +226,6 @@ const PickupButton = styled.button`
       top: 0;
       transition: all 0.3s;
       content: "";
-    }
-
-    &::before {
-      width: 100%;
-      left: 0;
-      background-color: white;
-      z-index: -1;
     }
     &::after {
       width: 0;

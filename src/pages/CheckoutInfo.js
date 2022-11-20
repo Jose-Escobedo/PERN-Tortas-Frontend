@@ -623,6 +623,7 @@ const ContactFormStyled = styled.div`
     border-top: none;
     border-right: none;
     border-left: none;
+
     ::placeholder {
       /* Chrome, Firefox, Opera, Safari 10.1+ */
       color: white;

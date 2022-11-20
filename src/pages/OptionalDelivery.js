@@ -5,6 +5,7 @@ import Navbar from "../components/Navbar";
 import { useDispatch } from "react-redux";
 import deliverySvg from "../images/delivery.svg";
 import pickupSvg from "../images/pickup.svg";
+import { Link } from "react-router-dom";
 
 const OptionalDelivery = ({}) => {
   const dispatch = useDispatch();
@@ -17,11 +18,17 @@ const OptionalDelivery = ({}) => {
           <h1>This Order is for...</h1>
           <TwoBoxContainer>
             <DeliveryWrapper>
-              <DeliveryButton>Delivery</DeliveryButton>
+              <Link to="/checkout" style={{ width: "100%" }}>
+                <DeliveryButton>
+                  <h3 className="click-btn delivery">Delivery</h3>
+                </DeliveryButton>
+              </Link>
               <img src={deliverySvg}></img>
             </DeliveryWrapper>
             <PickupWrapper>
-              <PickupButton>Pickup</PickupButton>
+              <PickupButton>
+                <h3 className="click-btn pickup">Pickup</h3>
+              </PickupButton>
               <img src={pickupSvg}></img>
             </PickupWrapper>
           </TwoBoxContainer>
@@ -84,6 +91,61 @@ const DeliveryButton = styled.button`
   width: 100%;
   margin-bottom: 1.5rem;
   border-radius: 20px;
+  background: lightgrey;
+
+  .click-btn {
+    display: flex;
+    width: 100%;
+    height: 100px;
+    justify-content: center;
+    align-items: center;
+    margin: 0.5rem;
+    line-height: 35px;
+    border: 1px solid;
+    text-align: center;
+    font-size: 3rem;
+    text-decoration: none;
+    transition: all 0.35s;
+    box-sizing: border-box;
+  }
+  .delivery {
+    position: relative;
+    border-color: transparent;
+    color: black;
+    &::before,
+    &::after {
+      height: 100%;
+      position: absolute;
+      top: 0;
+      transition: all 0.3s;
+      content: "";
+    }
+
+    &::before {
+      width: 100%;
+      left: 0;
+      background-color: white;
+      z-index: -1;
+    }
+    &::after {
+      width: 0;
+      left: 50%;
+      border-bottom: 1px solid transparent;
+      transform: translate(-50%, 0);
+      z-index: 1;
+    }
+    &:hover {
+      color: rgb(116, 13, 24);
+      &::before {
+        transform: scale(0, 1);
+      }
+      &::after {
+        width: 100%;
+        border-color: black;
+        transition-delay: 0.2s;
+      }
+    }
+  }
 `;
 
 const PickupWrapper = styled.div`
@@ -106,5 +168,60 @@ const PickupButton = styled.button`
   width: 100%;
   margin-bottom: 1.5rem;
   border-radius: 20px;
+  background: lightgrey;
+
+  .click-btn {
+    display: flex;
+    width: 100%;
+    height: 100px;
+    justify-content: center;
+    align-items: center;
+    margin: 0.5rem;
+    line-height: 35px;
+    border: 1px solid;
+    text-align: center;
+    font-size: 3rem;
+    text-decoration: none;
+    transition: all 0.35s;
+    box-sizing: border-box;
+  }
+  .pickup {
+    position: relative;
+    border-color: transparent;
+    color: black;
+    &::before,
+    &::after {
+      height: 100%;
+      position: absolute;
+      top: 0;
+      transition: all 0.3s;
+      content: "";
+    }
+
+    &::before {
+      width: 100%;
+      left: 0;
+      background-color: white;
+      z-index: -1;
+    }
+    &::after {
+      width: 0;
+      left: 50%;
+      border-bottom: 1px solid transparent;
+      transform: translate(-50%, 0);
+      z-index: 1;
+    }
+    &:hover {
+      color: rgb(13, 34, 116);
+      &::before {
+        transform: scale(0, 1);
+      }
+      &::after {
+        width: 100%;
+        border-color: black;
+        transition-delay: 0.2s;
+      }
+    }
+  }
 `;
 export default OptionalDelivery;

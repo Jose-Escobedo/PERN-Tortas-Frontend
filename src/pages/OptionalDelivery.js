@@ -3,6 +3,8 @@ import styled from "styled-components";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { useDispatch } from "react-redux";
+import deliverySvg from "../images/delivery.svg";
+import pickupSvg from "../images/pickup.svg";
 
 const OptionalDelivery = ({}) => {
   const dispatch = useDispatch();
@@ -14,8 +16,14 @@ const OptionalDelivery = ({}) => {
         <Wrapper>
           <h1>This Order is for...</h1>
           <TwoBoxContainer>
-            <DeliveryButton>Delivery</DeliveryButton>
-            <PickupButton>Pickup</PickupButton>
+            <DeliveryWrapper>
+              <DeliveryButton>Delivery</DeliveryButton>
+              <img src={deliverySvg}></img>
+            </DeliveryWrapper>
+            <PickupWrapper>
+              <PickupButton>Pickup</PickupButton>
+              <img src={pickupSvg}></img>
+            </PickupWrapper>
           </TwoBoxContainer>
         </Wrapper>
       </OptionalDeliveryContainer>
@@ -56,19 +64,47 @@ const Wrapper = styled.div`
   align-items: center;
 `;
 
+const DeliveryWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  width: 40%;
+  img {
+    width: 250px;
+    height: 250px;
+  }
+`;
+
 const DeliveryButton = styled.button`
-  padding: 2em;
+  padding: 1.3em;
   border: none;
   cursor: pointer;
   font-size: 3rem;
-  width: 35%;
+  width: 100%;
+  margin-bottom: 1.5rem;
+  border-radius: 20px;
+`;
+
+const PickupWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 40%;
+  align-items: center;
+  img {
+    width: 250px;
+    height: 250px;
+  }
 `;
 
 const PickupButton = styled.button`
-  padding: 2em;
+  padding: 1.3em;
   border: none;
   cursor: pointer;
-  width: 35%;
   font-size: 3rem;
+  width: 100%;
+  margin-bottom: 1.5rem;
+  border-radius: 20px;
 `;
 export default OptionalDelivery;

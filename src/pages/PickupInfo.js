@@ -17,7 +17,15 @@ const PickupInfo = () => {
 
   const [tipTotal, setTipTotal] = useState(0);
   const [cartTotal, setCartTotal] = useState(cart.total);
-  const [address, setAddress] = useState("");
+  const [emptyTip, setEmptyTip] = useState();
+
+  function checkForEmptyTip() {
+    if (newFormData.tip === "") {
+      setEmptyTip(true);
+    } else {
+      setEmptyTip(false);
+    }
+  }
 
   const handleTip = (tip) => {
     dispatch(addTip(tip));
@@ -42,6 +50,10 @@ const PickupInfo = () => {
     dropoff_instructions,
     tip,
   } = newFormData;
+
+  useEffect(() => {
+    checkForEmptyTip();
+  }, [newFormData.tip]);
 
   //Handle validation for form input
   const enabled =
@@ -243,10 +255,17 @@ const PickupInfo = () => {
                     $ {cart.subtotal.toFixed(2)}
                   </SummaryItemPrice>
                 </SummaryItem>
-                <SummaryItem>
-                  <SummaryItemText>Tip</SummaryItemText>
-                  <SummaryItemPrice>$ {newFormData.tip}</SummaryItemPrice>
-                </SummaryItem>
+                {emptyTip ? (
+                  <SummaryItem>
+                    <SummaryItemText>Tip</SummaryItemText>
+                    <SummaryItemPrice>$ 0</SummaryItemPrice>
+                  </SummaryItem>
+                ) : (
+                  <SummaryItem>
+                    <SummaryItemText>Tip</SummaryItemText>
+                    <SummaryItemPrice>$ {newFormData.tip}</SummaryItemPrice>
+                  </SummaryItem>
+                )}
                 <SummaryItem>
                   <SummaryItemText>Taxes</SummaryItemText>
                   <SummaryItemPrice>$ {cart.taxes.toFixed(2)}</SummaryItemPrice>

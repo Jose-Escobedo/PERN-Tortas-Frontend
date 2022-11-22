@@ -23,9 +23,18 @@ const CheckoutInfo = ({ addNewFormData }) => {
   ]);
   const [fiveMileRadius, setFiveMileRadius] = useState();
   const [routeDistance, setRouteDistance] = useState();
+  const [emptyTip, setEmptyTip] = useState();
 
   const mapApiJs = "https://maps.googleapis.com/maps/api/js";
   const apiKey = process.env.REACT_APP_PLACES;
+
+  function checkForEmptyTip() {
+    if (newFormData.tip === "") {
+      setEmptyTip(true);
+    } else {
+      setEmptyTip(false);
+    }
+  }
 
   const handleRouteDistance = (response, status) => {
     if (status == "OK") {
@@ -179,6 +188,10 @@ const CheckoutInfo = ({ addNewFormData }) => {
     tip,
     dropoff_location,
   } = newFormData;
+
+  useEffect(() => {
+    checkForEmptyTip();
+  }, [newFormData.tip]);
 
   //Handle validation for form input
   const enabled =
@@ -498,10 +511,17 @@ const CheckoutInfo = ({ addNewFormData }) => {
                     <SummaryItemText>Delivery Fee</SummaryItemText>
                     <SummaryItemPrice>$4.99</SummaryItemPrice>
                   </SummaryItem>
-                  <SummaryItem>
-                    <SummaryItemText>Tip</SummaryItemText>
-                    <SummaryItemPrice>$ {newFormData.tip}</SummaryItemPrice>
-                  </SummaryItem>
+                  {emptyTip ? (
+                    <SummaryItem>
+                      <SummaryItemText>Tip</SummaryItemText>
+                      <SummaryItemPrice>$ 0</SummaryItemPrice>
+                    </SummaryItem>
+                  ) : (
+                    <SummaryItem>
+                      <SummaryItemText>Tip</SummaryItemText>
+                      <SummaryItemPrice>$ {newFormData.tip}</SummaryItemPrice>
+                    </SummaryItem>
+                  )}
                   <SummaryItem>
                     <SummaryItemText>Taxes</SummaryItemText>
                     <SummaryItemPrice>

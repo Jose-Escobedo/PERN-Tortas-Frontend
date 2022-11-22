@@ -18,17 +18,19 @@ const OptionalDelivery = ({}) => {
           <h1>This Order is for...</h1>
           <TwoBoxContainer>
             <DeliveryWrapper>
-              <Link to="/checkout" style={{ width: "100%" }}>
+              <DeliveryLink to="/checkout">
                 <DeliveryButton>
                   <h3 className="click-btn delivery">Delivery</h3>
                 </DeliveryButton>
-              </Link>
+              </DeliveryLink>
               <img src={deliverySvg}></img>
             </DeliveryWrapper>
             <PickupWrapper>
-              <PickupButton>
-                <h3 className="click-btn pickup">Pickup</h3>
-              </PickupButton>
+              <PickupLink to="/pickupcheckout">
+                <PickupButton>
+                  <h3 className="click-btn pickup">Pickup</h3>
+                </PickupButton>
+              </PickupLink>
               <img src={pickupSvg}></img>
             </PickupWrapper>
           </TwoBoxContainer>
@@ -40,8 +42,10 @@ const OptionalDelivery = ({}) => {
 };
 
 const OptionalDeliveryContainer = styled.div`
+  margin-top: 70px;
   min-height: 80vh;
-  min-width: 100%;
+  max-width: 100%;
+  overflow: hidden;
   padding: 5em 0em;
   display: flex;
   flex-direction: column;
@@ -59,7 +63,7 @@ const OptionalDeliveryContainer = styled.div`
 const TwoBoxContainer = styled.div`
   display: flex;
   justify-content: space-evenly;
-  width: 80%;
+  width: 100%;
   align-items: center;
   padding: 3em 0em;
 `;
@@ -69,6 +73,7 @@ const Wrapper = styled.div`
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 `;
 
 const DeliveryWrapper = styled.div`
@@ -78,13 +83,17 @@ const DeliveryWrapper = styled.div`
   align-items: center;
   width: 40%;
   img {
-    width: 250px;
-    height: 250px;
+    width: 200px;
+    height: 200px;
   }
 `;
 
+const DeliveryLink = styled(Link)`
+  width: 100%;
+`;
+
 const DeliveryButton = styled.button`
-  padding: 0.7em;
+  padding: 0.5em;
   border: none;
   cursor: pointer;
   font-size: 3rem;
@@ -117,7 +126,7 @@ const DeliveryButton = styled.button`
     height: 100px;
     justify-content: center;
     align-items: center;
-    margin: 0.5rem;
+    margin: 0.5rem 0;
     line-height: 35px;
     border: 1px solid;
     text-align: center;
@@ -164,16 +173,20 @@ const PickupWrapper = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
-  width: 40%;
   align-items: center;
+  width: 40%;
   img {
-    width: 250px;
-    height: 250px;
+    width: 200px;
+    height: 200px;
   }
 `;
 
+const PickupLink = styled(Link)`
+  width: 100%;
+`;
+
 const PickupButton = styled.button`
-  padding: 0.7em;
+  padding: 0.5em;
   border: none;
   cursor: pointer;
   font-size: 3rem;
@@ -206,7 +219,7 @@ const PickupButton = styled.button`
     height: 100px;
     justify-content: center;
     align-items: center;
-    margin: 0.5rem;
+    margin: 0.5rem 0;
     line-height: 35px;
     border: 1px solid;
     text-align: center;

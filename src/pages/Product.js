@@ -109,7 +109,9 @@ const StyledToastContainer = styled(ToastContainer).attrs({
   }
 `;
 
-const Container = styled.div``;
+const Container = styled.div`
+  margin-top: 70px;
+`;
 const Wrapper = styled.div`
   padding: 50px;
   display: flex;

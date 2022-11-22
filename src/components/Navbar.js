@@ -91,7 +91,11 @@ const Navbar = () => {
 const Container = styled.div`
   height: 60px;
   padding-bottom: 2em;
-
+  z-index: 5;
+  background: white;
+  position: fixed;
+  top: 0;
+  width: 100%;
   ${mobile({ height: "50px" })}
 `;
 

@@ -94,6 +94,7 @@ const Orders = () => {
 };
 
 const Container = styled.div`
+  margin-top: 70px;
   min-height: 100vh;
   width: 100%;
   display: flex;

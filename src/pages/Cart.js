@@ -38,7 +38,6 @@ const Cart = () => {
     <Container>
       <Navbar />
       <Wrapper>
-        <Title>YOUR CART</Title>
         <Top>
           <Link to="/">
             <TopButton>CONTINUE SHOPPING</TopButton>
@@ -143,7 +142,9 @@ const Cart = () => {
   );
 };
 
-const Container = styled.div``;
+const Container = styled.div`
+  margin-top: 70px;
+`;
 const Wrapper = styled.div`
   padding: 1.3em;
   ${mobile({ padding: "10px" })}

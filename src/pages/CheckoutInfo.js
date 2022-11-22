@@ -499,7 +499,7 @@ const CheckoutInfo = ({ addNewFormData }) => {
                   </SummaryItem>
                   <SummaryItem>
                     <SummaryItemText>Tip</SummaryItemText>
-                    <SummaryItemPrice>$ {cart.tip}</SummaryItemPrice>
+                    <SummaryItemPrice>$ {newFormData.tip}</SummaryItemPrice>
                   </SummaryItem>
                   <SummaryItem>
                     <SummaryItemText>Taxes</SummaryItemText>
@@ -548,8 +548,10 @@ const CheckoutInfo = ({ addNewFormData }) => {
 };
 
 const ContactFormStyled = styled.div`
+  margin-top: 70px;
   min-height: 100%;
-  min-width: 100%;
+  max-width: 100%;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   border: 1px solid black;
@@ -567,7 +569,7 @@ const ContactFormStyled = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 2em 1em;
+    padding: 3em 1em;
     position: relative;
     width: 100%;
 

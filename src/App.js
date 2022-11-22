@@ -35,7 +35,7 @@ function App() {
         <Route exact path="/products" element={<ProductList />} />
         <Route exact path="/product/:id" element={<Product />} />
         <Route exact path="/success" element={<Success />} />
-        <Route exact path="/checkout" element={<CheckoutInfo />} />
+        <Route exact path="/deliverycheckout" element={<CheckoutInfo />} />
         <Route exact path="/optionaldelivery" element={<OptionalDelivery />} />
         <Route
           exact

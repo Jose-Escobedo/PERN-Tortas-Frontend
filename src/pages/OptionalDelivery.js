@@ -18,7 +18,7 @@ const OptionalDelivery = ({}) => {
           <h1>This Order is for...</h1>
           <TwoBoxContainer>
             <DeliveryWrapper>
-              <DeliveryLink to="/checkout">
+              <DeliveryLink to="/deliverycheckout">
                 <DeliveryButton>
                   <h3 className="click-btn delivery">Delivery</h3>
                 </DeliveryButton>
@@ -46,7 +46,7 @@ const OptionalDeliveryContainer = styled.div`
   min-height: 80vh;
   max-width: 100%;
   overflow: hidden;
-  padding: 5em 0em;
+  padding: 4.5em 0em;
   display: flex;
   justify-content: center;
   flex-direction: column;

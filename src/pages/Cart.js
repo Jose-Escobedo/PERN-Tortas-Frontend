@@ -46,7 +46,7 @@ const Cart = () => {
             <TopText>Shopping Cart ({cart.quantity})</TopText>
           </TopTexts>
           {isGreaterThanTwenty ? (
-            <Link to="/checkout">
+            <Link to="/optionaldelivery">
               <TopButton type="filled">CHECKOUT NOW</TopButton>
             </Link>
           ) : null}

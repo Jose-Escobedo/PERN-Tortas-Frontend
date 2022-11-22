@@ -306,33 +306,33 @@ const CheckoutInfo = ({ addNewFormData }) => {
     });
   };
 
-  const handleOrderCreation = (e) => {
-    fetch("http://localhost:5000/api/orders", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        _id: user._id,
-        products: cart.products,
-        quantity: cart.quantity,
-        taxes: cart.taxes,
-        tip: cart.tip,
-        phone: newFormData.dropoff_phone_number,
-        subtotal: cart.subtotal,
-        address: address,
-        email: newFormData.email,
-        delivery: 4.99,
-        total: cart.total,
-        totalWithTip: cartTotal,
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("submitted", data);
-      });
-  };
+  // const handleOrderCreation = (e) => {
+  //   fetch("http://localhost:5000/api/orders", {
+  //     method: "POST",
+  //     headers: {
+  //       Accept: "application/json",
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       _id: user._id,
+  //       products: cart.products,
+  //       quantity: cart.quantity,
+  //       taxes: cart.taxes,
+  //       tip: cart.tip,
+  //       phone: newFormData.dropoff_phone_number,
+  //       subtotal: cart.subtotal,
+  //       address: address,
+  //       email: newFormData.email,
+  //       delivery: 4.99,
+  //       total: cart.total,
+  //       totalWithTip: cartTotal,
+  //     }),
+  //   })
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       console.log("submitted", data);
+  //     });
+  // };
 
   function tipValidation(evt) {
     var theEvent = evt || window.event;
@@ -387,6 +387,7 @@ const CheckoutInfo = ({ addNewFormData }) => {
           tip: newFormData.tip,
           email: newFormData.email,
           taxes: cart.taxes,
+          pickup: false,
           totalWithTip: cartTotal.toFixed(2),
           subtotal: cart.subtotal,
           total: cartTotal.toFixed(2),

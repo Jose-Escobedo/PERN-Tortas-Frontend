@@ -32,8 +32,6 @@ const Cart = () => {
     dispatch(incrementQuantity(item));
   };
 
-  const isGreaterThanTwenty = cart.subtotal > 20;
-
   return (
     <Container>
       <Navbar />
@@ -45,11 +43,10 @@ const Cart = () => {
           <TopTexts>
             <TopText>Shopping Cart ({cart.quantity})</TopText>
           </TopTexts>
-          {isGreaterThanTwenty ? (
-            <Link to="/optionaldelivery">
-              <TopButton type="filled">CHECKOUT NOW</TopButton>
-            </Link>
-          ) : null}
+
+          <Link to="/optionaldelivery">
+            <TopButton type="filled">CHECKOUT NOW</TopButton>
+          </Link>
         </Top>
         <Bottom>
           <Info>
@@ -111,28 +108,24 @@ const Cart = () => {
               <SummaryItemText>Subtotal</SummaryItemText>
               <SummaryItemPrice>$ {cart.subtotal.toFixed(2)}</SummaryItemPrice>
             </SummaryItem>
-            <SummaryItem>
+            {/* <SummaryItem>
               <SummaryItemText>Delivery Fee</SummaryItemText>
               <SummaryItemPrice>$4.99</SummaryItemPrice>
-            </SummaryItem>
+            </SummaryItem> */}
             <SummaryItem>
               <SummaryItemText>Taxes</SummaryItemText>
               <SummaryItemPrice>$ {cart.taxes.toFixed(2)}</SummaryItemPrice>
             </SummaryItem>
             <SummaryItem type="total">
               <SummaryItemText>Total</SummaryItemText>
-              <SummaryItemPrice>$ {cart.total.toFixed(2)}</SummaryItemPrice>
+              <SummaryItemPrice>
+                $ {(cart.total.toFixed(2) - 4.99).toFixed(2)}
+              </SummaryItemPrice>
             </SummaryItem>
-            {isGreaterThanTwenty ? (
-              <Link to="/optionaldelivery">
-                <Button>CHECKOUT NOW</Button>
-              </Link>
-            ) : (
-              <MinimumText>
-                Delivery subtotal minimum of $20 not met. Please add more items
-                to cart.
-              </MinimumText>
-            )}
+
+            <Link to="/optionaldelivery">
+              <Button>CHECKOUT NOW</Button>
+            </Link>
           </Summary>
         </Bottom>
       </Wrapper>

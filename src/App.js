@@ -12,9 +12,12 @@ import "@stripe/stripe-js";
 import CheckoutInfo from "./pages/CheckoutInfo";
 import Orders from "./pages/Orders";
 import OptionalDelivery from "./pages/OptionalDelivery";
+import InsufficientSubtotal from "./pages/InsufficientSubtotal";
 
 function App() {
   const user = useSelector((state) => state.user.currentUser);
+  const cart = useSelector((state) => state.cart);
+  const isLessThanTwenty = cart.subtotal < 20;
 
   return (
     <>
@@ -37,6 +40,17 @@ function App() {
         <Route exact path="/success" element={<Success />} />
         <Route exact path="/deliverycheckout" element={<CheckoutInfo />} />
         <Route exact path="/optionaldelivery" element={<OptionalDelivery />} />
+        <Route
+          exact
+          path="/insufficentsubtotal"
+          element={
+            isLessThanTwenty ? (
+              <InsufficientSubtotal />
+            ) : (
+              <Navigate to="/optionaldelivery" />
+            )
+          }
+        />
         <Route
           exact
           path="/orders"

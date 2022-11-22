@@ -12,7 +12,9 @@ const Success = ({ address }) => {
   return (
     <>
       <Navbar />
-      <SuccessContainer>Thank You for your Order!</SuccessContainer>
+      <SuccessContainer>
+        <SuccessText>Thank you for your order!</SuccessText>
+      </SuccessContainer>
       <Footer />
     </>
   );
@@ -22,5 +24,14 @@ export const SuccessContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 100vh;
+  width: 100%;
 `;
+
+const SuccessText = styled.div`
+  color: red;
+  font-weight: bold;
+  font-size: 1.5rem;
+`;
+
 export default Success;

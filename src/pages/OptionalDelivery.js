@@ -2,13 +2,15 @@ import React from "react";
 import styled from "styled-components";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import deliverySvg from "../images/delivery.svg";
 import pickupSvg from "../images/pickup.svg";
 import { Link } from "react-router-dom";
 
 const OptionalDelivery = ({}) => {
   const dispatch = useDispatch();
+  const cart = useSelector((state) => state.cart);
+  const isGreaterThanTwenty = cart.subtotal > 20;
 
   return (
     <>
@@ -17,14 +19,25 @@ const OptionalDelivery = ({}) => {
         <Wrapper>
           <h1>This Order is for...</h1>
           <TwoBoxContainer>
-            <DeliveryWrapper>
-              <DeliveryLink to="/deliverycheckout">
-                <DeliveryButton>
-                  <h3 className="click-btn delivery">Delivery</h3>
-                </DeliveryButton>
-              </DeliveryLink>
-              <img src={deliverySvg}></img>
-            </DeliveryWrapper>
+            {isGreaterThanTwenty ? (
+              <DeliveryWrapper>
+                <DeliveryLink to="/deliverycheckout">
+                  <DeliveryButton>
+                    <h3 className="click-btn delivery">Delivery</h3>
+                  </DeliveryButton>
+                </DeliveryLink>
+                <img src={deliverySvg}></img>
+              </DeliveryWrapper>
+            ) : (
+              <DeliveryWrapper>
+                <DeliveryLink to="/insufficentsubtotal">
+                  <DeliveryButton>
+                    <h3 className="click-btn delivery">Delivery</h3>
+                  </DeliveryButton>
+                </DeliveryLink>
+                <img src={deliverySvg}></img>
+              </DeliveryWrapper>
+            )}
             <PickupWrapper>
               <PickupLink to="/pickupcheckout">
                 <PickupButton>

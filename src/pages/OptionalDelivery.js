@@ -42,12 +42,13 @@ const OptionalDelivery = ({}) => {
 };
 
 const OptionalDeliveryContainer = styled.div`
-  margin-top: 70px;
+  margin-top: 60px;
   min-height: 80vh;
   max-width: 100%;
   overflow: hidden;
   padding: 5em 0em;
   display: flex;
+  justify-content: center;
   flex-direction: column;
   border: 1px solid black;
   color: white;
@@ -63,7 +64,7 @@ const OptionalDeliveryContainer = styled.div`
 const TwoBoxContainer = styled.div`
   display: flex;
   justify-content: space-evenly;
-  width: 100%;
+  width: 60%;
   align-items: center;
   padding: 3em 0em;
 `;
@@ -81,19 +82,19 @@ const DeliveryWrapper = styled.div`
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  width: 40%;
+  width: 50%;
   img {
-    width: 200px;
-    height: 200px;
+    width: 175px;
+    height: 175px;
   }
 `;
 
 const DeliveryLink = styled(Link)`
-  width: 100%;
+  width: 70%;
 `;
 
 const DeliveryButton = styled.button`
-  padding: 0.5em;
+  padding: 0.4em;
   border: none;
   cursor: pointer;
   font-size: 3rem;
@@ -130,7 +131,7 @@ const DeliveryButton = styled.button`
     line-height: 35px;
     border: 1px solid;
     text-align: center;
-    font-size: 3rem;
+    font-size: 2.7rem;
     text-decoration: none;
     transition: all 0.35s;
     box-sizing: border-box;
@@ -174,19 +175,19 @@ const PickupWrapper = styled.div`
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  width: 40%;
+  width: 50%;
   img {
-    width: 200px;
-    height: 200px;
+    width: 175px;
+    height: 175px;
   }
 `;
 
 const PickupLink = styled(Link)`
-  width: 100%;
+  width: 70%;
 `;
 
 const PickupButton = styled.button`
-  padding: 0.5em;
+  padding: 0.4em;
   border: none;
   cursor: pointer;
   font-size: 3rem;
@@ -223,7 +224,7 @@ const PickupButton = styled.button`
     line-height: 35px;
     border: 1px solid;
     text-align: center;
-    font-size: 3rem;
+    font-size: 2.7rem;
     text-decoration: none;
     transition: all 0.35s;
     box-sizing: border-box;

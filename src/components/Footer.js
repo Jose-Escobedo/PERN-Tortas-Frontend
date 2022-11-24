@@ -15,13 +15,19 @@ const Footer = () => {
         </Desc>
         <SocialContainer>
           <SocialIcon color="3B5999">
-            <FaYelp />
+            <a href="https://www.yelp.com/biz/tortas-mexico-studio-city">
+              <FaYelp />
+            </a>
           </SocialIcon>
           <SocialIcon color="f07111">
-            <SiGrubhub style={{ fontSize: "2rem" }} />
+            <a href="https://www.grubhub.com/restaurant/tortas-mexico-11040-ventura-blvd-studio-city/141026">
+              <SiGrubhub style={{ fontSize: "2rem" }} />
+            </a>
           </SocialIcon>
           <SocialIcon color="55ACEE">
-            <FaInstagram />
+            <a href="https://www.instagram.com/tortasmexico_studiocity/">
+              <FaInstagram />
+            </a>
           </SocialIcon>
         </SocialContainer>
       </Left>
@@ -43,18 +49,23 @@ const Footer = () => {
       <Right>
         <Title>Contact</Title>
         <ContactItem>
-          <Room style={{ marginRight: "10px" }} />
-          11040 Ventura Blvd, Studio City CA 91604
+          <a href="https://www.google.com/maps/place/Tortas+Mexico+Restaurant/@34.140505,-118.3736457,17z/data=!3m1!4b1!4m5!3m4!1s0x80c2be150a3a4a87:0x4bb0951e3b36f3c2!8m2!3d34.1405406!4d-118.3715541?hl=en">
+            <Room style={{ marginRight: "10px" }} />
+            11040 Ventura Blvd, Studio City CA 91604
+          </a>
         </ContactItem>
         <ContactItem>
-          <Phone style={{ marginRight: "10px" }} />
-          +1 (818) 760-2571
+          <a href="tel:+18187602571">
+            <Phone style={{ marginRight: "10px" }} />
+            +1 (818) 760-2571
+          </a>
         </ContactItem>
         <ContactItem>
-          <MailOutline style={{ marginRight: "10px" }} />
-          TortasMexico63@gmail.com
+          <a href="mailto:TortasMexico63@gmail.com">
+            <MailOutline style={{ marginRight: "10px" }} />
+            TortasMexico63@gmail.com
+          </a>
         </ContactItem>
-        <Payment src="https://i.ibb.co/Qfvn4z6/payment.png" />
       </Right>
     </Container>
   );
@@ -77,6 +88,10 @@ const Desc = styled.p`
 `;
 const SocialContainer = styled.div`
   display: flex;
+  a {
+    text-decoration: none;
+    color: white;
+  }
 `;
 const SocialIcon = styled.div`
   height: 40px;
@@ -100,6 +115,13 @@ const ContactItem = styled.div`
   margin-bottom: 1.3em;
   display: flex;
   align-items: center;
+  a {
+    text-decoration: none;
+    color: black;
+    padding: 0;
+    display: flex;
+    align-items: center;
+  }
 `;
 
 const Payment = styled.img`

@@ -4,7 +4,6 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { useDispatch } from "react-redux";
 import { clearCart } from "../redux/cartRedux";
-import ordersuccess from "../images/ordersuccess.svg";
 
 const Success = () => {
   const dispatch = useDispatch();

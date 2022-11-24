@@ -160,13 +160,14 @@ const PickupInfo = () => {
           quantity: 1,
           userId: user._id,
           pickup: true,
+          address: "11040 Ventura Boulevard, Studio City, CA, USA",
           phone: newFormData.dropoff_phone_number,
           tip: newFormData.tip,
           email: newFormData.email,
           taxes: cart.taxes,
           totalWithTip: cartTotal.toFixed(2),
           subtotal: cart.subtotal,
-          total: (cart.total.toFixed(2) - 4.99).toFixed(2),
+          total: (cartTotal.toFixed(2) - 4.99).toFixed(2),
           cart: cart,
           contact: newFormData,
         }),
@@ -273,7 +274,7 @@ const PickupInfo = () => {
                 <SummaryItem type="total">
                   <SummaryItemText>Total</SummaryItemText>
                   <SummaryItemPrice>
-                    $ {(cart.total.toFixed(2) - 4.99).toFixed(2)}
+                    $ {(cartTotal.toFixed(2) - 4.99).toFixed(2)}
                   </SummaryItemPrice>
                 </SummaryItem>
               </Summary>

@@ -15,6 +15,7 @@ import OptionalDelivery from "./pages/OptionalDelivery";
 import InsufficientSubtotal from "./pages/InsufficientSubtotal";
 import PickupInfo from "./pages/PickupInfo";
 import InsufficientPickupSubtotal from "./pages/InsufficientPickupSubtotal";
+import Accessibility from "./pages/Accessibility";
 
 function App() {
   const user = useSelector((state) => state.user.currentUser);
@@ -44,6 +45,7 @@ function App() {
         <Route exact path="/deliverycheckout" element={<CheckoutInfo />} />
         <Route exact path="/pickupcheckout" element={<PickupInfo />} />
         <Route exact path="/optionaldelivery" element={<OptionalDelivery />} />
+        <Route exact path="/accessibility" element={<Accessibility />} />
         <Route
           exact
           path="/insufficentsubtotal"

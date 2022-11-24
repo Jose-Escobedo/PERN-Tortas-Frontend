@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import { FaYelp, FaInstagram } from "react-icons/fa";
 import { SiGrubhub } from "react-icons/si";
-import { MailOutline, Phone, Room } from "@material-ui/icons";
+import { Accessibility, MailOutline, Phone, Room } from "@material-ui/icons";
 import { mobile } from "../responsive";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -43,7 +44,11 @@ const Footer = () => {
           <ListItem>Orders</ListItem>
           <ListItem>Wishlist</ListItem>
           <ListItem>Wishlist</ListItem>
-          <ListItem>Terms</ListItem>
+          <ListItem>
+            <AccessibilityLink to="/accessibility">
+              Accessibility
+            </AccessibilityLink>
+          </ListItem>
         </List>
       </Center>
       <Right>
@@ -80,6 +85,11 @@ const Left = styled.div`
   display: flex;
   flex-direction: column;
   padding: 1.3em;
+`;
+
+const AccessibilityLink = styled(Link)`
+  text-decoration: none;
+  color: black;
 `;
 
 const Logo = styled.h1``;
@@ -142,6 +152,7 @@ const List = styled.ul`
 const ListItem = styled.li`
   width: 50%;
   margin-bottom: 10px;
+  cursor: pointer;
 `;
 
 const Center = styled.div`

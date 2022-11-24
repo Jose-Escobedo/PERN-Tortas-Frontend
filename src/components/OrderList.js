@@ -51,16 +51,17 @@ const OrderList = ({ item }) => {
 };
 
 const OrderListContainer = styled.div`
-  display: flex;
+  display: grid;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 40%;
+  width: 100%;
   border-bottom: 2px solid black;
-  transition: transform 0.5s;
+  transition: transform 0.1s;
   background: white;
+  cursor: pointer;
   &:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
     box-shadow: 2px 2px 5px grey, -2px -2px 5px grey;
   }
 `;

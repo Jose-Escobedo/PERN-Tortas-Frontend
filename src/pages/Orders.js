@@ -77,15 +77,17 @@ const Orders = () => {
         <Navbar />
         <Wrapper>
           <Title>{`${user.username.toUpperCase()}'S ORDERS`}</Title>
-          {emptyOrders ? (
-            <>
-              <OrderEmpty>You have not placed an order yet.</OrderEmpty>
-            </>
-          ) : (
-            userOrders?.map((item) => {
-              return <OrderList item={item} key={item._id} />;
-            })
-          )}
+          <OrderListGrid>
+            {emptyOrders ? (
+              <>
+                <OrderEmpty>You have not placed an order yet.</OrderEmpty>
+              </>
+            ) : (
+              userOrders?.map((item) => {
+                return <OrderList item={item} key={item._id} />;
+              })
+            )}
+          </OrderListGrid>
         </Wrapper>
         <Footer />
       </Container>
@@ -99,7 +101,7 @@ const Container = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
 `;
 const Wrapper = styled.div`
   display: flex;
@@ -127,6 +129,14 @@ const OrderEmpty = styled.h1`
   text-align: center;
   padding-bottom: 1em;
   color: white;
+`;
+
+const OrderListGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  grid-auto-rows: minmax(100px, auto);
+  padding: 0 2em;
 `;
 
 export default Orders;

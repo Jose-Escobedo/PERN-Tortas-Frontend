@@ -75,7 +75,7 @@ const Navbar = () => {
             </>
           )}
 
-          <Link to="/cart">
+          <Link to="/cart" style={{ textDecoration: "none", color: "black" }}>
             <NavItem>
               <Badge badgeContent={quantity} color="primary">
                 <ShoppingCartOutlined />

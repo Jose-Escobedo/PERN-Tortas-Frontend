@@ -14,11 +14,13 @@ import Orders from "./pages/Orders";
 import OptionalDelivery from "./pages/OptionalDelivery";
 import InsufficientSubtotal from "./pages/InsufficientSubtotal";
 import PickupInfo from "./pages/PickupInfo";
+import InsufficientPickupSubtotal from "./pages/InsufficientPickupSubtotal";
 
 function App() {
   const user = useSelector((state) => state.user.currentUser);
   const cart = useSelector((state) => state.cart);
   const isLessThanTwenty = cart.subtotal < 20;
+  const isLessThanFive = cart.subtotal < 5;
 
   return (
     <>

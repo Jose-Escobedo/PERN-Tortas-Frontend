@@ -9,10 +9,13 @@ import { addTip, clearCart, setTotal } from "../redux/cartRedux";
 import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
 
+import InsufficientPickupSubtotal from "./InsufficientPickupSubtotal";
+
 const PickupInfo = () => {
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const isGreaterThanFive = cart.subtotal > 5;
   const user = useSelector((state) => state.user.currentUser);
 
   const [tipTotal, setTipTotal] = useState(0);
@@ -181,125 +184,133 @@ const PickupInfo = () => {
 
   return (
     <>
-      <Navbar />
-      <ContactFormStyled>
-        <div className="wrapper">
-          <h1 className="delivery-title">Pickup Information</h1>
-          <form id="form" className="form" onSubmit={handleFormSubmit}>
-            <div className="form-group">
-              <input
-                type="text"
-                id="first-name"
-                placeholder="FIRST NAME"
-                name="dropoff_contact_given_name"
-                value={newFormData.dropoff_contact_given_name}
-                onChange={handleFirstNameChange}
-                required
-              />
-              <input
-                type="text"
-                id="last-name"
-                placeholder="LAST NAME"
-                name="dropoff_contact_family_name"
-                value={newFormData.dropoff_contact_family_name}
-                onChange={handleLastNameChange}
-                required
-              />
-              <input
-                type="email"
-                id="email"
-                placeholder="EMAIL"
-                name="email"
-                value={newFormData.email}
-                onChange={handleEmailChange}
-                required
-              />
-              <input
-                type="text"
-                id="phone"
-                placeholder="PHONE"
-                name="dropoff_phone_number"
-                value={newFormData.dropoff_phone_number}
-                onChange={handlePhoneChange}
-                required
-              />
+      {isGreaterThanFive ? (
+        <>
+          <Navbar />
+          <ContactFormStyled>
+            <div className="wrapper">
+              <h1 className="delivery-title">Pickup Information</h1>
+              <form id="form" className="form" onSubmit={handleFormSubmit}>
+                <div className="form-group">
+                  <input
+                    type="text"
+                    id="first-name"
+                    placeholder="FIRST NAME"
+                    name="dropoff_contact_given_name"
+                    value={newFormData.dropoff_contact_given_name}
+                    onChange={handleFirstNameChange}
+                    required
+                  />
+                  <input
+                    type="text"
+                    id="last-name"
+                    placeholder="LAST NAME"
+                    name="dropoff_contact_family_name"
+                    value={newFormData.dropoff_contact_family_name}
+                    onChange={handleLastNameChange}
+                    required
+                  />
+                  <input
+                    type="email"
+                    id="email"
+                    placeholder="EMAIL"
+                    name="email"
+                    value={newFormData.email}
+                    onChange={handleEmailChange}
+                    required
+                  />
+                  <input
+                    type="text"
+                    id="phone"
+                    placeholder="PHONE"
+                    name="dropoff_phone_number"
+                    value={newFormData.dropoff_phone_number}
+                    onChange={handlePhoneChange}
+                    required
+                  />
 
-              <input
-                type="text"
-                id="tip"
-                placeholder="TIP FOR STAFF"
-                name="tip"
-                value={newFormData.tip}
-                onKeyPress={tipValidation}
-                onPaste={(e) => {
-                  e.preventDefault();
-                  return false;
-                }}
-                maxlength="3"
-                onChange={handleTipChange}
-              />
+                  <input
+                    type="text"
+                    id="tip"
+                    placeholder="TIP FOR STAFF"
+                    name="tip"
+                    value={newFormData.tip}
+                    onKeyPress={tipValidation}
+                    onPaste={(e) => {
+                      e.preventDefault();
+                      return false;
+                    }}
+                    maxlength="3"
+                    onChange={handleTipChange}
+                  />
 
-              <textarea
-                rows="6"
-                placeholder="INSTRUCTIONS FOR KITCHEN"
-                name="dropoff_instructions"
-                id="dropoff_instructions"
-                value={newFormData.dropoff_instructions}
-                onChange={handleInstructionsChange}
-              ></textarea>
+                  <textarea
+                    rows="6"
+                    placeholder="INSTRUCTIONS FOR KITCHEN"
+                    name="dropoff_instructions"
+                    id="dropoff_instructions"
+                    value={newFormData.dropoff_instructions}
+                    onChange={handleInstructionsChange}
+                  ></textarea>
 
-              <Summary>
-                <SummaryTitle>ORDER SUMMARY</SummaryTitle>
-                <SummaryItem>
-                  <SummaryItemText>Subtotal</SummaryItemText>
-                  <SummaryItemPrice>
-                    $ {cart.subtotal.toFixed(2)}
-                  </SummaryItemPrice>
-                </SummaryItem>
-                {emptyTip ? (
-                  <SummaryItem>
-                    <SummaryItemText>Tip</SummaryItemText>
-                    <SummaryItemPrice>$ 0</SummaryItemPrice>
-                  </SummaryItem>
-                ) : (
-                  <SummaryItem>
-                    <SummaryItemText>Tip</SummaryItemText>
-                    <SummaryItemPrice>$ {newFormData.tip}</SummaryItemPrice>
-                  </SummaryItem>
-                )}
-                <SummaryItem>
-                  <SummaryItemText>Taxes</SummaryItemText>
-                  <SummaryItemPrice>$ {cart.taxes.toFixed(2)}</SummaryItemPrice>
-                </SummaryItem>
-                <SummaryItem type="total">
-                  <SummaryItemText>Total</SummaryItemText>
-                  <SummaryItemPrice>
-                    $ {(cartTotal.toFixed(2) - 4.99).toFixed(2)}
-                  </SummaryItemPrice>
-                </SummaryItem>
-              </Summary>
+                  <Summary>
+                    <SummaryTitle>ORDER SUMMARY</SummaryTitle>
+                    <SummaryItem>
+                      <SummaryItemText>Subtotal</SummaryItemText>
+                      <SummaryItemPrice>
+                        $ {cart.subtotal.toFixed(2)}
+                      </SummaryItemPrice>
+                    </SummaryItem>
+                    {emptyTip ? (
+                      <SummaryItem>
+                        <SummaryItemText>Tip</SummaryItemText>
+                        <SummaryItemPrice>$ 0</SummaryItemPrice>
+                      </SummaryItem>
+                    ) : (
+                      <SummaryItem>
+                        <SummaryItemText>Tip</SummaryItemText>
+                        <SummaryItemPrice>$ {newFormData.tip}</SummaryItemPrice>
+                      </SummaryItem>
+                    )}
+                    <SummaryItem>
+                      <SummaryItemText>Taxes</SummaryItemText>
+                      <SummaryItemPrice>
+                        $ {cart.taxes.toFixed(2)}
+                      </SummaryItemPrice>
+                    </SummaryItem>
+                    <SummaryItem type="total">
+                      <SummaryItemText>Total</SummaryItemText>
+                      <SummaryItemPrice>
+                        $ {(cartTotal.toFixed(2) - 4.99).toFixed(2)}
+                      </SummaryItemPrice>
+                    </SummaryItem>
+                  </Summary>
 
-              <button
-                className="send-button"
-                id="submit"
-                type="submit"
-                value="SEND"
-              >
-                <span className="send-text">CONTINUE TO PAYMENT</span>
-                <BsArrowRight style={{ color: "white" }} />
-              </button>
+                  <button
+                    className="send-button"
+                    id="submit"
+                    type="submit"
+                    value="SEND"
+                  >
+                    <span className="send-text">CONTINUE TO PAYMENT</span>
+                    <BsArrowRight style={{ color: "white" }} />
+                  </button>
+                </div>
+              </form>
+
+              <div className="bottom-info-container">
+                <div>Securely processed by Stripe</div>
+                <div className="copyright">
+                  Tortas Mexico Studio City &copy;2022
+                </div>
+              </div>
             </div>
-          </form>
-
-          <div className="bottom-info-container">
-            <div>Securely processed by Stripe</div>
-            <div className="copyright">
-              Tortas Mexico Studio City &copy;2022
-            </div>
-          </div>
-        </div>
-      </ContactFormStyled>
-      <Footer />
+          </ContactFormStyled>
+          <Footer />
+        </>
+      ) : (
+        <InsufficientPickupSubtotal />
+      )}
     </>
   );
 };

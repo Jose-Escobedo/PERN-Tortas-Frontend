@@ -3,14 +3,13 @@ import styled from "styled-components";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 
-const InsufficientSubtotal = () => {
+const InsufficientPickupSubtotal = () => {
   return (
     <>
       <Navbar />
       <InsufficientSubtotalContainer>
         <MinimumText>
-          Delivery subtotal minimum of $20 not met. Please add more items to
-          cart.
+          Pickup subtotal minimum of $5 not met. Please add more items to cart.
         </MinimumText>
       </InsufficientSubtotalContainer>
       <Footer />
@@ -37,4 +36,4 @@ const MinimumText = styled.div`
   font-weight: bold;
   font-size: 1.5rem;
 `;
-export default InsufficientSubtotal;
+export default InsufficientPickupSubtotal;

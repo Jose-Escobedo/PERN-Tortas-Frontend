@@ -165,7 +165,7 @@ const CheckoutInfo = ({ addNewFormData }) => {
 
   const searchInput = useRef(null);
 
-  const isGreaterThanTwenty = cart.subtotal > 20;
+  const isGreaterThanTwenty = cart.subtotal > 11.96;
 
   const blankForm = {
     dropoff_contact_given_name: "",
@@ -558,7 +558,7 @@ const CheckoutInfo = ({ addNewFormData }) => {
         </ContactFormStyled>
       ) : (
         <MinimumText>
-          Delivery subtotal minimum of $20 not met. Please add more items to
+          Delivery subtotal minimum of $11.97 not met. Please add more items to
           cart.
         </MinimumText>
       )}

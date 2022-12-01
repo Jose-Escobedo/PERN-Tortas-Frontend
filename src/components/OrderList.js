@@ -6,6 +6,9 @@ import tacoHuman from "../images/tacoHuman.png";
 
 const OrderList = ({ item }) => {
   const [products, setProducts] = useState([]);
+  const pickupObj = item.pickup;
+  const tipObj = item.tip;
+
   useEffect(() => {
     // const getProducts = () => {
     //   fetch(
@@ -39,11 +42,12 @@ const OrderList = ({ item }) => {
           <h2>{`${item.products.map(
             (innerItem) => `${innerItem.quantity} ${innerItem.name} `
           )}`}</h2>
-          <h2>{`Tip: $ ${item.tip}`}</h2>
+          {tipObj ? <h2>{`Tip: $ ${item.tip}`}</h2> : <h2>{`Tip: $ 0`}</h2>}
           <h2>{`Order Total: ${(item.total / 100).toLocaleString("en-US", {
             style: "currency",
             currency: "USD",
           })}`}</h2>
+          {pickupObj ? <h2>PICKUP</h2> : <h2>DELIVERY</h2>}
         </OrderDetails>
       </OrderWrapper>
     </OrderListContainer>

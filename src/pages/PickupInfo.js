@@ -145,40 +145,77 @@ const PickupInfo = () => {
     if (!enabled) {
       console.log("!enabled:", newFormData);
     } else {
-      fetch("http://localhost:5000/api/checkout/payment", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${process.env.REACT_APP_STRIPE}`,
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          price_data: {
-            currency: "usd",
-            unit_amount: 1000,
-            product_data: {
-              name: "name of the product",
-            },
+      if (user) {
+        fetch("http://localhost:5000/api/checkout/payment", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${process.env.REACT_APP_STRIPE}`,
+            Accept: "application/json",
+            "Content-Type": "application/json",
           },
-          quantity: 1,
-          userId: user._id,
-          pickup: true,
-          address: "11040 Ventura Boulevard, Studio City, CA, USA",
-          phone: newFormData.dropoff_phone_number,
-          tip: newFormData.tip,
-          email: newFormData.email,
-          taxes: cart.taxes,
-          totalWithTip: cartTotal.toFixed(2),
-          subtotal: cart.subtotal,
-          total: (cartTotal.toFixed(2) - 4.99).toFixed(2),
-          cart: cart,
-          contact: newFormData,
-        }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          window.location.href = data.url;
-        });
+          body: JSON.stringify({
+            price_data: {
+              currency: "usd",
+              unit_amount: 1000,
+              product_data: {
+                name: "name of the product",
+              },
+            },
+            quantity: 1,
+            userId: user._id,
+            pickup: true,
+            address: "11040 Ventura Boulevard, Studio City, CA, USA",
+            phone: newFormData.dropoff_phone_number,
+            tip: newFormData.tip,
+            email: newFormData.email,
+            taxes: cart.taxes,
+            totalWithTip: cartTotal.toFixed(2),
+            subtotal: cart.subtotal,
+            total: (cartTotal.toFixed(2) - 4.99).toFixed(2),
+            cart: cart,
+            contact: newFormData,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            window.location.href = data.url;
+          });
+      } else {
+        fetch("http://localhost:5000/api/checkout/payment", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${process.env.REACT_APP_STRIPE}`,
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            price_data: {
+              currency: "usd",
+              unit_amount: 1000,
+              product_data: {
+                name: "name of the product",
+              },
+            },
+            quantity: 1,
+            userId: newFormData.email,
+            pickup: true,
+            address: "11040 Ventura Boulevard, Studio City, CA, USA",
+            phone: newFormData.dropoff_phone_number,
+            tip: newFormData.tip,
+            email: newFormData.email,
+            taxes: cart.taxes,
+            totalWithTip: cartTotal.toFixed(2),
+            subtotal: cart.subtotal,
+            total: (cartTotal.toFixed(2) - 4.99).toFixed(2),
+            cart: cart,
+            contact: newFormData,
+          }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            window.location.href = data.url;
+          });
+      }
     }
   };
 

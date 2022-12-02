@@ -1,52 +1,48 @@
 import styled from "styled-components";
-import { Send } from "@material-ui/icons";
+import { useEffect, useState } from "react";
 import { mobile } from "../responsive";
+import { publicRequest } from "../requestMethods";
+import MenuGridList from "./MenuGridList";
 
 const Menu = () => {
+  const [products, setProducts] = useState();
+
+  useEffect(() => {
+    const getProduct = async () => {
+      try {
+        const res = await publicRequest.get("/products");
+        setProducts(res.data);
+        console.log("menu", res.data);
+      } catch (error) {}
+    };
+    getProduct();
+  }, []);
+
   return (
     <Container>
       <Title>Menu</Title>
-      <Desc>Authentic Mexican Food</Desc>
+      <Desc>Popular Items</Desc>
+      <MenuGridList items={products} />
     </Container>
   );
 };
 
 const Container = styled.div`
-  height: 60vh;
   background-color: #fcf5f5;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  padding: 2.5em;
 `;
 const Title = styled.h1`
   font-size: 4rem;
-  margin-bottom: 1.3em;
+  margin-bottom: 0.8em;
 `;
 const Desc = styled.div`
   font-size: 1.5rem;
   margin-bottom: 1.3em;
   font-weight: 300;
   ${mobile({ textAlign: "center" })}
-`;
-const InputContainer = styled.div`
-  width: 50%;
-  min-height: 40px;
-  background-color: white;
-  display: flex;
-  justify-content: space-between;
-  border: 1px solid lightgray;
-  ${mobile({ width: "80%" })}
-`;
-const Input = styled.input`
-  border: none;
-  flex: 8;
-  padding-left: 1.3em;
-`;
-const Button = styled.button`
-  flex: 1;
-  border: none;
-  background-color: teal;
-  color: white;
 `;
 export default Menu;

@@ -30,12 +30,13 @@ const Accessibility = () => {
           promise to fix any issue our
           <br /> customer may encounter. <br /> <br /> A live support email will
           be active during restaurant operating hours to accept feedback <br />
-          and assist with website usage shall any obstacle be encountered.
+          and assist with website usage if you encounter any accessibility
+          barriers.
           <br /> <br />
           <h3>Feedback</h3> <br />
-          <br /> We welcome your feedback on the accessibility of Please let us
-          know if you encounter
-          <br /> accessibility barriers.
+          <br /> We welcome your feedback on the accessibility of Tortas Mexico
+          Studio City Website <br></br> Please let us know if you encounter
+          accessibility barriers.
           <br /> <br /> E-mail:{" "}
           <a href="mailto:jose@escobedojose.dev">jose@escobedojose.dev</a>
         </AccessibilityText>

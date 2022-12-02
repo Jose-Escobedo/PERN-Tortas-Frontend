@@ -6,17 +6,25 @@ import Navbar from "../components/Navbar";
 import OrderList from "../components/OrderList";
 import { mobile } from "../responsive";
 import { publicRequest } from "../requestMethods";
+import Loader from "../components/Loader";
 
 const Orders = () => {
   const user = useSelector((state) => state.user.currentUser);
   const [userOrders, setUserOrders] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const [emptyOrders, setEmptyOrders] = useState(false);
 
   const TOKEN = JSON.parse(
     JSON.parse(localStorage.getItem("persist:root"))?.user || "{}"
   )?.currentUser?.accessToken;
+
   useEffect(() => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+
     const getOrders = () => {
       fetch(`http://localhost:5000/api/orders/find/${user._id}`, {
         method: "GET",
@@ -29,6 +37,7 @@ const Orders = () => {
         .then((response) => response.json())
         .then((data) => {
           // console.log(data);
+
           setUserOrders(data);
 
           if (data.length === 0) {
@@ -77,17 +86,23 @@ const Orders = () => {
         <Navbar />
         <Wrapper>
           <Title>{`${user.username.toUpperCase()}'S ORDERS`}</Title>
-          <OrderListGrid>
-            {emptyOrders ? (
-              <>
-                <OrderEmpty>You have not placed an order yet.</OrderEmpty>
-              </>
-            ) : (
-              userOrders?.map((item) => {
-                return <OrderList item={item} key={item._id} />;
-              })
-            )}
-          </OrderListGrid>
+          {loading ? (
+            <Loader />
+          ) : (
+            <OrderListGrid>
+              {emptyOrders ? (
+                <>
+                  <OrderEmptyContainer>
+                    <OrderEmpty>You have not placed an order yet.</OrderEmpty>
+                  </OrderEmptyContainer>
+                </>
+              ) : (
+                userOrders?.map((item) => {
+                  return <OrderList item={item} key={item._id} />;
+                })
+              )}
+            </OrderListGrid>
+          )}
         </Wrapper>
         <Footer />
       </Container>
@@ -107,6 +122,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-height: 80vh;
   padding: 3em;
   background: linear-gradient(
     90deg,
@@ -122,6 +138,7 @@ const Title = styled.h1`
   text-align: center;
   padding-bottom: 1em;
   color: white;
+  margin-top: 1em;
 `;
 
 const OrderEmpty = styled.h1`
@@ -129,6 +146,17 @@ const OrderEmpty = styled.h1`
   text-align: center;
   padding-bottom: 1em;
   color: white;
+`;
+
+const OrderEmptyContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  text-align: center;
+  position: absolute;
 `;
 
 const OrderListGrid = styled.div`

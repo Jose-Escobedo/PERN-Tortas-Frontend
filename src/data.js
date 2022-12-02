@@ -1,5 +1,5 @@
-import AsadaFries from "./images/asada-fries-removebg.png";
-import Taquitos from "./images/taquitos-removebg.png";
+import AsadaFries from "./images/asada-fries-removebg-min.png";
+import Taquitos from "./images/taquitos-removebg-min.png";
 import Mole from "./images/mole-removebg.png";
 import WetBurrito from "./images/burrito-wet.JPG";
 import TortaCubana from "./images/cubana.jpg";

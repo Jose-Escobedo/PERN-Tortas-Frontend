@@ -9,7 +9,6 @@ import { addProduct } from "../redux/cartRedux";
 import { publicRequest } from "../requestMethods";
 import { mobile } from "../responsive";
 import { useDispatch, useSelector } from "react-redux";
-import Menu from "../components/Menu";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -87,7 +86,6 @@ const Product = () => {
           </AddContainer>
         </InfoContainer>
       </Wrapper>
-      <Menu />
       <Footer />
     </Container>
   );

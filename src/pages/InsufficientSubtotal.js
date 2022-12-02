@@ -9,7 +9,7 @@ const InsufficientSubtotal = () => {
       <Navbar />
       <InsufficientSubtotalContainer>
         <MinimumText>
-          Delivery subtotal minimum of $11.97 not met. Please add more items to
+          Delivery subtotal minimum of $10.87 not met. Please add more items to
           cart.
         </MinimumText>
       </InsufficientSubtotalContainer>

@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 const OptionalDelivery = ({}) => {
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
-  const isGreaterThanTwenty = cart.subtotal > 11.96;
+  const isGreaterThanTwenty = cart.subtotal > 10.86;
 
   return (
     <>

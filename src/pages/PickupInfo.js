@@ -8,8 +8,11 @@ import { useSelector } from "react-redux";
 import { addTip, clearCart, setTotal } from "../redux/cartRedux";
 import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
-
 import InsufficientPickupSubtotal from "./InsufficientPickupSubtotal";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import StripeCheckout from "./StripeCheckout";
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE);
 
 const PickupInfo = () => {
   const cart = useSelector((state) => state.cart);
@@ -21,6 +24,16 @@ const PickupInfo = () => {
   const [tipTotal, setTipTotal] = useState(0);
   const [cartTotal, setCartTotal] = useState(cart.total);
   const [emptyTip, setEmptyTip] = useState();
+
+  // const [clientSecret, setClientSecret] = useState("");
+
+  // const appearance = {
+  //   theme: "stripe",
+  // };
+  // const options = {
+  //   clientSecret,
+  //   appearance,
+  // };
 
   function checkForEmptyTip() {
     if (newFormData.tip === "") {

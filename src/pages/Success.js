@@ -4,7 +4,8 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { useDispatch } from "react-redux";
 import { clearCart } from "../redux/cartRedux";
-
+import { io } from "socket.io-client";
+const socket = io.connect("http://localhost:5000");
 const Success = () => {
   const dispatch = useDispatch();
 

@@ -13,11 +13,30 @@ import {
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { useEffect, useState } from "react";
+import emptyCartSvg from "../images/groceries.svg";
+import Loader from "../components/Loader";
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const [loading, setLoading] = useState(false);
+  const [emptyCart, setEmptyCart] = useState();
+
+  useEffect(() => {
+    if (cart.quantity == "0") {
+      setEmptyCart(true);
+    } else {
+      setEmptyCart(false);
+    }
+
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1500);
+  }, [cart.quantity]);
 
   const handleRemoveItem = (item) => {
     console.log(item);
@@ -38,7 +57,7 @@ const Cart = () => {
       <Wrapper>
         <Top>
           <Link to="/">
-            <TopButton>CONTINUE SHOPPING</TopButton>
+            <TopButton>CONTINUE ORDERING</TopButton>
           </Link>
           <TopTexts>
             <TopText>Shopping Cart ({cart.quantity})</TopText>
@@ -50,6 +69,18 @@ const Cart = () => {
         </Top>
         <Bottom>
           <Info>
+            {emptyCart ? (
+              loading ? (
+                <Loader />
+              ) : (
+                <div id="empty-cart">
+                  <h1>Your Cart is empty...</h1>
+                  <img src={emptyCartSvg} />
+                </div>
+              )
+            ) : (
+              <></>
+            )}
             {cart.products.map((item) => (
               <div key={item._id}>
                 <Product>
@@ -181,6 +212,16 @@ const Info = styled.div`
   display: flex;
   flex-direction: column;
   flex: 3;
+  img {
+    min-height: 350px;
+    max-width: 350px;
+  }
+  #empty-cart {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 3em 0em;
+  }
 `;
 
 const Product = styled.div`

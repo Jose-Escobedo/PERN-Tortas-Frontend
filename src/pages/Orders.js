@@ -165,6 +165,17 @@ const OrderListGrid = styled.div`
   gap: 20px;
   grid-auto-rows: minmax(100px, auto);
   padding: 0 2em;
+
+  animation: easeIn 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+
+  @keyframes easeIn {
+    50% {
+      transform: scale(0.95);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
 `;
 
 export default Orders;

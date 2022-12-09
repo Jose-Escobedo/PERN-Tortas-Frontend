@@ -35,7 +35,7 @@ const Cart = () => {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-    }, 1500);
+    }, 1200);
   }, [cart.quantity]);
 
   const handleRemoveItem = (item) => {
@@ -212,6 +212,7 @@ const Info = styled.div`
   display: flex;
   flex-direction: column;
   flex: 3;
+
   img {
     min-height: 350px;
     max-width: 350px;
@@ -221,6 +222,16 @@ const Info = styled.div`
     align-items: center;
     justify-content: space-around;
     padding: 3em 0em;
+    animation: easeIn 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+  }
+
+  @keyframes easeIn {
+    50% {
+      transform: scale(0.9);
+    }
+    100% {
+      transform: scale(1);
+    }
   }
 `;
 

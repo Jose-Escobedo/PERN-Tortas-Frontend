@@ -52,7 +52,7 @@ const PickupInfo = () => {
     dropoff_contact_family_name: "",
     email: "",
     dropoff_phone_number: "",
-    dropoff_instructions: "",
+    pickup_instructions: "",
     tip: "",
   };
 
@@ -63,7 +63,7 @@ const PickupInfo = () => {
     dropoff_contact_family_name,
     email,
     dropoff_phone_number,
-    dropoff_instructions,
+    pickup_instructions,
     tip,
   } = newFormData;
 
@@ -125,7 +125,7 @@ const PickupInfo = () => {
   const handleInstructionsChange = (e) => {
     setFormData({
       ...newFormData,
-      dropoff_instructions: e.target.value,
+      pickup_instructions: e.target.value,
     });
   };
 
@@ -179,6 +179,7 @@ const PickupInfo = () => {
             pickup: true,
             address: "11040 Ventura Boulevard, Studio City, CA, USA",
             phone: newFormData.dropoff_phone_number,
+            pickup_instructions: newFormData.pickup_instructions,
             tip: newFormData.tip,
             email: newFormData.email,
             taxes: cart.taxes,
@@ -214,6 +215,7 @@ const PickupInfo = () => {
             pickup: true,
             address: "11040 Ventura Boulevard, Studio City, CA, USA",
             phone: newFormData.dropoff_phone_number,
+            pickup_instructions: newFormData.pickup_instructions,
             tip: newFormData.tip,
             email: newFormData.email,
             taxes: cart.taxes,
@@ -297,9 +299,9 @@ const PickupInfo = () => {
                   <textarea
                     rows="6"
                     placeholder="INSTRUCTIONS FOR KITCHEN"
-                    name="dropoff_instructions"
-                    id="dropoff_instructions"
-                    value={newFormData.dropoff_instructions}
+                    name="pickup_instructions"
+                    id="pickup_instructions"
+                    value={newFormData.pickup_instructions}
                     onChange={handleInstructionsChange}
                   ></textarea>
 

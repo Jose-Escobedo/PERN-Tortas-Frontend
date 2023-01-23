@@ -298,6 +298,7 @@ const PickupInfo = () => {
 
                   <textarea
                     rows="6"
+                    type="text"
                     placeholder="INSTRUCTIONS FOR KITCHEN"
                     name="pickup_instructions"
                     id="pickup_instructions"

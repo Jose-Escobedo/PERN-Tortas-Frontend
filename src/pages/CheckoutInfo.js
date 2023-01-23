@@ -234,6 +234,14 @@ const CheckoutInfo = ({ addNewFormData }) => {
     });
   };
 
+  const handleInstructionsChange = (e) => {
+    setFormData({
+      ...newFormData,
+      dropoff_instructions: e.target.value,
+    });
+    console.log("Dropoff_instructions", newFormData.dropoff_instructions);
+  };
+
   const extractAddress = (place) => {
     const address = {
       street_number: "",
@@ -311,13 +319,6 @@ const CheckoutInfo = ({ addNewFormData }) => {
     setCartTotal(sum);
     handleTip(Number(e.target.value));
   }
-
-  const handleInstructionsChange = (e) => {
-    setFormData({
-      ...newFormData,
-      dropoff_instructions: e.target.value,
-    });
-  };
 
   // const handleOrderCreation = (e) => {
   //   fetch("http://localhost:5000/api/orders", {
@@ -531,6 +532,7 @@ const CheckoutInfo = ({ addNewFormData }) => {
 
                 <textarea
                   rows="6"
+                  type="text"
                   placeholder="DELIVERY INSTRUCTIONS FOR DRIVER"
                   name="dropoff_instructions"
                   id="dropoff_instructions"

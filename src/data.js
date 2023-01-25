@@ -84,3 +84,46 @@ export const popularProducts = [
     img: `${AsadaFries}`,
   },
 ];
+
+export const extrasInfo = [
+  {
+    id: 1,
+    option: `Guacamole + $ 1.50`,
+    price: 1.5,
+  },
+  {
+    id: 2,
+    option: `Cheese + $ 1.25`,
+    price: 1.25,
+  },
+  {
+    id: 3,
+    option: `Cilantro + $ 1.00`,
+    price: 1.0,
+  },
+  {
+    id: 4,
+    option: `Onions + $ 1.00`,
+    price: 1.0,
+  },
+  {
+    id: 5,
+    option: `Pico De Gallo + $ 1.25`,
+    price: 1.25,
+  },
+  {
+    id: 6,
+    option: `Sour Cream + $ 1.25`,
+    price: 1.25,
+  },
+  {
+    id: 7,
+    option: `Meat + $ 1.99`,
+    price: 1.99,
+  },
+  {
+    id: 8,
+    option: `Lettuce + $ 0.00`,
+    price: 0.0,
+  },
+];

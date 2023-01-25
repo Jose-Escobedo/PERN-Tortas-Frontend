@@ -11,6 +11,7 @@ import { mobile } from "../responsive";
 import { useDispatch, useSelector } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { extrasInfo } from "../data";
 
 const Product = () => {
   const location = useLocation();
@@ -18,7 +19,7 @@ const Product = () => {
   const [product, setProduct] = useState([]);
   const cart = useSelector((state) => state.cart);
   const [quantity, setQuantity] = useState(1);
-  const [extras, setExtras] = useState("");
+  const [extras, setExtras] = useState([]);
   const [note, setNote] = useState("");
   const dispatch = useDispatch();
 
@@ -48,6 +49,18 @@ const Product = () => {
     });
   };
 
+  const addOrRemove = (e) => {
+    const newExtras = [...extras];
+    const index = newExtras.indexOf(e);
+    if (index === -1) {
+      newExtras.push(e);
+    } else {
+      newExtras.splice(index, 1);
+    }
+    setExtras(newExtras);
+    console.log(extras);
+  };
+
   return (
     <Container>
       <StyledToastContainer />
@@ -63,9 +76,14 @@ const Product = () => {
           <FilterContainer>
             <Filter>
               <FilterTitle>Extras</FilterTitle>
-              <FilterExtras onChange={(e) => setExtras(e.target.value)}>
-                {product.extras?.map((e) => (
-                  <FilterExtrasOption> {e}</FilterExtrasOption>
+              <FilterExtras onClick={(e) => addOrRemove(e.target.value)}>
+                {extrasInfo?.map((e) => (
+                  <>
+                    <label>
+                      <input value={e.option} type="checkbox" />
+                      {e.option}
+                    </label>
+                  </>
                 ))}
               </FilterExtras>
             </Filter>
@@ -147,17 +165,33 @@ const FilterContainer = styled.div`
 `;
 const Filter = styled.div`
   display: flex;
-  align-items: center;
+  flex-direction: column;
 `;
 const FilterTitle = styled.span`
   font-size: 1.3rem;
   font-weight: 200;
 `;
-const FilterExtras = styled.select`
-  margin-left: 0.8em;
-  padding: 5px;
+const FilterExtras = styled.div`
+  display: flex;
+
+  flex-direction: column;
+  label input {
+    margin-right: 1em;
+  }
+  label {
+    font-size: 2rem;
+    display: block;
+  }
+  input {
+    width: 13px;
+    height: 13px;
+    vertical-align: middle;
+
+    position: relative;
+    *overflow: hidden;
+  }
 `;
-const FilterExtrasOption = styled.option``;
+
 const AddContainer = styled.div`
   display: flex;
   align-items: center;

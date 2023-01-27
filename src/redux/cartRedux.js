@@ -107,6 +107,7 @@ const cartSlice = createSlice({
       state.total = 4.99;
       state.totalWithTip = 4.99;
     },
+    addOrRemoveExtras: (state, action) => {},
   },
 });
 

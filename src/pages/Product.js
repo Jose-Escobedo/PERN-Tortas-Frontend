@@ -42,21 +42,29 @@ const Product = () => {
   };
 
   const handleClick = () => {
-    dispatch(addProduct({ ...product, quantity }));
+    product.extras.push(extras);
+    dispatch(addProduct({ ...product, quantity, extras }));
     toast.success("Item has been added to Cart.", {
       position: toast.POSITION.TOP_CENTER,
       toastId: "success3",
     });
   };
-
   const addOrRemove = (e) => {
-    const newExtras = [...extras];
-    const index = newExtras.indexOf(e);
-    if (index === -1) {
-      newExtras.push(e);
+    // current array of options
+    const newExtras = extras;
+    let index;
+
+    // check if the check box is checked or unchecked
+    if (e.target.checked) {
+      // add the numerical value of the checkbox to options array
+      newExtras.push(e.target.value);
     } else {
+      // or remove the value from the unchecked checkbox from the array
+      index = newExtras.indexOf(e.target.value);
       newExtras.splice(index, 1);
     }
+
+    // update the state with the new array of options
     setExtras(newExtras);
     console.log(extras);
   };
@@ -76,7 +84,7 @@ const Product = () => {
           <FilterContainer>
             <Filter>
               <FilterTitle>Extras</FilterTitle>
-              <FilterExtras onClick={(e) => addOrRemove(e.target.value)}>
+              <FilterExtras onChange={(e) => addOrRemove(e)}>
                 {extrasInfo?.map((e) => (
                   <>
                     <label>

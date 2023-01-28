@@ -24,6 +24,8 @@ const Cart = () => {
 
   const [loading, setLoading] = useState(false);
   const [emptyCart, setEmptyCart] = useState();
+  const [extrasBoolean, setExtrasBoolean] = useState();
+  const [cartArr, setCartArr] = useState(cart.products);
 
   useEffect(() => {
     if (cart.quantity == "0") {
@@ -36,6 +38,13 @@ const Cart = () => {
     setTimeout(() => {
       setLoading(false);
     }, 1200);
+  }, [cart.quantity]);
+
+  useEffect(() => {
+    let newArr;
+    newArr = cart.products;
+    setCartArr(newArr.map((obj, i) => ({ ...obj, _id: i })));
+    console.log(cartArr);
   }, [cart.quantity]);
 
   const handleRemoveItem = (item) => {
@@ -81,8 +90,8 @@ const Cart = () => {
             ) : (
               <></>
             )}
-            {cart.products.map((item) => (
-              <div key={item._id}>
+            {cartArr.map((item, index) => (
+              <div key={index}>
                 <Product>
                   <ProductDetail>
                     <Image src={item.img} />
@@ -93,7 +102,8 @@ const Cart = () => {
                       </ProductName>
                       <ProductId>
                         <b>ID: </b>
-                        {item._id.slice(0, 6)}
+                        {/* {item._id.slice(0, 6)} */}
+                        {item._id}
                       </ProductId>
                       <ProductExtras>
                         EXTRAS:<br></br>

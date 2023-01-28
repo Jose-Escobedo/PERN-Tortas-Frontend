@@ -17,9 +17,11 @@ const Product = () => {
   const location = useLocation();
   const id = location.pathname.split("/")[2];
   const [product, setProduct] = useState([]);
+  const [productPrice, setProductPrice] = useState(product.price);
   const cart = useSelector((state) => state.cart);
   const [quantity, setQuantity] = useState(1);
   const [extras, setExtras] = useState([]);
+  const [extrasSum, setExtrasSum] = useState(0);
   const [note, setNote] = useState("");
   const dispatch = useDispatch();
 
@@ -33,6 +35,12 @@ const Product = () => {
     getProduct();
   }, [id]);
 
+  useEffect(() => {
+    let originalPrice = product.price;
+    product.extras = [];
+    setProductPrice(originalPrice);
+  }, [product.extras]);
+
   const handleQuantity = (type) => {
     if (type === "dec") {
       quantity > 1 && setQuantity(quantity - 1);
@@ -42,8 +50,10 @@ const Product = () => {
   };
 
   const handleClick = () => {
+    setProductPrice(product.price + extrasSum);
+    product.price = product.price + extrasSum;
     product.extras.push(extras);
-    dispatch(addProduct({ ...product, quantity, extras }));
+    dispatch(addProduct({ ...product, quantity }));
     toast.success("Item has been added to Cart.", {
       position: toast.POSITION.TOP_CENTER,
       toastId: "success3",
@@ -66,7 +76,16 @@ const Product = () => {
 
     // update the state with the new array of options
     setExtras(newExtras);
+    const sum = extras
+      .map((obj) => Number(obj.replace(/[^0-9\.]+/g, "")))
+      .reduce((totalValue, currValue) => {
+        // currValue will be the actual object )
+        return totalValue + currValue;
+      }, 0);
+
+    setExtrasSum(sum);
     console.log(extras);
+    console.log(extrasSum);
   };
 
   return (
@@ -80,16 +99,16 @@ const Product = () => {
         <InfoContainer>
           <Title>{product.name}</Title>
           <Desc>{product.desc}</Desc>
-          <Price>$ {product.price}</Price>
+          <Price>$ {productPrice}</Price>
           <FilterContainer>
             <Filter>
               <FilterTitle>Extras</FilterTitle>
-              <FilterExtras onChange={(e) => addOrRemove(e)}>
-                {extrasInfo?.map((e) => (
+              <FilterExtras onChange={(event) => addOrRemove(event)}>
+                {extrasInfo?.map((i) => (
                   <>
                     <label>
-                      <input value={e.option} type="checkbox" />
-                      {e.option}
+                      <input value={i.option} type="checkbox" />
+                      {i.option}
                     </label>
                   </>
                 ))}

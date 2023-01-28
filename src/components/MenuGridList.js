@@ -6,9 +6,9 @@ import { Link } from "react-router-dom";
 const MenuGridList = ({ items }) => {
   return (
     <MenuItemsGrid>
-      {items?.map((item) => {
+      {items?.map((item, index) => {
         return (
-          <MenuContainerBox>
+          <MenuContainerBox key={index}>
             <MenuLink to={`/product/${item._id}`}>
               <MenuContainerWrapper>
                 <MenuBoxDetails>

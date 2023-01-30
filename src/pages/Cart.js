@@ -24,7 +24,7 @@ const Cart = () => {
 
   const [loading, setLoading] = useState(false);
   const [emptyCart, setEmptyCart] = useState();
-  const [extrasBoolean, setExtrasBoolean] = useState();
+  const [extrasBoolean, setExtrasBoolean] = useState(false);
   const [cartArr, setCartArr] = useState(cart.products);
 
   useEffect(() => {
@@ -107,7 +107,13 @@ const Cart = () => {
                       </ProductId>
                       <ProductExtras>
                         EXTRAS:<br></br>
-                        {item.extras.map((extra) => `${extra}, `)}
+                        {(() => {
+                          if (item.extras == {}) {
+                            return <></>;
+                          } else {
+                            return item.extras?.map((extra) => `${extra}, `);
+                          }
+                        })()}
                       </ProductExtras>
                     </Details>
                   </ProductDetail>
@@ -265,6 +271,7 @@ const Details = styled.div`
 `;
 const ProductName = styled.span``;
 const ProductId = styled.span``;
+const ProductNotes = styled.span``;
 const ProductExtras = styled.span``;
 const PriceDetail = styled.div`
   flex: 1;

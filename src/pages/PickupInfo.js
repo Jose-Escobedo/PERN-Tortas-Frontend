@@ -578,7 +578,7 @@ const ContactFormStyled = styled.div`
       color: white;
     }
   }
-  #dropoff_instructions {
+  #pickup_instructions {
     color: white;
     border-color: white;
     margin-top: 2rem;
@@ -598,7 +598,6 @@ const ContactFormStyled = styled.div`
       color: white;
     }
   }
-
   textarea {
     width: 100%;
     max-width: 100%;

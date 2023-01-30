@@ -29,7 +29,7 @@ const cartSlice = createSlice({
         state.taxes += tax;
         state.total += total;
       } else {
-        state.quantity += 1;
+        state.quantity += action.payload.quantity;
         state.products.push(action.payload);
         state.subtotal += subtotal;
         state.taxes += tax;

@@ -102,6 +102,11 @@ const Product = () => {
           <Price>$ {productPrice}</Price>
           <FilterContainer>
             <Filter>
+              <FilterNotes>
+                <span>ADD NOTE: </span>
+                <br></br>
+                <textarea placeholder="Allergies, No onions, etc, anything else we should know before preparation."></textarea>
+              </FilterNotes>
               <FilterTitle>Extras</FilterTitle>
               <FilterExtras onChange={(event) => addOrRemove(event)}>
                 {extrasInfo?.map((i) => (
@@ -198,6 +203,44 @@ const FilterTitle = styled.span`
   font-size: 1.3rem;
   font-weight: 200;
 `;
+const FilterNotes = styled.form`
+  max-width: 100%;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  color: black;
+  padding-bottom: 1em;
+  span {
+    margin-left: 0.5em;
+  }
+  @media screen and (max-width: 1100px) {
+    width: 100%;
+    padding: 0.5em;
+  }
+  @media screen and (max-width: 410px) {
+    padding: 0.4em;
+  }
+
+  textarea {
+    resize: none;
+    width: 100%;
+    min-height: 20%;
+    max-height: 25vh;
+    background-color: transparent;
+    color: black;
+    border-radius: 20px;
+    font-size: 1em;
+    letter-spacing: 1px;
+    border: 1px solid black;
+    padding: 0.5em 0.5em;
+    @media screen and (max-width: 760px) {
+      font-size: 0.9rem;
+    }
+
+    @media screen and (max-width: 435px) {
+      font-size: 0.7rem;
+    }
+  }
+`;
 const FilterExtras = styled.div`
   display: flex;
 
@@ -206,7 +249,7 @@ const FilterExtras = styled.div`
     margin-right: 1em;
   }
   label {
-    font-size: 2rem;
+    font-size: 1.5rem;
     display: block;
   }
   input {

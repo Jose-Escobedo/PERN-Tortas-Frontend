@@ -88,6 +88,11 @@ const Product = () => {
     console.log(extrasSum);
   };
 
+  const handleNote = (e) => {
+    console.log(e);
+    // setProduct({ players: [...product, { e }] });
+  };
+
   return (
     <Container>
       <StyledToastContainer />
@@ -102,9 +107,10 @@ const Product = () => {
           <Price>$ {productPrice}</Price>
           <FilterContainer>
             <Filter>
-              <FilterNotes>
+              <FilterNotes onChange={(e) => handleNote(e.target.value)}>
                 <span>ADD NOTE: </span>
                 <br></br>
+
                 <textarea placeholder="Allergies, No onions, etc, anything else we should know before preparation."></textarea>
               </FilterNotes>
               <FilterTitle>Extras</FilterTitle>
@@ -191,13 +197,14 @@ const Price = styled.span`
 const FilterContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 50%;
+  width: 100%;
   margin: 30px 0px;
   ${mobile({ width: "100%" })}
 `;
 const Filter = styled.div`
   display: flex;
   flex-direction: column;
+  width: 60%;
 `;
 const FilterTitle = styled.span`
   font-size: 1.3rem;
@@ -224,7 +231,6 @@ const FilterNotes = styled.form`
     resize: none;
     width: 100%;
     min-height: 20%;
-    max-height: 25vh;
     background-color: transparent;
     color: black;
     border-radius: 20px;

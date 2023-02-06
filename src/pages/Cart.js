@@ -102,27 +102,41 @@ const Cart = () => {
                         <b>Product: </b>
                         {item.name}
                       </ProductName>
-                      <ProductId>
-                        <b>ID: </b>
-                        {/* {item._id.slice(0, 6)} */}
-                        {item._id}
-                      </ProductId>
-                      <ProductNote>
-                        <b>NOTE:</b>
-                        <br></br>
-                        {item.note}
-                      </ProductNote>
-                      <ProductExtras>
-                        <b>EXTRAS:</b>
-                        <br></br>
-                        {(() => {
-                          if (item.extras.length == 0) {
-                            return <></>;
-                          } else {
-                            return item.extras?.map((extra) => `${extra}, `);
-                          }
-                        })()}
-                      </ProductExtras>
+                      {/* <ProductId>
+                        <b>ID: </b> */}
+                      {/* {item._id.slice(0, 6)} */}
+                      {/* {item._id}
+                      </ProductId> */}
+                      {(() => {
+                        if (item.note == null || item.note == "") {
+                          return <></>;
+                        } else {
+                          return (
+                            <ProductNote>
+                              <b>NOTE:</b>
+                              <br></br>
+                              {item.note}
+                            </ProductNote>
+                          );
+                        }
+                      })()}
+
+                      {(() => {
+                        if (item.extras.length == 0 || item.extras[0] == "") {
+                          return <></>;
+                        } else {
+                          return (
+                            <ProductExtras>
+                              <b>EXTRAS:</b>
+                              <br></br>{" "}
+                              {item.extras?.map(
+                                (extra) => `${extra},
+                              `
+                              )}
+                            </ProductExtras>
+                          );
+                        }
+                      })()}
                     </Details>
                   </ProductDetail>
                   <PriceDetail>

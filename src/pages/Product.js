@@ -122,7 +122,7 @@ const Product = () => {
 
                 <textarea placeholder="Allergies, No onions, etc, anything else we should know before preparation."></textarea>
               </FilterNotes>
-              <FilterTitle>Extras</FilterTitle>
+              <FilterTitle>EXTRAS:</FilterTitle>
               <FilterExtras onChange={(event) => addOrRemove(event)}>
                 {extrasInfo?.map((i) => (
                   <>

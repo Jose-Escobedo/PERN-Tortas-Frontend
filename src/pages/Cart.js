@@ -72,9 +72,11 @@ const Cart = () => {
             <TopText>Shopping Cart ({cart.quantity})</TopText>
           </TopTexts>
 
-          <Link to="/optionaldelivery">
-            <TopButton type="filled">CHECKOUT NOW</TopButton>
-          </Link>
+          {emptyCart ? null : (
+            <Link to="/optionaldelivery">
+              <TopButton type="filled">CHECKOUT NOW</TopButton>
+            </Link>
+          )}
         </Top>
         <Bottom>
           <Info>
@@ -105,8 +107,14 @@ const Cart = () => {
                         {/* {item._id.slice(0, 6)} */}
                         {item._id}
                       </ProductId>
+                      <ProductNote>
+                        <b>NOTE:</b>
+                        <br></br>
+                        {item.note}
+                      </ProductNote>
                       <ProductExtras>
-                        EXTRAS:<br></br>
+                        <b>EXTRAS:</b>
+                        <br></br>
                         {(() => {
                           if (item.extras.length == 0) {
                             return <></>;
@@ -170,9 +178,11 @@ const Cart = () => {
               </SummaryItemPrice>
             </SummaryItem>
 
-            <Link to="/optionaldelivery">
-              <Button>CHECKOUT NOW</Button>
-            </Link>
+            {emptyCart ? null : (
+              <Link to="/optionaldelivery">
+                <Button type="filled">CHECKOUT NOW</Button>
+              </Link>
+            )}
           </Summary>
         </Bottom>
       </Wrapper>
@@ -271,7 +281,7 @@ const Details = styled.div`
 `;
 const ProductName = styled.span``;
 const ProductId = styled.span``;
-const ProductNotes = styled.span``;
+const ProductNote = styled.span``;
 const ProductExtras = styled.span``;
 const PriceDetail = styled.div`
   flex: 1;

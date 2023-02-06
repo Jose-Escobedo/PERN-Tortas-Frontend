@@ -108,7 +108,7 @@ const Cart = () => {
                       <ProductExtras>
                         EXTRAS:<br></br>
                         {(() => {
-                          if (item.extras == {}) {
+                          if (item.extras.length == 0) {
                             return <></>;
                           } else {
                             return item.extras?.map((extra) => `${extra}, `);

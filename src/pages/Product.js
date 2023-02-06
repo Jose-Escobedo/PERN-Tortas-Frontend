@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { extrasInfo } from "../data";
+import { useNavigate } from "react-router-dom";
 
 const Product = () => {
   const location = useLocation();
@@ -22,8 +23,9 @@ const Product = () => {
   const [quantity, setQuantity] = useState(1);
   const [extras, setExtras] = useState([]);
   const [extrasSum, setExtrasSum] = useState(0);
-  const [note, setNote] = useState("");
+  const [note, setNote] = useState();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getProduct = async () => {
@@ -38,6 +40,7 @@ const Product = () => {
   useEffect(() => {
     let originalPrice = product.price;
     product.extras = [];
+    product.note = "";
     setProductPrice(originalPrice);
   }, [product.extras]);
 
@@ -52,12 +55,18 @@ const Product = () => {
   const handleClick = () => {
     setProductPrice(product.price + extrasSum);
     product.price = product.price + extrasSum;
-    product.extras.push(extras);
+    if (extras !== []) {
+      product.extras.push(extras);
+    }
+
+    product.note = note;
     dispatch(addProduct({ ...product, quantity }));
     toast.success("Item has been added to Cart.", {
       position: toast.POSITION.TOP_CENTER,
       toastId: "success3",
     });
+
+    navigate("/cart");
   };
   const addOrRemove = (e) => {
     // current array of options
@@ -90,7 +99,7 @@ const Product = () => {
 
   const handleNote = (e) => {
     console.log(e);
-    // setProduct({ players: [...product, { e }] });
+    setNote(e);
   };
 
   return (

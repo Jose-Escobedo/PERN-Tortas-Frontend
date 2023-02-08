@@ -374,7 +374,46 @@ const CheckoutInfo = ({ addNewFormData }) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        setStripeIdentifier(data._id);
+        handleStripePaymentNoUser(data._id);
+      });
+  };
+
+  const handleStripePaymentNoUser = (id) => {
+    fetch("http://localhost:5000/api/checkout/payment", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${process.env.REACT_APP_STRIPE}`,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        price_data: {
+          currency: "usd",
+          unit_amount: 1000,
+          product_data: {
+            name: "name of the product",
+          },
+        },
+        quantity: 1,
+        idForStripe: id,
+        userId: newFormData.email,
+        address: address,
+        phone: newFormData.dropoff_phone_number,
+        dropoff_instructions: newFormData.dropoff_instructions,
+        tip: newFormData.tip,
+        email: newFormData.email,
+        taxes: cart.taxes,
+        pickup: false,
+        totalWithTip: cartTotal.toFixed(2),
+        subtotal: cart.subtotal,
+        total: cartTotal.toFixed(2),
+        cart: cart,
+        contact: newFormData,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        window.location.href = data.url;
       });
   };
 
@@ -449,42 +488,6 @@ const CheckoutInfo = ({ addNewFormData }) => {
           });
       } else {
         handleOrderCreationNoUser();
-        fetch("http://localhost:5000/api/checkout/payment", {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${process.env.REACT_APP_STRIPE}`,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            price_data: {
-              currency: "usd",
-              unit_amount: 1000,
-              product_data: {
-                name: "name of the product",
-              },
-            },
-            quantity: 1,
-            idForStripe: stripeIdentifier,
-            userId: newFormData.email,
-            address: address,
-            phone: newFormData.dropoff_phone_number,
-            dropoff_instructions: newFormData.dropoff_instructions,
-            tip: newFormData.tip,
-            email: newFormData.email,
-            taxes: cart.taxes,
-            pickup: false,
-            totalWithTip: cartTotal.toFixed(2),
-            subtotal: cart.subtotal,
-            total: cartTotal.toFixed(2),
-            cart: cart,
-            contact: newFormData,
-          }),
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            window.location.href = data.url;
-          });
       }
     }
   };

@@ -12,6 +12,7 @@ import InsufficientPickupSubtotal from "./InsufficientPickupSubtotal";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import StripeCheckout from "./StripeCheckout";
+import { v4 as uuidv4 } from "uuid";
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE);
 
 const PickupInfo = () => {
@@ -147,6 +148,62 @@ const PickupInfo = () => {
     }
   }
 
+  const handleOrderCreationWithUser = (e) => {
+    fetch("http://localhost:5000/api/orders", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        products: cart.products,
+        phone: newFormData.dropoff_phone_number,
+        email: newFormData.email,
+        userId: user._id,
+        address: "11040 Ventura Boulevard, Studio City, CA, USA",
+        tip: newFormData.tip,
+        dropoff_instructions: newFormData.dropoff_instructions,
+        taxes: cart.taxes,
+        pickup: true,
+        totalWithTip: cartTotal.toFixed(2),
+        subtotal: cart.subtotal,
+        total: cartTotal.toFixed(2),
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("submitted", data);
+      });
+  };
+
+  const handleOrderCreationNoUser = (e) => {
+    fetch("http://localhost:5000/api/orders", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        products: cart.products,
+        phone: newFormData.dropoff_phone_number,
+        email: newFormData.email,
+        userId: newFormData.email,
+        address: "11040 Ventura Boulevard, Studio City, CA, USA",
+        tip: newFormData.tip,
+        dropoff_instructions: newFormData.dropoff_instructions,
+        taxes: cart.taxes,
+        pickup: true,
+        totalWithTip: cartTotal.toFixed(2),
+        subtotal: cart.subtotal,
+        total: cartTotal.toFixed(2),
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("submitted", data);
+      });
+  };
+
   const handleFormSubmit = (e) => {
     e.preventDefault();
     dispatch(setTotal(cartTotal));
@@ -159,6 +216,7 @@ const PickupInfo = () => {
       console.log("!enabled:", newFormData);
     } else {
       if (user) {
+        handleOrderCreationWithUser();
         fetch("http://localhost:5000/api/checkout/payment", {
           method: "POST",
           headers: {
@@ -195,6 +253,7 @@ const PickupInfo = () => {
             window.location.href = data.url;
           });
       } else {
+        handleOrderCreationNoUser();
         fetch("http://localhost:5000/api/checkout/payment", {
           method: "POST",
           headers: {

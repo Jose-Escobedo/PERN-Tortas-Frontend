@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { addTip, clearCart, setTotal } from "../redux/cartRedux";
 import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 
 const CheckoutInfo = ({ addNewFormData }) => {
   const cart = useSelector((state) => state.cart);
@@ -24,6 +25,7 @@ const CheckoutInfo = ({ addNewFormData }) => {
   const [fiveMileRadius, setFiveMileRadius] = useState();
   const [routeDistance, setRouteDistance] = useState();
   const [emptyTip, setEmptyTip] = useState();
+  const [stripeIdentifier, setStripeIdentifier] = useState();
 
   const mapApiJs = "https://maps.googleapis.com/maps/api/js";
   const apiKey = process.env.REACT_APP_PLACES;
@@ -320,33 +322,61 @@ const CheckoutInfo = ({ addNewFormData }) => {
     handleTip(Number(e.target.value));
   }
 
-  // const handleOrderCreation = (e) => {
-  //   fetch("http://localhost:5000/api/orders", {
-  //     method: "POST",
-  //     headers: {
-  //       Accept: "application/json",
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       _id: user._id,
-  //       products: cart.products,
-  //       quantity: cart.quantity,
-  //       taxes: cart.taxes,
-  //       tip: cart.tip,
-  //       phone: newFormData.dropoff_phone_number,
-  //       subtotal: cart.subtotal,
-  //       address: address,
-  //       email: newFormData.email,
-  //       delivery: 4.99,
-  //       total: cart.total,
-  //       totalWithTip: cartTotal,
-  //     }),
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       console.log("submitted", data);
-  //     });
-  // };
+  const handleOrderCreationWithUser = (e) => {
+    fetch("http://localhost:5000/api/orders", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        products: cart.products,
+        phone: newFormData.dropoff_phone_number,
+        email: newFormData.email,
+        userId: user._id,
+        address: address,
+        tip: newFormData.tip,
+        dropoff_instructions: newFormData.dropoff_instructions,
+        taxes: cart.taxes,
+        pickup: false,
+        totalWithTip: cartTotal.toFixed(2),
+        subtotal: cart.subtotal,
+        total: cartTotal.toFixed(2),
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("submitted", data);
+      });
+  };
+
+  const handleOrderCreationNoUser = (e) => {
+    fetch("http://localhost:5000/api/orders", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        products: cart.products,
+        phone: newFormData.dropoff_phone_number,
+        email: newFormData.email,
+        userId: newFormData.email,
+        address: address,
+        tip: newFormData.tip,
+        dropoff_instructions: newFormData.dropoff_instructions,
+        taxes: cart.taxes,
+        pickup: false,
+        totalWithTip: cartTotal.toFixed(2),
+        subtotal: cart.subtotal,
+        total: cartTotal.toFixed(2),
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setStripeIdentifier(data._id);
+      });
+  };
 
   function tipValidation(evt) {
     var theEvent = evt || window.event;
@@ -380,6 +410,7 @@ const CheckoutInfo = ({ addNewFormData }) => {
       console.log("FiveMileRadius", fiveMileRadius);
     } else {
       if (user) {
+        handleOrderCreationWithUser();
         fetch("http://localhost:5000/api/checkout/payment", {
           method: "POST",
           headers: {
@@ -396,6 +427,7 @@ const CheckoutInfo = ({ addNewFormData }) => {
               },
             },
             quantity: 1,
+
             userId: user._id,
             address: address,
             phone: newFormData.dropoff_phone_number,
@@ -416,6 +448,7 @@ const CheckoutInfo = ({ addNewFormData }) => {
             window.location.href = data.url;
           });
       } else {
+        handleOrderCreationNoUser();
         fetch("http://localhost:5000/api/checkout/payment", {
           method: "POST",
           headers: {
@@ -432,6 +465,7 @@ const CheckoutInfo = ({ addNewFormData }) => {
               },
             },
             quantity: 1,
+            idForStripe: stripeIdentifier,
             userId: newFormData.email,
             address: address,
             phone: newFormData.dropoff_phone_number,

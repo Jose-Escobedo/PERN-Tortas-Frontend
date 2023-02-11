@@ -466,8 +466,9 @@ const CheckoutInfo = ({ addNewFormData }) => {
               },
             },
             quantity: 1,
-
             userId: user._id,
+            firstName: newFormData.dropoff_contact_given_name,
+            lastName: newFormData.dropoff_contact_family_name,
             address: address,
             phone: newFormData.dropoff_phone_number,
             tip: newFormData.tip,

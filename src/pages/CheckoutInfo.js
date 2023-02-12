@@ -208,6 +208,10 @@ const CheckoutInfo = ({ addNewFormData }) => {
       ...newFormData,
       dropoff_contact_given_name: e.target.value,
     });
+    console.log(
+      "Dropoff_contact_given_name",
+      newFormData.dropoff_contact_given_name
+    );
   };
   const handleLastNameChange = (e) => {
     setFormData({
@@ -241,7 +245,6 @@ const CheckoutInfo = ({ addNewFormData }) => {
       ...newFormData,
       dropoff_instructions: e.target.value,
     });
-    console.log("Dropoff_instructions", newFormData.dropoff_instructions);
   };
 
   const extractAddress = (place) => {

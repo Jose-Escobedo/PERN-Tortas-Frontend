@@ -12,6 +12,13 @@ import InsufficientPickupSubtotal from "./InsufficientPickupSubtotal";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import StripeCheckout from "./StripeCheckout";
+import Datetime from "react-datetime";
+import moment from "moment";
+
+var yesterday = moment().subtract(1, "day");
+var valid = function (current) {
+  return current.isAfter(yesterday);
+};
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE);
 
@@ -359,6 +366,10 @@ const PickupInfo = () => {
                     onChange={handleInstructionsChange}
                   ></textarea>
 
+                  <DateTimeWrapper>
+                    <Datetime isValidDate={valid} />;
+                  </DateTimeWrapper>
+
                   <Summary>
                     <SummaryTitle>ORDER SUMMARY</SummaryTitle>
                     <SummaryItem>
@@ -428,15 +439,9 @@ const ContactFormStyled = styled.div`
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  border: 1px solid black;
-  color: white;
-
-  background: linear-gradient(
-    90deg,
-    rgba(24, 24, 71, 1) 0%,
-    rgba(10, 10, 23, 1) 35%,
-    rgba(0, 0, 0, 1) 100%
-  );
+  border-bottom: 1px solid black;
+  color: black;
+  background: rgba(255, 255, 255, 1) 100%;
 
   .wrapper {
     display: flex;
@@ -465,8 +470,8 @@ const ContactFormStyled = styled.div`
     display: flex;
     flex-direction: column;
     padding: 2em;
-    border-color: white;
-    color: white;
+    border-color: black;
+    color: black;
     @media screen and (max-width: 1100px) {
       width: 100%;
       padding: 0.5em;
@@ -494,15 +499,15 @@ const ContactFormStyled = styled.div`
   }
 
   #first-name {
-    color: white;
-    border-color: white;
+    color: black;
+    border-color: black;
     border-top: none;
     border-right: none;
     border-left: none;
 
     ::placeholder {
       /* Chrome, Firefox, Opera, Safari 10.1+ */
-      color: white;
+      color: black;
       opacity: 1; /* Firefox */
     }
     input:focus,
@@ -518,137 +523,137 @@ const ContactFormStyled = styled.div`
 
     ::-ms-input-placeholder {
       /* Microsoft Edge */
-      color: white;
+      color: black;
     }
   }
   #last-name {
-    color: white;
-    border-color: white;
+    color: black;
+    border-color: black;
     border-top: none;
     border-right: none;
     border-left: none;
     ::placeholder {
       /* Chrome, Firefox, Opera, Safari 10.1+ */
-      color: white;
+      color: black;
       opacity: 1; /* Firefox */
     }
 
     :-ms-input-placeholder {
       /* Internet Explorer 10-11 */
-      color: white;
+      color: black;
     }
 
     ::-ms-input-placeholder {
       /* Microsoft Edge */
-      color: white;
+      color: black;
     }
   }
   #email {
-    color: white;
-    border-color: white;
+    color: black;
+    border-color: black;
     border-top: none;
     border-right: none;
     border-left: none;
     ::placeholder {
       /* Chrome, Firefox, Opera, Safari 10.1+ */
-      color: white;
+      color: black;
       opacity: 1; /* Firefox */
     }
 
     :-ms-input-placeholder {
       /* Internet Explorer 10-11 */
-      color: white;
+      color: black;
     }
 
     ::-ms-input-placeholder {
       /* Microsoft Edge */
-      color: white;
+      color: black;
     }
   }
   #phone {
-    color: white;
-    border-color: white;
+    color: black;
+    border-color: black;
     border-top: none;
     border-right: none;
     border-left: none;
     ::placeholder {
       /* Chrome, Firefox, Opera, Safari 10.1+ */
-      color: white;
+      color: black;
       opacity: 1; /* Firefox */
     }
 
     :-ms-input-placeholder {
       /* Internet Explorer 10-11 */
-      color: white;
+      color: black;
     }
 
     ::-ms-input-placeholder {
       /* Microsoft Edge */
-      color: white;
+      color: black;
     }
   }
   #address {
-    color: white;
-    border-color: white;
+    color: black;
+    border-color: black;
     border-top: none;
     border-right: none;
     border-left: none;
     ::placeholder {
       /* Chrome, Firefox, Opera, Safari 10.1+ */
-      color: white;
+      color: black;
       opacity: 1; /* Firefox */
     }
 
     :-ms-input-placeholder {
       /* Internet Explorer 10-11 */
-      color: white;
+      color: black;
     }
 
     ::-ms-input-placeholder {
       /* Microsoft Edge */
-      color: white;
+      color: black;
     }
   }
   #tip {
-    color: white;
-    border-color: white;
+    color: black;
+    border-color: black;
     border-top: none;
     border-right: none;
     border-left: none;
     ::placeholder {
       /* Chrome, Firefox, Opera, Safari 10.1+ */
-      color: white;
+      color: black;
       opacity: 1; /* Firefox */
     }
 
     :-ms-input-placeholder {
       /* Internet Explorer 10-11 */
-      color: white;
+      color: black;
     }
 
     ::-ms-input-placeholder {
       /* Microsoft Edge */
-      color: white;
+      color: black;
     }
   }
   #pickup_instructions {
-    color: white;
-    border-color: white;
+    color: black;
+    border-color: black;
     margin-top: 2rem;
     ::placeholder {
       /* Chrome, Firefox, Opera, Safari 10.1+ */
-      color: white;
+      color: black;
       opacity: 1; /* Firefox */
     }
 
     :-ms-input-placeholder {
       /* Internet Explorer 10-11 */
-      color: white;
+      color: black;
     }
 
     ::-ms-input-placeholder {
       /* Microsoft Edge */
-      color: white;
+      color: black;
     }
   }
   textarea {
@@ -658,7 +663,7 @@ const ContactFormStyled = styled.div`
     min-height: 20%;
     max-height: 20vh;
     background-color: transparent;
-    color: white;
+    color: black;
     letter-spacing: 1px;
     border: 1px solid black;
     padding: 0.5em 0.5em;
@@ -702,7 +707,7 @@ const ContactFormStyled = styled.div`
     align-items: center;
     flex-direction: column;
     padding: 2em;
-    color: white;
+    color: black;
     @media screen and (max-width: 1100px) {
       font-size: 0.5rem;
       padding: 1em;
@@ -729,9 +734,11 @@ const ContactFormStyled = styled.div`
   }
 `;
 
+const DateTimeWrapper = styled.div``;
+
 const Summary = styled.div`
   flex: 1;
-  border: 0.5px sild lightgray;
+
   border-radius: 10px;
   padding: 40px 20px;
   height: 50vh;
@@ -739,7 +746,7 @@ const Summary = styled.div`
 
 const SummaryTitle = styled.h1`
   font-weight: 200;
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid black;
 `;
 const SummaryItem = styled.div`
   margin: 2em 0em;

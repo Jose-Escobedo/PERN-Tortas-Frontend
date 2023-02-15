@@ -93,6 +93,7 @@ const Container = styled.div`
   padding-bottom: 2em;
   z-index: 5;
   background: white;
+  border-bottom: 1px solid black;
   position: fixed;
   top: 0;
   width: 100%;

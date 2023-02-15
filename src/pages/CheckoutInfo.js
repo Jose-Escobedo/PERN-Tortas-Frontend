@@ -310,10 +310,6 @@ const CheckoutInfo = ({ addNewFormData }) => {
     ]);
   };
 
-  const handleErrorAddress = (e) => {
-    console.log("Please enter street number!");
-  };
-
   function handleTipChange(e) {
     e.preventDefault();
     setFormData({
@@ -334,6 +330,8 @@ const CheckoutInfo = ({ addNewFormData }) => {
       },
       body: JSON.stringify({
         products: cart.products,
+        dropoff_contact_given_name: newFormData.dropoff_contact_given_name,
+        dropoff_contact_family_name: newFormData.dropoff_contact_family_name,
         phone: newFormData.dropoff_phone_number,
         email: newFormData.email,
         userId: user._id,
@@ -349,7 +347,7 @@ const CheckoutInfo = ({ addNewFormData }) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("submitted", data);
+        handleStripePaymentWithUser(data._id);
       });
   };
 
@@ -380,6 +378,36 @@ const CheckoutInfo = ({ addNewFormData }) => {
       .then((response) => response.json())
       .then((data) => {
         handleStripePaymentNoUser(data._id);
+      });
+  };
+
+  const handleStripePaymentWithUser = (id) => {
+    fetch("http://localhost:5000/api/checkout/payment", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${process.env.REACT_APP_STRIPE}`,
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        price_data: {
+          currency: "usd",
+          unit_amount: 1000,
+          product_data: {
+            name: "name of the product",
+          },
+        },
+        quantity: 1,
+        idForStripe: id,
+        userId: user._id,
+        total: cartTotal.toFixed(2),
+        cart: cart,
+        contact: newFormData,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        window.location.href = data.url;
       });
   };
 
@@ -446,44 +474,6 @@ const CheckoutInfo = ({ addNewFormData }) => {
     } else {
       if (user) {
         handleOrderCreationWithUser();
-        fetch("http://localhost:5000/api/checkout/payment", {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${process.env.REACT_APP_STRIPE}`,
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            price_data: {
-              currency: "usd",
-              unit_amount: 1000,
-              product_data: {
-                name: "name of the product",
-              },
-            },
-            quantity: 1,
-            userId: user._id,
-            dropoff_contact_given_name: newFormData.dropoff_contact_given_name,
-            dropoff_contact_family_name:
-              newFormData.dropoff_contact_family_name,
-            address: address,
-            phone: newFormData.dropoff_phone_number,
-            tip: newFormData.tip,
-            dropoff_instructions: newFormData.dropoff_instructions,
-            email: newFormData.email,
-            taxes: cart.taxes,
-            pickup: false,
-            totalWithTip: cartTotal.toFixed(2),
-            subtotal: cart.subtotal,
-            total: cartTotal.toFixed(2),
-            cart: cart,
-            contact: newFormData,
-          }),
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            window.location.href = data.url;
-          });
       } else {
         handleOrderCreationNoUser();
       }

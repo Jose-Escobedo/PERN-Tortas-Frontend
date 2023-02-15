@@ -43,7 +43,7 @@ const OrderList = ({ item }) => {
             (innerItem) => `${innerItem.quantity} ${innerItem.name} `
           )}`}</h2>
           {tipObj ? <h2>{`Tip: $ ${item.tip}`}</h2> : <h2>{`Tip: $ 0`}</h2>}
-          <h2>{`Order Total: ${(item.total / 100).toLocaleString("en-US", {
+          <h2>{`Order Total: ${item.total.toLocaleString("en-US", {
             style: "currency",
             currency: "USD",
           })}`}</h2>

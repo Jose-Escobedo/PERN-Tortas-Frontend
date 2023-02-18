@@ -66,9 +66,9 @@ const Footer = () => {
           </a>
         </ContactItem>
         <ContactItem>
-          <a href="mailto:TortasMexico63@gmail.com">
+          <a href="mailto:support@tortasmexico-studiocity.com">
             <MailOutline style={{ marginRight: "10px" }} />
-            TortasMexico63@gmail.com
+            support@tortasmexico-studiocity.com
           </a>
         </ContactItem>
       </Right>

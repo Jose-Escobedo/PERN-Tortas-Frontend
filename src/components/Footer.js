@@ -79,6 +79,7 @@ const Footer = () => {
 const Container = styled.div`
   display: flex;
   ${mobile({ flexDirection: "column" })}
+  border-top: 1px solid black;
 `;
 const Left = styled.div`
   flex: 1;

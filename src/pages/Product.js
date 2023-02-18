@@ -24,6 +24,7 @@ const Product = () => {
   const [extras, setExtras] = useState([]);
   const [extrasSum, setExtrasSum] = useState(0);
   const [note, setNote] = useState();
+  const [generic, setGeneric] = useState();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -42,6 +43,14 @@ const Product = () => {
     product.extras = [];
     product.note = "";
     setProductPrice(originalPrice);
+    if (
+      product.img ===
+      "https://firebasestorage.googleapis.com/v0/b/tortas-bffc7.appspot.com/o/tacoHuman.png?alt=media&token=dbb07adb-381b-4204-be0e-a2b729fc947e"
+    ) {
+      setGeneric(true);
+    } else {
+      setGeneric(false);
+    }
   }, [product.extras]);
 
   const handleQuantity = (type) => {
@@ -108,7 +117,11 @@ const Product = () => {
       <Navbar />
       <Wrapper>
         <ImgContainer>
-          <Image src={product.img} />
+          {generic ? (
+            <GenericImage src={product.img} />
+          ) : (
+            <Image src={product.img} />
+          )}
         </ImgContainer>
         <InfoContainer>
           <Title>{product.name}</Title>
@@ -188,6 +201,14 @@ const Image = styled.img`
   object-fit: cover;
   ${mobile({ height: "40vh" })}
 `;
+
+const GenericImage = styled.img`
+  width: 100%;
+  height: 50vh;
+  object-fit: contain;
+  ${mobile({ height: "40vh" })}
+`;
+
 const InfoContainer = styled.div`
   flex: 1;
   padding: 0px 50px;

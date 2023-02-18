@@ -285,7 +285,8 @@ const ProductDetail = styled.div`
   display: flex;
 `;
 const Image = styled.img`
-  width: 200px;
+  width: 300px;
+  height: 200px;
 `;
 const Details = styled.div`
   padding: 1.3em;

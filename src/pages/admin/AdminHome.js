@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import Sidebar from "./Sidebar";
 import Chart from "./Chart";
-import { userData } from "./seedData";
 import SmallWidget from "./SmallWidget";
 import LargeWidget from "./LargeWidget";
 import FeaturedInfo from "./FeaturedInfo";

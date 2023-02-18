@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { userRequest } from "../../requestMethods";
-import { format } from "timeago.js";
 
 const LargeWidget = () => {
   const Button = ({ type }) => {
@@ -37,7 +36,7 @@ const LargeWidget = () => {
               <td className="widgetLgUser">
                 <span className="widgetLgName">{order.userId}</span>
               </td>
-              <td className="widgetLgDate">{format(order.createdAt)}</td>
+              <td className="widgetLgDate">{order.createdAt}</td>
               <td className="widgetLgAmount">`$ {order.amount}`</td>
               <td className="widgetLgStatus">
                 <Button type={order.status} />

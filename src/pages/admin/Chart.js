@@ -1,4 +1,3 @@
-import { useEffect, useMemo, useState } from "react";
 import {
   LineChart,
   Line,
@@ -9,7 +8,6 @@ import {
 } from "recharts";
 
 import styled from "styled-components";
-import { userRequest } from "../../requestMethods";
 
 const Chart = ({ title, data, dataKey, grid }) => {
   return (

@@ -123,6 +123,11 @@ export const extrasInfo = [
   },
   {
     id: 8,
+    option: `Enchilada Sauce + $ 1.25`,
+    price: 1.25,
+  },
+  {
+    id: 9,
     option: `Lettuce + $ 0.00`,
     price: 0.0,
   },

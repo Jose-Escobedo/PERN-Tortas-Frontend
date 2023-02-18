@@ -7,6 +7,7 @@ import Register from "./pages/Register";
 import ProductList from "./pages/ProductList";
 import Product from "./pages/Product";
 import Success from "./pages/Success";
+import AdminHome from "./pages/admin/AdminHome";
 import { useSelector } from "react-redux";
 import "@stripe/stripe-js";
 import CheckoutInfo from "./pages/CheckoutInfo";
@@ -20,12 +21,16 @@ import Accessibility from "./pages/Accessibility";
 function App() {
   const user = useSelector((state) => state.user.currentUser);
   const cart = useSelector((state) => state.cart);
+  const admin = user?.isAdmin;
   const isLessThanTwenty = cart.subtotal < 20;
   const isLessThanFive = cart.subtotal < 5;
 
   return (
     <>
       <Routes>
+        {admin ? (
+          <Route exact path="/admin-home" element={<AdminHome />} />
+        ) : null}
         <Route exact path="/" element={<Home />} />
         <Route exact path="/cart" element={<Cart />} />
         <Route

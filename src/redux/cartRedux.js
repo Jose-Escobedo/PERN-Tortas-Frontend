@@ -85,7 +85,7 @@ const cartSlice = createSlice({
         state.subtotal = state.subtotal - subtotalItem;
         state.taxes = state.taxes - taxItem;
         state.total = state.total - totalItem;
-      } else if (item.quantity == 1) {
+      } else if (item.quantity === 1) {
         state.products = state.products.filter(
           (prod, index) => index !== action.payload._id
         );

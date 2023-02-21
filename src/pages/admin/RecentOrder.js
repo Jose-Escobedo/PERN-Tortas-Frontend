@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import AdminNavbar from "./AdminNavbar";
-import Sidebar from "./Sidebar";
 import AdminOrderItem from "./AdminOrderItem";
 import moment from "moment";
+import doubleLeft from "../../images/double-left.png";
+import { Link } from "react-router-dom";
 
 const RecentOrder = () => {
   const location = useLocation();
@@ -34,8 +35,20 @@ const RecentOrder = () => {
     <>
       <AdminNavbar />
       <AdminContainer>
-        <Sidebar />
         <AdminOrderContainer>
+          <AdminOrderBackButton>
+            <Link
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+              to={"/admin-home"}
+            >
+              <img src={doubleLeft}></img>
+            </Link>
+            <h2>Back to Orders</h2>
+          </AdminOrderBackButton>
           <AdminOrderWrapper>
             <AdminOrderTitle>Order Details</AdminOrderTitle>
             <AdminOrderName>
@@ -78,6 +91,20 @@ const AdminOrderContainer = styled.div`
 const AdminOrderWrapper = styled.div`
   display: flex;
   flex-direction: column;
+`;
+
+const AdminOrderBackButton = styled.div`
+  display: flex;
+  align-items: center;
+  img {
+    width: 70px;
+    height: 70px;
+  }
+  h2 {
+    font-size: 2.5rem;
+    padding-left: 3%;
+  }
+  padding-bottom: 3%;
 `;
 
 const AdminOrderTitle = styled.h2`

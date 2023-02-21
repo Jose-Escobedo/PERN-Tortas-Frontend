@@ -53,12 +53,7 @@ const LargeWidget = () => {
                     <span className="widgetLgName">{order.userId}</span>
                   </td>
                   <td className="widgetLgDate">{order.createdAt}</td>
-                  <td className="widgetLgAmount">
-                    {(order.total / 100).toLocaleString("en-US", {
-                      style: "currency",
-                      currency: "USD",
-                    })}
-                  </td>
+                  <td className="widgetLgAmount">{`$ ${order.total}`}</td>
                   <td className="widgetLgStatus">
                     <Button type={order.payment_status} />
                   </td>

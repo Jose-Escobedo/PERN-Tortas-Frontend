@@ -10,7 +10,7 @@ const RecentOrder = () => {
   const location = useLocation();
   const id = location.pathname.split("/")[2];
   const [recentOrder, setRecentOrder] = useState();
-  const pickupObj = recentOrder.pickup;
+  const pickupObj = recentOrder?.pickup;
   const TOKEN = JSON.parse(
     JSON.parse(localStorage.getItem("persist:root"))?.user || "{}"
   )?.currentUser?.accessToken;
@@ -51,7 +51,10 @@ const RecentOrder = () => {
                 return <AdminOrderItem key={index} item={item} />;
               })}
             </AdminOrderItemsContainer>
-            <AdminOrderTotal></AdminOrderTotal>
+            <AdminOrderTotal>{`TOTAL: $ ${recentOrder?.total}`}</AdminOrderTotal>
+            <DoordashSupportId>{`Doordash Reference: #${Number(
+              recentOrder?.doordashSupportId
+            )}`}</DoordashSupportId>
           </AdminOrderWrapper>
         </AdminOrderContainer>
       </AdminContainer>
@@ -93,9 +96,16 @@ const AdminOrderAddress = styled.span`
 const AdminOrderItemsContainer = styled.div`
   display: flex;
   flex-direction: column;
+  margin-top: 3%;
+  gap: 25px;
 `;
 const AdminOrderTotal = styled.span`
   font-size: 2rem;
+  margin-top: 3%;
+`;
+const DoordashSupportId = styled.span`
+  font-size: 2rem;
+  margin-top: 3%;
 `;
 
 export default RecentOrder;

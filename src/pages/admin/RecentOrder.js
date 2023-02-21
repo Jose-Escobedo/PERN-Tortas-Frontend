@@ -50,15 +50,21 @@ const RecentOrder = () => {
             <h2>Back to Orders</h2>
           </AdminOrderBackButton>
           <AdminOrderWrapper>
-            <AdminOrderTitle>Order Details</AdminOrderTitle>
+            <AdminOrderTitle>ORDER DETAILS</AdminOrderTitle>
             <AdminOrderName>
-              {recentOrder?.dropoff_contact_given_name}
+              {`NAME: ${recentOrder?.dropoff_contact_given_name.toUpperCase()}`}
             </AdminOrderName>
             <AdminOrderTime>
-              {moment(recentOrder?.createdAt).format("MM.DD. h:mm A")}
+              {`ORDER CREATED AT: ${moment(recentOrder?.createdAt).format(
+                "MM.DD. h:mm A"
+              )}`}
             </AdminOrderTime>
             <AdminOrderAddress>{recentOrder?.address}</AdminOrderAddress>
-            {pickupObj ? <h2>PICKUP</h2> : <h2>DELIVERY</h2>}
+            {pickupObj ? (
+              <h2 id="pickupobj">PICKUP</h2>
+            ) : (
+              <h2 id="pickupobj">DELIVERY</h2>
+            )}
             <AdminOrderItemsContainer>
               {recentOrder?.products.map((item, index) => {
                 return <AdminOrderItem key={index} item={item} />;
@@ -91,6 +97,9 @@ const AdminOrderContainer = styled.div`
 const AdminOrderWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  #pickupobj {
+    font-size: 2rem;
+  }
 `;
 
 const AdminOrderBackButton = styled.div`
@@ -109,16 +118,20 @@ const AdminOrderBackButton = styled.div`
 
 const AdminOrderTitle = styled.h2`
   font-size: 2rem;
+  padding-bottom: 10px;
 `;
 
 const AdminOrderName = styled.span`
   font-size: 2rem;
+  padding-bottom: 10px;
 `;
 const AdminOrderTime = styled.span`
   font-size: 2rem;
+  padding-bottom: 10px;
 `;
 const AdminOrderAddress = styled.span`
   font-size: 2rem;
+  padding-bottom: 10px;
 `;
 const AdminOrderItemsContainer = styled.div`
   display: flex;

@@ -1,22 +1,21 @@
 import React from "react";
 import styled from "styled-components";
 import Sidebar from "./Sidebar";
-import Chart from "./Chart";
 import SmallWidget from "./SmallWidget";
 import LargeWidget from "./LargeWidget";
 import FeaturedInfo from "./FeaturedInfo";
 import AdminNavbar from "./AdminNavbar";
 import { useEffect, useMemo, useState } from "react";
-import { userRequest } from "../../requestMethods";
+import moment from "moment";
 
 const AdminHome = () => {
-  const [userStats, setUserStats] = useState([]);
+  const [recentOrders, setRecentOrders] = useState([]);
   const TOKEN = JSON.parse(
     JSON.parse(localStorage.getItem("persist:root"))?.user || "{}"
   )?.currentUser?.accessToken;
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/admin/Orders", {
+    fetch("http://localhost:5000/api/orders/?new=true", {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -26,7 +25,7 @@ const AdminHome = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        setRecentOrders(data);
       });
   }, []);
 
@@ -37,12 +36,22 @@ const AdminHome = () => {
         <Sidebar />
         <div className="home">
           <FeaturedInfo />
-          <Chart
-            data={userStats}
-            title="User Analytics"
-            grid
-            dataKey="Active User"
-          />
+          <AdminOrderContainer>
+            <AdminOrderWrapper>
+              {recentOrders.map((order) => {
+                return (
+                  <RecentOrderNameContainer>
+                    <RecentOrderName>
+                      {order.dropoff_contact_given_name}
+                    </RecentOrderName>
+                    <RecentOrderTime>
+                      {moment(order.createdAt).format("MM.DD. h:mm A")}
+                    </RecentOrderTime>
+                  </RecentOrderNameContainer>
+                );
+              })}
+            </AdminOrderWrapper>
+          </AdminOrderContainer>
           <div className="homeWidgets">
             <SmallWidget />
             <LargeWidget />
@@ -64,6 +73,30 @@ const AdminContainer = styled.div`
     display: flex;
     margin: 20px;
   }
+`;
+
+const AdminOrderContainer = styled.div``;
+const AdminOrderWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
+  min-height: 30vh;
+`;
+const RecentOrderName = styled.span`
+  font-size: 1rem;
+  font-weight: bold;
+`;
+const RecentOrderTime = styled.span`
+  font-size: 1rem;
+  font-weight: bold;
+`;
+const RecentOrderNameContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+  min-height: 20vh;
+  align-items: center;
+  justify-content: center;
 `;
 
 export default AdminHome;

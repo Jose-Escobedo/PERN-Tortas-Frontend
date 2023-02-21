@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import AdminNavbar from "./AdminNavbar";
 import Sidebar from "./Sidebar";
+import moment from "moment";
 
 const RecentOrder = () => {
   const location = useLocation();
@@ -13,23 +14,19 @@ const RecentOrder = () => {
   )?.currentUser?.accessToken;
 
   useEffect(() => {
-    const getRecentOrder = async () => {
-      try {
-        const res = await fetch(`http://localhost:5000/api/orders/find/${id}`, {
-          method: "GET",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            authorization: "Bearer " + TOKEN,
-          },
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            setRecentOrder(data);
-          });
-      } catch (error) {}
-    };
-    getRecentOrder();
+    fetch(`http://localhost:5000/api/orders/find/order/${id}`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        authorization: "Bearer " + TOKEN,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setRecentOrder(data);
+      });
   }, [id]);
   return (
     <>
@@ -37,7 +34,18 @@ const RecentOrder = () => {
       <AdminContainer>
         <Sidebar />
         <AdminOrderContainer>
-          <AdminOrderWrapper></AdminOrderWrapper>
+          <AdminOrderWrapper>
+            <AdminOrderTitle>Order Details</AdminOrderTitle>
+            <AdminOrderName>
+              {recentOrder?.dropoff_contact_given_name}
+            </AdminOrderName>
+            <AdminOrderTime>
+              {moment(recentOrder?.createdAt).format("MM.DD. h:mm A")}
+            </AdminOrderTime>
+            <AdminOrderAddress>{recentOrder.address}</AdminOrderAddress>
+            <AdminOrderItemsContainer></AdminOrderItemsContainer>
+            <AdminOrderTotal></AdminOrderTotal>
+          </AdminOrderWrapper>
         </AdminOrderContainer>
       </AdminContainer>
     </>
@@ -47,8 +55,40 @@ const RecentOrder = () => {
 const AdminContainer = styled.div`
   display: flex;
   margin-top: 10px;
+  padding: 25px;
 `;
-const AdminOrderContainer = styled.div``;
-const AdminOrderWrapper = styled.div``;
+const AdminOrderContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
+  min-height: 30vh;
+  border: 1px solid black;
+  width: 100%;
+`;
+const AdminOrderWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const AdminOrderTitle = styled.h2`
+  font-size: 2rem;
+`;
+
+const AdminOrderName = styled.span`
+  font-size: 2rem;
+`;
+const AdminOrderTime = styled.span`
+  font-size: 2rem;
+`;
+const AdminOrderAddress = styled.span`
+  font-size: 2rem;
+`;
+const AdminOrderItemsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+const AdminOrderTotal = styled.span`
+  font-size: 2rem;
+`;
 
 export default RecentOrder;

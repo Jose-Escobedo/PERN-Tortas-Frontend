@@ -55,7 +55,7 @@ const AdminHome = () => {
                         flexDirection: "column",
                         alignItems: "center",
                       }}
-                      to={`/order/${order._id}`}
+                      to={`/orders/${order._id}`}
                     >
                       <RecentOrderName>
                         {order.dropoff_contact_given_name}

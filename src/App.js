@@ -33,7 +33,7 @@ function App() {
           <Route exact path="/admin-home" element={<AdminHome />} />
         ) : null}
         {admin ? (
-          <Route exact path="/order/:id" element={<RecentOrder />} />
+          <Route exact path="/orders/:id" element={<RecentOrder />} />
         ) : null}
         <Route exact path="/" element={<Home />} />
         <Route exact path="/cart" element={<Cart />} />

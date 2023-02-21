@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { userRequest } from "../../requestMethods";
+import moment from "moment";
 
 const LargeWidget = () => {
   const Button = ({ type }) => {
@@ -50,9 +51,13 @@ const LargeWidget = () => {
               return (
                 <tr className="widgetLgTr" key={order._id}>
                   <td className="widgetLgUser">
-                    <span className="widgetLgName">{order.userId}</span>
+                    <span className="widgetLgName">
+                      {order.dropoff_contact_given_name}
+                    </span>
                   </td>
-                  <td className="widgetLgDate">{order.createdAt}</td>
+                  <td className="widgetLgDate">
+                    {moment(order.createdAt).format("MM.DD. h:mm A")}
+                  </td>
                   <td className="widgetLgAmount">{`$ ${order.total}`}</td>
                   <td className="widgetLgStatus">
                     <Button type={order.payment_status} />

@@ -71,6 +71,7 @@ const RecentOrder = () => {
               })}
             </AdminOrderItemsContainer>
             <AdminOrderTotal>{`TOTAL: $ ${recentOrder?.total}`}</AdminOrderTotal>
+            <AdminOrderTotal>{`TIP: $ ${recentOrder?.tip}`}</AdminOrderTotal>
             <DoordashSupportId>{`Doordash Reference: #${Number(
               recentOrder?.doordashSupportId
             )}`}</DoordashSupportId>
@@ -140,6 +141,10 @@ const AdminOrderItemsContainer = styled.div`
   gap: 25px;
 `;
 const AdminOrderTotal = styled.span`
+  font-size: 2rem;
+  margin-top: 3%;
+`;
+const AdminOrderTip = styled.span`
   font-size: 2rem;
   margin-top: 3%;
 `;

@@ -5,12 +5,25 @@ import { userRequest } from "../../requestMethods";
 
 const SmallWidget = () => {
   const [users, setUsers] = useState([]);
+  const TOKEN = JSON.parse(
+    JSON.parse(localStorage.getItem("persist:root"))?.user || "{}"
+  )?.currentUser?.accessToken;
 
   useEffect(() => {
     const getUsers = async () => {
       try {
-        const res = await userRequest.get("users/?new=true");
-        setUsers(res.data);
+        const res = await fetch("http://localhost:5000/api/users/?new=true", {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            authorization: "Bearer " + TOKEN,
+          },
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            setUsers(data);
+          });
       } catch (err) {
         console.log(err);
       }

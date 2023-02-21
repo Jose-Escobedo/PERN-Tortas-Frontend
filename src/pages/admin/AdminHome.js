@@ -11,39 +11,24 @@ import { userRequest } from "../../requestMethods";
 
 const AdminHome = () => {
   const [userStats, setUserStats] = useState([]);
-
-  const MONTHS = useMemo(
-    () => [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ],
-    []
-  );
+  const TOKEN = JSON.parse(
+    JSON.parse(localStorage.getItem("persist:root"))?.user || "{}"
+  )?.currentUser?.accessToken;
 
   useEffect(() => {
-    const getStats = async () => {
-      try {
-        const res = await userRequest.get("users/stats");
-        res.data.map((item) =>
-          setUserStats((prev) => [
-            ...prev,
-            { name: MONTHS[item._id - 1], "Active User": item.total },
-          ])
-        );
-      } catch {}
-    };
-    getStats();
-  }, [MONTHS]);
+    fetch("http://localhost:5000/api/admin/Orders", {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        authorization: "Bearer " + TOKEN,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      });
+  }, []);
 
   return (
     <>

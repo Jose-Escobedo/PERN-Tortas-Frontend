@@ -8,12 +8,25 @@ const LargeWidget = () => {
   };
 
   const [orders, setOrders] = useState([]);
+  const TOKEN = JSON.parse(
+    JSON.parse(localStorage.getItem("persist:root"))?.user || "{}"
+  )?.currentUser?.accessToken;
 
   useEffect(() => {
     const getOrders = async () => {
       try {
-        const res = await userRequest.get("Orders/?new=true");
-        setOrders(res.data);
+        const res = await fetch("http://localhost:5000/api/orders/?new=true", {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            authorization: "Bearer " + TOKEN,
+          },
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            setOrders(data);
+          });
       } catch (err) {
         console.log(err);
       }
@@ -25,24 +38,29 @@ const LargeWidget = () => {
       <div className="widgetLg">
         <h3 className="widgetLgTitle">Latest transactions</h3>
         <table className="widgetLgTable">
-          <tr className="widgetLgTr">
-            <th className="widgetLgTh">Customer</th>
-            <th className="widgetLgTh">Date</th>
-            <th className="widgetLgTh">Amount</th>
-            <th className="widgetLgTh">Status</th>
-          </tr>
-          {orders.map((order) => {
-            <tr className="widgetLgTr" key={order._id}>
-              <td className="widgetLgUser">
-                <span className="widgetLgName">{order.userId}</span>
-              </td>
-              <td className="widgetLgDate">{order.createdAt}</td>
-              <td className="widgetLgAmount">`$ {order.amount}`</td>
-              <td className="widgetLgStatus">
-                <Button type={order.status} />
-              </td>
-            </tr>;
-          })}
+          <tbody>
+            <tr className="widgetLgTr">
+              <th className="widgetLgTh">Customer</th>
+              <th className="widgetLgTh">Date</th>
+              <th className="widgetLgTh">Amount</th>
+              <th className="widgetLgTh">Status</th>
+            </tr>
+
+            {orders.map((order) => {
+              return (
+                <tr className="widgetLgTr" key={order._id}>
+                  <td className="widgetLgUser">
+                    <span className="widgetLgName">{order.userId}</span>
+                  </td>
+                  <td className="widgetLgDate">{order.createdAt}</td>
+                  <td className="widgetLgAmount">`$ {order.total}`</td>
+                  <td className="widgetLgStatus">
+                    <Button type={order.payment_status} />
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
         </table>
       </div>
     </WidgetContainer>

@@ -6,13 +6,26 @@ import { userRequest } from "../../requestMethods";
 const FeaturedInfo = () => {
   const [income, setIncome] = useState([]);
   const [percentage, setPercentage] = useState(0);
+  const TOKEN = JSON.parse(
+    JSON.parse(localStorage.getItem("persist:root"))?.user || "{}"
+  )?.currentUser?.accessToken;
 
   useEffect(() => {
     const getIncome = async () => {
       try {
-        const res = await userRequest.get("/orders/stats");
-        setIncome(res.data);
-        setPercentage((res.data[1].total * 100) / res.data[0].total - 100);
+        const res = await fetch("http://localhost:5000/api/orders/stats ", {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            authorization: "Bearer " + TOKEN,
+          },
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+            setIncome(data[0].total);
+          });
       } catch (err) {
         console.log(err);
       }
@@ -26,9 +39,10 @@ const FeaturedInfo = () => {
         <div className="featuredItem">
           <span className="featuredTitle">Revenue</span>
           <div className="featuredMoneyContainer">
-            <span className="featuredMoney">${income[1]?.total}</span>
+            <span className="featuredMoney">${income}</span>
             <span className="featuredMoneyRate">
-              -11.4 <ArrowDownward className="featuredIcon negative" />
+              {percentage}
+              <ArrowDownward className="featuredIcon negative" />
             </span>
           </div>
           <span className="featuredSub">Compared to last month</span>

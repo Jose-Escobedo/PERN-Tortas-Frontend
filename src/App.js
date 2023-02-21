@@ -17,6 +17,7 @@ import InsufficientSubtotal from "./pages/InsufficientSubtotal";
 import PickupInfo from "./pages/PickupInfo";
 import InsufficientPickupSubtotal from "./pages/InsufficientPickupSubtotal";
 import Accessibility from "./pages/Accessibility";
+import RecentOrder from "./pages/admin/RecentOrder";
 
 function App() {
   const user = useSelector((state) => state.user.currentUser);
@@ -30,6 +31,9 @@ function App() {
       <Routes>
         {admin ? (
           <Route exact path="/admin-home" element={<AdminHome />} />
+        ) : null}
+        {admin ? (
+          <Route exact path="/order/:id" element={<RecentOrder />} />
         ) : null}
         <Route exact path="/" element={<Home />} />
         <Route exact path="/cart" element={<Cart />} />
@@ -46,6 +50,7 @@ function App() {
         <Route exact path="/products/:cat" element={<ProductList />} />
         <Route exact path="/products" element={<ProductList />} />
         <Route exact path="/product/:id" element={<Product />} />
+
         <Route exact path="/success" element={<Success />} />
         <Route exact path="/deliverycheckout" element={<CheckoutInfo />} />
         <Route exact path="/pickupcheckout" element={<PickupInfo />} />

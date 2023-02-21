@@ -3,12 +3,14 @@ import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import AdminNavbar from "./AdminNavbar";
 import Sidebar from "./Sidebar";
+import AdminOrderItem from "./AdminOrderItem";
 import moment from "moment";
 
 const RecentOrder = () => {
   const location = useLocation();
   const id = location.pathname.split("/")[2];
   const [recentOrder, setRecentOrder] = useState();
+  const pickupObj = recentOrder.pickup;
   const TOKEN = JSON.parse(
     JSON.parse(localStorage.getItem("persist:root"))?.user || "{}"
   )?.currentUser?.accessToken;
@@ -42,8 +44,13 @@ const RecentOrder = () => {
             <AdminOrderTime>
               {moment(recentOrder?.createdAt).format("MM.DD. h:mm A")}
             </AdminOrderTime>
-            <AdminOrderAddress>{recentOrder.address}</AdminOrderAddress>
-            <AdminOrderItemsContainer></AdminOrderItemsContainer>
+            <AdminOrderAddress>{recentOrder?.address}</AdminOrderAddress>
+            {pickupObj ? <h2>PICKUP</h2> : <h2>DELIVERY</h2>}
+            <AdminOrderItemsContainer>
+              {recentOrder?.products.map((item, index) => {
+                return <AdminOrderItem key={index} item={item} />;
+              })}
+            </AdminOrderItemsContainer>
             <AdminOrderTotal></AdminOrderTotal>
           </AdminOrderWrapper>
         </AdminOrderContainer>

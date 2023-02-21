@@ -46,9 +46,9 @@ const AdminHome = () => {
           <FeaturedInfo />
           <AdminOrderContainer>
             <AdminOrderWrapper>
-              {recentOrders.map((order) => {
+              {recentOrders.map((order, index) => {
                 return (
-                  <RecentOrderNameContainer>
+                  <RecentOrderNameContainer key={index}>
                     <Link
                       style={{
                         display: "flex",

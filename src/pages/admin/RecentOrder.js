@@ -44,7 +44,7 @@ const RecentOrder = () => {
       fetch(
         `https://openapi.doordash.com/drive/v2/deliveries/${externalDDid}`,
         {
-          method: "POST",
+          method: "PATCH",
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
@@ -62,7 +62,7 @@ const RecentOrder = () => {
       fetch(
         `https://openapi.doordash.com/drive/v2/deliveries/${externalDDid}`,
         {
-          method: "POST",
+          method: "PATCH",
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",

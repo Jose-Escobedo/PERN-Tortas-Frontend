@@ -6,6 +6,7 @@ import AdminOrderItem from "./AdminOrderItem";
 import moment from "moment";
 import doubleLeft from "../../images/double-left.png";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const RecentOrder = () => {
   const location = useLocation();
@@ -15,6 +16,8 @@ const RecentOrder = () => {
   const TOKEN = JSON.parse(
     JSON.parse(localStorage.getItem("persist:root"))?.user || "{}"
   )?.currentUser?.accessToken;
+
+  const currentDate = moment().toISOString();
 
   useEffect(() => {
     fetch(`http://localhost:5000/api/orders/find/order/${id}`, {
@@ -31,6 +34,54 @@ const RecentOrder = () => {
         setRecentOrder(data);
       });
   }, [id]);
+
+  const handlePrepTime = (e) => {
+    console.log(e.target.value);
+    const timeAdded = e.target.value;
+    const externalDDid = String(recentOrder._id);
+
+    if (e.target.value === 0) {
+      fetch(
+        `https://openapi.doordash.com/drive/v2/deliveries/${externalDDid}`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            pickup_time: moment().toISOString(),
+          }),
+        }
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+        });
+    } else {
+      fetch(
+        `https://openapi.doordash.com/drive/v2/deliveries/${externalDDid}`,
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            pickup_time: moment(currentDate)
+              .add(timeAdded, "m")
+              .toDate()
+              .toISOString(),
+          }),
+        }
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+        });
+    }
+  };
+
   return (
     <>
       <AdminNavbar />
@@ -65,6 +116,15 @@ const RecentOrder = () => {
             ) : (
               <h2 id="pickupobj">DELIVERY</h2>
             )}
+
+            <AdminOrderPrepTime onClick={handlePrepTime}>
+              <button value={0}>NOW</button>
+              <button value={15}>15 MIN</button>
+              <button value={30}>30 MIN</button>
+              <button value={45}>45 MIN</button>
+              <button value={60}>60 MIN</button>
+            </AdminOrderPrepTime>
+
             <AdminOrderItemsContainer>
               {recentOrder?.products.map((item, index) => {
                 return <AdminOrderItem key={index} item={item} />;
@@ -133,6 +193,18 @@ const AdminOrderTime = styled.span`
 const AdminOrderAddress = styled.span`
   font-size: 2rem;
   padding-bottom: 10px;
+`;
+
+const AdminOrderPrepTime = styled.div`
+  padding: 3% 0;
+  display: flex;
+  justify-content: space-evenly;
+  button {
+    border-radius: 20px;
+    cursor: pointer;
+    padding: 1em;
+    font-size: 1.5rem;
+  }
 `;
 const AdminOrderItemsContainer = styled.div`
   display: flex;

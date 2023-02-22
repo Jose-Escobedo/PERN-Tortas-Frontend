@@ -58,7 +58,9 @@ const AdminHome = () => {
                       to={`/orders/${order._id}`}
                     >
                       <RecentOrderName>
-                        {order.dropoff_contact_given_name}
+                        {`${order.dropoff_contact_given_name}` + " "}
+                        {`${Array.from(order.dropoff_contact_family_name)[0]}` +
+                          "."}
                       </RecentOrderName>
                       <RecentOrderTime>
                         {moment(order.createdAt).format("MM.DD. h:mm A")}

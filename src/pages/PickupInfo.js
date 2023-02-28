@@ -418,7 +418,7 @@ const PickupInfo = () => {
               <div className="bottom-info-container">
                 <div>Securely processed by Stripe</div>
                 <div className="copyright">
-                  Tortas Mexico Studio City &copy;2022
+                  Tortas Mexico Studio City &copy;2023
                 </div>
               </div>
             </div>

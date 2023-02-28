@@ -21,7 +21,7 @@ export const SliderItems = [
     bg: "fcf1ed",
   },
   {
-    id: 3,
+    id: "638ba957773371cc8a0988bc",
     img: `${Taquitos}`,
     title: "Taquitos",
     desc: "Try Our Crispy Chicken Taquitos",

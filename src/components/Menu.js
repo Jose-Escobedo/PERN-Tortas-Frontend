@@ -21,7 +21,6 @@ const Menu = () => {
   return (
     <Container>
       <Title>Menu</Title>
-      <Desc>Popular Items</Desc>
       <MenuGridList items={products} />
     </Container>
   );

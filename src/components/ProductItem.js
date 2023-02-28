@@ -9,11 +9,13 @@ import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { addProduct } from "../redux/cartRedux";
+import TortaCubana from "../images/cubana.jpg";
+import { useEffect, useState } from "react";
 
 const ProductItem = ({ item }) => {
   const dispatch = useDispatch();
   const quantity = 1;
-
+  const [asadaBoolean, setAsadaBoolean] = useState();
   const handleClick = (item) => {
     dispatch(addProduct({ ...item, quantity }));
     toast.success("Item has been added to Cart.", {
@@ -21,10 +23,28 @@ const ProductItem = ({ item }) => {
       toastId: "success2",
     });
   };
+
+  useEffect(() => {
+    if (item.name === "Asada Fries") {
+      setAsadaBoolean(true);
+    } else {
+      setAsadaBoolean(false);
+    }
+  }, []);
+
   return (
     <Container>
       <Circle />
-      <Image src={item.img} />
+      {asadaBoolean ? (
+        <Image
+          src={
+            "https://firebasestorage.googleapis.com/v0/b/tortas-bffc7.appspot.com/o/asada-fries-min.jpeg?alt=media&token=074ff610-fae7-442a-a333-bddfc5265649"
+          }
+        />
+      ) : (
+        <Image src={item.img} />
+      )}
+
       <Info>
         <Icon onClick={() => handleClick(item)}>
           <ShoppingCartOutlined />

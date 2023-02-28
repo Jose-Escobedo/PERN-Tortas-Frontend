@@ -25,6 +25,7 @@ const Product = () => {
   const [extrasSum, setExtrasSum] = useState(0);
   const [note, setNote] = useState();
   const [generic, setGeneric] = useState();
+  const [moleBoolean, setMoleBoolean] = useState();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -50,6 +51,12 @@ const Product = () => {
       setGeneric(true);
     } else {
       setGeneric(false);
+    }
+
+    if (product.name === "Pollo con Mole") {
+      setMoleBoolean(true);
+    } else {
+      setMoleBoolean(false);
     }
   }, [product.extras]);
 
@@ -120,7 +127,17 @@ const Product = () => {
           {generic ? (
             <GenericImage src={product.img} />
           ) : (
-            <Image src={product.img} />
+            <>
+              {moleBoolean ? (
+                <Image
+                  src={
+                    "https://firebasestorage.googleapis.com/v0/b/tortas-bffc7.appspot.com/o/mole-removebg-min.png?alt=media&token=fe32932d-58a6-43d7-b862-1af5a8a90475"
+                  }
+                />
+              ) : (
+                <Image src={product.img} />
+              )}
+            </>
           )}
         </ImgContainer>
         <InfoContainer>
@@ -197,8 +214,8 @@ const ImgContainer = styled.div`
 `;
 const Image = styled.img`
   width: 100%;
-  height: 90vh;
-  object-fit: cover;
+  height: 80vh;
+  object-fit: contain;
   ${mobile({ height: "40vh" })}
 `;
 

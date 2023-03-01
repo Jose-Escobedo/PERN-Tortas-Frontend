@@ -2,6 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { popularProducts } from "../data";
+import CategoryGridList from "./CategoryGridList";
+import MenuGridList from "./MenuGridList";
 import ProductItem from "./ProductItem";
 
 const Products = ({ cat, filters, sort }) => {
@@ -34,11 +36,7 @@ const Products = ({ cat, filters, sort }) => {
   }, [products, cat, filters]);
 
   useEffect(() => {
-    if (sort === "newest") {
-      setFilteredProducts((prev) =>
-        [...prev].sort((a, b) => a.createdAt - b.createdAt)
-      );
-    } else if (sort === "asc") {
+    if (sort === "asc") {
       setFilteredProducts((prev) =>
         [...prev].sort((a, b) => a.price - b.price)
       );
@@ -50,22 +48,36 @@ const Products = ({ cat, filters, sort }) => {
   }, [sort]);
 
   return (
-    <Container>
-      {cat
-        ? filteredProducts.map((item) => {
-            return <ProductItem item={item} key={item._id} />;
-          })
-        : products.slice(0, 8).map((item) => {
+    <>
+      {cat ? (
+        <CategoryContainer>
+          {filteredProducts.map((item) => {
+            return <CategoryGridList item={item} key={item._id} />;
+          })}
+        </CategoryContainer>
+      ) : (
+        <Container>
+          {products.slice(0, 8).map((item) => {
             return <ProductItem item={item} key={item._id} />;
           })}
-    </Container>
+        </Container>
+      )}
+    </>
   );
 };
 
 const Container = styled.div`
-  padding: 20px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  grid-auto-rows: minmax(100px, auto);
+`;
+
+const CategoryContainer = styled.div`
+  padding: 30px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  grid-auto-rows: minmax(100px, auto);
 `;
 export default Products;

@@ -67,6 +67,7 @@ const Products = ({ cat, filters, sort }) => {
 };
 
 const Container = styled.div`
+  padding: 30px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
@@ -78,6 +79,6 @@ const CategoryContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
-  grid-auto-rows: minmax(100px, auto);
+  grid-auto-rows: 1fr;
 `;
 export default Products;

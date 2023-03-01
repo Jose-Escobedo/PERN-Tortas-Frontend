@@ -44,7 +44,7 @@ export const categories = [
   },
   {
     id: 3,
-    img: `${BucheTacos}`,
+    img: `https://firebasestorage.googleapis.com/v0/b/tortas-bffc7.appspot.com/o/tacos-buche.jpeg?alt=media&token=7ed5f819-0c85-45ba-b779-68dbaffffb27`,
     title: "Tacos",
     cat: "tacos",
   },

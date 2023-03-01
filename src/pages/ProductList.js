@@ -33,7 +33,7 @@ const ProductList = () => {
       );
     } else {
       setCatImageLink(
-        "https://firebasestorage.googleapis.com/v0/b/tortas-bffc7.appspot.com/o/1669950294561chk-tacos.JPG?alt=media&token=ae8580b0-f953-4970-9e6d-582fe19fa513"
+        "https://firebasestorage.googleapis.com/v0/b/tortas-bffc7.appspot.com/o/tacos-buche.jpeg?alt=media&token=7ed5f819-0c85-45ba-b779-68dbaffffb27"
       );
     }
   }, []);
@@ -41,8 +41,12 @@ const ProductList = () => {
   return (
     <Container>
       <Navbar />
-      <Title>{cat.toUpperCase()}</Title>
-      <CategoryImage src={catImageLink}></CategoryImage>
+      <TitleAndImageWrapper>
+        <Title>{cat.toUpperCase()}</Title>
+        <CategoryImageContainer>
+          <CategoryImage src={catImageLink} />
+        </CategoryImageContainer>
+      </TitleAndImageWrapper>
       <FilterContainer>
         <Filter>
           <FilterText>Sort Items:</FilterText>
@@ -58,7 +62,8 @@ const ProductList = () => {
   );
 };
 
-const Container = styled.div`
+const Container = styled.div``;
+const TitleAndImageWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -66,25 +71,37 @@ const Container = styled.div`
 `;
 const Title = styled.h1`
   margin-top: 20vh;
+  padding-bottom: 20px;
+`;
+
+const CategoryImageContainer = styled.div`
+  display: inline-block;
+  position: relative;
+  width: 250px;
+  height: 250px;
+  overflow: hidden;
+  border-radius: 50%;
+  ${mobile({ height: "40vh" })}
 `;
 const CategoryImage = styled.img`
-  object-fit: contain;
-  width: 100%;
-  height: 30vh;
-  ${mobile({ height: "40vh" })}
+  width: auto;
+  height: 100%;
+  margin-left: -50px;
 `;
 const FilterContainer = styled.div`
   display: flex;
   justify-content: space-between;
 `;
 const Filter = styled.div`
-  margin: 1.3em;
+  margin: 1.3em 0em;
+  margin-left: 2em;
   ${mobile({ width: "0px 20px", display: "flex", flexDirection: "column" })}
 `;
 const FilterText = styled.span`
   font-size: 1.3rem;
   font-weight: 600;
   margin-right: 20px;
+
   ${mobile({ marginRight: "0px" })}
 `;
 const Select = styled.select`

@@ -5,23 +5,19 @@ import { Link } from "react-router-dom";
 
 const CategoryGridList = ({ item, index }) => {
   return (
-    <CategoryListGrid>
-      <CategoryGridBox key={index}>
-        <CategoryGridLink to={`/product/${item._id}`}>
-          <CategoryGridWrapper>
-            <CategoryBoxDetails>
-              <h2>{item.name}</h2>
-              <h3 className="desc">{item.desc}</h3>
-              <h3>{`$ ${item.price}`}</h3>
-            </CategoryBoxDetails>
-          </CategoryGridWrapper>
-        </CategoryGridLink>
-      </CategoryGridBox>
-    </CategoryListGrid>
+    <CategoryGridBox key={index}>
+      <CategoryGridLink to={`/product/${item._id}`}>
+        <CategoryGridWrapper>
+          <CategoryBoxDetails>
+            <h2>{item.name}</h2>
+            <h3 className="desc">{item.desc}</h3>
+            <h3>{`$ ${item.price}`}</h3>
+          </CategoryBoxDetails>
+        </CategoryGridWrapper>
+      </CategoryGridLink>
+    </CategoryGridBox>
   );
 };
-
-const CategoryListGrid = styled.div``;
 
 const CategoryGridBox = styled.div`
   width: 100%;
@@ -58,6 +54,7 @@ const CategoryBoxDetails = styled.div`
   .desc {
     font-weight: 300;
     padding-bottom: 0.5em;
+    font-size: 1.3rem;
   }
 `;
 

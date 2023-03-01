@@ -38,10 +38,12 @@ const Title = styled.h1`
   font-size: 4rem;
   margin-bottom: 0.8em;
 `;
+
 const Desc = styled.div`
   font-size: 1.5rem;
   margin-bottom: 1.3em;
   font-weight: 300;
   ${mobile({ textAlign: "center" })}
 `;
+
 export default Menu;

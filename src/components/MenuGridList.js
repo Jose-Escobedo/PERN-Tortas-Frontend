@@ -2,28 +2,17 @@ import React from "react";
 import styled from "styled-components";
 import tacoHuman from "../images/tacoHuman.png";
 import { Link } from "react-router-dom";
-import { animateScroll as scroll } from "react-scroll/modules";
-import { Link as LinkS } from "react-scroll";
 
 const MenuGridList = ({ items }) => {
   return (
     <>
       <MenuCategoryList>
-        <MenuCatLink
-          activeClass="active"
-          to="tacos"
-          spy={true}
-          smooth={true}
-          hashSpy={true}
-          offset={50}
-          duration={500}
-          delay={1000}
-          isDynamic={true}
-          ignoreCancelEvents={false}
-          spyThrottle={500}
-        >
-          Tacos
-        </MenuCatLink>
+        <MenuCatLink>All</MenuCatLink>
+        <MenuCatLink>Popular</MenuCatLink>
+        <MenuCatLink>Tacos</MenuCatLink>
+        <MenuCatLink>Tortas</MenuCatLink>
+        <MenuCatLink>Burritos</MenuCatLink>
+        <MenuCatLink>Specialties</MenuCatLink>
       </MenuCategoryList>
       <MenuItemsGrid>
         {items?.map((item, index) => {
@@ -54,28 +43,38 @@ const MenuItemsGrid = styled.div`
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
   grid-auto-rows: minmax(100px, auto);
-  padding: 0 2em;
+  padding: 1em 2em;
 `;
 const MenuCategoryList = styled.ul`
   width: 100%;
   padding: 30px;
+  display: flex;
+  justify-content: center;
 `;
 
-const MenuCatLink = styled(LinkS)`
+const MenuCatLink = styled.button`
   color: black;
   font-size: 1.3rem;
   text-decoration: none;
-  padding: 0 1rem;
+  padding: 1em 1em;
   height: 100%;
+  border: none;
+  background-color: white;
   cursor: pointer;
   transition: 0.2s all ease-in-out;
 
   &:hover {
-    border-bottom: 3px solid #00ffff;
+    outline: 1px white solid;
+    color: white;
+    outline-offset: -2px;
+    background-color: navy;
   }
 
   &:active {
-    border-bottom: 3px solid #00ffff;
+    outline: 1px white solid;
+    color: white;
+    outline-offset: -2px;
+    background-color: #3399ff;
   }
 
   @media screen and (max-width: 925px) {

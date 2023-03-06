@@ -1,21 +1,82 @@
 import React from "react";
 import styled from "styled-components";
-import tacoHuman from "../images/tacoHuman.png";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { publicRequest } from "../requestMethods";
 
 const MenuGridList = ({ items }) => {
+  const [toggle, setToggle] = useState(true);
+  const [category, setCategory] = useState("All");
+  const [products, setProducts] = useState();
+  const [filteredItems, setFilteredItems] = useState(products);
+
+  useEffect(() => {
+    const getProduct = async () => {
+      try {
+        const res = await publicRequest.get("/products");
+        setProducts(res.data);
+        setFilteredItems(res.data);
+        console.log("menu", res.data);
+      } catch (error) {}
+    };
+    getProduct();
+    setCategory("All");
+  }, []);
+
+  useEffect(() => {
+    handleFilter(category);
+  }, [category]);
+
+  const handleCatSelection = (e) => {
+    setCategory(e.target.value);
+    console.log(category);
+  };
+
+  const handleFilter = (cat) => {
+    if (cat === "All") {
+      return setFilteredItems(products);
+    } else {
+      setFilteredItems(products.filter((i) => i.categories.includes(cat)));
+    }
+  };
+
+  const onToggle = () => {
+    setToggle(!toggle);
+  };
+
   return (
     <>
       <MenuCategoryList>
-        <MenuCatLink>All</MenuCatLink>
-        <MenuCatLink>Popular</MenuCatLink>
-        <MenuCatLink>Tacos</MenuCatLink>
-        <MenuCatLink>Tortas</MenuCatLink>
-        <MenuCatLink>Burritos</MenuCatLink>
-        <MenuCatLink>Specialties</MenuCatLink>
+        <MenuCatLink onClick={handleCatSelection} value={"All"}>
+          All
+        </MenuCatLink>
+        <MenuCatLink onClick={handleCatSelection} value={"popular"}>
+          Popular
+        </MenuCatLink>
+        <MenuCatLink onClick={handleCatSelection} value={"tacos"}>
+          Tacos
+        </MenuCatLink>
+        <MenuCatLink onClick={handleCatSelection} value={"tortas"}>
+          Tortas
+        </MenuCatLink>
+        <MenuCatLink onClick={handleCatSelection} value={"burritos"}>
+          Burritos
+        </MenuCatLink>
+        <MenuCatLink onClick={handleCatSelection} value={"beverages"}>
+          Beverages
+        </MenuCatLink>
+        <MenuCatLink onClick={handleCatSelection} value={"specialties"}>
+          Specialties
+        </MenuCatLink>
+        <MenuCatLink onClick={handleCatSelection} value={"soups"}>
+          Soups
+        </MenuCatLink>
+        <MenuCatLink onClick={handleCatSelection} value={"breakfast"}>
+          Breakfast
+        </MenuCatLink>
       </MenuCategoryList>
       <MenuItemsGrid>
-        {items?.map((item, index) => {
+        {filteredItems?.map((item, index) => {
           return (
             <MenuContainerBox key={index}>
               <MenuLink to={`/product/${item._id}`}>

@@ -1,27 +1,13 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { mobile } from "../responsive";
-import { publicRequest } from "../requestMethods";
 import MenuGridList from "./MenuGridList";
 
 const Menu = () => {
-  const [products, setProducts] = useState();
-
-  useEffect(() => {
-    const getProduct = async () => {
-      try {
-        const res = await publicRequest.get("/products");
-        setProducts(res.data);
-        console.log("menu", res.data);
-      } catch (error) {}
-    };
-    getProduct();
-  }, []);
-
   return (
     <Container>
       <Title>Menu</Title>
-      <MenuGridList items={products} />
+      <MenuGridList />
     </Container>
   );
 };

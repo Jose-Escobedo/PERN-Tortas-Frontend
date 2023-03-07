@@ -3,12 +3,16 @@ import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { publicRequest } from "../requestMethods";
+import ArrowLeftOutlined from "@material-ui/icons/ArrowLeftOutlined";
+import ArrowRightOutlined from "@material-ui/icons/ArrowRightOutlined";
+import { mobile } from "../responsive";
 
 const MenuGridList = ({ items }) => {
   const [toggle, setToggle] = useState(true);
   const [category, setCategory] = useState("All");
   const [products, setProducts] = useState();
   const [filteredItems, setFilteredItems] = useState(products);
+  const [slideIndex, setSlideIndex] = useState(0);
 
   useEffect(() => {
     const getProduct = async () => {
@@ -44,37 +48,93 @@ const MenuGridList = ({ items }) => {
     setToggle(!toggle);
   };
 
+  const handleMenuArrowClick = (direction) => {
+    if (direction === "left") {
+      setSlideIndex(slideIndex > 0 ? slideIndex - 1 : 2);
+    } else {
+      setSlideIndex(slideIndex < 2 ? slideIndex + 1 : 0);
+    }
+  };
+
   return (
     <>
-      <MenuCategoryList>
-        <MenuCatLink onClick={handleCatSelection} value={"All"}>
-          All
-        </MenuCatLink>
-        <MenuCatLink onClick={handleCatSelection} value={"popular"}>
-          Popular
-        </MenuCatLink>
-        <MenuCatLink onClick={handleCatSelection} value={"tacos"}>
-          Tacos
-        </MenuCatLink>
-        <MenuCatLink onClick={handleCatSelection} value={"tortas"}>
-          Tortas
-        </MenuCatLink>
-        <MenuCatLink onClick={handleCatSelection} value={"burritos"}>
-          Burritos
-        </MenuCatLink>
-        <MenuCatLink onClick={handleCatSelection} value={"beverages"}>
-          Beverages
-        </MenuCatLink>
-        <MenuCatLink onClick={handleCatSelection} value={"specialties"}>
-          Specialties
-        </MenuCatLink>
-        <MenuCatLink onClick={handleCatSelection} value={"soups"}>
-          Soups
-        </MenuCatLink>
-        <MenuCatLink onClick={handleCatSelection} value={"breakfast"}>
-          Breakfast
-        </MenuCatLink>
-      </MenuCategoryList>
+      <MenuCatContainer>
+        <Arrow direction="left" onClick={() => handleMenuArrowClick("left")}>
+          <ArrowLeftOutlined />
+        </Arrow>
+        <MenuCategoryList slideIndex={slideIndex}>
+          <MenuCatLink onClick={handleCatSelection} value={"All"}>
+            All
+          </MenuCatLink>
+          <MenuCatLink onClick={handleCatSelection} value={"popular"}>
+            Popular
+          </MenuCatLink>
+          <MenuCatLink onClick={handleCatSelection} value={"tacos"}>
+            Tacos
+          </MenuCatLink>
+          <MenuCatLink onClick={handleCatSelection} value={"tortas"}>
+            Tortas
+          </MenuCatLink>
+          <MenuCatLink onClick={handleCatSelection} value={"burritos"}>
+            Burritos
+          </MenuCatLink>
+          <MenuCatLink onClick={handleCatSelection} value={"beverages"}>
+            Beverages
+          </MenuCatLink>
+          <MenuCatLink onClick={handleCatSelection} value={"specialties"}>
+            Specialties
+          </MenuCatLink>
+          <MenuCatLink onClick={handleCatSelection} value={"combos"}>
+            Combinations
+          </MenuCatLink>
+
+          <MenuCatLink onClick={handleCatSelection} value={"soups"}>
+            Soups
+          </MenuCatLink>
+          <MenuCatLink onClick={handleCatSelection} value={"breakfast"}>
+            Breakfast
+          </MenuCatLink>
+          <MenuCatLink onClick={handleCatSelection} value={"shakes"}>
+            Shakes
+          </MenuCatLink>
+
+          <MenuCatLink onClick={handleCatSelection} value={"appetizers"}>
+            Appetizers
+          </MenuCatLink>
+          <MenuCatLink onClick={handleCatSelection} value={"salads"}>
+            Ensaladas
+          </MenuCatLink>
+          <MenuCatLink onClick={handleCatSelection} value={"taquitos"}>
+            Taquitos
+          </MenuCatLink>
+
+          <MenuCatLink onClick={handleCatSelection} value={"sopes"}>
+            Sopes
+          </MenuCatLink>
+          <MenuCatLink onClick={handleCatSelection} value={"tostadas"}>
+            Tostadas
+          </MenuCatLink>
+          <MenuCatLink onClick={handleCatSelection} value={"tamales"}>
+            Tamales
+          </MenuCatLink>
+          <MenuCatLink onClick={handleCatSelection} value={"quesadillas"}>
+            Quesadillas
+          </MenuCatLink>
+          <MenuCatLink onClick={handleCatSelection} value={"sides"}>
+            Sides
+          </MenuCatLink>
+          <MenuCatLink onClick={handleCatSelection} value={"kids-meal"}>
+            Kid's Meal
+          </MenuCatLink>
+          <MenuCatLink onClick={handleCatSelection} value={"desserts"}>
+            Desserts
+          </MenuCatLink>
+        </MenuCategoryList>
+
+        <Arrow direction="right" onClick={() => handleMenuArrowClick("right")}>
+          <ArrowRightOutlined />
+        </Arrow>
+      </MenuCatContainer>
       <MenuItemsGrid>
         {filteredItems?.map((item, index) => {
           return (
@@ -99,6 +159,16 @@ const MenuGridList = ({ items }) => {
   );
 };
 
+const MenuCatContainer = styled.div`
+  width: 70%;
+  height: 20vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+  ${mobile({ display: "none" })}
+`;
+
 const MenuItemsGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -106,19 +176,27 @@ const MenuItemsGrid = styled.div`
   grid-auto-rows: minmax(100px, auto);
   padding: 1em 2em;
 `;
-const MenuCategoryList = styled.ul`
-  width: 100%;
-  padding: 30px;
+const MenuCategoryList = styled.div`
+  width: 210%;
   display: flex;
   justify-content: center;
+  transition: all 1.5s ease;
+  transform: translateX(${(props) => props.slideIndex * -33}%);
 `;
+
+// const MenuCategoryListWrapper = styled.ul`
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   width: 300%;
+//   height: 20vh;
+// `;
 
 const MenuCatLink = styled.button`
   color: black;
-  font-size: 1.3rem;
+  font-size: 1rem;
   text-decoration: none;
   padding: 1em 1em;
-  height: 100%;
   border: none;
   background-color: white;
   cursor: pointer;
@@ -128,14 +206,15 @@ const MenuCatLink = styled.button`
     outline: 1px white solid;
     color: white;
     outline-offset: -2px;
-    background-color: navy;
+    background-color: black;
+    opacity: 0.8;
   }
 
   &:active {
     outline: 1px white solid;
     color: white;
     outline-offset: -2px;
-    background-color: #3399ff;
+    background-color: black;
   }
 
   @media screen and (max-width: 925px) {
@@ -147,6 +226,26 @@ const MenuCatLink = styled.button`
     font-size: 0.9rem;
     padding: 0 0.5rem;
   }
+`;
+
+const Arrow = styled.div`
+  width: 35px;
+  height: 35px;
+  color: white;
+  background-color: black;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: ${(props) => props.direction === "left" && "100px"};
+  right: ${(props) => props.direction === "right" && "100px"};
+  bottom: 0;
+  margin: auto;
+  cursor: pointer;
+  opacity: 0.8;
+  z-index: 2;
 `;
 
 const MenuContainerBox = styled.div`

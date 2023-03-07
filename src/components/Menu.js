@@ -18,7 +18,8 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  padding: 2.5em;
+  padding-bottom: 2.5em;
+  padding-top: 2.5em;
 `;
 const Title = styled.h1`
   font-size: 4rem;

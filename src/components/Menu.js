@@ -8,6 +8,13 @@ const Menu = () => {
     <Container>
       <TitleContainer>
         <Title>Menu</Title>
+        <MenuCatPicture>
+          <img
+            src={
+              "https://firebasestorage.googleapis.com/v0/b/tortas-bffc7.appspot.com/o/TacoChef.png?alt=media&token=12efb46e-9f85-4be8-a9b1-5f8022cdd779"
+            }
+          ></img>
+        </MenuCatPicture>
       </TitleContainer>
       <MenuGridList />
     </Container>
@@ -15,6 +22,16 @@ const Menu = () => {
 };
 
 const Container = styled.div``;
+const MenuCatPicture = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fcf5f5;
+  img {
+    width: 160px;
+    height: 160px;
+  }
+`;
 const TitleContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -25,7 +42,6 @@ const TitleContainer = styled.div`
 `;
 const Title = styled.h1`
   font-size: 4rem;
-  margin-bottom: 0.8em;
 `;
 
 const Desc = styled.div`

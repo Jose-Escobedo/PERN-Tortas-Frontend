@@ -14,6 +14,9 @@ const MenuGridList = ({ items }) => {
   const [products, setProducts] = useState();
   const [filteredItems, setFilteredItems] = useState(products);
   const [slideIndex, setSlideIndex] = useState(0);
+  const active = { backgroundColor: "black", opacity: "0.8", color: "white" };
+  const inactive = {};
+  const [selected, setSelected] = useState(0);
 
   useEffect(() => {
     const getProduct = async () => {
@@ -35,6 +38,7 @@ const MenuGridList = ({ items }) => {
   const handleCatSelection = (e) => {
     setCategory(e.target.value);
     console.log(category);
+    setSelected(e.target.id);
   };
 
   const handleFilter = (cat) => {
@@ -65,9 +69,14 @@ const MenuGridList = ({ items }) => {
         </Arrow>
         <MenuCategoryList slideIndex={slideIndex}>
           <MenuCatLinkWrapper id="list1">
-            {menuCatArray1.map((item) => {
+            {menuCatArray1.map((item, index) => {
               return (
-                <MenuCatLink onClick={handleCatSelection} value={item.value}>
+                <MenuCatLink
+                  style={selected == item.id ? active : inactive}
+                  onClick={handleCatSelection}
+                  value={item.value}
+                  id={item.id}
+                >
                   {item.option}
                 </MenuCatLink>
               );
@@ -77,7 +86,12 @@ const MenuGridList = ({ items }) => {
           <MenuCatLinkWrapper id="list2">
             {menuCatArray2.map((item) => {
               return (
-                <MenuCatLink onClick={handleCatSelection} value={item.value}>
+                <MenuCatLink
+                  style={selected == item.id ? active : inactive}
+                  onClick={handleCatSelection}
+                  value={item.value}
+                  id={item.id}
+                >
                   {item.option}
                 </MenuCatLink>
               );
@@ -87,7 +101,12 @@ const MenuGridList = ({ items }) => {
           <MenuCatLinkWrapper id="list3">
             {menuCatArray3.map((item) => {
               return (
-                <MenuCatLink onClick={handleCatSelection} value={item.value}>
+                <MenuCatLink
+                  style={selected == item.id ? active : inactive}
+                  onClick={handleCatSelection}
+                  value={item.value}
+                  id={item.id}
+                >
                   {item.option}
                 </MenuCatLink>
               );
@@ -99,13 +118,9 @@ const MenuGridList = ({ items }) => {
           <ArrowRightOutlined />
         </Arrow>
       </MenuCatContainer>
-      <MenuCatPicture>
-        <img
-          src={
-            "https://firebasestorage.googleapis.com/v0/b/tortas-bffc7.appspot.com/o/TacoChef.png?alt=media&token=12efb46e-9f85-4be8-a9b1-5f8022cdd779"
-          }
-        ></img>
-      </MenuCatPicture>
+      <MenuCatTitle>
+        {category === "All" ? null : String(category).toUpperCase()}
+      </MenuCatTitle>
       <MenuItemsGrid>
         {filteredItems?.map((item, index) => {
           return (
@@ -128,7 +143,7 @@ const MenuGridList = ({ items }) => {
 };
 
 const MenuCatContainer = styled.div`
-  height: 20vh;
+  height: 15vh;
   position: relative;
   background-color: #fcf5f5;
   overflow: hidden;
@@ -138,6 +153,10 @@ const MenuCatContainer = styled.div`
 const MenuItemsGrid = styled.div`
   display: grid;
   overflow: hidden;
+  justify-content: space-evenly;
+  align-items: center;
+  align-content: space-evenly;
+  justify-items: center;
   background-color: #fcf5f5;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
@@ -145,16 +164,6 @@ const MenuItemsGrid = styled.div`
   padding: 2em 2em;
 `;
 
-const MenuCatPicture = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #fcf5f5;
-  img {
-    width: 200px;
-    height: 200px;
-  }
-`;
 const MenuCategoryList = styled.div`
   display: flex;
   width: 300%;
@@ -163,7 +172,7 @@ const MenuCategoryList = styled.div`
   top: 0;
   bottom: 0;
   justify-content: center;
-  transition: all 1.5s ease;
+  transition: all 0.5s cubic-bezier(0.445, 0.05, 0.55, 0.95);
   transform: translateX(${(props) => props.slideIndex * -100}vw);
   #list1 {
     width: 100%;
@@ -182,17 +191,16 @@ const MenuCatLinkWrapper = styled.div`
   align-items: center;
 `;
 
-// const MenuCategoryListWrapper = styled.ul`
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   width: 300%;
-//   height: 20vh;
-// `;
+const MenuCatTitle = styled.h1`
+  text-align: center;
+  background-color: #fcf5f5;
+  font-size: 2.5rem;
+  padding: 20px;
+`;
 
 const MenuCatLink = styled.button`
   color: black;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   text-decoration: none;
   padding: 1em 1em;
   border: none;
@@ -247,7 +255,7 @@ const Arrow = styled.div`
 `;
 
 const MenuContainerBox = styled.div`
-  width: 100%;
+  width: 90%;
   border: 1px solid black;
   transition: transform 0.1s;
   background: white;

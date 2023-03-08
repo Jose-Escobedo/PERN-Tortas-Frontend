@@ -132,3 +132,117 @@ export const extrasInfo = [
     price: 0.0,
   },
 ];
+
+export const menuCatArray1 = [
+  {
+    id: 1,
+    option: `All`,
+    value: "All",
+  },
+  {
+    id: 2,
+    option: `Popular`,
+    value: `popular`,
+  },
+  {
+    id: 3,
+    option: `Tacos`,
+    value: `tacos`,
+  },
+  {
+    id: 4,
+    option: `Tortas`,
+    value: `tortas`,
+  },
+  {
+    id: 5,
+    option: `Burritos`,
+    value: `burritos`,
+  },
+  {
+    id: 6,
+    option: `Beverages`,
+    value: "beverages",
+  },
+  {
+    id: 7,
+    option: `Specialties`,
+    value: "specialties",
+  },
+  {
+    id: 8,
+    option: `Combinations`,
+    value: "combos",
+  },
+];
+
+export const menuCatArray2 = [
+  {
+    id: 1,
+    option: `Soups`,
+    value: "soups",
+  },
+  {
+    id: 2,
+    option: `Breakfast`,
+    value: `breakfast`,
+  },
+  {
+    id: 3,
+    option: `Shakes`,
+    value: `shakes`,
+  },
+  {
+    id: 4,
+    option: `Appetizers`,
+    value: `appetizers`,
+  },
+  {
+    id: 5,
+    option: `Ensaladas`,
+    value: `salads`,
+  },
+  {
+    id: 6,
+    option: `Taquitos`,
+    value: "taquitos",
+  },
+];
+
+export const menuCatArray3 = [
+  {
+    id: 1,
+    option: `Sopes`,
+    value: "sopes",
+  },
+  {
+    id: 2,
+    option: `Tostadas`,
+    value: `tostadas`,
+  },
+  {
+    id: 3,
+    option: `Tamales`,
+    value: `tamales`,
+  },
+  {
+    id: 4,
+    option: `Quesadillas`,
+    value: `quesadillas`,
+  },
+  {
+    id: 5,
+    option: `Sides`,
+    value: `sides`,
+  },
+  {
+    id: 6,
+    option: `Kid's Meal`,
+    value: "kids-meal",
+  },
+  {
+    id: 7,
+    option: `Desserts`,
+    value: `desserts`,
+  },
+];

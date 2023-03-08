@@ -6,6 +6,7 @@ import { publicRequest } from "../requestMethods";
 import ArrowLeftOutlined from "@material-ui/icons/ArrowLeftOutlined";
 import ArrowRightOutlined from "@material-ui/icons/ArrowRightOutlined";
 import { mobile } from "../responsive";
+import { menuCatArray1, menuCatArray2, menuCatArray3 } from "../data";
 
 const MenuGridList = ({ items }) => {
   const [toggle, setToggle] = useState(true);
@@ -64,76 +65,33 @@ const MenuGridList = ({ items }) => {
         </Arrow>
         <MenuCategoryList slideIndex={slideIndex}>
           <MenuCatLinkWrapper id="list1">
-            <MenuCatLink onClick={handleCatSelection} value={"All"}>
-              All
-            </MenuCatLink>
-            <MenuCatLink onClick={handleCatSelection} value={"popular"}>
-              Popular
-            </MenuCatLink>
-            <MenuCatLink onClick={handleCatSelection} value={"tacos"}>
-              Tacos
-            </MenuCatLink>
-            <MenuCatLink onClick={handleCatSelection} value={"tortas"}>
-              Tortas
-            </MenuCatLink>
-            <MenuCatLink onClick={handleCatSelection} value={"burritos"}>
-              Burritos
-            </MenuCatLink>
-            <MenuCatLink onClick={handleCatSelection} value={"beverages"}>
-              Beverages
-            </MenuCatLink>
-            <MenuCatLink onClick={handleCatSelection} value={"specialties"}>
-              Specialties
-            </MenuCatLink>
-            <MenuCatLink onClick={handleCatSelection} value={"combos"}>
-              Combinations
-            </MenuCatLink>
+            {menuCatArray1.map((item) => {
+              return (
+                <MenuCatLink onClick={handleCatSelection} value={item.value}>
+                  {item.option}
+                </MenuCatLink>
+              );
+            })}
           </MenuCatLinkWrapper>
 
           <MenuCatLinkWrapper id="list2">
-            <MenuCatLink onClick={handleCatSelection} value={"soups"}>
-              Soups
-            </MenuCatLink>
-            <MenuCatLink onClick={handleCatSelection} value={"breakfast"}>
-              Breakfast
-            </MenuCatLink>
-            <MenuCatLink onClick={handleCatSelection} value={"shakes"}>
-              Shakes
-            </MenuCatLink>
-
-            <MenuCatLink onClick={handleCatSelection} value={"appetizers"}>
-              Appetizers
-            </MenuCatLink>
-            <MenuCatLink onClick={handleCatSelection} value={"salads"}>
-              Ensaladas
-            </MenuCatLink>
-            <MenuCatLink onClick={handleCatSelection} value={"taquitos"}>
-              Taquitos
-            </MenuCatLink>
+            {menuCatArray2.map((item) => {
+              return (
+                <MenuCatLink onClick={handleCatSelection} value={item.value}>
+                  {item.option}
+                </MenuCatLink>
+              );
+            })}
           </MenuCatLinkWrapper>
 
           <MenuCatLinkWrapper id="list3">
-            <MenuCatLink onClick={handleCatSelection} value={"sopes"}>
-              Sopes
-            </MenuCatLink>
-            <MenuCatLink onClick={handleCatSelection} value={"tostadas"}>
-              Tostadas
-            </MenuCatLink>
-            <MenuCatLink onClick={handleCatSelection} value={"tamales"}>
-              Tamales
-            </MenuCatLink>
-            <MenuCatLink onClick={handleCatSelection} value={"quesadillas"}>
-              Quesadillas
-            </MenuCatLink>
-            <MenuCatLink onClick={handleCatSelection} value={"sides"}>
-              Sides
-            </MenuCatLink>
-            <MenuCatLink onClick={handleCatSelection} value={"kids-meal"}>
-              Kid's Meal
-            </MenuCatLink>
-            <MenuCatLink onClick={handleCatSelection} value={"desserts"}>
-              Desserts
-            </MenuCatLink>
+            {menuCatArray3.map((item) => {
+              return (
+                <MenuCatLink onClick={handleCatSelection} value={item.value}>
+                  {item.option}
+                </MenuCatLink>
+              );
+            })}
           </MenuCatLinkWrapper>
         </MenuCategoryList>
 
@@ -141,6 +99,13 @@ const MenuGridList = ({ items }) => {
           <ArrowRightOutlined />
         </Arrow>
       </MenuCatContainer>
+      <MenuCatPicture>
+        <img
+          src={
+            "https://firebasestorage.googleapis.com/v0/b/tortas-bffc7.appspot.com/o/TacoChef.png?alt=media&token=12efb46e-9f85-4be8-a9b1-5f8022cdd779"
+          }
+        ></img>
+      </MenuCatPicture>
       <MenuItemsGrid>
         {filteredItems?.map((item, index) => {
           return (
@@ -152,9 +117,6 @@ const MenuGridList = ({ items }) => {
                     <h3 className="desc">{item.desc}</h3>
                     <h3>{`$ ${item.price}`}</h3>
                   </MenuBoxDetails>
-                  {/* <MenuBoxImg>
-                <img src={tacoHuman} />
-              </MenuBoxImg> */}
                 </MenuContainerWrapper>
               </MenuLink>
             </MenuContainerBox>
@@ -181,6 +143,17 @@ const MenuItemsGrid = styled.div`
   gap: 20px;
   grid-auto-rows: minmax(100px, auto);
   padding: 2em 2em;
+`;
+
+const MenuCatPicture = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fcf5f5;
+  img {
+    width: 200px;
+    height: 200px;
+  }
 `;
 const MenuCategoryList = styled.div`
   display: flex;
@@ -223,9 +196,9 @@ const MenuCatLink = styled.button`
   text-decoration: none;
   padding: 1em 1em;
   border: none;
-  background-color: white;
   cursor: pointer;
   transition: 0.2s all ease-in-out;
+  background-color: white;
 
   &:hover {
     outline: 1px white solid;

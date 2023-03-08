@@ -34,7 +34,7 @@ const ProductItem = ({ item }) => {
 
   return (
     <Container>
-      <Circle />
+      {/* <Circle /> */}
       {asadaBoolean ? (
         <Image
           src={
@@ -77,9 +77,8 @@ const Info = styled.div`
 
 const Container = styled.div`
   flex: 1;
-  margin: 5px;
-  min-width: 280px;
-  height: 350px;
+  width: 330px;
+  height: 330px;
   display: flex;
   align-items: center;
   justify-content: center;

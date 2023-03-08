@@ -6,20 +6,22 @@ import MenuGridList from "./MenuGridList";
 const Menu = () => {
   return (
     <Container>
-      <Title>Menu</Title>
+      <TitleContainer>
+        <Title>Menu</Title>
+      </TitleContainer>
       <MenuGridList />
     </Container>
   );
 };
 
-const Container = styled.div`
-  background-color: #fcf5f5;
+const Container = styled.div``;
+const TitleContainer = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
-  padding-bottom: 2.5em;
-  padding-top: 2.5em;
+  background-color: #fcf5f5;
+  padding-top: 50px;
 `;
 const Title = styled.h1`
   font-size: 4rem;

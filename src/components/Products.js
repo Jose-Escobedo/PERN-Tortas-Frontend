@@ -69,6 +69,8 @@ const Products = ({ cat, filters, sort }) => {
 const Container = styled.div`
   padding: 30px;
   display: grid;
+  max-width: 100%;
+  overflow: hidden;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
   grid-auto-rows: minmax(100px, auto);

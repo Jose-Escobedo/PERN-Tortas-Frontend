@@ -63,72 +63,78 @@ const MenuGridList = ({ items }) => {
           <ArrowLeftOutlined />
         </Arrow>
         <MenuCategoryList slideIndex={slideIndex}>
-          <MenuCatLink onClick={handleCatSelection} value={"All"}>
-            All
-          </MenuCatLink>
-          <MenuCatLink onClick={handleCatSelection} value={"popular"}>
-            Popular
-          </MenuCatLink>
-          <MenuCatLink onClick={handleCatSelection} value={"tacos"}>
-            Tacos
-          </MenuCatLink>
-          <MenuCatLink onClick={handleCatSelection} value={"tortas"}>
-            Tortas
-          </MenuCatLink>
-          <MenuCatLink onClick={handleCatSelection} value={"burritos"}>
-            Burritos
-          </MenuCatLink>
-          <MenuCatLink onClick={handleCatSelection} value={"beverages"}>
-            Beverages
-          </MenuCatLink>
-          <MenuCatLink onClick={handleCatSelection} value={"specialties"}>
-            Specialties
-          </MenuCatLink>
-          <MenuCatLink onClick={handleCatSelection} value={"combos"}>
-            Combinations
-          </MenuCatLink>
+          <MenuCatLinkWrapper id="list1">
+            <MenuCatLink onClick={handleCatSelection} value={"All"}>
+              All
+            </MenuCatLink>
+            <MenuCatLink onClick={handleCatSelection} value={"popular"}>
+              Popular
+            </MenuCatLink>
+            <MenuCatLink onClick={handleCatSelection} value={"tacos"}>
+              Tacos
+            </MenuCatLink>
+            <MenuCatLink onClick={handleCatSelection} value={"tortas"}>
+              Tortas
+            </MenuCatLink>
+            <MenuCatLink onClick={handleCatSelection} value={"burritos"}>
+              Burritos
+            </MenuCatLink>
+            <MenuCatLink onClick={handleCatSelection} value={"beverages"}>
+              Beverages
+            </MenuCatLink>
+            <MenuCatLink onClick={handleCatSelection} value={"specialties"}>
+              Specialties
+            </MenuCatLink>
+            <MenuCatLink onClick={handleCatSelection} value={"combos"}>
+              Combinations
+            </MenuCatLink>
+          </MenuCatLinkWrapper>
 
-          <MenuCatLink onClick={handleCatSelection} value={"soups"}>
-            Soups
-          </MenuCatLink>
-          <MenuCatLink onClick={handleCatSelection} value={"breakfast"}>
-            Breakfast
-          </MenuCatLink>
-          <MenuCatLink onClick={handleCatSelection} value={"shakes"}>
-            Shakes
-          </MenuCatLink>
+          <MenuCatLinkWrapper id="list2">
+            <MenuCatLink onClick={handleCatSelection} value={"soups"}>
+              Soups
+            </MenuCatLink>
+            <MenuCatLink onClick={handleCatSelection} value={"breakfast"}>
+              Breakfast
+            </MenuCatLink>
+            <MenuCatLink onClick={handleCatSelection} value={"shakes"}>
+              Shakes
+            </MenuCatLink>
 
-          <MenuCatLink onClick={handleCatSelection} value={"appetizers"}>
-            Appetizers
-          </MenuCatLink>
-          <MenuCatLink onClick={handleCatSelection} value={"salads"}>
-            Ensaladas
-          </MenuCatLink>
-          <MenuCatLink onClick={handleCatSelection} value={"taquitos"}>
-            Taquitos
-          </MenuCatLink>
+            <MenuCatLink onClick={handleCatSelection} value={"appetizers"}>
+              Appetizers
+            </MenuCatLink>
+            <MenuCatLink onClick={handleCatSelection} value={"salads"}>
+              Ensaladas
+            </MenuCatLink>
+            <MenuCatLink onClick={handleCatSelection} value={"taquitos"}>
+              Taquitos
+            </MenuCatLink>
+          </MenuCatLinkWrapper>
 
-          <MenuCatLink onClick={handleCatSelection} value={"sopes"}>
-            Sopes
-          </MenuCatLink>
-          <MenuCatLink onClick={handleCatSelection} value={"tostadas"}>
-            Tostadas
-          </MenuCatLink>
-          <MenuCatLink onClick={handleCatSelection} value={"tamales"}>
-            Tamales
-          </MenuCatLink>
-          <MenuCatLink onClick={handleCatSelection} value={"quesadillas"}>
-            Quesadillas
-          </MenuCatLink>
-          <MenuCatLink onClick={handleCatSelection} value={"sides"}>
-            Sides
-          </MenuCatLink>
-          <MenuCatLink onClick={handleCatSelection} value={"kids-meal"}>
-            Kid's Meal
-          </MenuCatLink>
-          <MenuCatLink onClick={handleCatSelection} value={"desserts"}>
-            Desserts
-          </MenuCatLink>
+          <MenuCatLinkWrapper id="list3">
+            <MenuCatLink onClick={handleCatSelection} value={"sopes"}>
+              Sopes
+            </MenuCatLink>
+            <MenuCatLink onClick={handleCatSelection} value={"tostadas"}>
+              Tostadas
+            </MenuCatLink>
+            <MenuCatLink onClick={handleCatSelection} value={"tamales"}>
+              Tamales
+            </MenuCatLink>
+            <MenuCatLink onClick={handleCatSelection} value={"quesadillas"}>
+              Quesadillas
+            </MenuCatLink>
+            <MenuCatLink onClick={handleCatSelection} value={"sides"}>
+              Sides
+            </MenuCatLink>
+            <MenuCatLink onClick={handleCatSelection} value={"kids-meal"}>
+              Kid's Meal
+            </MenuCatLink>
+            <MenuCatLink onClick={handleCatSelection} value={"desserts"}>
+              Desserts
+            </MenuCatLink>
+          </MenuCatLinkWrapper>
         </MenuCategoryList>
 
         <Arrow direction="right" onClick={() => handleMenuArrowClick("right")}>
@@ -160,28 +166,47 @@ const MenuGridList = ({ items }) => {
 };
 
 const MenuCatContainer = styled.div`
-  width: 70%;
   height: 20vh;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
   position: relative;
+  background-color: #fcf5f5;
+  overflow: hidden;
   ${mobile({ display: "none" })}
 `;
 
 const MenuItemsGrid = styled.div`
   display: grid;
+  overflow: hidden;
+  background-color: #fcf5f5;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
   grid-auto-rows: minmax(100px, auto);
-  padding: 1em 2em;
+  padding: 2em 2em;
 `;
 const MenuCategoryList = styled.div`
-  width: 210%;
   display: flex;
+  width: 300%;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  bottom: 0;
   justify-content: center;
   transition: all 1.5s ease;
-  transform: translateX(${(props) => props.slideIndex * -33}%);
+  transform: translateX(${(props) => props.slideIndex * -100}vw);
+  #list1 {
+    width: 100%;
+  }
+  #list2 {
+    width: 100%;
+  }
+  #list3 {
+    width: 100%;
+  }
+`;
+
+const MenuCatLinkWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 // const MenuCategoryListWrapper = styled.ul`
@@ -194,7 +219,7 @@ const MenuCategoryList = styled.div`
 
 const MenuCatLink = styled.button`
   color: black;
-  font-size: 1rem;
+  font-size: 1.5rem;
   text-decoration: none;
   padding: 1em 1em;
   border: none;
@@ -238,11 +263,11 @@ const Arrow = styled.div`
   align-items: center;
   justify-content: center;
   position: absolute;
-  top: 0;
   left: ${(props) => props.direction === "left" && "100px"};
   right: ${(props) => props.direction === "right" && "100px"};
-  bottom: 0;
   margin: auto;
+  bottom: 0;
+  top: 0;
   cursor: pointer;
   opacity: 0.8;
   z-index: 2;

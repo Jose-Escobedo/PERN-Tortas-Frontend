@@ -18,6 +18,7 @@ import PickupInfo from "./pages/PickupInfo";
 import InsufficientPickupSubtotal from "./pages/InsufficientPickupSubtotal";
 import Accessibility from "./pages/Accessibility";
 import RecentOrder from "./pages/admin/RecentOrder";
+import Error404 from "./pages/Error404";
 
 function App() {
   const user = useSelector((state) => state.user.currentUser);
@@ -72,6 +73,7 @@ function App() {
           path="/orders"
           element={user ? <Orders /> : <Navigate to="/" />}
         />
+        <Route path="*" element={<Error404 />} />
       </Routes>
     </>
   );

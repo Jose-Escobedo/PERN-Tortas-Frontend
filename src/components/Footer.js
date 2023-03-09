@@ -80,6 +80,7 @@ const Container = styled.div`
   display: flex;
   ${mobile({ flexDirection: "column" })}
   border-top: 1px solid black;
+  background-color: white;
 `;
 const Left = styled.div`
   flex: 1;

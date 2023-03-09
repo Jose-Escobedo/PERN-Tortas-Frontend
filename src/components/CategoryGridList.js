@@ -24,6 +24,7 @@ const CategoryGridBox = styled.div`
   border: 1px solid black;
   transition: transform 0.1s;
   background: white;
+  border-radius: 20px;
 
   cursor: pointer;
   &:hover {

@@ -196,6 +196,7 @@ const MenuCatTitle = styled.h1`
   background-color: #fcf5f5;
   font-size: 2.5rem;
   padding: 20px;
+  transition: 0.5s all ease-in-out;
 `;
 
 const MenuCatLink = styled.button`
@@ -257,6 +258,7 @@ const Arrow = styled.div`
 const MenuContainerBox = styled.div`
   width: 90%;
   border: 1px solid black;
+  border-radius: 20px;
   transition: transform 0.1s;
   background: white;
 

@@ -57,17 +57,25 @@ const ProductList = () => {
         </Filter>
       </FilterContainer>
       <Products cat={cat} filters={filters} sort={sort} />
-      <Footer />
+      <Footer cat={"cat"} />
     </Container>
   );
 };
 
-const Container = styled.div``;
+const Container = styled.div`
+  background: linear-gradient(
+    90deg,
+    rgba(24, 24, 71, 1) 0%,
+    rgba(10, 10, 23, 1) 35%,
+    rgba(0, 0, 0, 1) 100%
+  );
+`;
 const TitleAndImageWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  color: white;
 `;
 const Title = styled.h1`
   margin-top: 20vh;
@@ -101,7 +109,7 @@ const FilterText = styled.span`
   font-size: 1.3rem;
   font-weight: 600;
   margin-right: 20px;
-
+  color: white;
   ${mobile({ marginRight: "0px" })}
 `;
 const Select = styled.select`

@@ -488,9 +488,12 @@ const CheckoutInfo = ({ addNewFormData }) => {
           <div className="wrapper">
             <h1 className="delivery-title">Delivery Information</h1>
             {fiveMileRadius ? (
-              <h1 style={{ color: "red" }} className="check-radius">
-                Delivery distance too far.
-              </h1>
+              <DistanceImageWrapper>
+                <h1 style={{ color: "red" }} className="check-radius">
+                  Delivery distance too far.
+                </h1>
+                <img src="https://firebasestorage.googleapis.com/v0/b/tortas-bffc7.appspot.com/o/astro-far.png?alt=media&token=88d09c17-b7ae-42ee-a0a1-886a22c381b7"></img>
+              </DistanceImageWrapper>
             ) : null}
             <form id="form" className="form" onSubmit={handleFormSubmit}>
               <div className="form-group">
@@ -642,14 +645,12 @@ const ContactFormStyled = styled.div`
   display: flex;
   flex-direction: column;
   border: 1px solid black;
-  color: white;
+  border-right: none;
+  border-left: none;
+  border-bottom: none;
+  color: black;
 
-  background: linear-gradient(
-    90deg,
-    rgba(24, 24, 71, 1) 0%,
-    rgba(10, 10, 23, 1) 35%,
-    rgba(0, 0, 0, 1) 100%
-  );
+  background: white;
 
   .wrapper {
     display: flex;
@@ -661,7 +662,8 @@ const ContactFormStyled = styled.div`
     width: 100%;
 
     .delivery-title {
-      font: 300 2rem "Montserrat", sans-serif;
+      /* font: 700 2rem "Montserrat", sans-serif; */
+      font-size: 3rem;
     }
 
     @media screen and (max-width: 1100px) {
@@ -678,8 +680,8 @@ const ContactFormStyled = styled.div`
     display: flex;
     flex-direction: column;
     padding: 2em;
-    border-color: white;
-    color: white;
+    border-color: black;
+    color: black;
     @media screen and (max-width: 1100px) {
       width: 100%;
       padding: 0.5em;
@@ -707,15 +709,15 @@ const ContactFormStyled = styled.div`
   }
 
   #first-name {
-    color: white;
-    border-color: white;
+    color: black;
+    border-color: black;
     border-top: none;
     border-right: none;
     border-left: none;
 
     ::placeholder {
       /* Chrome, Firefox, Opera, Safari 10.1+ */
-      color: white;
+      color: black;
       opacity: 1; /* Firefox */
     }
     input:focus,
@@ -726,142 +728,142 @@ const ContactFormStyled = styled.div`
 
     :-ms-input-placeholder {
       /* Internet Explorer 10-11 */
-      color: white;
+      color: black;
     }
 
     ::-ms-input-placeholder {
       /* Microsoft Edge */
-      color: white;
+      color: black;
     }
   }
   #last-name {
-    color: white;
-    border-color: white;
+    color: black;
+    border-color: black;
     border-top: none;
     border-right: none;
     border-left: none;
     ::placeholder {
       /* Chrome, Firefox, Opera, Safari 10.1+ */
-      color: white;
+      color: black;
       opacity: 1; /* Firefox */
     }
 
     :-ms-input-placeholder {
       /* Internet Explorer 10-11 */
-      color: white;
+      color: black;
     }
 
     ::-ms-input-placeholder {
       /* Microsoft Edge */
-      color: white;
+      color: black;
     }
   }
   #email {
-    color: white;
-    border-color: white;
+    color: black;
+    border-color: black;
     border-top: none;
     border-right: none;
     border-left: none;
     ::placeholder {
       /* Chrome, Firefox, Opera, Safari 10.1+ */
-      color: white;
+      color: black;
       opacity: 1; /* Firefox */
     }
 
     :-ms-input-placeholder {
       /* Internet Explorer 10-11 */
-      color: white;
+      color: black;
     }
 
     ::-ms-input-placeholder {
       /* Microsoft Edge */
-      color: white;
+      color: black;
     }
   }
   #phone {
-    color: white;
-    border-color: white;
+    color: black;
+    border-color: black;
     border-top: none;
     border-right: none;
     border-left: none;
     ::placeholder {
       /* Chrome, Firefox, Opera, Safari 10.1+ */
-      color: white;
+      color: black;
       opacity: 1; /* Firefox */
     }
 
     :-ms-input-placeholder {
       /* Internet Explorer 10-11 */
-      color: white;
+      color: black;
     }
 
     ::-ms-input-placeholder {
       /* Microsoft Edge */
-      color: white;
+      color: black;
     }
   }
   #address {
-    color: white;
-    border-color: white;
+    color: black;
+    border-color: black;
     border-top: none;
     border-right: none;
     border-left: none;
     ::placeholder {
       /* Chrome, Firefox, Opera, Safari 10.1+ */
-      color: white;
+      color: black;
       opacity: 1; /* Firefox */
     }
 
     :-ms-input-placeholder {
       /* Internet Explorer 10-11 */
-      color: white;
+      color: black;
     }
 
     ::-ms-input-placeholder {
       /* Microsoft Edge */
-      color: white;
+      color: black;
     }
   }
   #tip {
-    color: white;
-    border-color: white;
+    color: black;
+    border-color: black;
     border-top: none;
     border-right: none;
     border-left: none;
     ::placeholder {
       /* Chrome, Firefox, Opera, Safari 10.1+ */
-      color: white;
+      color: black;
       opacity: 1; /* Firefox */
     }
 
     :-ms-input-placeholder {
       /* Internet Explorer 10-11 */
-      color: white;
+      color: black;
     }
 
     ::-ms-input-placeholder {
       /* Microsoft Edge */
-      color: white;
+      color: black;
     }
   }
   #dropoff_instructions {
-    color: white;
-    border-color: white;
+    color: black;
+    border-color: black;
     margin-top: 2rem;
     ::placeholder {
       /* Chrome, Firefox, Opera, Safari 10.1+ */
-      color: white;
+      color: black;
       opacity: 1; /* Firefox */
     }
 
     :-ms-input-placeholder {
       /* Internet Explorer 10-11 */
-      color: white;
+      color: black;
     }
 
     ::-ms-input-placeholder {
       /* Microsoft Edge */
-      color: white;
+      color: black;
     }
   }
 
@@ -872,7 +874,7 @@ const ContactFormStyled = styled.div`
     min-height: 20%;
     max-height: 20vh;
     background-color: transparent;
-    color: white;
+    color: black;
     letter-spacing: 1px;
     border: 1px solid black;
     padding: 0.5em 0.5em;
@@ -916,7 +918,7 @@ const ContactFormStyled = styled.div`
     align-items: center;
     flex-direction: column;
     padding: 2em;
-    color: white;
+    color: black;
     @media screen and (max-width: 1100px) {
       font-size: 0.5rem;
       padding: 1em;
@@ -943,6 +945,19 @@ const ContactFormStyled = styled.div`
   }
 `;
 
+const DistanceImageWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 20px;
+  transition: all 0.5s ease-in-out;
+  img {
+    width: 200px;
+    height: 200px;
+  }
+`;
+
 const Summary = styled.div`
   flex: 1;
   border: 0.5px sild lightgray;
@@ -953,7 +968,7 @@ const Summary = styled.div`
 
 const SummaryTitle = styled.h1`
   font-weight: 200;
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid black;
 `;
 const SummaryItem = styled.div`
   margin: 2em 0em;

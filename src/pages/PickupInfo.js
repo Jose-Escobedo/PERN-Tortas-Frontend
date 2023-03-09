@@ -439,7 +439,6 @@ const ContactFormStyled = styled.div`
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  border-bottom: 1px solid black;
   color: black;
   background: rgba(255, 255, 255, 1) 100%;
 

@@ -99,22 +99,26 @@ const Product = () => {
   };
 
   const handleClick = () => {
-    setProductPrice(product.price + extrasSum);
-    product.price = product.price + extrasSum;
-    if (extras !== []) {
-      product.extras.push(extras);
+    if (itemCombo.firstItem !== "" && itemCombo.secondItem !== "") {
+      setProductPrice(product.price + extrasSum);
+      product.price = product.price + extrasSum;
+      if (extras !== []) {
+        product.extras.push(extras);
+      }
+
+      product.itemCombo = itemCombo;
+
+      product.note = note;
+      dispatch(addProduct({ ...product, quantity }));
+      toast.success("Item has been added to Cart.", {
+        position: toast.POSITION.TOP_CENTER,
+        toastId: "success3",
+      });
+
+      navigate("/cart");
+    } else {
+      console.log("Make sure all is selected");
     }
-
-    product.itemCombo = itemCombo;
-
-    product.note = note;
-    dispatch(addProduct({ ...product, quantity }));
-    toast.success("Item has been added to Cart.", {
-      position: toast.POSITION.TOP_CENTER,
-      toastId: "success3",
-    });
-
-    navigate("/cart");
   };
   const addOrRemove = (e) => {
     // current array of options

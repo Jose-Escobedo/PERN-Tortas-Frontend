@@ -26,6 +26,13 @@ const Product = () => {
   const [note, setNote] = useState();
   const [generic, setGeneric] = useState();
   const [moleBoolean, setMoleBoolean] = useState();
+  const [comboCheck, setComboCheck] = useState();
+  const blankCombo = {
+    firstItem: "",
+    secondItem: "",
+  };
+
+  const [itemCombo, setItemCombo] = useState(blankCombo);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -43,11 +50,9 @@ const Product = () => {
     let originalPrice = product.price;
     product.extras = [];
     product.note = "";
+    product.itemCombo = [];
     setProductPrice(originalPrice);
-    if (
-      product.img ===
-      "https://firebasestorage.googleapis.com/v0/b/tortas-bffc7.appspot.com/o/tacoHuman.png?alt=media&token=dbb07adb-381b-4204-be0e-a2b729fc947e"
-    ) {
+    if (product.img === "") {
       setGeneric(true);
     } else {
       setGeneric(false);
@@ -58,7 +63,32 @@ const Product = () => {
     } else {
       setMoleBoolean(false);
     }
+
+    if (product.name === "2 Item Combination") {
+      setComboCheck(true);
+    } else {
+      setComboCheck(false);
+    }
   }, [product.extras]);
+
+  const { firstItem, secondItem } = itemCombo;
+
+  const handleFirstItem = (e) => {
+    setItemCombo({
+      ...itemCombo,
+      firstItem: e.target.value,
+    });
+
+    console.log("first item", itemCombo);
+  };
+  const handleSecondItem = (e) => {
+    setItemCombo({
+      ...itemCombo,
+      secondItem: e.target.value,
+    });
+
+    console.log("second item", itemCombo);
+  };
 
   const handleQuantity = (type) => {
     if (type === "dec") {
@@ -74,6 +104,8 @@ const Product = () => {
     if (extras !== []) {
       product.extras.push(extras);
     }
+
+    product.itemCombo = itemCombo;
 
     product.note = note;
     dispatch(addProduct({ ...product, quantity }));
@@ -122,65 +154,134 @@ const Product = () => {
     <Container>
       <StyledToastContainer />
       <Navbar />
-      <Wrapper>
-        <ImgContainer>
-          {generic ? (
-            <GenericImage src={product.img} />
-          ) : (
-            <>
-              {moleBoolean ? (
-                <Image
-                  src={
-                    "https://firebasestorage.googleapis.com/v0/b/tortas-bffc7.appspot.com/o/mole-removebg-min.png?alt=media&token=fe32932d-58a6-43d7-b862-1af5a8a90475"
-                  }
-                />
-              ) : (
-                <Image src={product.img} />
-              )}
-            </>
-          )}
-        </ImgContainer>
-        <InfoContainer>
-          <Title>{product.name}</Title>
-          <Desc>{product.desc}</Desc>
-          <Price>$ {productPrice}</Price>
-          <FilterContainer>
-            <Filter>
-              <FilterNotes onChange={(e) => handleNote(e.target.value)}>
-                <span>ADD NOTE: </span>
-                <br></br>
 
-                <textarea placeholder="Allergies, No onions, etc, anything else we should know before preparation."></textarea>
-              </FilterNotes>
-              <FilterTitle>EXTRAS:</FilterTitle>
-              <FilterExtras onChange={(event) => addOrRemove(event)}>
-                {extrasInfo?.map((i) => (
+      {generic ? (
+        <NoImageWrapper>
+          <NoImageInfoContainer>
+            <Title>{product.name}</Title>
+            <Desc>{product.desc}</Desc>
+            <Price>$ {productPrice}</Price>
+            <NoImageFilterContainer>
+              <NoImageFilter>
+                {comboCheck ? (
                   <>
-                    <label>
-                      <input value={i.option} type="checkbox" />
-                      {i.option}
-                    </label>
+                    <SelectContainer>
+                      <label>
+                        Select first item:
+                        <select
+                          onChange={(e) => handleFirstItem(e)}
+                          name="selectedDishOne"
+                          defaultValue=""
+                          required
+                        >
+                          <option value=""></option>
+                          <option value="Asada Taco">Asada Taco</option>
+                          <option value="Chicken Taco">Chicken Taco</option>
+                        </select>
+                      </label>
+                    </SelectContainer>
+                    <SelectContainer>
+                      <label>
+                        Select second item:
+                        <select
+                          onChange={(e) => handleSecondItem(e)}
+                          name="selectedDishTwo"
+                          defaultValue=""
+                          required
+                        >
+                          <option value=""></option>
+                          <option value="Asada Taco">Asada Taco</option>
+                          <option value="Chicken Taco">Chicken Taco</option>
+                        </select>
+                      </label>
+                    </SelectContainer>
                   </>
-                ))}
-              </FilterExtras>
-            </Filter>
-          </FilterContainer>
-          <AddContainer>
-            <AmountContainer>
-              <Remove
-                style={{ cursor: "pointer" }}
-                onClick={() => handleQuantity("dec")}
-              />
-              <Amount>{quantity}</Amount>
-              <Add
-                style={{ cursor: "pointer" }}
-                onClick={() => handleQuantity("inc")}
-              />
-            </AmountContainer>
-            <Button onClick={handleClick}>ADD TO CART</Button>
-          </AddContainer>
-        </InfoContainer>
-      </Wrapper>
+                ) : null}
+                <NoImageFilterNotes
+                  onChange={(e) => handleNote(e.target.value)}
+                >
+                  <span>ADD NOTE: </span>
+                  <br></br>
+
+                  <textarea placeholder="Allergies, No onions, etc, anything else we should know before preparation."></textarea>
+                </NoImageFilterNotes>
+                <NoImageFilterTitle>EXTRAS:</NoImageFilterTitle>
+                <NoImageFilterExtras onChange={(event) => addOrRemove(event)}>
+                  {extrasInfo?.map((i) => (
+                    <>
+                      <label>
+                        <input value={i.option} type="checkbox" />
+                        {i.option}
+                      </label>
+                    </>
+                  ))}
+                </NoImageFilterExtras>
+              </NoImageFilter>
+            </NoImageFilterContainer>
+            <NoImageAddContainer>
+              <AmountContainer>
+                <Remove
+                  style={{ cursor: "pointer" }}
+                  onClick={() => handleQuantity("dec")}
+                />
+                <Amount>{quantity}</Amount>
+                <Add
+                  style={{ cursor: "pointer" }}
+                  onClick={() => handleQuantity("inc")}
+                />
+              </AmountContainer>
+              <Button onClick={handleClick}>ADD TO CART</Button>
+            </NoImageAddContainer>
+          </NoImageInfoContainer>
+        </NoImageWrapper>
+      ) : (
+        <Wrapper>
+          <ImgContainer>
+            <Image src={product.img}></Image>
+          </ImgContainer>
+          <InfoContainer>
+            <Title>{product.name}</Title>
+            <Desc>{product.desc}</Desc>
+            <Price>$ {productPrice}</Price>
+            <FilterContainer>
+              <Filter>
+                <FilterNotes onChange={(e) => handleNote(e.target.value)}>
+                  <span>ADD NOTE: </span>
+                  <br></br>
+
+                  <textarea placeholder="Allergies, No onions, etc, anything else we should know before preparation."></textarea>
+                </FilterNotes>
+                <FilterTitle>EXTRAS:</FilterTitle>
+                <FilterExtras onChange={(event) => addOrRemove(event)}>
+                  {extrasInfo?.map((i) => (
+                    <>
+                      <label>
+                        <input value={i.option} type="checkbox" />
+                        {i.option}
+                      </label>
+                    </>
+                  ))}
+                </FilterExtras>
+              </Filter>
+            </FilterContainer>
+            <AddContainer>
+              <AmountContainer>
+                <Remove
+                  style={{ cursor: "pointer" }}
+                  onClick={() => handleQuantity("dec")}
+                />
+                <Amount>{quantity}</Amount>
+                <Add
+                  style={{ cursor: "pointer" }}
+                  onClick={() => handleQuantity("inc")}
+                />
+              </AmountContainer>
+              <Button onClick={handleClick}>ADD TO CART</Button>
+            </AddContainer>
+          </InfoContainer>
+        </Wrapper>
+      )}
+
       <Footer />
     </Container>
   );
@@ -209,6 +310,23 @@ const Wrapper = styled.div`
   display: flex;
   ${mobile({ padding: "10px", flexDirection: "column" })}
 `;
+
+const NoImageWrapper = styled.div`
+  display: flex;
+  padding: 50px 0;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+`;
+
+const SelectContainer = styled.div`
+  padding-top: 0;
+  padding-bottom: 20px;
+  select {
+    width: 50%;
+  }
+`;
+
 const ImgContainer = styled.div`
   flex: 1;
 `;
@@ -226,6 +344,10 @@ const GenericImage = styled.img`
   ${mobile({ height: "40vh" })}
 `;
 
+const NoImageInfoContainer = styled.div`
+  ${mobile({ padding: "10px" })}
+`;
+
 const InfoContainer = styled.div`
   flex: 1;
   padding: 0px 50px;
@@ -241,6 +363,89 @@ const Price = styled.span`
   font-weight: 100;
   font-size: 3em;
 `;
+
+const NoImageFilterContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin: 30px 0px;
+  ${mobile({ width: "100%" })}
+`;
+const NoImageFilter = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+`;
+const NoImageFilterTitle = styled.span`
+  font-size: 1.3rem;
+  font-weight: 200;
+`;
+const NoImageFilterNotes = styled.form`
+  width: 100%;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  color: black;
+  padding-bottom: 1em;
+  span {
+    margin-left: 0.5em;
+  }
+  @media screen and (max-width: 1100px) {
+    width: 100%;
+    padding: 0.5em;
+  }
+  @media screen and (max-width: 410px) {
+    padding: 0.4em;
+  }
+
+  textarea {
+    resize: none;
+    width: 100%;
+    min-height: 20%;
+    background-color: transparent;
+    color: black;
+    border-radius: 20px;
+    font-size: 1em;
+    letter-spacing: 1px;
+    border: 1px solid black;
+    padding: 0.5em 0.5em;
+    @media screen and (max-width: 760px) {
+      font-size: 0.9rem;
+    }
+
+    @media screen and (max-width: 435px) {
+      font-size: 0.7rem;
+    }
+  }
+`;
+const NoImageFilterExtras = styled.div`
+  display: flex;
+
+  flex-direction: column;
+  label input {
+    margin-right: 1em;
+  }
+  label {
+    font-size: 1.5rem;
+    display: block;
+  }
+  input {
+    width: 13px;
+    height: 13px;
+    vertical-align: middle;
+
+    position: relative;
+    *overflow: hidden;
+  }
+`;
+
+const NoImageAddContainer = styled.div`
+  display: flex;
+  align-items: center;
+  width: 50%;
+  justify-content: space-between;
+  ${mobile({ width: "100%" })}
+`;
+
 const FilterContainer = styled.div`
   display: flex;
   justify-content: space-between;

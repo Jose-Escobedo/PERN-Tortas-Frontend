@@ -27,6 +27,7 @@ const Product = () => {
   const [generic, setGeneric] = useState();
   const [moleBoolean, setMoleBoolean] = useState();
   const [comboCheck, setComboCheck] = useState();
+  const [comboOneCheck, setComboOneCheck] = useState();
   const [sideCheck, setSideCheck] = useState();
   const blankCombo = {
     firstItem: "",
@@ -71,6 +72,12 @@ const Product = () => {
       setComboCheck(false);
     }
 
+    if (product.name === "1 Item Combination") {
+      setComboOneCheck(true);
+    } else {
+      setComboOneCheck(false);
+    }
+
     if (
       product.categories?.includes("sides") ||
       product.categories?.includes("desserts") ||
@@ -111,7 +118,10 @@ const Product = () => {
   };
 
   const handleClick = () => {
-    if (itemCombo.firstItem !== "" && itemCombo.secondItem !== "") {
+    if (
+      product.name !== "2 Item Combination" &&
+      product.name !== "1 Item Combination"
+    ) {
       setProductPrice(product.price + extrasSum);
       product.price = product.price + extrasSum;
       if (extras !== []) {
@@ -128,8 +138,48 @@ const Product = () => {
       });
 
       navigate("/cart");
-    } else {
-      console.log("Make sure all is selected");
+    } else if (product.name === "2 Item Combination") {
+      if (itemCombo.firstItem !== "" && itemCombo.secondItem !== "") {
+        setProductPrice(product.price + extrasSum);
+        product.price = product.price + extrasSum;
+        if (extras !== []) {
+          product.extras.push(extras);
+        }
+
+        product.itemCombo = itemCombo;
+
+        product.note = note;
+        dispatch(addProduct({ ...product, quantity }));
+        toast.success("Item has been added to Cart.", {
+          position: toast.POSITION.TOP_CENTER,
+          toastId: "success3",
+        });
+
+        navigate("/cart");
+      } else {
+        console.log("Make sure all is selected");
+      }
+    } else if (product.name === "1 Item Combination") {
+      if (itemCombo.firstItem !== "") {
+        setProductPrice(product.price + extrasSum);
+        product.price = product.price + extrasSum;
+        if (extras !== []) {
+          product.extras.push(extras);
+        }
+
+        product.itemCombo = itemCombo;
+
+        product.note = note;
+        dispatch(addProduct({ ...product, quantity }));
+        toast.success("Item has been added to Cart.", {
+          position: toast.POSITION.TOP_CENTER,
+          toastId: "success3",
+        });
+
+        navigate("/cart");
+      } else {
+        console.log("Make sure all is selected");
+      }
     }
   };
   const addOrRemove = (e) => {
@@ -204,6 +254,23 @@ const Product = () => {
                       >
                         <option value="" disabled>
                           SELECT SECOND ITEM
+                        </option>
+                        <option value="Asada Taco">Asada Taco</option>
+                        <option value="Chicken Taco">Chicken Taco</option>
+                      </select>
+                    </SelectContainer>
+                  </>
+                ) : comboOneCheck ? (
+                  <>
+                    <SelectContainer>
+                      <select
+                        onChange={(e) => handleFirstItem(e)}
+                        name="selectedDishOne"
+                        defaultValue=""
+                        required
+                      >
+                        <option value="" disabled>
+                          SELECT ONE ITEM
                         </option>
                         <option value="Asada Taco">Asada Taco</option>
                         <option value="Chicken Taco">Chicken Taco</option>

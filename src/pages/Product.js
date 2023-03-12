@@ -27,6 +27,7 @@ const Product = () => {
   const [generic, setGeneric] = useState();
   const [moleBoolean, setMoleBoolean] = useState();
   const [comboCheck, setComboCheck] = useState();
+  const [sideCheck, setSideCheck] = useState();
   const blankCombo = {
     firstItem: "",
     secondItem: "",
@@ -68,6 +69,15 @@ const Product = () => {
       setComboCheck(true);
     } else {
       setComboCheck(false);
+    }
+
+    if (
+      product.categories?.includes("sides") ||
+      product.categories?.includes("desserts")
+    ) {
+      setSideCheck(true);
+    } else {
+      setSideCheck(false);
     }
   }, [product.extras]);
 
@@ -170,34 +180,32 @@ const Product = () => {
                 {comboCheck ? (
                   <>
                     <SelectContainer>
-                      <label>
-                        Select first item:
-                        <select
-                          onChange={(e) => handleFirstItem(e)}
-                          name="selectedDishOne"
-                          defaultValue=""
-                          required
-                        >
-                          <option value=""></option>
-                          <option value="Asada Taco">Asada Taco</option>
-                          <option value="Chicken Taco">Chicken Taco</option>
-                        </select>
-                      </label>
+                      <select
+                        onChange={(e) => handleFirstItem(e)}
+                        name="selectedDishOne"
+                        defaultValue=""
+                        required
+                      >
+                        <option value="" disabled>
+                          SELECT FIRST ITEM
+                        </option>
+                        <option value="Asada Taco">Asada Taco</option>
+                        <option value="Chicken Taco">Chicken Taco</option>
+                      </select>
                     </SelectContainer>
                     <SelectContainer>
-                      <label>
-                        Select second item:
-                        <select
-                          onChange={(e) => handleSecondItem(e)}
-                          name="selectedDishTwo"
-                          defaultValue=""
-                          required
-                        >
-                          <option value=""></option>
-                          <option value="Asada Taco">Asada Taco</option>
-                          <option value="Chicken Taco">Chicken Taco</option>
-                        </select>
-                      </label>
+                      <select
+                        onChange={(e) => handleSecondItem(e)}
+                        name="selectedDishTwo"
+                        defaultValue=""
+                        required
+                      >
+                        <option value="" disabled>
+                          SELECT SECOND ITEM
+                        </option>
+                        <option value="Asada Taco">Asada Taco</option>
+                        <option value="Chicken Taco">Chicken Taco</option>
+                      </select>
                     </SelectContainer>
                   </>
                 ) : null}
@@ -209,17 +217,23 @@ const Product = () => {
 
                   <textarea placeholder="Allergies, No onions, etc, anything else we should know before preparation."></textarea>
                 </NoImageFilterNotes>
-                <NoImageFilterTitle>EXTRAS:</NoImageFilterTitle>
-                <NoImageFilterExtras onChange={(event) => addOrRemove(event)}>
-                  {extrasInfo?.map((i) => (
-                    <>
-                      <label>
-                        <input value={i.option} type="checkbox" />
-                        {i.option}
-                      </label>
-                    </>
-                  ))}
-                </NoImageFilterExtras>
+                {sideCheck ? null : (
+                  <>
+                    <NoImageFilterTitle>EXTRAS:</NoImageFilterTitle>
+                    <NoImageFilterExtras
+                      onChange={(event) => addOrRemove(event)}
+                    >
+                      {extrasInfo?.map((i) => (
+                        <>
+                          <label>
+                            <input value={i.option} type="checkbox" />
+                            {i.option}
+                          </label>
+                        </>
+                      ))}
+                    </NoImageFilterExtras>
+                  </>
+                )}
               </NoImageFilter>
             </NoImageFilterContainer>
             <NoImageAddContainer>
@@ -326,8 +340,31 @@ const NoImageWrapper = styled.div`
 const SelectContainer = styled.div`
   padding-top: 0;
   padding-bottom: 20px;
+
   select {
     width: 50%;
+    font-size: 1rem;
+    display: inline-block;
+    background-color: transparent;
+    position: relative;
+    cursor: pointer;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    -webkit-border-radius: 4px 4px 4px 4px;
+    -moz-border-radius: 4px 4px 4px 4px;
+    border-radius: 4px 4px 4px 4px;
+    -webkit-box-shadow: inset 0 2px 4px rgba(107, 105, 105, 0.15),
+      0 1px 2px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15),
+      0 1px 2px rgba(0, 0, 0, 0.05);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15),
+      0 1px 2px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: 0px 8px 3px -9px #000000;
+    -webkit-box-shadow: 0px 8px 3px -9px #000000;
+    box-shadow: 0px 8px 3px -9px #000000;
+  }
+  option {
   }
 `;
 
@@ -349,6 +386,7 @@ const GenericImage = styled.img`
 `;
 
 const NoImageInfoContainer = styled.div`
+  width: 35%;
   ${mobile({ padding: "10px" })}
 `;
 
@@ -385,7 +423,7 @@ const NoImageFilterTitle = styled.span`
   font-weight: 200;
 `;
 const NoImageFilterNotes = styled.form`
-  width: 100%;
+  width: 90%;
   font-family: "Montserrat", sans-serif;
   font-weight: 400;
   color: black;

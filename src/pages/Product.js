@@ -73,7 +73,9 @@ const Product = () => {
 
     if (
       product.categories?.includes("sides") ||
-      product.categories?.includes("desserts")
+      product.categories?.includes("desserts") ||
+      product.categories?.includes("beverages") ||
+      product.categories?.includes("shakes")
     ) {
       setSideCheck(true);
     } else {

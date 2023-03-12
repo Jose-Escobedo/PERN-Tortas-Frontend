@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { FaYelp, FaInstagram } from "react-icons/fa";
+import { FaYelp, FaInstagram, FaTiktok } from "react-icons/fa";
 import { SiGrubhub } from "react-icons/si";
 import { Accessibility, MailOutline, Phone, Room } from "@material-ui/icons";
 import { mobile } from "../responsive";
@@ -28,6 +28,11 @@ const Footer = () => {
           <SocialIcon color="55ACEE">
             <a href="https://www.instagram.com/tortasmexico_studiocity/">
               <FaInstagram />
+            </a>
+          </SocialIcon>
+          <SocialIcon color="000000">
+            <a href="https://www.tiktok.com/@tortasmexico_studiocity">
+              <FaTiktok />
             </a>
           </SocialIcon>
         </SocialContainer>

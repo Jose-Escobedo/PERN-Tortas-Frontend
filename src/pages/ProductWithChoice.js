@@ -13,9 +13,8 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { extrasInfo } from "../data";
 import { useNavigate } from "react-router-dom";
-import ProductWithChoice from "./ProductWithChoice";
 
-const Product = () => {
+const ProductWithChoice = () => {
   const location = useLocation();
   const id = location.pathname.split("/")[2];
   const [product, setProduct] = useState([]);
@@ -25,13 +24,9 @@ const Product = () => {
   const [extras, setExtras] = useState([]);
   const [extrasSum, setExtrasSum] = useState(0);
   const [note, setNote] = useState();
-  const [generic, setGeneric] = useState();
-  const [moleBoolean, setMoleBoolean] = useState();
-  const [comboCheck, setComboCheck] = useState();
-  const [comboOneCheck, setComboOneCheck] = useState();
   const [sideCheck, setSideCheck] = useState();
   const [itemWarning, setItemWarning] = useState(false);
-  const [checkPathName, setCheckPathName] = useState(false);
+
   const blankCombo = {
     firstItem: "",
     secondItem: "",
@@ -49,11 +44,6 @@ const Product = () => {
       } catch (error) {}
     };
     getProduct();
-
-    //if Hardshell Taco change Component
-    if (id === "638baa68773371cc8a0988c0") {
-      setCheckPathName(true);
-    }
   }, [id]);
 
   useEffect(() => {
@@ -62,30 +52,6 @@ const Product = () => {
     product.note = "";
     product.itemCombo = [];
     setProductPrice(originalPrice);
-
-    if (product.img === "") {
-      setGeneric(true);
-    } else {
-      setGeneric(false);
-    }
-
-    if (product.name === "Pollo con Mole") {
-      setMoleBoolean(true);
-    } else {
-      setMoleBoolean(false);
-    }
-
-    if (product.name === "2 Item Combination") {
-      setComboCheck(true);
-    } else {
-      setComboCheck(false);
-    }
-
-    if (product.name === "1 Item Combination") {
-      setComboOneCheck(true);
-    } else {
-      setComboOneCheck(false);
-    }
 
     if (
       product.categories?.includes("sides") ||
@@ -109,14 +75,14 @@ const Product = () => {
 
     console.log("first item", itemCombo);
   };
-  const handleSecondItem = (e) => {
-    setItemCombo({
-      ...itemCombo,
-      secondItem: e.target.value,
-    });
+  //   const handleSecondItem = (e) => {
+  //     setItemCombo({
+  //       ...itemCombo,
+  //       secondItem: e.target.value,
+  //     });
 
-    console.log("second item", itemCombo);
-  };
+  //     console.log("second item", itemCombo);
+  //   };
 
   const handleQuantity = (type) => {
     if (type === "dec") {
@@ -127,10 +93,7 @@ const Product = () => {
   };
 
   const handleClick = () => {
-    if (
-      product.name !== "2 Item Combination" &&
-      product.name !== "1 Item Combination"
-    ) {
+    if (product.name !== "Hardshell Taco") {
       setProductPrice(product.price + extrasSum);
       product.price = product.price + extrasSum;
       if (extras !== []) {
@@ -147,28 +110,7 @@ const Product = () => {
       });
 
       navigate("/cart");
-    } else if (product.name === "2 Item Combination") {
-      if (itemCombo.firstItem !== "" && itemCombo.secondItem !== "") {
-        setProductPrice(product.price + extrasSum);
-        product.price = product.price + extrasSum;
-        if (extras !== []) {
-          product.extras.push(extras);
-        }
-
-        product.itemCombo = itemCombo;
-
-        product.note = note;
-        dispatch(addProduct({ ...product, quantity }));
-        toast.success("Item has been added to Cart.", {
-          position: toast.POSITION.TOP_CENTER,
-          toastId: "success3",
-        });
-
-        navigate("/cart");
-      } else {
-        setItemWarning(true);
-      }
-    } else if (product.name === "1 Item Combination") {
+    } else if (product.name === "Hardshell Taco") {
       if (itemCombo.firstItem !== "") {
         setProductPrice(product.price + extrasSum);
         product.price = product.price + extrasSum;
@@ -225,168 +167,85 @@ const Product = () => {
     setNote(e);
   };
 
-  return checkPathName ? (
-    <ProductWithChoice />
-  ) : (
+  return (
     <Container>
       <StyledToastContainer />
       <Navbar />
-
-      {generic ? (
-        <NoImageWrapper>
-          <NoImageInfoContainer>
-            <Title>{product.name}</Title>
-            <Desc>{product.desc}</Desc>
-            <Price>$ {productPrice}</Price>
-            <NoImageFilterContainer>
-              <NoImageFilter>
-                {comboCheck ? (
-                  <>
-                    <SelectContainer>
-                      <select
-                        onChange={(e) => handleFirstItem(e)}
-                        name="selectedDishOne"
-                        defaultValue=""
-                        required
-                      >
-                        <option value="" disabled>
-                          SELECT FIRST ITEM
-                        </option>
-                        <option value="Asada Taco">Asada Taco</option>
-                        <option value="Chicken Taco">Chicken Taco</option>
-                      </select>
-                    </SelectContainer>
-                    <SelectContainer>
-                      <select
-                        onChange={(e) => handleSecondItem(e)}
-                        name="selectedDishTwo"
-                        defaultValue=""
-                        required
-                      >
-                        <option value="" disabled>
-                          SELECT SECOND ITEM
-                        </option>
-                        <option value="Asada Taco">Asada Taco</option>
-                        <option value="Chicken Taco">Chicken Taco</option>
-                      </select>
-                    </SelectContainer>
-                    {itemWarning ? (
-                      <SelectContainer>
-                        <h2>
-                          Please make sure to select item before adding to cart.
-                        </h2>
-                      </SelectContainer>
-                    ) : null}
-                  </>
-                ) : comboOneCheck ? (
-                  <>
-                    <SelectContainer>
-                      <select
-                        onChange={(e) => handleFirstItem(e)}
-                        name="selectedDishOne"
-                        defaultValue=""
-                        required
-                      >
-                        <option value="" disabled>
-                          SELECT ONE ITEM
-                        </option>
-                        <option value="Asada Taco">Asada Taco</option>
-                        <option value="Chicken Taco">Chicken Taco</option>
-                      </select>
-                    </SelectContainer>
-                  </>
-                ) : null}
-                <NoImageFilterNotes
-                  onChange={(e) => handleNote(e.target.value)}
+      <NoImageWrapper>
+        <NoImageInfoContainer>
+          <Title>{product.name}</Title>
+          <Desc>{product.desc}</Desc>
+          <Price>$ {productPrice}</Price>
+          <NoImageFilterContainer>
+            <NoImageFilter>
+              <SelectContainer>
+                <select
+                  onChange={(e) => handleFirstItem(e)}
+                  name="selectedDishOne"
+                  defaultValue=""
+                  required
                 >
-                  <span>ADD NOTE: </span>
-                  <br></br>
+                  <option value="" disabled>
+                    SELECT MEAT
+                  </option>
+                  <option value="Asada">Asada</option>
+                  <option value="Chicken">Chicken</option>
+                  <option value="Carnitas">Carnitas/Pork</option>
+                  <option value="Picadillo">Picadillo/Ground Beef</option>
+                  <option value="Lengua">Lengua</option>
+                  <option value="Pastor">Al Pastor</option>
+                  <option value="Chorizo">Chorizo</option>
+                  <option value="Vegetarian">Vegetarian</option>
+                  <option value="Fish">Fish</option>
+                </select>
+              </SelectContainer>
+              {itemWarning ? (
+                <SelectContainer>
+                  <h2>
+                    Please make sure to select item before adding to cart.
+                  </h2>
+                </SelectContainer>
+              ) : null}
 
-                  <textarea placeholder="Allergies, No onions, etc, anything else we should know before preparation."></textarea>
-                </NoImageFilterNotes>
-                {sideCheck ? null : (
-                  <>
-                    <NoImageFilterTitle>EXTRAS:</NoImageFilterTitle>
-                    <NoImageFilterExtras
-                      onChange={(event) => addOrRemove(event)}
-                    >
-                      {extrasInfo?.map((i) => (
-                        <>
-                          <label>
-                            <input value={i.option} type="checkbox" />
-                            {i.option}
-                          </label>
-                        </>
-                      ))}
-                    </NoImageFilterExtras>
-                  </>
-                )}
-              </NoImageFilter>
-            </NoImageFilterContainer>
-            <NoImageAddContainer>
-              <AmountContainer>
-                <Remove
-                  style={{ cursor: "pointer" }}
-                  onClick={() => handleQuantity("dec")}
-                />
-                <Amount>{quantity}</Amount>
-                <Add
-                  style={{ cursor: "pointer" }}
-                  onClick={() => handleQuantity("inc")}
-                />
-              </AmountContainer>
-              <Button onClick={handleClick}>ADD TO CART</Button>
-            </NoImageAddContainer>
-          </NoImageInfoContainer>
-        </NoImageWrapper>
-      ) : (
-        <Wrapper>
-          <ImgContainer>
-            <Image src={product.img}></Image>
-          </ImgContainer>
-          <InfoContainer>
-            <Title>{product.name}</Title>
-            <Desc>{product.desc}</Desc>
-            <Price>$ {productPrice}</Price>
-            <FilterContainer>
-              <Filter>
-                <FilterNotes onChange={(e) => handleNote(e.target.value)}>
-                  <span>ADD NOTE: </span>
-                  <br></br>
+              <NoImageFilterNotes onChange={(e) => handleNote(e.target.value)}>
+                <span>ADD NOTE: </span>
+                <br></br>
 
-                  <textarea placeholder="Allergies, No onions, etc, anything else we should know before preparation."></textarea>
-                </FilterNotes>
-                <FilterTitle>EXTRAS:</FilterTitle>
-                <FilterExtras onChange={(event) => addOrRemove(event)}>
-                  {extrasInfo?.map((i) => (
-                    <>
-                      <label>
-                        <input value={i.option} type="checkbox" />
-                        {i.option}
-                      </label>
-                    </>
-                  ))}
-                </FilterExtras>
-              </Filter>
-            </FilterContainer>
-            <AddContainer>
-              <AmountContainer>
-                <Remove
-                  style={{ cursor: "pointer" }}
-                  onClick={() => handleQuantity("dec")}
-                />
-                <Amount>{quantity}</Amount>
-                <Add
-                  style={{ cursor: "pointer" }}
-                  onClick={() => handleQuantity("inc")}
-                />
-              </AmountContainer>
-              <Button onClick={handleClick}>ADD TO CART</Button>
-            </AddContainer>
-          </InfoContainer>
-        </Wrapper>
-      )}
-
+                <textarea placeholder="Allergies, No onions, etc, anything else we should know before preparation."></textarea>
+              </NoImageFilterNotes>
+              {sideCheck ? null : (
+                <>
+                  <NoImageFilterTitle>EXTRAS:</NoImageFilterTitle>
+                  <NoImageFilterExtras onChange={(event) => addOrRemove(event)}>
+                    {extrasInfo?.map((i) => (
+                      <>
+                        <label>
+                          <input value={i.option} type="checkbox" />
+                          {i.option}
+                        </label>
+                      </>
+                    ))}
+                  </NoImageFilterExtras>
+                </>
+              )}
+            </NoImageFilter>
+          </NoImageFilterContainer>
+          <NoImageAddContainer>
+            <AmountContainer>
+              <Remove
+                style={{ cursor: "pointer" }}
+                onClick={() => handleQuantity("dec")}
+              />
+              <Amount>{quantity}</Amount>
+              <Add
+                style={{ cursor: "pointer" }}
+                onClick={() => handleQuantity("inc")}
+              />
+            </AmountContainer>
+            <Button onClick={handleClick}>ADD TO CART</Button>
+          </NoImageAddContainer>
+        </NoImageInfoContainer>
+      </NoImageWrapper>
       <Footer />
     </Container>
   );
@@ -688,4 +547,4 @@ const Button = styled.button`
   }
 `;
 
-export default Product;
+export default ProductWithChoice;

@@ -26,6 +26,8 @@ const ProductWithChoice = () => {
   const [note, setNote] = useState();
   const [sideCheck, setSideCheck] = useState();
   const [itemWarning, setItemWarning] = useState(false);
+  const [chimi, setChimi] = useState(false);
+  const [tamalCombo, setTamalCombo] = useState(false);
 
   const blankCombo = {
     firstItem: "",
@@ -44,6 +46,13 @@ const ProductWithChoice = () => {
       } catch (error) {}
     };
     getProduct();
+    if (product.name === "Chimichanga Burrito") {
+      setChimi(true);
+    }
+
+    if (id === "62e1c880126db108859b3cb2") {
+      setTamalCombo(true);
+    }
   }, [id]);
 
   useEffect(() => {
@@ -75,14 +84,14 @@ const ProductWithChoice = () => {
 
     console.log("first item", itemCombo);
   };
-  //   const handleSecondItem = (e) => {
-  //     setItemCombo({
-  //       ...itemCombo,
-  //       secondItem: e.target.value,
-  //     });
+  const handleSecondItem = (e) => {
+    setItemCombo({
+      ...itemCombo,
+      secondItem: e.target.value,
+    });
 
-  //     console.log("second item", itemCombo);
-  //   };
+    console.log("second item", itemCombo);
+  };
 
   const handleQuantity = (type) => {
     if (type === "dec") {
@@ -93,7 +102,10 @@ const ProductWithChoice = () => {
   };
 
   const handleClick = () => {
-    if (product.name !== "Hardshell Taco") {
+    if (
+      product.name !== "Hardshell Taco" &&
+      product.name !== "Chimichanga Burrito"
+    ) {
       setProductPrice(product.price + extrasSum);
       product.price = product.price + extrasSum;
       if (extras !== []) {
@@ -112,6 +124,27 @@ const ProductWithChoice = () => {
       navigate("/cart");
     } else if (product.name === "Hardshell Taco") {
       if (itemCombo.firstItem !== "") {
+        setProductPrice(product.price + extrasSum);
+        product.price = product.price + extrasSum;
+        if (extras !== []) {
+          product.extras.push(extras);
+        }
+
+        product.itemCombo = itemCombo;
+
+        product.note = note;
+        dispatch(addProduct({ ...product, quantity }));
+        toast.success("Item has been added to Cart.", {
+          position: toast.POSITION.TOP_CENTER,
+          toastId: "success3",
+        });
+
+        navigate("/cart");
+      } else {
+        setItemWarning(true);
+      }
+    } else if (product.name === "Chimichanga Burrito") {
+      if (itemCombo.firstItem !== "" && itemCombo.secondItem !== "") {
         setProductPrice(product.price + extrasSum);
         product.price = product.price + extrasSum;
         if (extras !== []) {
@@ -178,27 +211,81 @@ const ProductWithChoice = () => {
           <Price>$ {productPrice}</Price>
           <NoImageFilterContainer>
             <NoImageFilter>
-              <SelectContainer>
-                <select
-                  onChange={(e) => handleFirstItem(e)}
-                  name="selectedDishOne"
-                  defaultValue=""
-                  required
-                >
-                  <option value="" disabled>
-                    SELECT MEAT
-                  </option>
-                  <option value="Asada">Asada</option>
-                  <option value="Chicken">Chicken</option>
-                  <option value="Carnitas">Carnitas/Pork</option>
-                  <option value="Picadillo">Picadillo/Ground Beef</option>
-                  <option value="Lengua">Lengua</option>
-                  <option value="Pastor">Al Pastor</option>
-                  <option value="Chorizo">Chorizo</option>
-                  <option value="Vegetarian">Vegetarian</option>
-                  <option value="Fish">Fish</option>
-                </select>
-              </SelectContainer>
+              {chimi ? (
+                <>
+                  <SelectContainer>
+                    <select
+                      onChange={(e) => handleFirstItem(e)}
+                      name="selectedDishOne"
+                      defaultValue=""
+                      required
+                    >
+                      <option value="" disabled>
+                        SELECT MEAT
+                      </option>
+                      <option value="Asada">Asada</option>
+                      <option value="Chicken">Chicken</option>
+                      <option value="Shredded Chicken">Shredded Chicken</option>
+                      <option value="Carnitas">Carnitas/Pork</option>
+                    </select>
+                  </SelectContainer>
+                  <SelectContainer>
+                    <select
+                      onChange={(e) => handleSecondItem(e)}
+                      name="selectedDishTwo"
+                      defaultValue=""
+                      required
+                    >
+                      <option value="" disabled>
+                        SELECT RICE OR BEANS
+                      </option>
+                      <option value="Rice">Rice</option>
+                      <option value="Beans">Beans</option>
+                    </select>
+                  </SelectContainer>
+                </>
+              ) : (
+                <SelectContainer>
+                  {tamalCombo ? (
+                    <select
+                      onChange={(e) => handleFirstItem(e)}
+                      name="selectedDishOne"
+                      defaultValue=""
+                      required
+                    >
+                      <option value="" disabled>
+                        SELECT MEAT
+                      </option>
+
+                      <option value="Pollo">Chicken</option>
+                      <option value="Dulce">Dulce/Sweet</option>
+                      <option value="Queso">Queso Con Rajas/Cheese</option>
+                      <option value="Puerco">Pork</option>
+                    </select>
+                  ) : (
+                    <select
+                      onChange={(e) => handleFirstItem(e)}
+                      name="selectedDishOne"
+                      defaultValue=""
+                      required
+                    >
+                      <option value="" disabled>
+                        SELECT MEAT
+                      </option>
+                      <option value="Asada">Asada</option>
+                      <option value="Chicken">Chicken</option>
+                      <option value="Shredded Chicken">Shredded Chicken</option>
+                      <option value="Carnitas">Carnitas/Pork</option>
+                      <option value="Picadillo">Picadillo/Ground Beef</option>
+                      <option value="Lengua">Lengua</option>
+                      <option value="Pastor">Al Pastor</option>
+                      <option value="Chorizo">Chorizo</option>
+                      <option value="Vegetarian">Vegetarian</option>
+                      <option value="Fish">Fish</option>
+                    </select>
+                  )}
+                </SelectContainer>
+              )}
               {itemWarning ? (
                 <SelectContainer>
                   <h2>

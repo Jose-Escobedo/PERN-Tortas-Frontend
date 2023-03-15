@@ -54,6 +54,11 @@ const Product = () => {
     if (id === "638baa68773371cc8a0988c0") {
       setCheckPathName(true);
     }
+
+    //if Chimichanga change Component
+    if (id === "638bac71773371cc8a0988cb") {
+      setCheckPathName(true);
+    }
   }, [id]);
 
   useEffect(() => {

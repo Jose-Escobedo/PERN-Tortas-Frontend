@@ -222,8 +222,7 @@ const ProductWithChoice = () => {
                       <option value="" disabled>
                         SELECT MEAT
                       </option>
-                      <option value="Asada">Asada</option>
-                      <option value="Chicken">Chicken</option>
+                      <option value="Asada">Beef</option>
                       <option value="Shredded Chicken">Shredded Chicken</option>
                       <option value="Carnitas">Carnitas/Pork</option>
                     </select>

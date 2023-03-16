@@ -49,10 +49,6 @@ const ProductWithChoice = () => {
     if (product.name === "Chimichanga Burrito") {
       setChimi(true);
     }
-
-    if (id === "62e1c880126db108859b3cb2") {
-      setTamalCombo(true);
-    }
   }, [id]);
 
   useEffect(() => {
@@ -246,44 +242,26 @@ const ProductWithChoice = () => {
                 </>
               ) : (
                 <SelectContainer>
-                  {tamalCombo ? (
-                    <select
-                      onChange={(e) => handleFirstItem(e)}
-                      name="selectedDishOne"
-                      defaultValue=""
-                      required
-                    >
-                      <option value="" disabled>
-                        SELECT MEAT
-                      </option>
-
-                      <option value="Pollo">Chicken</option>
-                      <option value="Dulce">Dulce/Sweet</option>
-                      <option value="Queso">Queso Con Rajas/Cheese</option>
-                      <option value="Puerco">Pork</option>
-                    </select>
-                  ) : (
-                    <select
-                      onChange={(e) => handleFirstItem(e)}
-                      name="selectedDishOne"
-                      defaultValue=""
-                      required
-                    >
-                      <option value="" disabled>
-                        SELECT MEAT
-                      </option>
-                      <option value="Asada">Asada</option>
-                      <option value="Chicken">Chicken</option>
-                      <option value="Shredded Chicken">Shredded Chicken</option>
-                      <option value="Carnitas">Carnitas/Pork</option>
-                      <option value="Picadillo">Picadillo/Ground Beef</option>
-                      <option value="Lengua">Lengua</option>
-                      <option value="Pastor">Al Pastor</option>
-                      <option value="Chorizo">Chorizo</option>
-                      <option value="Vegetarian">Vegetarian</option>
-                      <option value="Fish">Fish</option>
-                    </select>
-                  )}
+                  <select
+                    onChange={(e) => handleFirstItem(e)}
+                    name="selectedDishOne"
+                    defaultValue=""
+                    required
+                  >
+                    <option value="" disabled>
+                      SELECT MEAT
+                    </option>
+                    <option value="Asada">Asada</option>
+                    <option value="Chicken">Chicken</option>
+                    <option value="Shredded Chicken">Shredded Chicken</option>
+                    <option value="Carnitas">Carnitas/Pork</option>
+                    <option value="Picadillo">Picadillo/Ground Beef</option>
+                    <option value="Lengua">Lengua</option>
+                    <option value="Pastor">Al Pastor</option>
+                    <option value="Chorizo">Chorizo</option>
+                    <option value="Vegetarian">Vegetarian</option>
+                    <option value="Fish">Fish</option>
+                  </select>
                 </SelectContainer>
               )}
               {itemWarning ? (

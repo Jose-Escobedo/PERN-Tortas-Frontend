@@ -9,6 +9,7 @@ import ProductItem from "./ProductItem";
 const Products = ({ cat, filters, sort }) => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
+  const [newArray, setNewArray] = useState([]);
 
   useEffect(() => {
     const getProducts = async () => {
@@ -33,6 +34,10 @@ const Products = ({ cat, filters, sort }) => {
           )
         )
       );
+    let mutateArry = products.slice(0, 7);
+    let addedArray = products.slice(99, 100);
+
+    setNewArray([].concat(mutateArry, addedArray));
   }, [products, cat, filters]);
 
   useEffect(() => {
@@ -57,7 +62,7 @@ const Products = ({ cat, filters, sort }) => {
         </CategoryContainer>
       ) : (
         <Container>
-          {products.slice(0, 8).map((item) => {
+          {newArray.map((item) => {
             return <ProductItem item={item} key={item._id} />;
           })}
         </Container>

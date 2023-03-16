@@ -16,6 +16,7 @@ const ProductItem = ({ item }) => {
   const dispatch = useDispatch();
   const quantity = 1;
   const [asadaBoolean, setAsadaBoolean] = useState();
+  const [comboBoolean, setComboBoolean] = useState();
   const handleClick = (item) => {
     dispatch(addProduct({ ...item, quantity }));
     toast.success("Item has been added to Cart.", {
@@ -30,11 +31,15 @@ const ProductItem = ({ item }) => {
     } else {
       setAsadaBoolean(false);
     }
+    if (item.name === "1 Tamal Combination") {
+      setComboBoolean(true);
+    } else {
+      setComboBoolean(false);
+    }
   }, []);
 
   return (
     <Container>
-      {/* <Circle /> */}
       {asadaBoolean ? (
         <Image
           src={

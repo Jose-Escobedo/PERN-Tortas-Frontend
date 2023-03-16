@@ -46,9 +46,6 @@ const ProductWithChoice = () => {
       } catch (error) {}
     };
     getProduct();
-    if (product.name === "Chimichanga Burrito") {
-      setChimi(true);
-    }
   }, [id]);
 
   useEffect(() => {
@@ -57,6 +54,12 @@ const ProductWithChoice = () => {
     product.note = "";
     product.itemCombo = [];
     setProductPrice(originalPrice);
+
+    if (product.name === "Chimichanga Burrito") {
+      setChimi(true);
+    } else {
+      setChimi(false);
+    }
 
     if (
       product.categories?.includes("sides") ||

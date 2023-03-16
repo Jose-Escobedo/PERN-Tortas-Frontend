@@ -59,11 +59,6 @@ const Product = () => {
     if (id === "638bac71773371cc8a0988cb") {
       setCheckPathName(true);
     }
-
-    //if 1 Tamal Combination change Component
-    if (id === "62e1c880126db108859b3cb2") {
-      setCheckPathName(true);
-    }
   }, [id]);
 
   useEffect(() => {
@@ -304,6 +299,13 @@ const Product = () => {
                         <option value="Chicken Taco">Chicken Taco</option>
                       </select>
                     </SelectContainer>
+                    {itemWarning ? (
+                      <SelectContainer>
+                        <h2>
+                          Please make sure to select item before adding to cart.
+                        </h2>
+                      </SelectContainer>
+                    ) : null}
                   </>
                 ) : null}
                 <NoImageFilterNotes

@@ -194,16 +194,21 @@ export const menuCatArray2 = [
   },
   {
     id: 12,
+    option: `Burgers`,
+    value: `hamburgers`,
+  },
+  {
+    id: 13,
     option: `Appetizers`,
     value: `appetizers`,
   },
   {
-    id: 13,
+    id: 14,
     option: `Ensaladas`,
     value: `salads`,
   },
   {
-    id: 14,
+    id: 15,
     option: `Taquitos`,
     value: "taquitos",
   },
@@ -211,37 +216,37 @@ export const menuCatArray2 = [
 
 export const menuCatArray3 = [
   {
-    id: 15,
+    id: 16,
     option: `Sopes`,
     value: "sopes",
   },
   {
-    id: 16,
+    id: 17,
     option: `Tostadas`,
     value: `tostadas`,
   },
   {
-    id: 17,
+    id: 18,
     option: `Tamales`,
     value: `tamales`,
   },
   {
-    id: 18,
+    id: 19,
     option: `Quesadillas`,
     value: `quesadillas`,
   },
   {
-    id: 19,
+    id: 20,
     option: `Sides`,
     value: `sides`,
   },
   {
-    id: 20,
+    id: 21,
     option: `Kid's Meal`,
     value: "kids-meal",
   },
   {
-    id: 21,
+    id: 22,
     option: `Desserts`,
     value: `desserts`,
   },

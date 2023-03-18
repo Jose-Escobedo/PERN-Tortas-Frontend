@@ -150,6 +150,8 @@ const ProductWithChoice = () => {
       firstItem: e.target.value,
     });
 
+    setItemWarning(false);
+
     if (e.target.value === "LARGE") {
       setDrinkSizePrice(0.5);
       setProductPrice(product.price + 0.5);
@@ -166,6 +168,8 @@ const ProductWithChoice = () => {
       ...itemCombo,
       secondItem: e.target.value,
     });
+
+    setItemWarning(false);
 
     if (e.target.value === "LARGE") {
       setDrinkSizePrice(0.5);
@@ -387,9 +391,9 @@ const ProductWithChoice = () => {
                       <option value="" disabled>
                         SELECT MEAT
                       </option>
-                      <option value="Asada">Beef</option>
-                      <option value="Shredded Chicken">Shredded Chicken</option>
-                      <option value="Carnitas">Carnitas/Pork</option>
+                      <option value="Asada">BEEF</option>
+                      <option value="Shredded Chicken">SHREDDED CHICKEN</option>
+                      <option value="Carnitas">CARNITAS/PORK</option>
                     </select>
                   </SelectContainer>
                   <SelectContainer>
@@ -402,8 +406,8 @@ const ProductWithChoice = () => {
                       <option value="" disabled>
                         SELECT RICE OR BEANS
                       </option>
-                      <option value="Rice">Rice</option>
-                      <option value="Beans">Beans</option>
+                      <option value="Rice">RICE</option>
+                      <option value="Beans">BEANS</option>
                     </select>
                   </SelectContainer>
                 </>
@@ -514,44 +518,44 @@ const ProductWithChoice = () => {
                           <option value="" disabled>
                             SELECT MEAT
                           </option>
-                          <option value="Asada">Asada</option>
+                          <option value="Asada">ASADA</option>
                           {kidsBurrito ? (
                             <option value="Bean And Cheese">
-                              Beans and Cheese
+                              BEANS AND CHEESE
                             </option>
                           ) : null}
                           {taquitos ? null : (
-                            <option value="Chicken">Chicken</option>
+                            <option value="Chicken">CHICKEN</option>
                           )}
                           {kidsBurrito ? null : (
                             <option value="Shredded Chicken">
-                              Shredded Chicken
+                              SHREDDED CHICKEN
                             </option>
                           )}
                           {kidsBurrito ? null : (
-                            <option value="Carnitas">Carnitas/Pork</option>
+                            <option value="Carnitas">CARNITAS/PORK</option>
                           )}
 
                           {taquitos || kidsBurrito ? null : (
                             <option value="Picadillo">
-                              Picadillo/Ground Beef
+                              PICADILLO/GROUND BEEF
                             </option>
                           )}
                           {taquitos || kidsBurrito ? null : (
-                            <option value="Lengua">Lengua</option>
+                            <option value="Lengua">LENGUA</option>
                           )}
                           {taquitos || kidsBurrito ? null : (
-                            <option value="Pastor">Al Pastor</option>
+                            <option value="Pastor">AL PASTOR</option>
                           )}
                           {taquitos || kidsBurrito ? null : (
-                            <option value="Chorizo">Chorizo</option>
+                            <option value="Chorizo">CHORIZO</option>
                           )}
 
                           {nachosQuesadilla || kidsBurrito ? null : (
-                            <option value="Vegetarian">Vegetarian</option>
+                            <option value="Vegetarian">VEGETARIAN</option>
                           )}
                           {nachosQuesadilla || kidsBurrito ? null : (
-                            <option value="Fish">Fish</option>
+                            <option value="Fish">FISH</option>
                           )}
                         </select>
                       )}

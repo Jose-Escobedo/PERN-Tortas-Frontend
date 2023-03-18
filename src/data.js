@@ -251,3 +251,166 @@ export const menuCatArray3 = [
     value: `desserts`,
   },
 ];
+
+export const menuComboItems = [
+  {
+    id: 1,
+    option: `ASADA TACO`,
+    value: "ASADA-TACO",
+  },
+  {
+    id: 2,
+    option: `CHICKEN TACO`,
+    value: "CHICKEN-TACO",
+  },
+  {
+    id: 3,
+    option: `SHREDDED TACO`,
+    value: "SHREDDED-CHICKEN-TACO",
+  },
+  {
+    id: 4,
+    option: `PASTOR TACO`,
+    value: "PASTOR-TACO",
+  },
+  {
+    id: 5,
+    option: `LENGUA TACO`,
+    value: "LENGUA-TACO",
+  },
+  {
+    id: 6,
+    option: `CARNITAS TACO`,
+    value: "CARNITAS-TACO",
+  },
+  {
+    id: 7,
+    option: `PICADILLO TACO/GROUND BEEF`,
+    value: "PICADILLO-TACO",
+  },
+  {
+    id: 8,
+    option: `VEGETARIAN TACO`,
+    value: "VEGETARIAN-TACO",
+  },
+  {
+    id: 9,
+    option: `CHILE RELLENO`,
+    value: "CHILE-RELLENO",
+  },
+  {
+    id: 10,
+    option: `CHICKEN TAMAL`,
+    value: "CHICKEN-TAMAL",
+  },
+  {
+    id: 11,
+    option: `PORK TAMAL`,
+    value: "PORK-TAMAL",
+  },
+  {
+    id: 12,
+    option: `DULCE TAMAL`,
+    value: "DULCE-TAMAL",
+  },
+  {
+    id: 13,
+    option: `CHEESE ENCHILADA`,
+    value: "CHEESE-ENCHILADA",
+  },
+  {
+    id: 14,
+    option: `ASADA ENCHILADA`,
+    value: "ASADA-ENCHILADA",
+  },
+  {
+    id: 15,
+    option: `CHICKEN ENCHILADA`,
+    value: "CHICKEN-ENCHILADA",
+  },
+  {
+    id: 16,
+    option: `CARNITAS ENCHILADA`,
+    value: "CARNITAS-ENCHILADA",
+  },
+  {
+    id: 17,
+    option: `PASTOR ENCHILADA`,
+    value: "PASTOR-ENCHILADA",
+  },
+  {
+    id: 18,
+    option: `ASADA SOPE`,
+    value: "ASADA-SOPE",
+  },
+  {
+    id: 19,
+    option: `CHICKEN SOPE`,
+    value: "CHICKEN-SOPE",
+  },
+  {
+    id: 20,
+    option: `SHREDDED CHICKEN SOPE`,
+    value: "SHREDDED-CHICKEN-SOPE",
+  },
+  {
+    id: 21,
+    option: `CARNITAS SOPE`,
+    value: "CARNITAS-SOPE",
+  },
+  {
+    id: 22,
+    option: `PASTOR SOPE`,
+    value: "PASTOR-SOPE",
+  },
+  {
+    id: 23,
+    option: `LENGUA SOPE`,
+    value: "LENGUA-SOPE",
+  },
+  {
+    id: 24,
+    option: `VEGETARIAN SOPE`,
+    value: "VEGETARIAN-SOPE",
+  },
+  {
+    id: 25,
+    option: `HARDSHELL ASADA TACO`,
+    value: "HARDSHELL-ASADA-TACO",
+  },
+  {
+    id: 26,
+    option: `HARDSHELL CHICKEN TACO`,
+    value: "HARDSHELL-CHICKEN-TACO",
+  },
+  {
+    id: 27,
+    option: `HARDSHELL SHREDDED CHICKEN TACO`,
+    value: "HARDSHELL-SHREDDED-CHICKEN-TACO",
+  },
+  {
+    id: 28,
+    option: `HARDSHELL PICADILLO/GROUND BEEF TACO`,
+    value: "HARDSHELL-PICADILLO-TACO",
+  },
+  {
+    id: 29,
+    option: `HARDSHELL LENGUA TACO`,
+    value: "HARDSHELL-LENGUA-TACO",
+  },
+  {
+    id: 30,
+    option: `HARDSHELL PASTOR TACO`,
+    value: "HARDSHELL-PASTOR-TACO",
+  },
+  {
+    id: 31,
+    option: `HARDSHELL CARNITAS TACO`,
+    value: "HARDSHELL-CARNITAS-TACO",
+  },
+  {
+    id: 32,
+    option: `HARDSHELL VEGETARIAN TACO`,
+    value: "HARDSHELL-VEGETARIAN-TACO",
+  },
+];

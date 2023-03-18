@@ -27,7 +27,8 @@ const ProductWithChoice = () => {
   const [sideCheck, setSideCheck] = useState();
   const [itemWarning, setItemWarning] = useState(false);
   const [chimi, setChimi] = useState(false);
-  const [tamalCombo, setTamalCombo] = useState(false);
+  const [nachosQuesadilla, setNachosQuesadilla] = useState(false);
+  const [taquitos, setTaquitos] = useState(false);
 
   const blankCombo = {
     firstItem: "",
@@ -59,6 +60,26 @@ const ProductWithChoice = () => {
       setChimi(true);
     } else {
       setChimi(false);
+    }
+
+    if (
+      product.name === "A la Carte Taquitos" ||
+      product.name === "3 Taquitos with Rice and Beans"
+    ) {
+      setTaquitos(true);
+    } else {
+      setTaquitos(false);
+    }
+
+    if (
+      product.name === "Cheese and Meat Nachos" ||
+      product.name === "Cheese and Meat Quesadilla" ||
+      product.name === "3 Taquitos with Rice and Beans" ||
+      product.name === "A la Carte Taquitos"
+    ) {
+      setNachosQuesadilla(true);
+    } else {
+      setNachosQuesadilla(false);
     }
 
     if (
@@ -102,26 +123,14 @@ const ProductWithChoice = () => {
 
   const handleClick = () => {
     if (
-      product.name !== "Hardshell Taco" &&
-      product.name !== "Chimichanga Burrito"
+      product.name === "Hardshell Taco" ||
+      product.name === "Individual Sopes" ||
+      product.name === "Cheese and Meat Nachos" ||
+      product.name === "Cheese and Meat Quesadilla" ||
+      product.name === "3 Taquitos with Rice and Beans" ||
+      product.name === "A la Carte Taquitos" ||
+      product.name === "Tostada"
     ) {
-      setProductPrice(product.price + extrasSum);
-      product.price = product.price + extrasSum;
-      if (extras !== []) {
-        product.extras.push(extras);
-      }
-
-      product.itemCombo = itemCombo;
-
-      product.note = note;
-      dispatch(addProduct({ ...product, quantity }));
-      toast.success("Item has been added to Cart.", {
-        position: toast.POSITION.TOP_CENTER,
-        toastId: "success3",
-      });
-
-      navigate("/cart");
-    } else if (product.name === "Hardshell Taco") {
       if (itemCombo.firstItem !== "") {
         setProductPrice(product.price + extrasSum);
         product.price = product.price + extrasSum;
@@ -163,6 +172,23 @@ const ProductWithChoice = () => {
       } else {
         setItemWarning(true);
       }
+    } else {
+      setProductPrice(product.price + extrasSum);
+      product.price = product.price + extrasSum;
+      if (extras !== []) {
+        product.extras.push(extras);
+      }
+
+      product.itemCombo = itemCombo;
+
+      product.note = note;
+      dispatch(addProduct({ ...product, quantity }));
+      toast.success("Item has been added to Cart.", {
+        position: toast.POSITION.TOP_CENTER,
+        toastId: "success3",
+      });
+
+      navigate("/cart");
     }
   };
   const addOrRemove = (e) => {
@@ -254,15 +280,25 @@ const ProductWithChoice = () => {
                       SELECT MEAT
                     </option>
                     <option value="Asada">Asada</option>
-                    <option value="Chicken">Chicken</option>
+
+                    {taquitos ? null : <option value="Chicken">Chicken</option>}
                     <option value="Shredded Chicken">Shredded Chicken</option>
                     <option value="Carnitas">Carnitas/Pork</option>
-                    <option value="Picadillo">Picadillo/Ground Beef</option>
-                    <option value="Lengua">Lengua</option>
-                    <option value="Pastor">Al Pastor</option>
-                    <option value="Chorizo">Chorizo</option>
-                    <option value="Vegetarian">Vegetarian</option>
-                    <option value="Fish">Fish</option>
+                    {taquitos ? null : (
+                      <option value="Picadillo">Picadillo/Ground Beef</option>
+                    )}
+                    {taquitos ? null : <option value="Lengua">Lengua</option>}
+                    {taquitos ? null : (
+                      <option value="Pastor">Al Pastor</option>
+                    )}
+                    {taquitos ? null : <option value="Chorizo">Chorizo</option>}
+
+                    {nachosQuesadilla ? null : (
+                      <option value="Vegetarian">Vegetarian</option>
+                    )}
+                    {nachosQuesadilla ? null : (
+                      <option value="Fish">Fish</option>
+                    )}
                   </select>
                 </SelectContainer>
               )}

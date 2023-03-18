@@ -12,8 +12,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { extrasInfo } from "../data";
+import { menuComboItems } from "../data";
 import { useNavigate } from "react-router-dom";
 import ProductWithChoice from "./ProductWithChoice";
+import { Box, Modal } from "@material-ui/core";
 
 const Product = () => {
   const location = useLocation();
@@ -38,8 +40,25 @@ const Product = () => {
   };
 
   const [itemCombo, setItemCombo] = useState(blankCombo);
+  // const [menuItemChoice, setMenuItemChoice] = useState();
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    bgcolor: "white",
+    height: "66vh",
+    border: "2px solid #000",
+    boxShadow: 24,
+    overflow: "scroll",
+    overflowX: "hidden",
+    p: 4,
+  };
 
   useEffect(() => {
     const getProduct = async () => {
@@ -57,6 +76,46 @@ const Product = () => {
 
     //if Chimichanga change Component
     if (id === "638bac71773371cc8a0988cb") {
+      setCheckPathName(true);
+    }
+
+    //if Sope change Component
+    if (id === "638ba987773371cc8a0988bd") {
+      setCheckPathName(true);
+    }
+
+    //if 3 Sopes change Component
+    if (id === "62d008e1c020372b553c894c") {
+      setCheckPathName(true);
+    }
+
+    //if Meat Nachos change Component
+    if (id === "638ba406773371cc8a0988a5") {
+      setCheckPathName(true);
+    }
+
+    //if Meat Quesadilla change Component
+    if (id === "638bae71773371cc8a0988d4") {
+      setCheckPathName(true);
+    }
+
+    //if 3 Taquitos change Component
+    if (id === "638ba924773371cc8a0988bb") {
+      setCheckPathName(true);
+    }
+
+    //if ala carte taquitos Nachos change Component
+    if (id === "638ba957773371cc8a0988bc") {
+      setCheckPathName(true);
+    }
+
+    //if Tostada change Component
+    if (id === "638bab85773371cc8a0988c8") {
+      setCheckPathName(true);
+    }
+
+    //if Kids Burrito change Component
+    if (id === "638bb3b3773371cc8a0988ea") {
       setCheckPathName(true);
     }
   }, [id]);
@@ -286,7 +345,42 @@ const Product = () => {
                 ) : comboOneCheck ? (
                   <>
                     <SelectContainer>
-                      <select
+                      <Button onClick={handleOpen}>
+                        {itemCombo.firstItem ? (
+                          <h2 className="combo-item">
+                            {itemCombo.firstItem.replace(/-/g, " ")}
+                          </h2>
+                        ) : (
+                          <h2 className="combo-item">SELECT COMBO ITEM</h2>
+                        )}
+                      </Button>
+                      <Modal
+                        open={open}
+                        onClose={handleClose}
+                        aria-labelledby="Combo-Item"
+                        aria-describedby="Combo-Item-Selection"
+                      >
+                        <Box sx={{ ...style, width: `50%` }}>
+                          <NoImageFilterMenuItems>
+                            <h2>SELECT AN ITEM</h2>
+                            {menuComboItems.map((i) => (
+                              <MenuItemComboWrapper>
+                                <input
+                                  type="radio"
+                                  value={i.value}
+                                  name={"items"}
+                                  id={"Combo-Item"}
+                                  onChange={(e) => handleFirstItem(e)}
+                                />
+                                <h2
+                                  id={"Combo-Item-Selection"}
+                                >{`${i.option}`}</h2>
+                              </MenuItemComboWrapper>
+                            ))}
+                          </NoImageFilterMenuItems>
+                        </Box>
+                      </Modal>
+                      {/* <select
                         onChange={(e) => handleFirstItem(e)}
                         name="selectedDishOne"
                         defaultValue=""
@@ -297,7 +391,7 @@ const Product = () => {
                         </option>
                         <option value="Asada Taco">Asada Taco</option>
                         <option value="Chicken Taco">Chicken Taco</option>
-                      </select>
+                      </select> */}
                     </SelectContainer>
                     {itemWarning ? (
                       <SelectContainer>
@@ -445,6 +539,11 @@ const SelectContainer = styled.div`
     font-size: 1.2rem;
   }
 
+  .combo-item {
+    color: black;
+    font-size: 1.2rem;
+  }
+
   select {
     width: 50%;
     font-size: 1rem;
@@ -508,6 +607,35 @@ const Desc = styled.p`
 const Price = styled.span`
   font-weight: 100;
   font-size: 3em;
+`;
+
+const MenuItemComboWrapper = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const NoImageFilterMenuItems = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  h2 input {
+    margin-right: 1em;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    color: black;
+    cursor: pointer;
+    padding-left: 7px;
+  }
+
+  input {
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+    position: relative;
+    *overflow: hidden;
+  }
 `;
 
 const NoImageFilterContainer = styled.div`

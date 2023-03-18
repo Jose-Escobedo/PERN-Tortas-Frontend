@@ -119,7 +119,9 @@ const MenuGridList = ({ items }) => {
         </Arrow>
       </MenuCatContainer>
       <MenuCatTitle>
-        {category === "All" ? null : String(category).toUpperCase()}
+        {category === "All"
+          ? null
+          : String(category).toUpperCase().replace(/-/g, " ")}
       </MenuCatTitle>
       <MenuItemsGrid>
         {filteredItems?.map((item, index) => {

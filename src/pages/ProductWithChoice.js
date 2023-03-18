@@ -33,6 +33,8 @@ const ProductWithChoice = () => {
   const [fountainDrink, setFountainDrink] = useState(false);
   const [horchataAguaFresca, setHorchataAguaFresca] = useState(false);
   const [drinkSizePrice, setDrinkSizePrice] = useState(0);
+  const [kidsDrink, setKidsDrink] = useState(false);
+  const [kidsDrinkNoMeat, setKidsDrinkNoMeat] = useState(false);
 
   const blankCombo = {
     firstItem: "",
@@ -82,6 +84,28 @@ const ProductWithChoice = () => {
       setKidsBurrito(true);
     } else {
       setKidsBurrito(false);
+    }
+
+    if (
+      product.name === "Cheese Quesadilla Kid's Meal" ||
+      product.name === "Carnitas Kid's Meal" ||
+      product.name === "Asada Kid's Meal" ||
+      product.name === "Chicken Kid's Meal" ||
+      product.name === "Ground Beef Kid's Meal"
+    ) {
+      setKidsDrinkNoMeat(true);
+    } else {
+      setKidsDrinkNoMeat(false);
+    }
+
+    if (
+      product.name === "2 Taquitos Kid's Meal" ||
+      product.name === "Burrito Kid's Meal" ||
+      product.name === "Taco with Beans and Rice Kid's Meal"
+    ) {
+      setKidsDrink(true);
+    } else {
+      setKidsDrink(false);
     }
 
     if (
@@ -175,8 +199,11 @@ const ProductWithChoice = () => {
       product.name === "3 Taquitos with Rice and Beans" ||
       product.name === "A la Carte Taquitos" ||
       product.name === "Tostada" ||
-      product.name === "2 Taquitos Kid's Meal" ||
-      product.name === "Burrito Kid's Meal"
+      product.name === "Cheese Quesadilla Kid's Meal" ||
+      product.name === "Carnitas Kid's Meal" ||
+      product.name === "Asada Kid's Meal" ||
+      product.name === "Chicken Kid's Meal" ||
+      product.name === "Ground Beef Kid's Meal"
     ) {
       if (itemCombo.firstItem !== "") {
         setProductPrice(product.price + extrasSum);
@@ -222,6 +249,31 @@ const ProductWithChoice = () => {
     } else if (product.name === "Fountain Drink") {
       if (itemCombo.firstItem !== "" && itemCombo.secondItem !== "") {
         product.price = product.price + extrasSum + drinkSizePrice;
+        if (extras !== []) {
+          product.extras.push(extras);
+        }
+
+        product.itemCombo = itemCombo;
+
+        product.note = note;
+        dispatch(addProduct({ ...product, quantity }));
+        toast.success("Item has been added to Cart.", {
+          position: toast.POSITION.TOP_CENTER,
+          toastId: "success3",
+        });
+
+        navigate("/cart");
+      } else {
+        setItemWarning(true);
+      }
+    } else if (
+      product.name === "2 Taquitos Kid's Meal" ||
+      product.name === "Burrito Kid's Meal" ||
+      product.name === "Taco with Beans and Rice Kid's Meal"
+    ) {
+      if (itemCombo.firstItem !== "" && itemCombo.secondItem !== "") {
+        setProductPrice(product.price + extrasSum);
+        product.price = product.price + extrasSum;
         if (extras !== []) {
           product.extras.push(extras);
         }
@@ -395,19 +447,62 @@ const ProductWithChoice = () => {
                     </SelectDrinkWrapper>
                   ) : (
                     <SelectDrinkWrapper>
-                      {horchataAguaFresca ? (
+                      {horchataAguaFresca || kidsDrinkNoMeat ? (
                         <select
                           onChange={(e) => handleFirstItem(e)}
                           name="selectedDishOne"
                           defaultValue=""
                           required
                         >
-                          <option value="" disabled>
-                            SELECT SIZE
-                          </option>
-                          <option value="REGULAR">REGULAR</option>
-                          <option value="LARGE">LARGE +$0.50</option>
-                          <option value="XL-LARGE">XL-LARGE +$1.10</option>
+                          {kidsDrinkNoMeat ? (
+                            <option value="" disabled>
+                              SELECT DRINK
+                            </option>
+                          ) : (
+                            <option value="" disabled>
+                              SELECT SIZE
+                            </option>
+                          )}
+                          {kidsDrinkNoMeat ? (
+                            <option value="COKE">COKE</option>
+                          ) : (
+                            <option value="REGULAR">REGULAR</option>
+                          )}
+                          {kidsDrinkNoMeat ? (
+                            <option value="SPRITE">SPRITE</option>
+                          ) : (
+                            <option value="LARGE">LARGE +$0.50</option>
+                          )}
+                          {kidsDrinkNoMeat ? (
+                            <option value="PINK-LEMONADE">PINK LEMONADE</option>
+                          ) : (
+                            <option value="XL-LARGE">XL-LARGE +$1.10</option>
+                          )}
+                          {kidsDrinkNoMeat ? (
+                            <option value="FANTA">ORANGE FANTA</option>
+                          ) : null}
+                          {kidsDrinkNoMeat ? (
+                            <option value="RASPBERRY-ICED-TEA">
+                              RASPBERRY ICED TEA
+                            </option>
+                          ) : null}
+                          {kidsDrinkNoMeat ? (
+                            <option value="UNSWEETENED TEA">
+                              UNSWEETENED TEA
+                            </option>
+                          ) : null}
+                          {kidsDrinkNoMeat ? (
+                            <option value="DIET-COKE">DIET COKE</option>
+                          ) : null}
+                          {kidsDrinkNoMeat ? (
+                            <option value="DR-PEPPER">DR PEPPER</option>
+                          ) : null}
+                          {kidsDrinkNoMeat ? (
+                            <option value="HORCHATA">HORCHATA</option>
+                          ) : null}
+                          {kidsDrinkNoMeat ? (
+                            <option value="AGUA FRESCA">AGUA FRESCA</option>
+                          ) : null}
                         </select>
                       ) : (
                         <select
@@ -460,6 +555,33 @@ const ProductWithChoice = () => {
                           )}
                         </select>
                       )}
+
+                      {kidsDrink ? (
+                        <select
+                          onChange={(e) => handleSecondItem(e)}
+                          name="selectedDishTwo"
+                          defaultValue=""
+                          required
+                        >
+                          <option value="" disabled>
+                            SELECT DRINK
+                          </option>
+                          <option value="COKE">COKE</option>
+                          <option value="SPRITE">SPRITE</option>
+                          <option value="PINK-LEMONADE">PINK LEMONADE</option>
+                          <option value="FANTA">ORANGE FANTA</option>
+                          <option value="RASPBERRY-ICED-TEA">
+                            RASPBERRY ICED TEA
+                          </option>
+                          <option value="UNSWEETENED TEA">
+                            UNSWEETENED TEA
+                          </option>
+                          <option value="DIET-COKE">DIET COKE</option>
+                          <option value="DR-PEPPER">DR PEPPER</option>
+                          <option value="HORCHATA">HORCHATA</option>
+                          <option value="AGUA FRESCA">AGUA FRESCA</option>
+                        </select>
+                      ) : null}
                     </SelectDrinkWrapper>
                   )}
                 </SelectContainer>

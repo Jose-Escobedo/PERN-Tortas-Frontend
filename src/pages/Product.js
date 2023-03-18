@@ -123,6 +123,36 @@ const Product = () => {
       setCheckPathName(true);
     }
 
+    //if Kids Taco change Component
+    if (id === "638bb4cf773371cc8a0988ec") {
+      setCheckPathName(true);
+    }
+
+    //if Kids Quesadilla change Component
+    if (id === "638bb3f1773371cc8a0988eb") {
+      setCheckPathName(true);
+    }
+
+    //if Asada Kids change Component
+    if (id === "638bb52f773371cc8a0988ee") {
+      setCheckPathName(true);
+    }
+
+    //if Carnitas Kids change Component
+    if (id === "638bb56a773371cc8a0988f1") {
+      setCheckPathName(true);
+    }
+
+    //if Picadillo kids change Component
+    if (id === "638bb540773371cc8a0988ef") {
+      setCheckPathName(true);
+    }
+
+    //if chicken kids change Component
+    if (id === "638bb554773371cc8a0988f0") {
+      setCheckPathName(true);
+    }
+
     //if Fountain drink change Component
     if (id === "6389b18c0701561835d6af8a") {
       setCheckPathName(true);

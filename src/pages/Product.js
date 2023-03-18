@@ -127,6 +127,16 @@ const Product = () => {
     if (id === "6389b18c0701561835d6af8a") {
       setCheckPathName(true);
     }
+
+    //if Horchata change Component
+    if (id === "6389b1190701561835d6af89") {
+      setCheckPathName(true);
+    }
+
+    //if Agua Fresca change Component
+    if (id === "6389b25b0701561835d6af8d") {
+      setCheckPathName(true);
+    }
   }, [id]);
 
   useEffect(() => {

@@ -31,6 +31,7 @@ const ProductWithChoice = () => {
   const [taquitos, setTaquitos] = useState(false);
   const [kidsBurrito, setKidsBurrito] = useState(false);
   const [fountainDrink, setFountainDrink] = useState(false);
+  const [horchataAguaFresca, setHorchataAguaFresca] = useState(false);
   const [drinkSizePrice, setDrinkSizePrice] = useState(0);
 
   const blankCombo = {
@@ -69,6 +70,12 @@ const ProductWithChoice = () => {
       setFountainDrink(true);
     } else {
       setFountainDrink(false);
+    }
+
+    if (product.name === "Horchata" || product.name === "Agua Fresca") {
+      setHorchataAguaFresca(true);
+    } else {
+      setHorchataAguaFresca(false);
     }
 
     if (product.name === "Burrito Kid's Meal") {
@@ -119,7 +126,16 @@ const ProductWithChoice = () => {
       firstItem: e.target.value,
     });
 
-    console.log("first item", itemCombo);
+    if (e.target.value === "LARGE") {
+      setDrinkSizePrice(0.5);
+      setProductPrice(product.price + 0.5);
+    } else if (e.target.value === "XL-LARGE") {
+      setDrinkSizePrice(1.1);
+      setProductPrice(product.price + 1.1);
+    } else {
+      setDrinkSizePrice(0);
+      setProductPrice(product.price);
+    }
   };
   const handleSecondItem = (e) => {
     setItemCombo({
@@ -205,6 +221,26 @@ const ProductWithChoice = () => {
       }
     } else if (product.name === "Fountain Drink") {
       if (itemCombo.firstItem !== "" && itemCombo.secondItem !== "") {
+        product.price = product.price + extrasSum + drinkSizePrice;
+        if (extras !== []) {
+          product.extras.push(extras);
+        }
+
+        product.itemCombo = itemCombo;
+
+        product.note = note;
+        dispatch(addProduct({ ...product, quantity }));
+        toast.success("Item has been added to Cart.", {
+          position: toast.POSITION.TOP_CENTER,
+          toastId: "success3",
+        });
+
+        navigate("/cart");
+      } else {
+        setItemWarning(true);
+      }
+    } else if (product.name === "Horchata" || product.name === "Agua Fresca") {
+      if (itemCombo.firstItem !== "") {
         product.price = product.price + extrasSum + drinkSizePrice;
         if (extras !== []) {
           product.extras.push(extras);
@@ -358,53 +394,73 @@ const ProductWithChoice = () => {
                       </select>
                     </SelectDrinkWrapper>
                   ) : (
-                    <select
-                      onChange={(e) => handleFirstItem(e)}
-                      name="selectedDishOne"
-                      defaultValue=""
-                      required
-                    >
-                      <option value="" disabled>
-                        SELECT MEAT
-                      </option>
-                      <option value="Asada">Asada</option>
-                      {kidsBurrito ? (
-                        <option value="Bean And Cheese">
-                          Beans and Cheese
-                        </option>
-                      ) : null}
-                      {taquitos ? null : (
-                        <option value="Chicken">Chicken</option>
-                      )}
-                      {kidsBurrito ? null : (
-                        <option value="Shredded Chicken">
-                          Shredded Chicken
-                        </option>
-                      )}
-                      {kidsBurrito ? null : (
-                        <option value="Carnitas">Carnitas/Pork</option>
-                      )}
+                    <SelectDrinkWrapper>
+                      {horchataAguaFresca ? (
+                        <select
+                          onChange={(e) => handleFirstItem(e)}
+                          name="selectedDishOne"
+                          defaultValue=""
+                          required
+                        >
+                          <option value="" disabled>
+                            SELECT SIZE
+                          </option>
+                          <option value="REGULAR">REGULAR</option>
+                          <option value="LARGE">LARGE +$0.50</option>
+                          <option value="XL-LARGE">XL-LARGE +$1.10</option>
+                        </select>
+                      ) : (
+                        <select
+                          onChange={(e) => handleFirstItem(e)}
+                          name="selectedDishOne"
+                          defaultValue=""
+                          required
+                        >
+                          <option value="" disabled>
+                            SELECT MEAT
+                          </option>
+                          <option value="Asada">Asada</option>
+                          {kidsBurrito ? (
+                            <option value="Bean And Cheese">
+                              Beans and Cheese
+                            </option>
+                          ) : null}
+                          {taquitos ? null : (
+                            <option value="Chicken">Chicken</option>
+                          )}
+                          {kidsBurrito ? null : (
+                            <option value="Shredded Chicken">
+                              Shredded Chicken
+                            </option>
+                          )}
+                          {kidsBurrito ? null : (
+                            <option value="Carnitas">Carnitas/Pork</option>
+                          )}
 
-                      {taquitos || kidsBurrito ? null : (
-                        <option value="Picadillo">Picadillo/Ground Beef</option>
-                      )}
-                      {taquitos || kidsBurrito ? null : (
-                        <option value="Lengua">Lengua</option>
-                      )}
-                      {taquitos || kidsBurrito ? null : (
-                        <option value="Pastor">Al Pastor</option>
-                      )}
-                      {taquitos || kidsBurrito ? null : (
-                        <option value="Chorizo">Chorizo</option>
-                      )}
+                          {taquitos || kidsBurrito ? null : (
+                            <option value="Picadillo">
+                              Picadillo/Ground Beef
+                            </option>
+                          )}
+                          {taquitos || kidsBurrito ? null : (
+                            <option value="Lengua">Lengua</option>
+                          )}
+                          {taquitos || kidsBurrito ? null : (
+                            <option value="Pastor">Al Pastor</option>
+                          )}
+                          {taquitos || kidsBurrito ? null : (
+                            <option value="Chorizo">Chorizo</option>
+                          )}
 
-                      {nachosQuesadilla || kidsBurrito ? null : (
-                        <option value="Vegetarian">Vegetarian</option>
+                          {nachosQuesadilla || kidsBurrito ? null : (
+                            <option value="Vegetarian">Vegetarian</option>
+                          )}
+                          {nachosQuesadilla || kidsBurrito ? null : (
+                            <option value="Fish">Fish</option>
+                          )}
+                        </select>
                       )}
-                      {nachosQuesadilla || kidsBurrito ? null : (
-                        <option value="Fish">Fish</option>
-                      )}
-                    </select>
+                    </SelectDrinkWrapper>
                   )}
                 </SelectContainer>
               )}

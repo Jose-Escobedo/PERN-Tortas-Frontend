@@ -30,6 +30,8 @@ const ProductWithChoice = () => {
   const [nachosQuesadilla, setNachosQuesadilla] = useState(false);
   const [taquitos, setTaquitos] = useState(false);
   const [kidsBurrito, setKidsBurrito] = useState(false);
+  const [fountainDrink, setFountainDrink] = useState(false);
+  const [drinkSizePrice, setDrinkSizePrice] = useState(0);
 
   const blankCombo = {
     firstItem: "",
@@ -61,6 +63,12 @@ const ProductWithChoice = () => {
       setChimi(true);
     } else {
       setChimi(false);
+    }
+
+    if (product.name === "Fountain Drink") {
+      setFountainDrink(true);
+    } else {
+      setFountainDrink(false);
     }
 
     if (product.name === "Burrito Kid's Meal") {
@@ -119,6 +127,14 @@ const ProductWithChoice = () => {
       secondItem: e.target.value,
     });
 
+    if (e.target.value === "LARGE") {
+      setDrinkSizePrice(0.5);
+    } else if (e.target.value === "XL-LARGE") {
+      setDrinkSizePrice(1.1);
+    } else {
+      setDrinkSizePrice(0);
+    }
+
     console.log("second item", itemCombo);
   };
 
@@ -167,6 +183,27 @@ const ProductWithChoice = () => {
       if (itemCombo.firstItem !== "" && itemCombo.secondItem !== "") {
         setProductPrice(product.price + extrasSum);
         product.price = product.price + extrasSum;
+        if (extras !== []) {
+          product.extras.push(extras);
+        }
+
+        product.itemCombo = itemCombo;
+
+        product.note = note;
+        dispatch(addProduct({ ...product, quantity }));
+        toast.success("Item has been added to Cart.", {
+          position: toast.POSITION.TOP_CENTER,
+          toastId: "success3",
+        });
+
+        navigate("/cart");
+      } else {
+        setItemWarning(true);
+      }
+    } else if (product.name === "Fountain Drink") {
+      if (itemCombo.firstItem !== "" && itemCombo.secondItem !== "") {
+        setProductPrice(product.price + extrasSum);
+        product.price = product.price + extrasSum + drinkSizePrice;
         if (extras !== []) {
           product.extras.push(extras);
         }
@@ -282,47 +319,91 @@ const ProductWithChoice = () => {
                 </>
               ) : (
                 <SelectContainer>
-                  <select
-                    onChange={(e) => handleFirstItem(e)}
-                    name="selectedDishOne"
-                    defaultValue=""
-                    required
-                  >
-                    <option value="" disabled>
-                      SELECT MEAT
-                    </option>
-                    <option value="Asada">Asada</option>
-                    {kidsBurrito ? (
-                      <option value="Bean And Cheese">Beans and Cheese</option>
-                    ) : null}
-                    {taquitos ? null : <option value="Chicken">Chicken</option>}
-                    {kidsBurrito ? null : (
-                      <option value="Shredded Chicken">Shredded Chicken</option>
-                    )}
-                    {kidsBurrito ? null : (
-                      <option value="Carnitas">Carnitas/Pork</option>
-                    )}
+                  {fountainDrink ? (
+                    <SelectDrinkWrapper>
+                      <select
+                        onChange={(e) => handleFirstItem(e)}
+                        name="selectedDishOne"
+                        defaultValue=""
+                        required
+                      >
+                        <option value="" disabled>
+                          SELECT DRINK
+                        </option>
+                        <option value="COKE">COKE</option>
+                        <option value="SPRITE">SPRITE</option>
+                        <option value="PINK-LEMONADE">PINK LEMONADE</option>
+                        <option value="FANTA">ORANGE FANTA</option>
+                        <option value="RASPBERRY-ICED-TEA">
+                          RASPBERRY ICED TEA
+                        </option>
+                        <option value="UNSWEETENED TEA">UNSWEETENED TEA</option>
+                        <option value="DIET-COKE">DIET COKE</option>
+                        <option value="DR-PEPPER">DR PEPPER</option>
+                      </select>
+                      <select
+                        onChange={(e) => handleSecondItem(e)}
+                        name="selectedDishTwo"
+                        defaultValue=""
+                        required
+                      >
+                        <option value="" disabled>
+                          SELECT SIZE
+                        </option>
+                        <option value="REGULAR">REGULAR</option>
+                        <option value="LARGE">LARGE</option>
+                        <option value="XL-LARGE">XL-LARGE</option>
+                      </select>
+                    </SelectDrinkWrapper>
+                  ) : (
+                    <select
+                      onChange={(e) => handleFirstItem(e)}
+                      name="selectedDishOne"
+                      defaultValue=""
+                      required
+                    >
+                      <option value="" disabled>
+                        SELECT MEAT
+                      </option>
+                      <option value="Asada">Asada</option>
+                      {kidsBurrito ? (
+                        <option value="Bean And Cheese">
+                          Beans and Cheese
+                        </option>
+                      ) : null}
+                      {taquitos ? null : (
+                        <option value="Chicken">Chicken</option>
+                      )}
+                      {kidsBurrito ? null : (
+                        <option value="Shredded Chicken">
+                          Shredded Chicken
+                        </option>
+                      )}
+                      {kidsBurrito ? null : (
+                        <option value="Carnitas">Carnitas/Pork</option>
+                      )}
 
-                    {taquitos || kidsBurrito ? null : (
-                      <option value="Picadillo">Picadillo/Ground Beef</option>
-                    )}
-                    {taquitos || kidsBurrito ? null : (
-                      <option value="Lengua">Lengua</option>
-                    )}
-                    {taquitos || kidsBurrito ? null : (
-                      <option value="Pastor">Al Pastor</option>
-                    )}
-                    {taquitos || kidsBurrito ? null : (
-                      <option value="Chorizo">Chorizo</option>
-                    )}
+                      {taquitos || kidsBurrito ? null : (
+                        <option value="Picadillo">Picadillo/Ground Beef</option>
+                      )}
+                      {taquitos || kidsBurrito ? null : (
+                        <option value="Lengua">Lengua</option>
+                      )}
+                      {taquitos || kidsBurrito ? null : (
+                        <option value="Pastor">Al Pastor</option>
+                      )}
+                      {taquitos || kidsBurrito ? null : (
+                        <option value="Chorizo">Chorizo</option>
+                      )}
 
-                    {nachosQuesadilla || kidsBurrito ? null : (
-                      <option value="Vegetarian">Vegetarian</option>
-                    )}
-                    {nachosQuesadilla || kidsBurrito ? null : (
-                      <option value="Fish">Fish</option>
-                    )}
-                  </select>
+                      {nachosQuesadilla || kidsBurrito ? null : (
+                        <option value="Vegetarian">Vegetarian</option>
+                      )}
+                      {nachosQuesadilla || kidsBurrito ? null : (
+                        <option value="Fish">Fish</option>
+                      )}
+                    </select>
+                  )}
                 </SelectContainer>
               )}
               {itemWarning ? (
@@ -407,6 +488,14 @@ const NoImageWrapper = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
+`;
+
+const SelectDrinkWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  select:first-child {
+    margin-bottom: 20px;
+  }
 `;
 
 const SelectContainer = styled.div`

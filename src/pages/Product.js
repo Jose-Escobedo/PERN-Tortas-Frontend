@@ -40,7 +40,6 @@ const Product = () => {
   };
 
   const [itemCombo, setItemCombo] = useState(blankCombo);
-  // const [menuItemChoice, setMenuItemChoice] = useState();
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -121,6 +120,11 @@ const Product = () => {
 
     //if Kids Taquitos change Component
     if (id === "638bb510773371cc8a0988ed") {
+      setCheckPathName(true);
+    }
+
+    //if Fountain drink change Component
+    if (id === "6389b18c0701561835d6af8a") {
       setCheckPathName(true);
     }
   }, [id]);

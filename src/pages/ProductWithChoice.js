@@ -129,10 +129,13 @@ const ProductWithChoice = () => {
 
     if (e.target.value === "LARGE") {
       setDrinkSizePrice(0.5);
+      setProductPrice(product.price + 0.5);
     } else if (e.target.value === "XL-LARGE") {
       setDrinkSizePrice(1.1);
+      setProductPrice(product.price + 1.1);
     } else {
       setDrinkSizePrice(0);
+      setProductPrice(product.price);
     }
 
     console.log("second item", itemCombo);
@@ -202,7 +205,6 @@ const ProductWithChoice = () => {
       }
     } else if (product.name === "Fountain Drink") {
       if (itemCombo.firstItem !== "" && itemCombo.secondItem !== "") {
-        setProductPrice(product.price + extrasSum);
         product.price = product.price + extrasSum + drinkSizePrice;
         if (extras !== []) {
           product.extras.push(extras);
@@ -351,8 +353,8 @@ const ProductWithChoice = () => {
                           SELECT SIZE
                         </option>
                         <option value="REGULAR">REGULAR</option>
-                        <option value="LARGE">LARGE</option>
-                        <option value="XL-LARGE">XL-LARGE</option>
+                        <option value="LARGE">LARGE +$0.50</option>
+                        <option value="XL-LARGE">XL-LARGE +$1.10</option>
                       </select>
                     </SelectDrinkWrapper>
                   ) : (

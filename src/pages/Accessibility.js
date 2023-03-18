@@ -38,7 +38,9 @@ const Accessibility = () => {
           Studio City Website <br></br> Please let us know if you encounter
           accessibility barriers.
           <br /> <br /> E-mail:{" "}
-          <a href="mailto:jose@escobedojose.dev">jose@escobedojose.dev</a>
+          <a href="mailto:support@tortasmexico-studiocity.com">
+            support@tortasmexico-studiocity.com
+          </a>
         </AccessibilityText>
       </AccessibilityContainer>
       <Footer />

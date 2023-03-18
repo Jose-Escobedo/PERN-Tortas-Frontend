@@ -220,6 +220,8 @@ const Product = () => {
       firstItem: e.target.value,
     });
 
+    setItemWarning(false);
+
     console.log("first item", itemCombo);
   };
   const handleSecondItem = (e) => {

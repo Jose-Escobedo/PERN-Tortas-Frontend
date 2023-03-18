@@ -29,6 +29,7 @@ const ProductWithChoice = () => {
   const [chimi, setChimi] = useState(false);
   const [nachosQuesadilla, setNachosQuesadilla] = useState(false);
   const [taquitos, setTaquitos] = useState(false);
+  const [kidsBurrito, setKidsBurrito] = useState(false);
 
   const blankCombo = {
     firstItem: "",
@@ -62,9 +63,16 @@ const ProductWithChoice = () => {
       setChimi(false);
     }
 
+    if (product.name === "Burrito Kid's Meal") {
+      setKidsBurrito(true);
+    } else {
+      setKidsBurrito(false);
+    }
+
     if (
       product.name === "A la Carte Taquitos" ||
-      product.name === "3 Taquitos with Rice and Beans"
+      product.name === "3 Taquitos with Rice and Beans" ||
+      product.name === "2 Taquitos Kid's Meal"
     ) {
       setTaquitos(true);
     } else {
@@ -75,7 +83,8 @@ const ProductWithChoice = () => {
       product.name === "Cheese and Meat Nachos" ||
       product.name === "Cheese and Meat Quesadilla" ||
       product.name === "3 Taquitos with Rice and Beans" ||
-      product.name === "A la Carte Taquitos"
+      product.name === "A la Carte Taquitos" ||
+      product.name === "2 Taquitos Kid's Meal"
     ) {
       setNachosQuesadilla(true);
     } else {
@@ -125,11 +134,14 @@ const ProductWithChoice = () => {
     if (
       product.name === "Hardshell Taco" ||
       product.name === "Individual Sopes" ||
+      product.name === "3 Sopes" ||
       product.name === "Cheese and Meat Nachos" ||
       product.name === "Cheese and Meat Quesadilla" ||
       product.name === "3 Taquitos with Rice and Beans" ||
       product.name === "A la Carte Taquitos" ||
-      product.name === "Tostada"
+      product.name === "Tostada" ||
+      product.name === "2 Taquitos Kid's Meal" ||
+      product.name === "Burrito Kid's Meal"
     ) {
       if (itemCombo.firstItem !== "") {
         setProductPrice(product.price + extrasSum);
@@ -280,23 +292,34 @@ const ProductWithChoice = () => {
                       SELECT MEAT
                     </option>
                     <option value="Asada">Asada</option>
-
+                    {kidsBurrito ? (
+                      <option value="Bean And Cheese">Beans and Cheese</option>
+                    ) : null}
                     {taquitos ? null : <option value="Chicken">Chicken</option>}
-                    <option value="Shredded Chicken">Shredded Chicken</option>
-                    <option value="Carnitas">Carnitas/Pork</option>
-                    {taquitos ? null : (
+                    {kidsBurrito ? null : (
+                      <option value="Shredded Chicken">Shredded Chicken</option>
+                    )}
+                    {kidsBurrito ? null : (
+                      <option value="Carnitas">Carnitas/Pork</option>
+                    )}
+
+                    {taquitos || kidsBurrito ? null : (
                       <option value="Picadillo">Picadillo/Ground Beef</option>
                     )}
-                    {taquitos ? null : <option value="Lengua">Lengua</option>}
-                    {taquitos ? null : (
+                    {taquitos || kidsBurrito ? null : (
+                      <option value="Lengua">Lengua</option>
+                    )}
+                    {taquitos || kidsBurrito ? null : (
                       <option value="Pastor">Al Pastor</option>
                     )}
-                    {taquitos ? null : <option value="Chorizo">Chorizo</option>}
+                    {taquitos || kidsBurrito ? null : (
+                      <option value="Chorizo">Chorizo</option>
+                    )}
 
-                    {nachosQuesadilla ? null : (
+                    {nachosQuesadilla || kidsBurrito ? null : (
                       <option value="Vegetarian">Vegetarian</option>
                     )}
-                    {nachosQuesadilla ? null : (
+                    {nachosQuesadilla || kidsBurrito ? null : (
                       <option value="Fish">Fish</option>
                     )}
                   </select>

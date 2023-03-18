@@ -118,6 +118,11 @@ const Product = () => {
     if (id === "638bb3b3773371cc8a0988ea") {
       setCheckPathName(true);
     }
+
+    //if Kids Taquitos change Component
+    if (id === "638bb510773371cc8a0988ed") {
+      setCheckPathName(true);
+    }
   }, [id]);
 
   useEffect(() => {

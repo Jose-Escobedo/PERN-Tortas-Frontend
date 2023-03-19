@@ -8,6 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from "../redux/apiCalls";
 import tortaLogo from "../images/tortaslogo.svg";
+import { Link as LinkScroll } from "react-scroll";
 
 const Navbar = () => {
   const user = useSelector((state) => state.user.currentUser);
@@ -37,6 +38,17 @@ const Navbar = () => {
           {user ? (
             <>
               <NavItem>
+                <LinkScroll
+                  style={{ fontSize: "1rem", fontWeight: "bold" }}
+                  offset={-60}
+                  to="menu"
+                  spy={true}
+                  smooth={true}
+                >
+                  MENU
+                </LinkScroll>
+              </NavItem>
+              <NavItem>
                 <OrderButton>
                   <Link
                     to="/orders"
@@ -56,6 +68,17 @@ const Navbar = () => {
             </>
           ) : (
             <>
+              <NavItem>
+                <LinkScroll
+                  style={{ fontSize: "1rem", fontWeight: "bold" }}
+                  offset={-60}
+                  to="menu"
+                  spy={true}
+                  smooth={true}
+                >
+                  MENU
+                </LinkScroll>
+              </NavItem>
               <NavItem>
                 <Link
                   to="/register"

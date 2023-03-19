@@ -5,7 +5,7 @@ import MenuGridList from "./MenuGridList";
 
 const Menu = () => {
   return (
-    <Container>
+    <Container id="menu">
       <TitleContainer>
         <Title>Menu</Title>
         <MenuCatPicture>

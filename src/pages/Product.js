@@ -15,8 +15,9 @@ import { extrasInfo } from "../data";
 import { menuComboItems } from "../data";
 import { useNavigate } from "react-router-dom";
 import ProductWithChoice from "./ProductWithChoice";
-import { Box, Modal } from "@material-ui/core";
 import { FaAngleDoubleDown } from "react-icons/fa";
+import CustomModal from "../components/CustomModal";
+import CustomModalTwo from "../components/CustomModalTwo";
 
 const Product = () => {
   const location = useLocation();
@@ -41,23 +42,23 @@ const Product = () => {
   };
 
   const [itemCombo, setItemCombo] = useState(blankCombo);
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const [openModal, setOpenModal] = useState(false);
+  const [openModalTwo, setOpenModalTwo] = useState(false);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    bgcolor: "white",
-    height: "66vh",
-    border: "2px solid #000",
-    boxShadow: 24,
-    overflow: "scroll",
-    overflowX: "hidden",
-    p: 4,
+
+  const customStyles = {
+    content: {
+      top: "50%",
+      left: "50%",
+      right: "auto",
+      bottom: "auto",
+      marginRight: "-50%",
+      transform: "translate(-50%, -50%)",
+      overflow: "scroll",
+      overflowX: "hidden",
+    },
   };
 
   useEffect(() => {
@@ -231,6 +232,7 @@ const Product = () => {
       secondItem: e.target.value,
     });
 
+    setItemWarning(false);
     console.log("second item", itemCombo);
   };
 
@@ -346,6 +348,18 @@ const Product = () => {
   ) : (
     <Container>
       <StyledToastContainer />
+      <CustomModal
+        menuComboItems={menuComboItems}
+        open={openModal}
+        close={() => setOpenModal(false)}
+        handleFirstItem={handleFirstItem}
+      />
+      <CustomModalTwo
+        menuComboItems={menuComboItems}
+        open={openModalTwo}
+        close={() => setOpenModalTwo(false)}
+        handleSecondItem={handleSecondItem}
+      />
       <Navbar />
 
       {generic ? (
@@ -359,45 +373,11 @@ const Product = () => {
                 {comboCheck ? (
                   <>
                     <SelectContainer>
-                      <select
-                        onChange={(e) => handleFirstItem(e)}
-                        name="selectedDishOne"
-                        defaultValue=""
-                        required
+                      <Button
+                        id="modalbtn1"
+                        className="btn"
+                        onClick={() => setOpenModal(true)}
                       >
-                        <option value="" disabled>
-                          SELECT FIRST ITEM
-                        </option>
-                        <option value="Asada Taco">Asada Taco</option>
-                        <option value="Chicken Taco">Chicken Taco</option>
-                      </select>
-                    </SelectContainer>
-                    <SelectContainer>
-                      <select
-                        onChange={(e) => handleSecondItem(e)}
-                        name="selectedDishTwo"
-                        defaultValue=""
-                        required
-                      >
-                        <option value="" disabled>
-                          SELECT SECOND ITEM
-                        </option>
-                        <option value="Asada Taco">Asada Taco</option>
-                        <option value="Chicken Taco">Chicken Taco</option>
-                      </select>
-                    </SelectContainer>
-                    {itemWarning ? (
-                      <SelectContainer>
-                        <h2>
-                          Please make sure to select item before adding to cart.
-                        </h2>
-                      </SelectContainer>
-                    ) : null}
-                  </>
-                ) : comboOneCheck ? (
-                  <>
-                    <SelectContainer>
-                      <Button className="btn" onClick={handleOpen}>
                         {itemCombo.firstItem ? (
                           <h2 className="combo-item">
                             {itemCombo.firstItem.replace(/-/g, " ")}
@@ -411,45 +391,56 @@ const Product = () => {
                           </>
                         )}
                       </Button>
-
-                      <Modal
-                        open={open}
-                        onClose={handleClose}
-                        aria-labelledby="Combo-Item"
-                        aria-describedby="Combo-Item-Selection"
+                    </SelectContainer>
+                    <SelectContainer>
+                      <Button
+                        id="modalbtn2"
+                        className="btn"
+                        onClick={() => setOpenModalTwo(true)}
                       >
-                        <Box sx={{ ...style, width: `50%` }}>
-                          <NoImageFilterMenuItems>
-                            <h2>SELECT AN ITEM</h2>
-                            {menuComboItems.map((i) => (
-                              <MenuItemComboWrapper>
-                                <input
-                                  type="radio"
-                                  value={i.value}
-                                  name={"items"}
-                                  id={"Combo-Item"}
-                                  onChange={(e) => handleFirstItem(e)}
-                                />
-                                <h2
-                                  id={"Combo-Item-Selection"}
-                                >{`${i.option}`}</h2>
-                              </MenuItemComboWrapper>
-                            ))}
-                          </NoImageFilterMenuItems>
-                        </Box>
-                      </Modal>
-                      {/* <select
-                        onChange={(e) => handleFirstItem(e)}
-                        name="selectedDishOne"
-                        defaultValue=""
-                        required
+                        {itemCombo.secondItem ? (
+                          <h2 className="combo-item">
+                            {itemCombo.secondItem.replace(/-/g, " ")}
+                          </h2>
+                        ) : (
+                          <>
+                            <FaAngleDoubleDown />
+                            <h2 className="combo-item faspace">
+                              SELECT COMBO ITEM
+                            </h2>
+                          </>
+                        )}
+                      </Button>
+                    </SelectContainer>
+                    {itemWarning ? (
+                      <SelectContainer>
+                        <h2>
+                          Please make sure to select item before adding to cart.
+                        </h2>
+                      </SelectContainer>
+                    ) : null}
+                  </>
+                ) : comboOneCheck ? (
+                  <>
+                    <SelectContainer>
+                      <Button
+                        id="modalbtn1"
+                        className="btn"
+                        onClick={() => setOpenModal(true)}
                       >
-                        <option value="" disabled>
-                          SELECT ONE ITEM
-                        </option>
-                        <option value="Asada Taco">Asada Taco</option>
-                        <option value="Chicken Taco">Chicken Taco</option>
-                      </select> */}
+                        {itemCombo.firstItem ? (
+                          <h2 className="combo-item">
+                            {itemCombo.firstItem.replace(/-/g, " ")}
+                          </h2>
+                        ) : (
+                          <>
+                            <FaAngleDoubleDown />
+                            <h2 className="combo-item faspace">
+                              SELECT COMBO ITEM
+                            </h2>
+                          </>
+                        )}
+                      </Button>
                     </SelectContainer>
                     {itemWarning ? (
                       <SelectContainer>

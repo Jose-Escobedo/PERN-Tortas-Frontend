@@ -16,6 +16,7 @@ import { menuComboItems } from "../data";
 import { useNavigate } from "react-router-dom";
 import ProductWithChoice from "./ProductWithChoice";
 import { Box, Modal } from "@material-ui/core";
+import { FaAngleDoubleDown } from "react-icons/fa";
 
 const Product = () => {
   const location = useLocation();
@@ -402,7 +403,12 @@ const Product = () => {
                             {itemCombo.firstItem.replace(/-/g, " ")}
                           </h2>
                         ) : (
-                          <h2 className="combo-item">SELECT COMBO ITEM</h2>
+                          <>
+                            <FaAngleDoubleDown />
+                            <h2 className="combo-item faspace">
+                              SELECT COMBO ITEM
+                            </h2>
+                          </>
                         )}
                       </Button>
 
@@ -586,9 +592,36 @@ const SelectContainer = styled.div`
   padding-top: 0;
   padding-bottom: 20px;
 
+  Button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 0px;
+    border-left: 0px;
+    border-top: 0px;
+    &:hover {
+      border: 1px solid aquamarine;
+      transition: all 0.5s ease-in-out;
+      background-color: black;
+      h2 {
+        color: white;
+      }
+      &:first-child {
+        color: white;
+      }
+    }
+    &:first-child {
+      color: teal;
+      font-size: 1rem;
+    }
+  }
+
   h2 {
     color: red;
     font-size: 1.2rem;
+  }
+  .faspace {
+    padding-left: 7px;
   }
 
   .combo-item {

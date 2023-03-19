@@ -55,7 +55,28 @@ const Slider = () => {
             <InfoContainer>
               <Title>{item.title}</Title>
               <Desc>{item.desc}</Desc>
-              <Button onClick={() => handleOrderNow(item)}>Order Now</Button>
+              <div className="container">
+                <div className="center">
+                  <Button onClick={() => handleOrderNow(item)}>
+                    Order Now
+                    <svg
+                      width="180px"
+                      height="60px"
+                      viewBox="0 0 180 60"
+                      class="border"
+                    >
+                      <polyline
+                        points="179,1 179,59 1,59 1,1 179,1"
+                        class="bg-line"
+                      />
+                      <polyline
+                        points="179,1 179,59 1,59 1,1 179,1"
+                        class="hl-line"
+                      />
+                    </svg>
+                  </Button>
+                </div>
+              </div>
             </InfoContainer>
           </Slide>
         ))}
@@ -126,6 +147,49 @@ const Image = styled.img`
 const InfoContainer = styled.div`
   flex: 1;
   padding: 3em;
+
+  .container {
+    width: 100%;
+    height: 10vh;
+  }
+
+  .center {
+    width: 180px;
+    height: 60px;
+    position: absolute;
+  }
+
+  svg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    fill: none;
+    stroke: #000000;
+    stroke-dasharray: 150 480;
+    stroke-dashoffset: 150;
+    transition: 1s ease-in-out;
+  }
+
+  Button {
+    width: 180px;
+    height: 60px;
+    cursor: pointer;
+    background: transparent;
+    border: 1px solid teal;
+    outline: none;
+    transition: 1s ease-in-out;
+    &:hover {
+      transition: 1s ease-in-out;
+      background: teal;
+      color: white;
+    }
+    &:hover svg {
+      stroke-dashoffset: -480;
+    }
+    h2 {
+      color: white;
+    }
+  }
 `;
 
 const Title = styled.h1`

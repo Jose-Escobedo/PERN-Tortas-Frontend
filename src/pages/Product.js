@@ -396,7 +396,7 @@ const Product = () => {
                 ) : comboOneCheck ? (
                   <>
                     <SelectContainer>
-                      <Button onClick={handleOpen}>
+                      <Button className="btn" onClick={handleOpen}>
                         {itemCombo.firstItem ? (
                           <h2 className="combo-item">
                             {itemCombo.firstItem.replace(/-/g, " ")}
@@ -405,6 +405,7 @@ const Product = () => {
                           <h2 className="combo-item">SELECT COMBO ITEM</h2>
                         )}
                       </Button>
+
                       <Modal
                         open={open}
                         onClose={handleClose}

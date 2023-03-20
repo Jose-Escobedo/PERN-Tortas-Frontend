@@ -265,7 +265,7 @@ export const menuComboItems = [
   },
   {
     id: 3,
-    option: `SHREDDED TACO`,
+    option: `SHREDDED CHICKEN TACO`,
     value: "SHREDDED-CHICKEN-TACO",
   },
   {

@@ -41,7 +41,14 @@ const Product = () => {
     secondItem: "",
   };
 
+  const blankVariety = {
+    firstItem: "",
+    secondItem: "",
+  };
   const [itemCombo, setItemCombo] = useState(blankCombo);
+  const [variety, setVariety] = useState(blankVariety);
+  const [tacos, setTacos] = useState(false);
+  const [secondTaco, setSecondTaco] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [openModalTwo, setOpenModalTwo] = useState(false);
 
@@ -172,6 +179,38 @@ const Product = () => {
   }, [id]);
 
   useEffect(() => {
+    if (
+      itemCombo.firstItem === "ASADA-TACO" ||
+      itemCombo.firstItem === "CHICKEN-TACO" ||
+      itemCombo.firstItem === "PASTOR-TACO" ||
+      itemCombo.firstItem === "PICADILLO-TACO" ||
+      itemCombo.firstItem === "LENGUA-TACO" ||
+      itemCombo.firstItem === "CARNITAS-TACO" ||
+      itemCombo.firstItem === "VEGETARIAN-TACO" ||
+      itemCombo.firstItem === "SHREDDED-CHICKEN-TACO"
+    ) {
+      setTacos(true);
+    } else {
+      setTacos(false);
+    }
+
+    if (
+      itemCombo.secondItem === "ASADA-TACO" ||
+      itemCombo.secondItem === "CHICKEN-TACO" ||
+      itemCombo.secondItem === "PASTOR-TACO" ||
+      itemCombo.secondItem === "PICADILLO-TACO" ||
+      itemCombo.secondItem === "LENGUA-TACO" ||
+      itemCombo.secondItem === "CARNITAS-TACO" ||
+      itemCombo.secondItem === "VEGETARIAN-TACO" ||
+      itemCombo.secondItem === "SHREDDED-CHICKEN-TACO"
+    ) {
+      setSecondTaco(true);
+    } else {
+      setSecondTaco(false);
+    }
+  }, [itemCombo]);
+
+  useEffect(() => {
     let originalPrice = product.price;
     product.extras = [];
     product.note = "";
@@ -226,6 +265,26 @@ const Product = () => {
 
     console.log("first item", itemCombo);
   };
+  const handleVarietyOne = (e) => {
+    setVariety({
+      ...variety,
+      firstItem: e.target.value,
+    });
+
+    setItemWarning(false);
+
+    console.log("variety-one", variety);
+  };
+  const handleVarietyTwo = (e) => {
+    setVariety({
+      ...variety,
+      secondItem: e.target.value,
+    });
+
+    setItemWarning(false);
+
+    console.log("variety-two", variety);
+  };
   const handleSecondItem = (e) => {
     setItemCombo({
       ...itemCombo,
@@ -266,9 +325,18 @@ const Product = () => {
 
       navigate("/cart");
     } else if (product.name === "2 Item Combination") {
-      if (itemCombo.firstItem !== "" && itemCombo.secondItem !== "") {
-        setProductPrice(product.price + extrasSum);
-        product.price = product.price + extrasSum;
+      if (
+        itemCombo.firstItem !== "" &&
+        itemCombo.secondItem !== "" &&
+        variety.firstItem !== ""
+      ) {
+        if (variety.firstItem === "HOMEMADE TORTILLA") {
+          setProductPrice(product.price + extrasSum + 0.5);
+          product.price = product.price + extrasSum + 0.5;
+        } else {
+          setProductPrice(product.price + extrasSum);
+          product.price = product.price + extrasSum;
+        }
         if (extras !== []) {
           product.extras.push(extras);
         }
@@ -288,22 +356,32 @@ const Product = () => {
       }
     } else if (product.name === "1 Item Combination") {
       if (itemCombo.firstItem !== "") {
-        setProductPrice(product.price + extrasSum);
-        product.price = product.price + extrasSum;
-        if (extras !== []) {
-          product.extras.push(extras);
+        if (tacos) {
+          if (variety.firstItem === "HOMEMADE TORTILLA") {
+            setProductPrice(product.price + extrasSum + 0.5);
+            product.price = product.price + extrasSum + 0.5;
+          } else {
+            setProductPrice(product.price + extrasSum);
+            product.price = product.price + extrasSum;
+          }
+
+          if (extras !== []) {
+            product.extras.push(extras);
+          }
+
+          product.itemCombo = itemCombo;
+
+          product.note = note;
+          dispatch(addProduct({ ...product, quantity }));
+          toast.success("Item has been added to Cart.", {
+            position: toast.POSITION.TOP_CENTER,
+            toastId: "success3",
+          });
+
+          navigate("/cart");
+        } else {
+          setItemWarning(true);
         }
-
-        product.itemCombo = itemCombo;
-
-        product.note = note;
-        dispatch(addProduct({ ...product, quantity }));
-        toast.success("Item has been added to Cart.", {
-          position: toast.POSITION.TOP_CENTER,
-          toastId: "success3",
-        });
-
-        navigate("/cart");
       } else {
         setItemWarning(true);
       }
@@ -392,6 +470,27 @@ const Product = () => {
                         )}
                       </Button>
                     </SelectContainer>
+                    {tacos ? (
+                      <SelectContainer>
+                        <select
+                          onChange={(e) => handleVarietyOne(e)}
+                          name="selectedVariety"
+                          defaultValue=""
+                          required
+                        >
+                          <option value="" disabled>
+                            SELECT A TORTILLA
+                          </option>
+                          <option value="CORN TORTILLA">CORN TORTILLA</option>
+                          <option value="FLOUR TORTILLA">FLOUR TORTILLA</option>
+                          <option value="HOMEMADE TORTILLA">
+                            HOMEMADE $0.50
+                          </option>
+                          <option value="NO TORTILLAS">NO TORTILLAS</option>
+                        </select>
+                      </SelectContainer>
+                    ) : null}
+
                     <SelectContainer>
                       <Button
                         id="modalbtn2"
@@ -412,6 +511,27 @@ const Product = () => {
                         )}
                       </Button>
                     </SelectContainer>
+                    {secondTaco ? (
+                      <SelectContainer>
+                        <select
+                          onChange={(e) => handleVarietyTwo(e)}
+                          name="selectedVariety"
+                          defaultValue=""
+                          required
+                        >
+                          <option value="" disabled>
+                            SELECT A TORTILLA
+                          </option>
+                          <option value="CORN TORTILLA">CORN TORTILLA</option>
+                          <option value="FLOUR TORTILLA">FLOUR TORTILLA</option>
+                          <option value="HOMEMADE TORTILLA">
+                            HOMEMADE $0.50
+                          </option>
+                          <option value="NO TORTILLAS">NO TORTILLAS</option>
+                        </select>
+                      </SelectContainer>
+                    ) : null}
+
                     {itemWarning ? (
                       <SelectContainer>
                         <h2>
@@ -441,6 +561,24 @@ const Product = () => {
                           </>
                         )}
                       </Button>
+                    </SelectContainer>
+                    <SelectContainer>
+                      <select
+                        onChange={(e) => handleVarietyOne(e)}
+                        name="selectedVariety"
+                        defaultValue=""
+                        required
+                      >
+                        <option value="" disabled>
+                          SELECT A TORTILLA
+                        </option>
+                        <option value="CORN TORTILLA">CORN TORTILLA</option>
+                        <option value="FLOUR TORTILLA">FLOUR TORTILLA</option>
+                        <option value="HOMEMADE TORTILLA">
+                          HOMEMADE $0.50
+                        </option>
+                        <option value="NO TORTILLAS">NO TORTILLAS</option>
+                      </select>
                     </SelectContainer>
                     {itemWarning ? (
                       <SelectContainer>
@@ -623,25 +761,15 @@ const SelectContainer = styled.div`
   select {
     width: 50%;
     font-size: 1rem;
+    font-weight: bold;
     display: inline-block;
     background-color: transparent;
     position: relative;
+    border: 1px solid teal;
     cursor: pointer;
     border-top: none;
     border-right: none;
     border-left: none;
-    -webkit-border-radius: 4px 4px 4px 4px;
-    -moz-border-radius: 4px 4px 4px 4px;
-    border-radius: 4px 4px 4px 4px;
-    -webkit-box-shadow: inset 0 2px 4px rgba(107, 105, 105, 0.15),
-      0 1px 2px rgba(0, 0, 0, 0.05);
-    -moz-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15),
-      0 1px 2px rgba(0, 0, 0, 0.05);
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15),
-      0 1px 2px rgba(0, 0, 0, 0.05);
-    -moz-box-shadow: 0px 8px 3px -9px #000000;
-    -webkit-box-shadow: 0px 8px 3px -9px #000000;
-    box-shadow: 0px 8px 3px -9px #000000;
   }
   option {
   }

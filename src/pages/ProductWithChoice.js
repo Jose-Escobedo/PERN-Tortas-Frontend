@@ -151,17 +151,6 @@ const ProductWithChoice = () => {
     });
 
     setItemWarning(false);
-
-    if (e.target.value === "LARGE") {
-      setDrinkSizePrice(0.5);
-      setProductPrice(product.price + 0.5);
-    } else if (e.target.value === "XL-LARGE") {
-      setDrinkSizePrice(1.1);
-      setProductPrice(product.price + 1.1);
-    } else {
-      setDrinkSizePrice(0);
-      setProductPrice(product.price);
-    }
   };
   const handleSecondItem = (e) => {
     setItemCombo({

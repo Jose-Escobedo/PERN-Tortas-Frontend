@@ -617,7 +617,6 @@ const Product = () => {
                           <option value="HOMEMADE TORTILLA">
                             HOMEMADE $0.50
                           </option>
-                          <option value="NO TORTILLAS">NO TORTILLAS</option>
                         </select>
                       </SelectContainer>
                     ) : null}
@@ -658,7 +657,6 @@ const Product = () => {
                           <option value="HOMEMADE TORTILLA">
                             HOMEMADE $0.50
                           </option>
-                          <option value="NO TORTILLAS">NO TORTILLAS</option>
                         </select>
                       </SelectContainer>
                     ) : null}
@@ -709,7 +707,6 @@ const Product = () => {
                           <option value="HOMEMADE TORTILLA">
                             HOMEMADE $0.50
                           </option>
-                          <option value="NO TORTILLAS">NO TORTILLAS</option>
                         </select>
                       </SelectContainer>
                     ) : null}

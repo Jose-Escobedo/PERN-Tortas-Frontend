@@ -355,8 +355,29 @@ const Product = () => {
         setItemWarning(true);
       }
     } else if (product.name === "1 Item Combination") {
-      if (itemCombo.firstItem !== "") {
-        if (tacos) {
+      if (itemCombo.firstItem !== "" && !tacos) {
+        setProductPrice(product.price + extrasSum);
+        product.price = product.price + extrasSum;
+
+        if (extras !== []) {
+          product.extras.push(extras);
+        } else {
+          console.log("no extras");
+        }
+
+        product.itemCombo = itemCombo;
+
+        product.note = note;
+        dispatch(addProduct({ ...product, quantity }));
+        toast.success("Item has been added to Cart.", {
+          position: toast.POSITION.TOP_CENTER,
+          toastId: "success3",
+        });
+
+        navigate("/cart");
+      }
+      if (tacos) {
+        if (variety.firstItem !== "") {
           if (variety.firstItem === "HOMEMADE TORTILLA") {
             setProductPrice(product.price + extrasSum + 0.5);
             product.price = product.price + extrasSum + 0.5;
@@ -367,6 +388,8 @@ const Product = () => {
 
           if (extras !== []) {
             product.extras.push(extras);
+          } else {
+            console.log("no extras");
           }
 
           product.itemCombo = itemCombo;
@@ -562,24 +585,27 @@ const Product = () => {
                         )}
                       </Button>
                     </SelectContainer>
-                    <SelectContainer>
-                      <select
-                        onChange={(e) => handleVarietyOne(e)}
-                        name="selectedVariety"
-                        defaultValue=""
-                        required
-                      >
-                        <option value="" disabled>
-                          SELECT A TORTILLA
-                        </option>
-                        <option value="CORN TORTILLA">CORN TORTILLA</option>
-                        <option value="FLOUR TORTILLA">FLOUR TORTILLA</option>
-                        <option value="HOMEMADE TORTILLA">
-                          HOMEMADE $0.50
-                        </option>
-                        <option value="NO TORTILLAS">NO TORTILLAS</option>
-                      </select>
-                    </SelectContainer>
+                    {tacos ? (
+                      <SelectContainer>
+                        <select
+                          onChange={(e) => handleVarietyOne(e)}
+                          name="selectedVariety"
+                          defaultValue=""
+                          required
+                        >
+                          <option value="" disabled>
+                            SELECT A TORTILLA
+                          </option>
+                          <option value="CORN TORTILLA">CORN TORTILLA</option>
+                          <option value="FLOUR TORTILLA">FLOUR TORTILLA</option>
+                          <option value="HOMEMADE TORTILLA">
+                            HOMEMADE $0.50
+                          </option>
+                          <option value="NO TORTILLAS">NO TORTILLAS</option>
+                        </select>
+                      </SelectContainer>
+                    ) : null}
+
                     {itemWarning ? (
                       <SelectContainer>
                         <h2>

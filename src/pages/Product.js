@@ -49,6 +49,7 @@ const Product = () => {
   const [variety, setVariety] = useState(blankVariety);
   const [tacos, setTacos] = useState(false);
   const [secondTaco, setSecondTaco] = useState(false);
+  const [aguaHorchata, setAguaHorchata] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [openModalTwo, setOpenModalTwo] = useState(false);
 

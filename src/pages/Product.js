@@ -328,17 +328,16 @@ const Product = () => {
       if (
         itemCombo.firstItem !== "" &&
         itemCombo.secondItem !== "" &&
-        variety.firstItem !== ""
+        !tacos &&
+        !secondTaco
       ) {
-        if (variety.firstItem === "HOMEMADE TORTILLA") {
-          setProductPrice(product.price + extrasSum + 0.5);
-          product.price = product.price + extrasSum + 0.5;
-        } else {
-          setProductPrice(product.price + extrasSum);
-          product.price = product.price + extrasSum;
-        }
+        setProductPrice(product.price + extrasSum);
+        product.price = product.price + extrasSum;
+
         if (extras !== []) {
           product.extras.push(extras);
+        } else {
+          console.log("no extras");
         }
 
         product.itemCombo = itemCombo;
@@ -351,6 +350,115 @@ const Product = () => {
         });
 
         navigate("/cart");
+      } else if (tacos && !secondTaco) {
+        if (itemCombo.secondItem !== "" && itemCombo.firstItem !== "") {
+          if (variety.firstItem !== "") {
+            if (variety.firstItem === "HOMEMADE TORTILLA") {
+              setProductPrice(product.price + extrasSum + 0.5);
+              product.price = product.price + extrasSum + 0.5;
+            } else {
+              setProductPrice(product.price + extrasSum);
+              product.price = product.price + extrasSum;
+            }
+            if (extras !== []) {
+              product.extras.push(extras);
+            } else {
+              console.log("no extras");
+            }
+
+            product.itemCombo = itemCombo;
+
+            product.note = note;
+            dispatch(addProduct({ ...product, quantity }));
+            toast.success("Item has been added to Cart.", {
+              position: toast.POSITION.TOP_CENTER,
+              toastId: "success3",
+            });
+
+            navigate("/cart");
+          } else {
+            setItemWarning(true);
+          }
+        } else {
+          setItemWarning(true);
+        }
+      } else if (!tacos && secondTaco) {
+        if (itemCombo.secondItem !== "" && itemCombo.firstItem !== "") {
+          if (variety.secondItem !== "") {
+            if (variety.secondItem === "HOMEMADE TORTILLA") {
+              setProductPrice(product.price + extrasSum + 0.5);
+              product.price = product.price + extrasSum + 0.5;
+            } else {
+              setProductPrice(product.price + extrasSum);
+              product.price = product.price + extrasSum;
+            }
+
+            if (extras !== []) {
+              product.extras.push(extras);
+            } else {
+              console.log("no extras");
+            }
+
+            product.itemCombo = itemCombo;
+
+            product.note = note;
+            dispatch(addProduct({ ...product, quantity }));
+            toast.success("Item has been added to Cart.", {
+              position: toast.POSITION.TOP_CENTER,
+              toastId: "success3",
+            });
+
+            navigate("/cart");
+          } else {
+            setItemWarning(true);
+          }
+        } else {
+          setItemWarning(true);
+        }
+      } else if (secondTaco && tacos) {
+        if (variety.firstItem !== "" && variety.secondItem !== "") {
+          if (
+            variety.firstItem === "HOMEMADE TORTILLA" &&
+            variety.secondItem !== "HOMEMADE TORTILLA"
+          ) {
+            setProductPrice(product.price + extrasSum + 0.5);
+            product.price = product.price + extrasSum + 0.5;
+          } else if (
+            variety.firstItem === "HOMEMADE TORTILLA" &&
+            variety.secondItem === "HOMEMADE TORTILLA"
+          ) {
+            setProductPrice(product.price + extrasSum + 1.0);
+            product.price = product.price + extrasSum + 1.0;
+          } else if (
+            variety.firstItem !== "HOMEMADE TORTILLA" &&
+            variety.secondItem === "HOMEMADE TORTILLA"
+          ) {
+            setProductPrice(product.price + extrasSum + 0.5);
+            product.price = product.price + extrasSum + 0.5;
+          } else {
+            setProductPrice(product.price + extrasSum);
+            product.price = product.price + extrasSum;
+          }
+
+          if (extras !== []) {
+            product.extras.push(extras);
+          } else {
+            console.log("no extras");
+          }
+
+          product.itemCombo = itemCombo;
+
+          product.note = note;
+          dispatch(addProduct({ ...product, quantity }));
+          toast.success("Item has been added to Cart.", {
+            position: toast.POSITION.TOP_CENTER,
+            toastId: "success3",
+          });
+
+          navigate("/cart");
+        } else {
+          setItemWarning(true);
+        }
       } else {
         setItemWarning(true);
       }

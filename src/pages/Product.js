@@ -36,6 +36,7 @@ const Product = () => {
   const [sideCheck, setSideCheck] = useState();
   const [itemWarning, setItemWarning] = useState(false);
   const [checkPathName, setCheckPathName] = useState(false);
+  const [checkMisc, setCheckMisc] = useState(false);
   const blankCombo = {
     firstItem: "",
     secondItem: "",
@@ -52,6 +53,7 @@ const Product = () => {
   const [aguaHorchata, setAguaHorchata] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [openModalTwo, setOpenModalTwo] = useState(false);
+  const [tortillas, setTortillas] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -77,6 +79,24 @@ const Product = () => {
       } catch (error) {}
     };
     getProduct();
+
+    if (
+      id === "62d00754c020372b553c8948" ||
+      id === "638ba5ab773371cc8a0988ab" ||
+      id === "638ba65a773371cc8a0988ad" ||
+      id === "638ba6ed773371cc8a0988ae" ||
+      id === "638ba713773371cc8a0988af" ||
+      id === "638ba297773371cc8a0988a0" ||
+      id === "638ba2c8773371cc8a0988a1" ||
+      id === "638ba317773371cc8a0988a2" ||
+      id === "638baf78773371cc8a0988d8" ||
+      id === "638bafac773371cc8a0988d9" ||
+      id === "638baff0773371cc8a0988dc" ||
+      id === "638bb033773371cc8a0988de" ||
+      id === "62d00814c020372b553c894a"
+    ) {
+      setTortillas(true);
+    } else setTortillas(false);
 
     //if Hardshell Taco change Component
     if (id === "638baa68773371cc8a0988c0") {
@@ -307,7 +327,16 @@ const Product = () => {
   const handleClick = () => {
     if (
       product.name !== "2 Item Combination" &&
-      product.name !== "1 Item Combination"
+      product.name !== "1 Item Combination" &&
+      !product.categories.includes("soups") &&
+      product.name !== "Huevos A La Mexicana" &&
+      product.name !== "Huevos Con Chorizo" &&
+      product.name !== "Huevos Con Jamon" &&
+      product.name !== "Chile Verde" &&
+      product.name !== "Arroz con Pollo" &&
+      product.name !== "Carnitas Picado" &&
+      product.name !== "Chicken Picado" &&
+      product.name !== "Pollo con Mole"
     ) {
       setProductPrice(product.price + extrasSum);
       product.price = product.price + extrasSum;
@@ -325,6 +354,45 @@ const Product = () => {
       });
 
       navigate("/cart");
+    } else if (
+      product.categories.includes("soups") ||
+      product.name === "Huevos A La Mexicana" ||
+      product.name === "Huevos Con Chorizo" ||
+      product.name === "Huevos Con Jamon" ||
+      product.name === "Chile Verde" ||
+      product.name === "Arroz con Pollo" ||
+      product.name === "Carnitas Picado" ||
+      product.name === "Chicken Picado" ||
+      product.name === "Pollo con Mole"
+    ) {
+      if (itemCombo.firstItem !== "") {
+        if (itemCombo.firstItem === "HOMEMADE TORTILLA") {
+          setProductPrice(product.price + extrasSum + 0.5);
+          product.price = product.price + extrasSum + 0.5;
+        } else {
+          setProductPrice(product.price + extrasSum);
+          product.price = product.price + extrasSum;
+        }
+
+        if (extras !== []) {
+          product.extras.push(extras);
+        } else {
+          console.log("no extras");
+        }
+
+        product.itemCombo = itemCombo;
+
+        product.note = note;
+        dispatch(addProduct({ ...product, quantity }));
+        toast.success("Item has been added to Cart.", {
+          position: toast.POSITION.TOP_CENTER,
+          toastId: "success3",
+        });
+
+        navigate("/cart");
+      } else {
+        setItemWarning(true);
+      }
     } else if (product.name === "2 Item Combination") {
       if (
         itemCombo.firstItem !== "" &&
@@ -720,6 +788,33 @@ const Product = () => {
                       </SelectContainer>
                     ) : null}
                   </>
+                ) : tortillas ? (
+                  <>
+                    <SelectContainer id="tortilla-caldo">
+                      <select
+                        onChange={(e) => handleFirstItem(e)}
+                        name="selectedDishOne"
+                        defaultValue=""
+                        required
+                      >
+                        <option value="" disabled>
+                          SELECT A TORTILLA
+                        </option>
+                        <option value="CORN TORTILLA">CORN TORTILLA</option>
+                        <option value="FLOUR TORTILLA">FLOUR TORTILLA</option>
+                        <option value="HOMEMADE TORTILLA">
+                          HOMEMADE $0.50
+                        </option>
+                      </select>
+                    </SelectContainer>
+                    {itemWarning ? (
+                      <SelectContainer>
+                        <h2>
+                          Please make sure to select item before adding to cart.
+                        </h2>
+                      </SelectContainer>
+                    ) : null}
+                  </>
                 ) : null}
                 <NoImageFilterNotes
                   onChange={(e) => handleNote(e.target.value)}
@@ -773,6 +868,28 @@ const Product = () => {
             <Title>{product.name}</Title>
             <Desc>{product.desc}</Desc>
             <Price>$ {productPrice}</Price>
+            {tortillas ? (
+              <SelectContainer id="tortilla-caldo">
+                <select
+                  onChange={(e) => handleFirstItem(e)}
+                  name="selectedDishOne"
+                  defaultValue=""
+                  required
+                >
+                  <option value="" disabled>
+                    SELECT A TORTILLA
+                  </option>
+                  <option value="CORN TORTILLA">CORN TORTILLA</option>
+                  <option value="FLOUR TORTILLA">FLOUR TORTILLA</option>
+                  <option value="HOMEMADE TORTILLA">HOMEMADE $0.50</option>
+                </select>
+              </SelectContainer>
+            ) : null}
+            {itemWarning ? (
+              <SelectContainer>
+                <h2>Please make sure to select item before adding to cart.</h2>
+              </SelectContainer>
+            ) : null}
             <FilterContainer>
               <Filter>
                 <FilterNotes onChange={(e) => handleNote(e.target.value)}>
@@ -933,6 +1050,9 @@ const InfoContainer = styled.div`
   flex: 1;
   padding: 0px 50px;
   ${mobile({ padding: "10px" })}
+  #tortilla-caldo {
+    padding-top: 20px;
+  }
 `;
 const Title = styled.h1`
   font-weight: 200;

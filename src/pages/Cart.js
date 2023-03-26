@@ -108,7 +108,47 @@ const Cart = () => {
                       {/* {item._id}
                       </ProductId> */}
                       {(() => {
-                        if (item.note == null || item.note == "") {
+                        if (
+                          !item.itemCombo.firstItem ||
+                          item.itemCombo.firstItem === ""
+                        ) {
+                          return <></>;
+                        } else {
+                          return (
+                            <ProductNote>
+                              <b>Variation:</b>
+                              <br></br>
+                              {item.itemCombo.firstItem.replace(/-/g, " ")}
+                              <br></br>
+                              {item.variety.firstItem}
+                              <br></br>
+                              {item.itemCombo.secondItem.replace(/-/g, " ")}
+                              <br></br>
+                              {item.variety.secondItem}
+                            </ProductNote>
+                          );
+                        }
+                      })()}
+                      {/* {(() => {
+                        if (
+                          !item.variety.firstItem ||
+                          item.variety.firstItem === ""
+                        ) {
+                          return <></>;
+                        } else {
+                          return (
+                            <ProductNote>
+                              <b>Variation:</b>
+                              <br></br>
+                              {item.variety.firstItem}
+                              <br></br>
+                              {item.variety.secondItem}
+                            </ProductNote>
+                          );
+                        }
+                      })()} */}
+                      {(() => {
+                        if (!item.note || item.note === "") {
                           return <></>;
                         } else {
                           return (

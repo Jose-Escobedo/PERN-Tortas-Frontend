@@ -436,6 +436,7 @@ const Product = () => {
             }
 
             product.itemCombo = itemCombo;
+            product.variety = variety;
 
             product.note = note;
             dispatch(addProduct({ ...product, quantity }));
@@ -469,6 +470,7 @@ const Product = () => {
             }
 
             product.itemCombo = itemCombo;
+            product.variety = variety;
 
             product.note = note;
             dispatch(addProduct({ ...product, quantity }));
@@ -516,6 +518,7 @@ const Product = () => {
           }
 
           product.itemCombo = itemCombo;
+          product.variety = variety;
 
           product.note = note;
           dispatch(addProduct({ ...product, quantity }));
@@ -543,6 +546,7 @@ const Product = () => {
         }
 
         product.itemCombo = itemCombo;
+        product.variety = variety;
 
         product.note = note;
         dispatch(addProduct({ ...product, quantity }));
@@ -570,6 +574,7 @@ const Product = () => {
           }
 
           product.itemCombo = itemCombo;
+          product.variety = variety;
 
           product.note = note;
           dispatch(addProduct({ ...product, quantity }));

@@ -96,17 +96,29 @@ const Cart = () => {
               <div key={index}>
                 <Product>
                   <ProductDetail>
-                    <Image src={item.img} />
+                    {(() => {
+                      if (item.img === "") {
+                        let genericImage =
+                          "https://firebasestorage.googleapis.com/v0/b/tortas-bffc7.appspot.com/o/2204-removebg-preview.png?alt=media&token=f2cc9ed7-f90b-4824-9593-74af2beffed5";
+                        if (
+                          item.name === "2 Item Combination" ||
+                          item.name === "1 Item Combination" ||
+                          item.categories.includes("tacos")
+                        ) {
+                          genericImage =
+                            "https://firebasestorage.googleapis.com/v0/b/tortas-bffc7.appspot.com/o/5400_10_03-removebg-preview.png?alt=media&token=a320fedf-3aa4-464a-891c-2a5d4bc87d14";
+                        }
+                        return <Image src={genericImage} />;
+                      } else {
+                        return <Image src={item.img} />;
+                      }
+                    })()}
+
                     <Details>
                       <ProductName>
                         <b>Product: </b>
                         {item.name}
                       </ProductName>
-                      {/* <ProductId>
-                        <b>ID: </b> */}
-                      {/* {item._id.slice(0, 6)} */}
-                      {/* {item._id}
-                      </ProductId> */}
                       {(() => {
                         if (
                           !item.itemCombo.firstItem ||

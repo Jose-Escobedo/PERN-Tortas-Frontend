@@ -97,18 +97,18 @@ const Cart = () => {
                 <Product>
                   <ProductDetail>
                     {(() => {
-                      if (item.img === "") {
+                      if (item.name === "2 Item Combination") {
+                        let genericImage =
+                          "https://firebasestorage.googleapis.com/v0/b/tortas-bffc7.appspot.com/o/5400_10_03-removebg-preview.png?alt=media&token=a320fedf-3aa4-464a-891c-2a5d4bc87d14";
+
+                        return <Image src={genericImage} />;
+                      } else if (item.name === "1 Item Combination") {
                         let genericImage =
                           "https://firebasestorage.googleapis.com/v0/b/tortas-bffc7.appspot.com/o/2204-removebg-preview.png?alt=media&token=f2cc9ed7-f90b-4824-9593-74af2beffed5";
-                        if (
-                          item.name === "2 Item Combination" ||
-                          item.name === "1 Item Combination" ||
-                          item.categories.includes("tacos")
-                        ) {
-                          genericImage =
-                            "https://firebasestorage.googleapis.com/v0/b/tortas-bffc7.appspot.com/o/5400_10_03-removebg-preview.png?alt=media&token=a320fedf-3aa4-464a-891c-2a5d4bc87d14";
-                        }
+
                         return <Image src={genericImage} />;
+                      } else if (item.img === "") {
+                        return null;
                       } else {
                         return <Image src={item.img} />;
                       }
@@ -141,26 +141,13 @@ const Cart = () => {
                           );
                         }
                       })()}
-                      {/* {(() => {
-                        if (
-                          !item.variety.firstItem ||
-                          item.variety.firstItem === ""
-                        ) {
-                          return <></>;
-                        } else {
-                          return (
-                            <ProductNote>
-                              <b>Variation:</b>
-                              <br></br>
-                              {item.variety.firstItem}
-                              <br></br>
-                              {item.variety.secondItem}
-                            </ProductNote>
-                          );
-                        }
-                      })()} */}
                       {(() => {
-                        if (!item.note || item.note === "") {
+                        if (
+                          !item.note ||
+                          item.note === "" ||
+                          item.note[0] === "" ||
+                          item.note.length === 0
+                        ) {
                           return <></>;
                         } else {
                           return (
@@ -306,6 +293,7 @@ const Info = styled.div`
   display: flex;
   flex-direction: column;
   flex: 3;
+  font-size: 1.2rem;
 
   img {
     min-height: 350px;

@@ -10,14 +10,19 @@ const AdminOrderItem = ({ item }) => {
       </ItemNameQuantityWrapper>
 
       {(() => {
-        if (item.itemCombo[0].firstItem === "") {
+        if (
+          !item.itemCombo[0]?.firstItem ||
+          item.itemCombo[0]?.firstItem === ""
+        ) {
           return <></>;
         } else {
           return (
             <ItemVariationContainer>
               <h2>VARIATION:</h2>
-              <h2 id="item-object">{item.itemCombo[0].firstItem}</h2>
-              <h2 id="item-object">{item.itemCombo[0].secondItem}</h2>
+              <h2 id="item-object">{item.itemCombo[0]?.firstItem}</h2>
+              <h2 id="item-object">{item.variety[0]?.firstItem}</h2>
+              <h2 id="item-object">{item.itemCombo[0]?.secondItem}</h2>
+              <h2 id="item-object">{item.variety[0]?.secondItem}</h2>
             </ItemVariationContainer>
           );
         }

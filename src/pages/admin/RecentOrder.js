@@ -132,6 +132,12 @@ const RecentOrder = () => {
             </AdminOrderItemsContainer>
             <AdminOrderTotal>{`TOTAL: $ ${recentOrder?.total}`}</AdminOrderTotal>
             <AdminOrderTotal>{`TIP: $ ${recentOrder?.tip}`}</AdminOrderTotal>
+            <DoordashSupportId>
+              {`Tracking Link: `}
+              <a href={`${recentOrder?.doordashTrackingLink}`}>
+                {recentOrder?.doordashTrackingLink}
+              </a>
+            </DoordashSupportId>
             <DoordashSupportId>{`Doordash Reference: #${Number(
               recentOrder?.doordashSupportId
             )}`}</DoordashSupportId>

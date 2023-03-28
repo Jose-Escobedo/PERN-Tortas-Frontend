@@ -9,7 +9,7 @@ const InsufficientPickupSubtotal = () => {
       <Navbar />
       <InsufficientSubtotalContainer>
         <MinimumText>
-          Pickup subtotal minimum of $5 not met. Please add more items to cart.
+          Pickup subtotal minimum not met. Please add more items to cart.
         </MinimumText>
       </InsufficientSubtotalContainer>
       <Footer />

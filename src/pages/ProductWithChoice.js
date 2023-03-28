@@ -772,7 +772,7 @@ const NoImageFilter = styled.div`
 `;
 const NoImageFilterTitle = styled.span`
   font-size: 1.3rem;
-  font-weight: 200;
+  font-weight: bold;
 `;
 const NoImageFilterNotes = styled.form`
   width: 90%;
@@ -782,6 +782,7 @@ const NoImageFilterNotes = styled.form`
   padding-bottom: 1em;
   span {
     margin-left: 0.5em;
+    font-weight: bold;
   }
   @media screen and (max-width: 1100px) {
     width: 100%;

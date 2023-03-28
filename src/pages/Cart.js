@@ -116,8 +116,8 @@ const Cart = () => {
 
                     <Details>
                       <ProductName>
-                        <b>Product: </b>
-                        {item.name}
+                        <b>PRODUCT: </b>
+                        {item.name.toUpperCase()}
                       </ProductName>
                       {(() => {
                         if (
@@ -128,7 +128,7 @@ const Cart = () => {
                         } else {
                           return (
                             <ProductNote>
-                              <b>Variation:</b>
+                              <b>VARIATION:</b>
                               <br></br>
                               {item.itemCombo.firstItem.replace(/-/g, " ")}
                               <br></br>
@@ -214,7 +214,9 @@ const Cart = () => {
             <SummaryTitle>ORDER SUMMARY</SummaryTitle>
             <SummaryItem>
               <SummaryItemText>Subtotal</SummaryItemText>
-              <SummaryItemPrice>$ {cart.subtotal.toFixed(2)}</SummaryItemPrice>
+              <SummaryItemPrice>
+                $ {cart.taxes.toFixed(2) == -0.0 ? 0.0 : cart.taxes.toFixed(2)}
+              </SummaryItemPrice>
             </SummaryItem>
             {/* <SummaryItem>
               <SummaryItemText>Delivery Fee</SummaryItemText>

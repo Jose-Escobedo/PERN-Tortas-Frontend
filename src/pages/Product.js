@@ -36,7 +36,7 @@ const Product = () => {
   const [sideCheck, setSideCheck] = useState();
   const [itemWarning, setItemWarning] = useState(false);
   const [checkPathName, setCheckPathName] = useState(false);
-  const [checkMisc, setCheckMisc] = useState(false);
+  const [burritos, setBurritos] = useState(false);
   const blankCombo = {
     firstItem: "",
     secondItem: "",
@@ -80,6 +80,7 @@ const Product = () => {
     };
     getProduct();
 
+    //check if tortillas needed
     if (
       id === "62d00754c020372b553c8948" ||
       id === "638ba5ab773371cc8a0988ab" ||
@@ -93,10 +94,35 @@ const Product = () => {
       id === "638bafac773371cc8a0988d9" ||
       id === "638baff0773371cc8a0988dc" ||
       id === "638bb033773371cc8a0988de" ||
-      id === "62d00814c020372b553c894a"
+      id === "62d00814c020372b553c894a" ||
+      id === "638ba9e1773371cc8a0988be" ||
+      id === "638baa24773371cc8a0988bf" ||
+      id === "638baaa2773371cc8a0988c1" ||
+      id === "638baac1773371cc8a0988c2" ||
+      id === "638bab12773371cc8a0988c4" ||
+      id === "638bab30773371cc8a0988c5" ||
+      id === "638bab51773371cc8a0988c6" ||
+      id === "638bab6f773371cc8a0988c7"
     ) {
       setTortillas(true);
     } else setTortillas(false);
+
+    //check burritos
+    if (
+      id === "638ba1da773371cc8a09889d" ||
+      id === "638babd6773371cc8a0988c9" ||
+      id === "638bac10773371cc8a0988ca" ||
+      id === "638bac99773371cc8a0988cc" ||
+      id === "638bacd5773371cc8a0988cd" ||
+      id === "638bad03773371cc8a0988ce" ||
+      id === "638bad2d773371cc8a0988cf" ||
+      id === "638bad5c773371cc8a0988d0" ||
+      id === "638bad8c773371cc8a0988d1" ||
+      id === "638badbd773371cc8a0988d2" ||
+      id === "638badcd773371cc8a0988d3"
+    ) {
+      setBurritos(true);
+    } else setBurritos(false);
 
     //if Hardshell Taco change Component
     if (id === "638baa68773371cc8a0988c0") {
@@ -336,7 +362,26 @@ const Product = () => {
       product.name !== "Arroz con Pollo" &&
       product.name !== "Carnitas Picado" &&
       product.name !== "Chicken Picado" &&
-      product.name !== "Pollo con Mole"
+      product.name !== "Pollo con Mole" &&
+      product.name !== "Asada Burrito" &&
+      product.name !== "Pollo Burrito" &&
+      product.name !== "Breakfast Burrito" &&
+      product.name !== "Al Pastor Burrito" &&
+      product.name !== "Queso con Frijoles Burrito" &&
+      product.name !== "Huevo con Chorizo Burrito" &&
+      product.name !== "Lengua Burrito" &&
+      product.name !== "Vegetarian Burrito" &&
+      product.name !== "Carnitas Burrito" &&
+      product.name !== "Picadillo Burrito" &&
+      product.name !== "Chile Relleno Burrito" &&
+      product.name !== "Asada Taco" &&
+      product.name !== "Al Pastor Taco" &&
+      product.name !== "Pollo Taco" &&
+      product.name !== "Picadillo Taco" &&
+      product.name !== "Vegetarian Taco" &&
+      product.name !== "Carnitas Taco" &&
+      product.name !== "Chorizo Taco" &&
+      product.name !== "Lengua Taco"
     ) {
       setProductPrice(product.price + extrasSum);
       product.price = product.price + extrasSum;
@@ -355,6 +400,47 @@ const Product = () => {
 
       navigate("/cart");
     } else if (
+      product.name === "Asada Burrito" ||
+      product.name === "Pollo Burrito" ||
+      product.name === "Breakfast Burrito" ||
+      product.name === "Al Pastor Burrito" ||
+      product.name === "Queso con Frijoles Burrito" ||
+      product.name === "Huevo con Chorizo Burrito" ||
+      product.name === "Lengua Burrito" ||
+      product.name === "Vegetarian Burrito" ||
+      product.name === "Carnitas Burrito" ||
+      product.name === "Picadillo Burrito" ||
+      product.name === "Chile Relleno Burrito"
+    ) {
+      if (itemCombo.firstItem !== "") {
+        if (itemCombo.firstItem === "WET") {
+          setProductPrice(product.price + extrasSum + 1.5);
+          product.price = product.price + extrasSum + 1.5;
+        } else {
+          setProductPrice(product.price + extrasSum);
+          product.price = product.price + extrasSum;
+        }
+
+        if (extras !== []) {
+          product.extras.push(extras);
+        } else {
+          console.log("no extras");
+        }
+
+        product.itemCombo = itemCombo;
+
+        product.note = note;
+        dispatch(addProduct({ ...product, quantity }));
+        toast.success("Item has been added to Cart.", {
+          position: toast.POSITION.TOP_CENTER,
+          toastId: "success3",
+        });
+
+        navigate("/cart");
+      } else {
+        setItemWarning(true);
+      }
+    } else if (
       product.categories.includes("soups") ||
       product.name === "Huevos A La Mexicana" ||
       product.name === "Huevos Con Chorizo" ||
@@ -363,7 +449,15 @@ const Product = () => {
       product.name === "Arroz con Pollo" ||
       product.name === "Carnitas Picado" ||
       product.name === "Chicken Picado" ||
-      product.name === "Pollo con Mole"
+      product.name === "Pollo con Mole" ||
+      product.name === "Asada Taco" ||
+      product.name === "Al Pastor Taco" ||
+      product.name === "Pollo Taco" ||
+      product.name === "Picadillo Taco" ||
+      product.name === "Vegetarian Taco" ||
+      product.name === "Carnitas Taco" ||
+      product.name === "Chorizo Taco" ||
+      product.name === "Lengua Taco"
     ) {
       if (itemCombo.firstItem !== "") {
         if (itemCombo.firstItem === "HOMEMADE TORTILLA") {
@@ -821,6 +915,31 @@ const Product = () => {
                     ) : null}
                   </>
                 ) : null}
+                {burritos ? (
+                  <>
+                    <SelectContainer id="burritos">
+                      <select
+                        onChange={(e) => handleFirstItem(e)}
+                        name="selectedDishOne"
+                        defaultValue=""
+                        required
+                      >
+                        <option value="" disabled>
+                          SELECT A STYLE
+                        </option>
+                        <option value="WET">WET $1.50</option>
+                        <option value="REGULAR">REGULAR</option>
+                      </select>
+                    </SelectContainer>
+                    {itemWarning ? (
+                      <SelectContainer>
+                        <h2>
+                          Please make sure to select item before adding to cart.
+                        </h2>
+                      </SelectContainer>
+                    ) : null}
+                  </>
+                ) : null}
                 <NoImageFilterNotes
                   onChange={(e) => handleNote(e.target.value)}
                 >
@@ -890,6 +1009,7 @@ const Product = () => {
                 </select>
               </SelectContainer>
             ) : null}
+
             {itemWarning ? (
               <SelectContainer>
                 <h2>Please make sure to select item before adding to cart.</h2>
@@ -1113,7 +1233,7 @@ const NoImageFilter = styled.div`
 `;
 const NoImageFilterTitle = styled.span`
   font-size: 1.3rem;
-  font-weight: 200;
+  font-weight: bold;
 `;
 const NoImageFilterNotes = styled.form`
   width: 90%;
@@ -1123,6 +1243,7 @@ const NoImageFilterNotes = styled.form`
   padding-bottom: 1em;
   span {
     margin-left: 0.5em;
+    font-weight: bold;
   }
   @media screen and (max-width: 1100px) {
     width: 100%;
@@ -1195,7 +1316,7 @@ const Filter = styled.div`
 `;
 const FilterTitle = styled.span`
   font-size: 1.3rem;
-  font-weight: 200;
+  font-weight: bold;
 `;
 const FilterNotes = styled.form`
   max-width: 100%;
@@ -1205,6 +1326,7 @@ const FilterNotes = styled.form`
   padding-bottom: 1em;
   span {
     margin-left: 0.5em;
+    font-weight: bold;
   }
   @media screen and (max-width: 1100px) {
     width: 100%;

@@ -106,9 +106,9 @@ const RecentOrder = () => {
               {`NAME: ${recentOrder?.dropoff_contact_given_name.toUpperCase()}`}
             </AdminOrderName>
             <AdminOrderTime>
-              {`ORDER CREATED AT: ${moment(recentOrder?.createdAt).format(
-                "MM.DD. h:mm A"
-              )}`}
+              {`ORDER CREATED AT: ${moment(recentOrder?.createdAt)
+                .add("00:27", "HH:mm")
+                .format("MM.DD. h:mm A")}`}
             </AdminOrderTime>
             <AdminOrderAddress>{recentOrder?.address}</AdminOrderAddress>
             {pickupObj ? (
@@ -130,7 +130,9 @@ const RecentOrder = () => {
                 return <AdminOrderItem key={index} item={item} />;
               })}
             </AdminOrderItemsContainer>
-            <AdminOrderTotal>{`TOTAL: $ ${recentOrder?.total}`}</AdminOrderTotal>
+            <AdminOrderTotal>{`TOTAL: $ ${recentOrder?.total.toFixed(
+              2
+            )}`}</AdminOrderTotal>
             <AdminOrderTotal>{`TIP: $ ${recentOrder?.tip}`}</AdminOrderTotal>
             <DoordashSupportId>
               {`Tracking Link: `}

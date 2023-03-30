@@ -63,7 +63,9 @@ const AdminHome = () => {
                           "."}
                       </RecentOrderName>
                       <RecentOrderTime>
-                        {moment(order.createdAt).format("MM.DD. h:mm A")}
+                        {moment(order.createdAt)
+                          .add("00:27", "HH:mm")
+                          .format("MM.DD. h:mm A")}
                       </RecentOrderTime>
                     </Link>
                   </RecentOrderNameContainer>

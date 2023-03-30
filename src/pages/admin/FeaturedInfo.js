@@ -24,7 +24,7 @@ const FeaturedInfo = () => {
           .then((res) => res.json())
           .then((data) => {
             console.log(data);
-            setIncome(data[0].total);
+            setIncome(data[0].total.toFixed(2));
           });
       } catch (err) {
         console.log(err);

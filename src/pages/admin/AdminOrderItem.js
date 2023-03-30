@@ -19,10 +19,18 @@ const AdminOrderItem = ({ item }) => {
           return (
             <ItemVariationContainer>
               <h2>VARIATION:</h2>
-              <h2 id="item-object">{item.itemCombo[0]?.firstItem}</h2>
-              <h2 id="item-object">{item.variety[0]?.firstItem}</h2>
-              <h2 id="item-object">{item.itemCombo[0]?.secondItem}</h2>
-              <h2 id="item-object">{item.variety[0]?.secondItem}</h2>
+              <h2 id="item-object">
+                {item.itemCombo[0]?.firstItem.replace(/-/g, " ").toUpperCase()}
+              </h2>
+              <h2 id="item-object">
+                {item.variety[0]?.firstItem.replace(/-/g, " ").toUpperCase()}
+              </h2>
+              <h2 id="item-object">
+                {item.itemCombo[0]?.secondItem.replace(/-/g, " ").toUpperCase()}
+              </h2>
+              <h2 id="item-object">
+                {item.variety[0]?.secondItem.replace(/-/g, " ").toUpperCase()}
+              </h2>
             </ItemVariationContainer>
           );
         }
@@ -101,7 +109,7 @@ const ItemVariationContainer = styled.div`
   flex-direction: column;
   padding: 15px;
   #item-object {
-    color: red;
+    color: black;
     padding-left: 10px;
   }
 `;

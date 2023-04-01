@@ -6,6 +6,8 @@ import { mobile } from "../responsive";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
+  const currentTime = new Date();
+  const currentYear = currentTime.getFullYear();
   return (
     <Container>
       <Left>
@@ -36,6 +38,7 @@ const Footer = () => {
             </a>
           </SocialIcon>
         </SocialContainer>
+        <Desc>&copy; Copyright {currentYear} Tortas Mexico Studio City </Desc>
       </Left>
       <Center>
         <Title>Useful Links</Title>

@@ -19,6 +19,10 @@ const Success = () => {
       <Navbar />
       <SuccessContainer>
         <SuccessText>Thank you for your order!</SuccessText>
+        <SuccessText>
+          Please check your Email for order confirmation.
+        </SuccessText>
+        <SuccessText>(Make sure to check your spam folder)</SuccessText>
         <OrderSuccessSvgContainer>
           <svg
             width="819"

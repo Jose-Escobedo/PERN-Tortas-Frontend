@@ -400,6 +400,30 @@ const Product = () => {
 
       navigate("/cart");
     } else if (
+      product.name === "Pozole Soup (Cup)" ||
+      product.name === "Albondigas Soup (Cup)" ||
+      product.name === "Tortilla Soup (Cup)" ||
+      product.name === "Caldo de Pollo Soup (Cup)" ||
+      product.name === "Menudo (Cup)" ||
+      product.name === "Caldo de Res (Cup)"
+    ) {
+      setProductPrice(product.price + extrasSum);
+      product.price = product.price + extrasSum;
+      if (extras !== []) {
+        product.extras.push(extras);
+      }
+
+      product.itemCombo = itemCombo;
+
+      product.note = note;
+      dispatch(addProduct({ ...product, quantity }));
+      toast.success("Item has been added to Cart.", {
+        position: toast.POSITION.TOP_CENTER,
+        toastId: "success3",
+      });
+
+      navigate("/cart");
+    } else if (
       product.name === "Asada Burrito" ||
       product.name === "Pollo Burrito" ||
       product.name === "Breakfast Burrito" ||

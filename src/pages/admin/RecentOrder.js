@@ -212,6 +212,15 @@ const AdminOrderPrepTime = styled.div`
     cursor: pointer;
     padding: 1em;
     font-size: 1.5rem;
+    transition: all 0.5s ease-in-out;
+    &:hover {
+      background-color: teal;
+      color: white;
+    }
+    &:after {
+      background-color: teal;
+      color: white;
+    }
   }
 `;
 const AdminOrderItemsContainer = styled.div`

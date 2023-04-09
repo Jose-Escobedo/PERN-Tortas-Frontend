@@ -275,6 +275,24 @@ const PickupInfo = () => {
     }
   }
 
+  function numberValidation(evt) {
+    var theEvent = evt || window.event;
+
+    // Handle paste
+    if (evt.type === "paste") {
+      key = evt.clipboardData.getData("text/plain");
+    } else {
+      // Handle key press
+      var key = theEvent.keyCode || theEvent.which;
+      key = String.fromCharCode(key);
+    }
+    var regex = /[0-9]/;
+    if (!regex.test(key)) {
+      theEvent.returnValue = false;
+      if (theEvent.preventDefault) theEvent.preventDefault();
+    }
+  }
+
   const handleFormSubmit = (e) => {
     e.preventDefault();
     dispatch(setTotal(cartTotal));
@@ -311,6 +329,7 @@ const PickupInfo = () => {
                     name="dropoff_contact_given_name"
                     value={newFormData.dropoff_contact_given_name}
                     onChange={handleFirstNameChange}
+                    maxlength="20"
                     required
                   />
                   <input
@@ -320,6 +339,7 @@ const PickupInfo = () => {
                     name="dropoff_contact_family_name"
                     value={newFormData.dropoff_contact_family_name}
                     onChange={handleLastNameChange}
+                    maxlength="100"
                     required
                   />
                   <input
@@ -338,6 +358,12 @@ const PickupInfo = () => {
                     name="dropoff_phone_number"
                     value={newFormData.dropoff_phone_number}
                     onChange={handlePhoneChange}
+                    onKeyPress={numberValidation}
+                    onPaste={(e) => {
+                      e.preventDefault();
+                      return false;
+                    }}
+                    maxlength="20"
                     required
                   />
 
@@ -364,6 +390,7 @@ const PickupInfo = () => {
                     id="pickup_instructions"
                     value={newFormData.pickup_instructions}
                     onChange={handleInstructionsChange}
+                    maxLength="500"
                   ></textarea>
 
                   <DateTimeWrapper>

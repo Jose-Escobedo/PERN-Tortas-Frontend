@@ -97,17 +97,18 @@ const Cart = () => {
                 <Product>
                   <ProductDetail>
                     {(() => {
-                      if (item.name === "2 Item Combination") {
-                        let genericImage =
-                          "https://firebasestorage.googleapis.com/v0/b/tortas-bffc7.appspot.com/o/5400_10_03-removebg-preview.png?alt=media&token=a320fedf-3aa4-464a-891c-2a5d4bc87d14";
+                      // if (item.name === "2 Item Combination") {
+                      //   let genericImage =
+                      //     "https://firebasestorage.googleapis.com/v0/b/tortas-bffc7.appspot.com/o/5400_10_03-removebg-preview.png?alt=media&token=a320fedf-3aa4-464a-891c-2a5d4bc87d14";
 
-                        return <Image src={genericImage} />;
-                      } else if (item.name === "1 Item Combination") {
-                        let genericImage =
-                          "https://firebasestorage.googleapis.com/v0/b/tortas-bffc7.appspot.com/o/2204-removebg-preview.png?alt=media&token=f2cc9ed7-f90b-4824-9593-74af2beffed5";
+                      //   return <Image src={genericImage} />;
+                      // } else if (item.name === "1 Item Combination") {
+                      //   let genericImage =
+                      //     "https://firebasestorage.googleapis.com/v0/b/tortas-bffc7.appspot.com/o/2204-removebg-preview.png?alt=media&token=f2cc9ed7-f90b-4824-9593-74af2beffed5";
 
-                        return <Image src={genericImage} />;
-                      } else if (item.img === "") {
+                      //   return <Image src={genericImage} />;
+                      // }
+                      if (item.img === "") {
                         return null;
                       } else {
                         return <Image src={item.img} />;

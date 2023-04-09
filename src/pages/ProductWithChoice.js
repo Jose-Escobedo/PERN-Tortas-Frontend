@@ -370,6 +370,24 @@ const ProductWithChoice = () => {
     setNote(e);
   };
 
+  const handleNoteValidation = (evt) => {
+    var theEvent = evt || window.event;
+
+    // Handle paste
+    if (evt.type === "paste") {
+      key = evt.clipboardData.getData("text/plain");
+    } else {
+      // Handle key press
+      var key = theEvent.keyCode || theEvent.which;
+      key = String.fromCharCode(key);
+    }
+    var regex = /^[a-zA-Z0-9~@#$^*()_+=[\]{}|\\,.?: -]*$/;
+    if (!regex.test(key)) {
+      theEvent.returnValue = false;
+      if (theEvent.preventDefault) theEvent.preventDefault();
+    }
+  };
+
   return (
     <Container>
       <StyledToastContainer />
@@ -604,7 +622,15 @@ const ProductWithChoice = () => {
                 <span>ADD NOTE: </span>
                 <br></br>
 
-                <textarea placeholder="Allergies, No onions, etc, anything else we should know before preparation."></textarea>
+                <textarea
+                  onKeyPress={handleNoteValidation}
+                  onPaste={(e) => {
+                    e.preventDefault();
+                    return false;
+                  }}
+                  maxLength="500"
+                  placeholder="Allergies, No onions, etc, anything else we should know before preparation."
+                ></textarea>
               </NoImageFilterNotes>
               {sideCheck ? null : (
                 <>

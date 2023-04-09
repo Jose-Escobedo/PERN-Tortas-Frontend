@@ -63,10 +63,10 @@ const RecentOrder = () => {
         `https://openapi.doordash.com/drive/v2/deliveries/${externalDDid}`,
         {
           method: "PATCH",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-          },
+          // headers: {
+          //   Accept: "application/json",
+          //   "Content-Type": "application/json",
+          // },
           body: JSON.stringify({
             pickup_time: moment(currentDate)
               .add(timeAdded, "m")

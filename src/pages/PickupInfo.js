@@ -12,15 +12,16 @@ import InsufficientPickupSubtotal from "./InsufficientPickupSubtotal";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import StripeCheckout from "./StripeCheckout";
-import Datetime from "react-datetime";
 import moment from "moment";
+import DateAndTime from "../components/DateAndTime";
 
-var yesterday = moment().subtract(1, "day");
-var valid = function (current) {
-  return current.isAfter(yesterday);
-};
+const currentDate = moment().toISOString();
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE);
+const blankDateTime = {
+  pickupDate: "",
+  pickupTime: "",
+};
 
 const PickupInfo = () => {
   const cart = useSelector((state) => state.cart);
@@ -32,16 +33,63 @@ const PickupInfo = () => {
   const [tipTotal, setTipTotal] = useState(0);
   const [cartTotal, setCartTotal] = useState(cart.total);
   const [emptyTip, setEmptyTip] = useState();
+  const [openStore, setOpenStore] = useState();
+  const [dateAndTime, setDateAndTime] = useState(blankDateTime);
+  const [todaySelect, setTodaySelect] = useState();
 
-  // const [clientSecret, setClientSecret] = useState("");
+  const { pickupDate, pickupTime } = blankDateTime;
 
-  // const appearance = {
-  //   theme: "stripe",
-  // };
-  // const options = {
-  //   clientSecret,
-  //   appearance,
-  // };
+  const d = new Date();
+  const n = d.getDay();
+  const now = d.getHours() + "." + d.getMinutes();
+  const weekdays = [
+    ["Sunday", 10.3, 20.3],
+    ["Monday", 9.3, 20.3],
+    ["Tuesday", 9.3, 20.3],
+    ["Wednesday", 9.3, 20.3],
+    ["Thursday", 9.3, 20.3],
+    ["Friday", 9.3, 20.3],
+    ["Saturday", 9.3, 20.3], // we are closed, sorry!
+  ];
+  const day = weekdays[n];
+
+  useEffect(() => {
+    if (now > day[1] && now < day[2]) {
+      console.log("We're open right now!");
+      console.log(now);
+      console.log(new Date());
+      setOpenStore(true);
+    } else {
+      console.log("Sorry, we're closed!");
+      console.log(now);
+      console.log(new Date());
+      setOpenStore(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (dateAndTime.pickupDate === "today") {
+      setTodaySelect(true);
+    } else {
+      setTodaySelect(false);
+    }
+  }, [dateAndTime]);
+
+  const handleDate = (e) => {
+    setDateAndTime({
+      ...dateAndTime,
+      pickupDate: e.target.value,
+    });
+    console.log("Date", dateAndTime);
+  };
+
+  const handleTime = (e) => {
+    setDateAndTime({
+      ...dateAndTime,
+      pickupTime: e.target.value,
+    });
+    console.log("Time", dateAndTime);
+  };
 
   function checkForEmptyTip() {
     if (newFormData.tip === "") {
@@ -319,7 +367,7 @@ const PickupInfo = () => {
           <Navbar />
           <ContactFormStyled>
             <div className="wrapper">
-              <h1 className="delivery-title">Pickup Information</h1>
+              <h1 className="delivery-title">PICKUP INFORMATION</h1>
               <form id="form" className="form" onSubmit={handleFormSubmit}>
                 <div className="form-group">
                   <input
@@ -394,7 +442,11 @@ const PickupInfo = () => {
                   ></textarea>
 
                   <DateTimeWrapper>
-                    <Datetime isValidDate={valid} />;
+                    <DateAndTime
+                      handleDate={handleDate}
+                      handleTime={handleTime}
+                      todaySelect={todaySelect}
+                    />
                   </DateTimeWrapper>
 
                   <Summary>
@@ -479,7 +531,7 @@ const ContactFormStyled = styled.div`
     width: 100%;
 
     .delivery-title {
-      font: 300 2rem "Montserrat", sans-serif;
+      font: 700 2rem "Montserrat", sans-serif;
     }
 
     @media screen and (max-width: 1100px) {
@@ -760,18 +812,20 @@ const ContactFormStyled = styled.div`
   }
 `;
 
-const DateTimeWrapper = styled.div``;
+const DateTimeWrapper = styled.div`
+  padding-top: 20px;
+`;
 
 const Summary = styled.div`
   flex: 1;
 
   border-radius: 10px;
-  padding: 40px 20px;
+  padding: 40px 0;
   height: 50vh;
 `;
 
 const SummaryTitle = styled.h1`
-  font-weight: 200;
+  font-weight: 400;
   border-bottom: 1px solid black;
 `;
 const SummaryItem = styled.div`

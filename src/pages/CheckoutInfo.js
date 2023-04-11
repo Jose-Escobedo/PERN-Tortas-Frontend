@@ -9,8 +9,11 @@ import { addTip, clearCart, setTotal } from "../redux/cartRedux";
 import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
+import moment from "moment";
+import ClosedStore from "./ClosedStore";
 
 const CheckoutInfo = ({ addNewFormData }) => {
+  const currentDate = moment().toISOString();
   const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -26,9 +29,24 @@ const CheckoutInfo = ({ addNewFormData }) => {
   const [routeDistance, setRouteDistance] = useState();
   const [emptyTip, setEmptyTip] = useState();
   const [stripeIdentifier, setStripeIdentifier] = useState();
+  const [openStore, setOpenStore] = useState();
 
   const mapApiJs = "https://maps.googleapis.com/maps/api/js";
   const apiKey = process.env.REACT_APP_PLACES;
+
+  const d = new Date();
+  const n = d.getDay();
+  const now = d.getHours() + "." + d.getMinutes();
+  const weekdays = [
+    ["Sunday", 10.3, 20.3],
+    ["Monday", 9.3, 20.3],
+    ["Tuesday", 9.3, 20.3],
+    ["Wednesday", 9.3, 20.3],
+    ["Thursday", 9.3, 20.3],
+    ["Friday", 9.3, 20.3],
+    ["Saturday", 9.3, 20.3], // we are closed, sorry!
+  ];
+  const day = weekdays[n];
 
   function checkForEmptyTip() {
     if (newFormData.tip === "") {
@@ -70,6 +88,20 @@ const CheckoutInfo = ({ addNewFormData }) => {
       dropoff_location: address,
     });
   }, [address]);
+
+  useEffect(() => {
+    if (now > day[1] && now < day[2]) {
+      console.log("We're open right now!");
+      console.log(now);
+      console.log(new Date());
+      setOpenStore(true);
+    } else {
+      console.log("Sorry, we're closed!");
+      console.log(now);
+      console.log(new Date());
+      setOpenStore(false);
+    }
+  }, []);
 
   useEffect(() => {
     if (routeDistance?.includes("ft")) {
@@ -500,166 +532,174 @@ const CheckoutInfo = ({ addNewFormData }) => {
 
   return (
     <>
-      <Navbar />
-      {isGreaterThanTwenty ? (
-        <ContactFormStyled>
-          <div className="wrapper">
-            <h1 className="delivery-title">Delivery Information</h1>
-            {fiveMileRadius ? (
-              <DistanceImageWrapper>
-                <h1 style={{ color: "red" }} className="check-radius">
-                  Delivery distance too far.
-                </h1>
-                <img src="https://firebasestorage.googleapis.com/v0/b/tortas-bffc7.appspot.com/o/astro-far.png?alt=media&token=88d09c17-b7ae-42ee-a0a1-886a22c381b7"></img>
-              </DistanceImageWrapper>
-            ) : null}
-            <form id="form" className="form" onSubmit={handleFormSubmit}>
-              <div className="form-group">
-                <input
-                  type="text"
-                  id="first-name"
-                  placeholder="FIRST NAME"
-                  name="dropoff_contact_given_name"
-                  value={newFormData.dropoff_contact_given_name}
-                  onChange={handleFirstNameChange}
-                  maxlength="100"
-                  required
-                />
-                <input
-                  type="text"
-                  id="last-name"
-                  placeholder="LAST NAME"
-                  name="dropoff_contact_family_name"
-                  value={newFormData.dropoff_contact_family_name}
-                  onChange={handleLastNameChange}
-                  maxlength="100"
-                  required
-                />
-                <input
-                  type="email"
-                  id="email"
-                  placeholder="EMAIL"
-                  name="email"
-                  value={newFormData.email}
-                  onChange={handleEmailChange}
-                  required
-                />
-                <input
-                  type="text"
-                  id="phone"
-                  placeholder="PHONE"
-                  name="dropoff_phone_number"
-                  value={newFormData.dropoff_phone_number}
-                  onChange={handlePhoneChange}
-                  onKeyPress={numberValidation}
-                  onPaste={(e) => {
-                    e.preventDefault();
-                    return false;
-                  }}
-                  maxlength="20"
-                  required
-                />
+      {openStore ? (
+        <>
+          <Navbar />
+          {isGreaterThanTwenty ? (
+            <ContactFormStyled>
+              <div className="wrapper">
+                <h1 className="delivery-title">Delivery Information</h1>
+                {fiveMileRadius ? (
+                  <DistanceImageWrapper>
+                    <h1 style={{ color: "red" }} className="check-radius">
+                      Delivery distance too far.
+                    </h1>
+                    <img src="https://firebasestorage.googleapis.com/v0/b/tortas-bffc7.appspot.com/o/astro-far.png?alt=media&token=88d09c17-b7ae-42ee-a0a1-886a22c381b7"></img>
+                  </DistanceImageWrapper>
+                ) : null}
+                <form id="form" className="form" onSubmit={handleFormSubmit}>
+                  <div className="form-group">
+                    <input
+                      type="text"
+                      id="first-name"
+                      placeholder="FIRST NAME"
+                      name="dropoff_contact_given_name"
+                      value={newFormData.dropoff_contact_given_name}
+                      onChange={handleFirstNameChange}
+                      maxlength="100"
+                      required
+                    />
+                    <input
+                      type="text"
+                      id="last-name"
+                      placeholder="LAST NAME"
+                      name="dropoff_contact_family_name"
+                      value={newFormData.dropoff_contact_family_name}
+                      onChange={handleLastNameChange}
+                      maxlength="100"
+                      required
+                    />
+                    <input
+                      type="email"
+                      id="email"
+                      placeholder="EMAIL"
+                      name="email"
+                      value={newFormData.email}
+                      onChange={handleEmailChange}
+                      required
+                    />
+                    <input
+                      type="text"
+                      id="phone"
+                      placeholder="PHONE"
+                      name="dropoff_phone_number"
+                      value={newFormData.dropoff_phone_number}
+                      onChange={handlePhoneChange}
+                      onKeyPress={numberValidation}
+                      onPaste={(e) => {
+                        e.preventDefault();
+                        return false;
+                      }}
+                      maxlength="20"
+                      required
+                    />
 
-                <input
-                  type="text"
-                  id="address"
-                  ref={searchInput}
-                  placeholder="DELIVERY ADDRESS"
-                  name="dropoff_location"
-                  required
-                />
+                    <input
+                      type="text"
+                      id="address"
+                      ref={searchInput}
+                      placeholder="DELIVERY ADDRESS"
+                      name="dropoff_location"
+                      required
+                    />
 
-                <input
-                  type="text"
-                  id="tip"
-                  placeholder="TIP FOR DRIVER"
-                  name="tip"
-                  value={newFormData.tip}
-                  onKeyPress={tipValidation}
-                  onPaste={(e) => {
-                    e.preventDefault();
-                    return false;
-                  }}
-                  maxlength="3"
-                  onChange={handleTipChange}
-                />
+                    <input
+                      type="text"
+                      id="tip"
+                      placeholder="TIP FOR DRIVER"
+                      name="tip"
+                      value={newFormData.tip}
+                      onKeyPress={tipValidation}
+                      onPaste={(e) => {
+                        e.preventDefault();
+                        return false;
+                      }}
+                      maxlength="3"
+                      onChange={handleTipChange}
+                    />
 
-                <textarea
-                  rows="6"
-                  type="text"
-                  placeholder="DELIVERY INSTRUCTIONS FOR DRIVER"
-                  name="dropoff_instructions"
-                  id="dropoff_instructions"
-                  value={newFormData.dropoff_instructions}
-                  onChange={handleInstructionsChange}
-                  maxlength="500"
-                ></textarea>
+                    <textarea
+                      rows="6"
+                      type="text"
+                      placeholder="DELIVERY INSTRUCTIONS FOR DRIVER"
+                      name="dropoff_instructions"
+                      id="dropoff_instructions"
+                      value={newFormData.dropoff_instructions}
+                      onChange={handleInstructionsChange}
+                      maxlength="500"
+                    ></textarea>
 
-                <Summary>
-                  <SummaryTitle>ORDER SUMMARY</SummaryTitle>
-                  <SummaryItem>
-                    <SummaryItemText>Subtotal</SummaryItemText>
-                    <SummaryItemPrice>
-                      $ {cart.subtotal.toFixed(2)}
-                    </SummaryItemPrice>
-                  </SummaryItem>
-                  <SummaryItem>
-                    <SummaryItemText>Delivery Fee</SummaryItemText>
-                    <SummaryItemPrice>$4.99</SummaryItemPrice>
-                  </SummaryItem>
-                  {emptyTip ? (
-                    <SummaryItem>
-                      <SummaryItemText>Tip</SummaryItemText>
-                      <SummaryItemPrice>$ 0</SummaryItemPrice>
-                    </SummaryItem>
-                  ) : (
-                    <SummaryItem>
-                      <SummaryItemText>Tip</SummaryItemText>
-                      <SummaryItemPrice>$ {newFormData.tip}</SummaryItemPrice>
-                    </SummaryItem>
-                  )}
-                  <SummaryItem>
-                    <SummaryItemText>Taxes</SummaryItemText>
-                    <SummaryItemPrice>
-                      $ {cart.taxes.toFixed(2)}
-                    </SummaryItemPrice>
-                  </SummaryItem>
-                  <SummaryItem type="total">
-                    <SummaryItemText>Total</SummaryItemText>
-                    <SummaryItemPrice>
-                      $ {cartTotal.toFixed(2)}
-                    </SummaryItemPrice>
-                  </SummaryItem>
-                </Summary>
+                    <Summary>
+                      <SummaryTitle>ORDER SUMMARY</SummaryTitle>
+                      <SummaryItem>
+                        <SummaryItemText>Subtotal</SummaryItemText>
+                        <SummaryItemPrice>
+                          $ {cart.subtotal.toFixed(2)}
+                        </SummaryItemPrice>
+                      </SummaryItem>
+                      <SummaryItem>
+                        <SummaryItemText>Delivery Fee</SummaryItemText>
+                        <SummaryItemPrice>$4.99</SummaryItemPrice>
+                      </SummaryItem>
+                      {emptyTip ? (
+                        <SummaryItem>
+                          <SummaryItemText>Tip</SummaryItemText>
+                          <SummaryItemPrice>$ 0</SummaryItemPrice>
+                        </SummaryItem>
+                      ) : (
+                        <SummaryItem>
+                          <SummaryItemText>Tip</SummaryItemText>
+                          <SummaryItemPrice>
+                            $ {newFormData.tip}
+                          </SummaryItemPrice>
+                        </SummaryItem>
+                      )}
+                      <SummaryItem>
+                        <SummaryItemText>Taxes</SummaryItemText>
+                        <SummaryItemPrice>
+                          $ {cart.taxes.toFixed(2)}
+                        </SummaryItemPrice>
+                      </SummaryItem>
+                      <SummaryItem type="total">
+                        <SummaryItemText>Total</SummaryItemText>
+                        <SummaryItemPrice>
+                          $ {cartTotal.toFixed(2)}
+                        </SummaryItemPrice>
+                      </SummaryItem>
+                    </Summary>
 
-                <button
-                  className="send-button"
-                  id="submit"
-                  type="submit"
-                  value="SEND"
-                >
-                  <span className="send-text">CONTINUE TO PAYMENT</span>
-                  <BsArrowRight style={{ color: "white" }} />
-                </button>
+                    <button
+                      className="send-button"
+                      id="submit"
+                      type="submit"
+                      value="SEND"
+                    >
+                      <span className="send-text">CONTINUE TO PAYMENT</span>
+                      <BsArrowRight style={{ color: "white" }} />
+                    </button>
+                  </div>
+                </form>
+
+                <div className="bottom-info-container">
+                  <div>Securely processed by Stripe</div>
+                  <div className="copyright">
+                    Tortas Mexico Studio City &copy;2023
+                  </div>
+                </div>
               </div>
-            </form>
+            </ContactFormStyled>
+          ) : (
+            <MinimumText>
+              Delivery subtotal minimum of $11.97 not met. Please add more items
+              to cart.
+            </MinimumText>
+          )}
 
-            <div className="bottom-info-container">
-              <div>Securely processed by Stripe</div>
-              <div className="copyright">
-                Tortas Mexico Studio City &copy;2023
-              </div>
-            </div>
-          </div>
-        </ContactFormStyled>
+          <Footer />
+        </>
       ) : (
-        <MinimumText>
-          Delivery subtotal minimum of $11.97 not met. Please add more items to
-          cart.
-        </MinimumText>
+        <ClosedStore />
       )}
-
-      <Footer />
     </>
   );
 };

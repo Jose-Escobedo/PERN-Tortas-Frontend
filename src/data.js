@@ -419,3 +419,76 @@ export const menuComboItems = [
     value: "HARDSHELL-VEGETARIAN-TACO",
   },
 ];
+
+export const timeIntervals = [
+  {
+    id: 1,
+    option: `ASADA TACO`,
+    value: "ASADA-TACO",
+  },
+  {
+    id: 2,
+    option: `CHICKEN TACO`,
+    value: "CHICKEN-TACO",
+  },
+  {
+    id: 3,
+    option: `SHREDDED CHICKEN TACO`,
+    value: "SHREDDED-CHICKEN-TACO",
+  },
+  {
+    id: 4,
+    option: `PASTOR TACO`,
+    value: "PASTOR-TACO",
+  },
+  {
+    id: 5,
+    option: `LENGUA TACO`,
+    value: "LENGUA-TACO",
+  },
+  {
+    id: 6,
+    option: `CARNITAS TACO`,
+    value: "CARNITAS-TACO",
+  },
+  {
+    id: 7,
+    option: `PICADILLO TACO/GROUND BEEF`,
+    value: "PICADILLO-TACO",
+  },
+  {
+    id: 8,
+    option: `VEGETARIAN TACO`,
+    value: "VEGETARIAN-TACO",
+  },
+  {
+    id: 9,
+    option: `CHILE RELLENO`,
+    value: "CHILE-RELLENO",
+  },
+  {
+    id: 10,
+    option: `CHICKEN TAMAL`,
+    value: "CHICKEN-TAMAL",
+  },
+  {
+    id: 11,
+    option: `QUESO CON RAJAS TAMAL`,
+    value: "QUESO-CON RAJAS-TAMAL",
+  },
+  {
+    id: 12,
+    option: `PORK TAMAL`,
+    value: "PORK-TAMAL",
+  },
+  {
+    id: 13,
+    option: `DULCE TAMAL`,
+    value: "DULCE-TAMAL",
+  },
+  {
+    id: 14,
+    option: `CHEESE ENCHILADA`,
+    value: "CHEESE-ENCHILADA",
+  },
+];

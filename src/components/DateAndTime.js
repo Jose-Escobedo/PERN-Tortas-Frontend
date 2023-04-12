@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import moment from "moment";
+import CustomTimeModal from "./CustomTimeModal";
+import { timeIntervals } from "../data";
+import { FaAngleDoubleDown } from "react-icons/fa";
 
 const DateAndTime = ({ handleDate, handleTime, todaySelect }) => {
   const currentDate = moment().toISOString();
@@ -34,8 +37,16 @@ const DateAndTime = ({ handleDate, handleTime, todaySelect }) => {
   const fThreeHours = moment(threeHours).format("MM.DD. h:mm A");
   const fFourHours = moment(fourHours).format("MM.DD. h:mm A");
 
+  const [openModal, setOpenModal] = useState(false);
+
   return (
     <div>
+      <CustomTimeModal
+        timeIntervals={timeIntervals}
+        open={openModal}
+        close={() => setOpenModal(false)}
+        handleTime={handleTime}
+      />
       <DateTitle>PICKUP TIME (OPTIONAL)</DateTitle>
       <OtherwiseText>
         Otherwise order will be made as soon as possible.
@@ -45,7 +56,6 @@ const DateAndTime = ({ handleDate, handleTime, todaySelect }) => {
           onChange={(e) => handleDate(e)}
           name="selectedDay"
           defaultValue=""
-          required
         >
           <option value="" disabled>
             SELECT A DATE
@@ -64,7 +74,6 @@ const DateAndTime = ({ handleDate, handleTime, todaySelect }) => {
             onChange={(e) => handleTime(e)}
             name="selectedTime"
             defaultValue=""
-            required
           >
             <option value="" disabled>
               SELECT A TIME
@@ -90,7 +99,6 @@ const DateAndTime = ({ handleDate, handleTime, todaySelect }) => {
             onfocus="this.size=3;"
             onblur="this.size=1;"
             onchange="this.size=1; this.blur();"
-            required
           >
             <option value="" disabled>
               SELECT A TIME
@@ -110,6 +118,19 @@ const DateAndTime = ({ handleDate, handleTime, todaySelect }) => {
             <option value="12:30 PM">12:30 PM</option>
             <option value="12:45 PM">12:45 PM</option>
           </select>
+
+          <SelectContainer>
+            <Button
+              id="modalbtntime"
+              className="btn-time"
+              onClick={() => setOpenModal(true)}
+            >
+              <h2 className="time-interval"></h2>
+
+              <FaAngleDoubleDown />
+              <h2 className="time-int faspace">SELECT A TIME</h2>
+            </Button>
+          </SelectContainer>
         </DateTime>
       )}
     </div>
@@ -177,6 +198,55 @@ const DateTime = styled.div`
   }
   option {
     font-size: 1rem;
+  }
+`;
+
+const SelectContainer = styled.div`
+  padding-top: 0;
+  padding-bottom: 20px;
+
+  Button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 0px;
+    border-left: 0px;
+    border-top: 0px;
+    &:hover {
+      border: 1px solid aquamarine;
+      transition: all 0.5s ease-in-out;
+      background-color: black;
+      h2 {
+        color: white;
+      }
+      &:first-child {
+        color: white;
+      }
+    }
+    &:first-child {
+      color: teal;
+      font-size: 1rem;
+    }
+  }
+
+  h2 {
+    color: red;
+    font-size: 1.2rem;
+  }
+  .faspace {
+    padding-left: 7px;
+  }
+`;
+
+const Button = styled.button`
+  padding: 1em;
+  border: 2px solid teal;
+  background-color: white;
+  cursor: pointer;
+  font-weight: 500;
+
+  &:hover {
+    background-color: #f8f4f4;
   }
 `;
 

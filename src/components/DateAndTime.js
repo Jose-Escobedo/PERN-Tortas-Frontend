@@ -4,7 +4,14 @@ import moment from "moment";
 import { timeIntervals, timeIntervalsSunday } from "../data";
 import { FaAngleDoubleDown } from "react-icons/fa";
 
-const DateAndTime = ({ handleDate, handleTime, todaySelect, sundayInt }) => {
+const DateAndTime = ({
+  handleDate,
+  handleTime,
+  todaySelect,
+  sundayInt,
+  nextDay,
+  openStore,
+}) => {
   const currentDate = moment().toISOString();
   const tomorrow = moment(currentDate).add(1, "d").toDate();
   const dayAfterTomorrow = moment(currentDate).add(2, "d").toDate();
@@ -53,7 +60,13 @@ const DateAndTime = ({ handleDate, handleTime, todaySelect, sundayInt }) => {
           <option value="" disabled>
             SELECT A DATE
           </option>
-          <option value="today">TODAY</option>
+          {nextDay ? (
+            <option value={moment(currentDate).add(1, "d").toDate()}>
+              TOMORROW
+            </option>
+          ) : (
+            <option value="today">TODAY</option>
+          )}
           <option value={formattedTomorrow}>{String(formattedTomorrow)}</option>
           <option value={formattedDayAfter}>{String(formattedDayAfter)}</option>
           <option value={fThreeDaysAhead}>{String(fThreeDaysAhead)}</option>
@@ -71,16 +84,28 @@ const DateAndTime = ({ handleDate, handleTime, todaySelect, sundayInt }) => {
             <option value="" disabled>
               SELECT A TIME
             </option>
-            <option value={fFifteenMinutes}>{String(fFifteenMinutes)}</option>
-            <option value={fThirtyMinutes}>{String(fThirtyMinutes)}</option>
-            <option value={fFortyfiveMinutes}>
-              {String(fFortyfiveMinutes)}
-            </option>
-            <option value={fOneHour}>{String(fOneHour)}</option>
-            <option value={fOneHourThirty}>{String(fOneHourThirty)}</option>
-            <option value={fTwoHours}>{String(fTwoHours)}</option>
-            <option value={fThreeHours}>{String(fThreeHours)}</option>
-            <option value={fFourHours}>{String(fFourHours)}</option>
+            {openStore ? (
+              <>
+                <option value={fFifteenMinutes}>
+                  {String(fFifteenMinutes)}
+                </option>
+                <option value={fThirtyMinutes}>{String(fThirtyMinutes)}</option>
+                <option value={fFortyfiveMinutes}>
+                  {String(fFortyfiveMinutes)}
+                </option>
+                <option value={fOneHour}>{String(fOneHour)}</option>
+                <option value={fOneHourThirty}>{String(fOneHourThirty)}</option>
+                <option value={fTwoHours}>{String(fTwoHours)}</option>
+                <option value={fThreeHours}>{String(fThreeHours)}</option>
+                <option value={fFourHours}>{String(fFourHours)}</option>
+              </>
+            ) : (
+              <>
+                {timeIntervalsSunday.map((interval) => (
+                  <option value={interval.value}>{interval.option}</option>
+                ))}
+              </>
+            )}
           </select>
         </DateTime>
       ) : (

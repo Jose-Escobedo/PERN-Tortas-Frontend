@@ -37,6 +37,7 @@ const PickupInfo = () => {
 
   const [todaySelect, setTodaySelect] = useState();
   const [sundayInt, setSundayInt] = useState(false);
+  const [nextDay, setNextDay] = useState();
 
   const d = new Date();
   const n = d.getDay();
@@ -72,6 +73,12 @@ const PickupInfo = () => {
       console.log(now);
       console.log(new Date());
       setOpenStore(false);
+    }
+
+    if (now > day[2]) {
+      setNextDay(true);
+    } else {
+      setNextDay(false);
     }
   }, []);
 
@@ -474,6 +481,8 @@ const PickupInfo = () => {
                       handleTime={handleTime}
                       todaySelect={todaySelect}
                       sundayInt={sundayInt}
+                      nextDay={nextDay}
+                      openStore={openStore}
                     />
                   </DateTimeWrapper>
 

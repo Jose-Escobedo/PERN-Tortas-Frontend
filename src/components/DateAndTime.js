@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import moment from "moment";
-import { timeIntervals } from "../data";
+import { timeIntervals, timeIntervalsSunday } from "../data";
 import { FaAngleDoubleDown } from "react-icons/fa";
 
-const DateAndTime = ({ handleDate, handleTime, todaySelect }) => {
+const DateAndTime = ({ handleDate, handleTime, todaySelect, sundayInt }) => {
   const currentDate = moment().toISOString();
   const tomorrow = moment(currentDate).add(1, "d").toDate();
   const dayAfterTomorrow = moment(currentDate).add(2, "d").toDate();
@@ -93,9 +93,13 @@ const DateAndTime = ({ handleDate, handleTime, todaySelect }) => {
             <option value="" disabled>
               SELECT A TIME
             </option>
-            {timeIntervals.map((interval) => (
-              <option value={interval.value}>{interval.option}</option>
-            ))}
+            {sundayInt
+              ? timeIntervalsSunday.map((interval) => (
+                  <option value={interval.value}>{interval.option}</option>
+                ))
+              : timeIntervals.map((interval) => (
+                  <option value={interval.value}>{interval.option}</option>
+                ))}
           </select>
         </DateTime>
       )}

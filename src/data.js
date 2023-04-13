@@ -647,3 +647,216 @@ export const timeIntervals = [
     value: "8:30 PM",
   },
 ];
+
+export const timeIntervalsSunday = [
+  {
+    id: 4,
+    option: `10:15 AM`,
+    value: "10:15 AM",
+  },
+  {
+    id: 5,
+    option: `10:30 AM`,
+    value: "10:30 AM",
+  },
+  {
+    id: 6,
+    option: `10:45 AM`,
+    value: "10:45 AM",
+  },
+  {
+    id: 7,
+    option: `11:00 AM`,
+    value: "11:00 AM",
+  },
+  {
+    id: 8,
+    option: `11:15 AM`,
+    value: "11:15 AM",
+  },
+  {
+    id: 9,
+    option: `11:30 AM`,
+    value: "11:30 AM",
+  },
+  {
+    id: 10,
+    option: `11:45 AM`,
+    value: "11:45 AM",
+  },
+  {
+    id: 11,
+    option: `12:00 PM`,
+    value: "12:00 PM",
+  },
+  {
+    id: 12,
+    option: `12:15 PM`,
+    value: "12:15 PM",
+  },
+  {
+    id: 13,
+    option: `12:30 PM`,
+    value: "12:30 PM",
+  },
+  {
+    id: 14,
+    option: `12:45 PM`,
+    value: "12:45 PM",
+  },
+  {
+    id: 15,
+    option: `1:00 PM`,
+    value: "1:00 PM",
+  },
+  {
+    id: 16,
+    option: `1:15 PM`,
+    value: "1:15 PM",
+  },
+  {
+    id: 17,
+    option: `1:30 PM`,
+    value: "1:30 PM",
+  },
+  {
+    id: 18,
+    option: `1:45 PM`,
+    value: "1:45 PM",
+  },
+  {
+    id: 19,
+    option: `2:00 PM`,
+    value: "2:00 PM",
+  },
+  {
+    id: 20,
+    option: `2:15 PM`,
+    value: "2:15 PM",
+  },
+  {
+    id: 21,
+    option: `2:30 PM`,
+    value: "2:30 PM",
+  },
+  {
+    id: 22,
+    option: `2:45 PM`,
+    value: "2:45 PM",
+  },
+  {
+    id: 23,
+    option: `3:00 PM`,
+    value: "3:00 PM",
+  },
+  {
+    id: 24,
+    option: `3:15 PM`,
+    value: "3:15 PM",
+  },
+  {
+    id: 25,
+    option: `3:30 PM`,
+    value: "3:30 PM",
+  },
+  {
+    id: 26,
+    option: `3:45 PM`,
+    value: "3:45 PM",
+  },
+  {
+    id: 27,
+    option: `4:00 PM`,
+    value: "4:00 PM",
+  },
+  {
+    id: 28,
+    option: `4:15 PM`,
+    value: "4:15 PM",
+  },
+  {
+    id: 29,
+    option: `4:30 PM`,
+    value: "4:30 PM",
+  },
+  {
+    id: 30,
+    option: `4:45 PM`,
+    value: "4:45 PM",
+  },
+  {
+    id: 31,
+    option: `5:00 PM`,
+    value: "5:00 PM",
+  },
+  {
+    id: 32,
+    option: `5:15 PM`,
+    value: "5:15 PM",
+  },
+  {
+    id: 33,
+    option: `5:30 PM`,
+    value: "5:30 PM",
+  },
+  {
+    id: 34,
+    option: `5:45 PM`,
+    value: "5:45 PM",
+  },
+  {
+    id: 35,
+    option: `6:00 PM`,
+    value: "6:00 PM",
+  },
+  {
+    id: 36,
+    option: `6:15 PM`,
+    value: "6:15 PM",
+  },
+  {
+    id: 37,
+    option: `6:30 PM`,
+    value: "6:30 PM",
+  },
+  {
+    id: 38,
+    option: `6:45 PM`,
+    value: "6:45 PM",
+  },
+  {
+    id: 39,
+    option: `7:00 PM`,
+    value: "7:00 PM",
+  },
+  {
+    id: 40,
+    option: `7:15 PM`,
+    value: "7:15 PM",
+  },
+  {
+    id: 41,
+    option: `7:30 PM`,
+    value: "7:30 PM",
+  },
+  {
+    id: 42,
+    option: `7:45 PM`,
+    value: "7:45 PM",
+  },
+  {
+    id: 43,
+    option: `8:00 PM`,
+    value: "8:00 PM",
+  },
+  {
+    id: 44,
+    option: `8:15 PM`,
+    value: "8:15 PM",
+  },
+  {
+    id: 45,
+    option: `8:30 PM`,
+    value: "8:30 PM",
+  },
+];

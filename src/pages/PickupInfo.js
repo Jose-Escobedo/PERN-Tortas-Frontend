@@ -36,6 +36,7 @@ const PickupInfo = () => {
   const [openStore, setOpenStore] = useState();
 
   const [todaySelect, setTodaySelect] = useState();
+  const [sundayInt, setSundayInt] = useState(false);
 
   const d = new Date();
   const n = d.getDay();
@@ -81,6 +82,19 @@ const PickupInfo = () => {
       setTodaySelect(false);
     }
   }, [dateAndTime]);
+
+  useEffect(() => {
+    let isoDate = dateAndTime.pickupDate;
+    let isoMomentDate = moment(isoDate).toISOString();
+    console.log(moment(isoMomentDate).day());
+
+    if (moment(isoMomentDate).day() === 0) {
+      setSundayInt(true);
+      console.log("sunday int", sundayInt);
+    } else {
+      setSundayInt(false);
+    }
+  }, [dateAndTime.pickupDate]);
 
   const handleDate = (e) => {
     e.preventDefault();
@@ -459,6 +473,7 @@ const PickupInfo = () => {
                       handleDate={handleDate}
                       handleTime={handleTime}
                       todaySelect={todaySelect}
+                      sundayInt={sundayInt}
                     />
                   </DateTimeWrapper>
 

@@ -106,9 +106,7 @@ const RecentOrder = () => {
               {`NAME: ${recentOrder?.dropoff_contact_given_name.toUpperCase()}`}
             </AdminOrderName>
             <AdminOrderTime>
-              {`ORDER CREATED AT: ${moment(recentOrder?.createdAt)
-                .add("00:27", "HH:mm")
-                .format("MM.DD. h:mm A")}`}
+              {`ORDER CREATED AT: ${moment(recentOrder?.createdAt)}`}
             </AdminOrderTime>
             <AdminOrderAddress>{recentOrder?.address}</AdminOrderAddress>
             {pickupObj ? (
@@ -116,6 +114,13 @@ const RecentOrder = () => {
             ) : (
               <h2 id="pickupobj">DELIVERY</h2>
             )}
+
+            {pickupObj ? (
+              <>
+                <h2>PICKUP DATE: {recentOrder?.pickup_date.toUpperCase()}</h2>
+                <h2>PICKUP TIME: {recentOrder?.pickup_time.toUpperCase()}</h2>
+              </>
+            ) : null}
 
             <AdminOrderPrepTime onClick={handlePrepTime}>
               <button value={0}>NOW</button>
@@ -162,6 +167,9 @@ const AdminOrderContainer = styled.div`
   min-height: 30vh;
   border: 1px solid black;
   width: 100%;
+  #pickupobj {
+    padding-bottom: 20px;
+  }
 `;
 const AdminOrderWrapper = styled.div`
   display: flex;

@@ -34,10 +34,8 @@ const PickupInfo = () => {
   const [cartTotal, setCartTotal] = useState(cart.total);
   const [emptyTip, setEmptyTip] = useState();
   const [openStore, setOpenStore] = useState();
-  const [dateAndTime, setDateAndTime] = useState(blankDateTime);
-  const [todaySelect, setTodaySelect] = useState();
 
-  const { pickupDate, pickupTime } = blankDateTime;
+  const [todaySelect, setTodaySelect] = useState();
 
   const d = new Date();
   const n = d.getDay();
@@ -52,6 +50,15 @@ const PickupInfo = () => {
     ["Saturday", 9.3, 20.3], // we are closed, sorry!
   ];
   const day = weekdays[n];
+
+  const blankDateTime = {
+    pickupDate: "",
+    pickupTime: "",
+  };
+
+  const [dateAndTime, setDateAndTime] = useState(blankDateTime);
+
+  const { pickupDate, pickupTime } = dateAndTime;
 
   useEffect(() => {
     if (now > day[1] && now < day[2]) {
@@ -76,6 +83,7 @@ const PickupInfo = () => {
   }, [dateAndTime]);
 
   const handleDate = (e) => {
+    e.preventDefault();
     setDateAndTime({
       ...dateAndTime,
       pickupDate: e.target.value,
@@ -84,6 +92,7 @@ const PickupInfo = () => {
   };
 
   const handleTime = (e) => {
+    e.preventDefault();
     setDateAndTime({
       ...dateAndTime,
       pickupTime: e.target.value,
@@ -202,6 +211,8 @@ const PickupInfo = () => {
         address: "11040 Ventura Blvd Studio City, CA 91604",
         tip: newFormData.tip,
         pickup_instructions: newFormData.pickup_instructions,
+        pickup_date: dateAndTime.pickupDate,
+        pickup_time: dateAndTime.pickupTime,
         taxes: cart.taxes,
         pickup: true,
         totalWithTip: (cartTotal.toFixed(2) - 4.99).toFixed(2),
@@ -232,6 +243,8 @@ const PickupInfo = () => {
         address: "11040 Ventura Blvd Studio City, CA 91604",
         tip: newFormData.tip,
         pickup_instructions: newFormData.pickup_instructions,
+        pickup_date: dateAndTime.pickupDate,
+        pickup_time: dateAndTime.pickupTime,
         taxes: cart.taxes,
         pickup: true,
         totalWithTip: (cartTotal.toFixed(2) - 4.99).toFixed(2),

@@ -5,6 +5,8 @@ import { useState } from "react";
 import { login } from "../redux/apiCalls";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { AiOutlineClose } from "react-icons/ai";
+import { Link } from "react-router-dom";
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -92,6 +94,13 @@ const Register = () => {
   return (
     <Container>
       <Wrapper>
+        <Link
+          to="/"
+          id="close"
+          style={{ textDecoration: "none", color: "black" }}
+        >
+          <AiOutlineClose />
+        </Link>
         <Title>CREATE AN ACCOUNT</Title>
         <Form onSubmit={handleFormSubmit}>
           <Input
@@ -168,6 +177,10 @@ const Wrapper = styled.div`
   width: 40%;
   padding: 20px;
   background-color: white;
+  #close {
+    font-size: 2rem;
+    cursor: pointer;
+  }
   ${mobile({ width: "75%" })}
 `;
 const Form = styled.form`

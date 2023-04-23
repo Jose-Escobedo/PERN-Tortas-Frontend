@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { AiOutlineClose } from "react-icons/ai";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -27,6 +29,13 @@ const Login = () => {
   return (
     <Container>
       <Wrapper>
+        <Link
+          to="/"
+          id="close"
+          style={{ textDecoration: "none", color: "black" }}
+        >
+          <AiOutlineClose />
+        </Link>
         <Title>SIGN IN</Title>
         <Form>
           <Input
@@ -42,8 +51,8 @@ const Login = () => {
             LOGIN
           </Button>
           {error && <Error>Wrong Credentials...</Error>}
-          <Link>FORGOT PASSWORD?</Link>
-          <Link>CREATE A NEW ACCOUNT</Link>
+          <Linka>FORGOT PASSWORD?</Linka>
+          <Linka>CREATE A NEW ACCOUNT</Linka>
         </Form>
       </Wrapper>
     </Container>
@@ -67,6 +76,10 @@ const Wrapper = styled.div`
   width: 25%;
   padding: 20px;
   background-color: white;
+  #close {
+    font-size: 2rem;
+    cursor: pointer;
+  }
   ${mobile({ width: "75%" })}
 `;
 const Form = styled.form`
@@ -98,7 +111,7 @@ const Button = styled.button`
   }
 `;
 
-const Link = styled.a`
+const Linka = styled.a`
   margin: 5px 0px;
   font-size: 1rem;
   text-decoration: underline;

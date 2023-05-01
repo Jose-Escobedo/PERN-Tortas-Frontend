@@ -7,9 +7,11 @@ import ArrowLeftOutlined from "@material-ui/icons/ArrowLeftOutlined";
 import ArrowRightOutlined from "@material-ui/icons/ArrowRightOutlined";
 import { mobile } from "../responsive";
 import { menuCatArray1, menuCatArray2, menuCatArray3 } from "../data";
+import { BsChevronDoubleDown } from "react-icons/bs";
 
 const MenuGridList = ({ items }) => {
-  const [toggle, setToggle] = useState(true);
+  const [toggle, setToggle] = useState(false);
+  const [showMenu, setShowMenu] = useState("none");
   const [category, setCategory] = useState("All");
   const [products, setProducts] = useState();
   const [filteredItems, setFilteredItems] = useState(products);
@@ -17,6 +19,9 @@ const MenuGridList = ({ items }) => {
   const active = { backgroundColor: "black", opacity: "0.8", color: "white" };
   const inactive = {};
   const [selected, setSelected] = useState(0);
+
+  const arr = [menuCatArray1, menuCatArray2, menuCatArray3];
+  const MenuCatArray = arr.flat();
 
   useEffect(() => {
     const getProduct = async () => {
@@ -39,6 +44,8 @@ const MenuGridList = ({ items }) => {
     setCategory(e.target.value);
     console.log(category);
     setSelected(e.target.id);
+    onToggle();
+    onShowMenu();
   };
 
   const handleFilter = (cat) => {
@@ -53,6 +60,11 @@ const MenuGridList = ({ items }) => {
     setToggle(!toggle);
   };
 
+  const onShowMenu = () => {
+    onToggle();
+    setShowMenu(showMenu === "none" ? "Flex" : "none");
+  };
+
   const handleMenuArrowClick = (direction) => {
     if (direction === "left") {
       setSlideIndex(slideIndex > 0 ? slideIndex - 1 : 2);
@@ -64,10 +76,38 @@ const MenuGridList = ({ items }) => {
   return (
     <>
       <MenuCatContainer>
-        <Arrow direction="left" onClick={() => handleMenuArrowClick("left")}>
+        <MenuCatMobileList id="mobileCat" showMenu={showMenu}>
+          <MenuCatLinkMobileWrap id="mobileWrap">
+            {MenuCatArray.map((item, index) => {
+              return (
+                <MobileMenuCatLink
+                  className="mobileCatLink"
+                  style={selected == item.id ? active : inactive}
+                  onClick={handleCatSelection}
+                  value={item.value}
+                  id={item.id}
+                >
+                  {item.option}
+                </MobileMenuCatLink>
+              );
+            })}
+          </MenuCatLinkMobileWrap>
+          <ArrowDown>
+            <BsChevronDoubleDown
+              onClick={onShowMenu}
+              style={{ cursor: "pointer", width: "100%", fontSize: "45px" }}
+            />
+          </ArrowDown>
+        </MenuCatMobileList>
+
+        <Arrow
+          id="arrrowleft"
+          direction="left"
+          onClick={() => handleMenuArrowClick("left")}
+        >
           <ArrowLeftOutlined />
         </Arrow>
-        <MenuCategoryList slideIndex={slideIndex}>
+        <MenuCategoryList id="menu-list" slideIndex={slideIndex}>
           <MenuCatLinkWrapper id="list1">
             {menuCatArray1.map((item, index) => {
               return (
@@ -149,7 +189,99 @@ const MenuCatContainer = styled.div`
   position: relative;
   background-color: #fcf5f5;
   overflow: hidden;
-  ${mobile({ display: "none" })}
+  #mobileCat {
+    display: none;
+  }
+  @media screen and (max-width: 1220px) {
+    position: inherit;
+    overflow: auto;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    #mobileCat {
+      display: block;
+    }
+    #menu-list {
+      display: none;
+    }
+    #list1 {
+      display: none;
+    }
+    #list2 {
+      display: none;
+    }
+    #list3 {
+      display: none;
+    }
+    #arrowleft {
+      display: none;
+    }
+  }
+`;
+
+const MenuCatLinkMobileWrap = styled.div`
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  display: none;
+
+  @media screen and (max-width: 1220px) {
+    display: flex;
+    padding-bottom: 20px;
+  }
+`;
+
+const MenuCatMobileList = styled.div`
+  width: 80%;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  display: none;
+
+  @media screen and (max-width: 1220px) {
+    display: flex;
+    .mobileCatLink:not(:first-child) {
+      display: ${(props) => props.showMenu};
+    }
+  }
+`;
+const MobileMenuCatLink = styled.button`
+  color: black;
+  font-size: 1.3rem;
+  text-decoration: none;
+  padding: 1em 1em;
+  border: none;
+  cursor: pointer;
+  transition: 0.2s all ease-in-out;
+  background-color: white;
+
+  &:hover {
+    outline: 1px white solid;
+    color: white;
+    outline-offset: -2px;
+    background-color: black;
+    opacity: 0.8;
+  }
+
+  &:active {
+    outline: 1px white solid;
+    color: white;
+    outline-offset: -2px;
+    background-color: black;
+  }
+
+  @media screen and (max-width: 1220px) {
+    width: 80%;
+  }
+`;
+
+const ArrowDown = styled.div`
+  display: none;
+
+  @media screen and (max-width: 1220px) {
+    display: block;
+  }
 `;
 
 const MenuItemsGrid = styled.div`
@@ -176,6 +308,18 @@ const MenuCategoryList = styled.div`
   justify-content: center;
   transition: all 0.5s cubic-bezier(0.445, 0.05, 0.55, 0.95);
   transform: translateX(${(props) => props.slideIndex * -100}vw);
+
+  @media screen and (max-width: 1220px) {
+    #list1 {
+      display: none;
+    }
+    #list2 {
+      display: none;
+    }
+    #list3 {
+      display: none;
+    }
+  }
   #list1 {
     width: 100%;
   }
@@ -225,16 +369,6 @@ const MenuCatLink = styled.button`
     outline-offset: -2px;
     background-color: black;
   }
-
-  @media screen and (max-width: 925px) {
-    font-size: 1rem;
-    padding: 0 0.5rem;
-  }
-
-  @media screen and (max-width: 840px) {
-    font-size: 0.9rem;
-    padding: 0 0.5rem;
-  }
 `;
 
 const Arrow = styled.div`
@@ -255,6 +389,9 @@ const Arrow = styled.div`
   cursor: pointer;
   opacity: 0.8;
   z-index: 2;
+  @media screen and (max-width: 1220px) {
+    display: none;
+  }
 `;
 
 const MenuContainerBox = styled.div`

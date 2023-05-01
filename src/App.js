@@ -19,6 +19,7 @@ import InsufficientPickupSubtotal from "./pages/InsufficientPickupSubtotal";
 import Accessibility from "./pages/Accessibility";
 import RecentOrder from "./pages/admin/RecentOrder";
 import Error404 from "./pages/Error404";
+import Menu from "./pages/Menu";
 
 function App() {
   const user = useSelector((state) => state.user.currentUser);
@@ -38,6 +39,7 @@ function App() {
         ) : null}
         <Route exact path="/" element={<Home />} />
         <Route exact path="/cart" element={<Cart />} />
+        <Route exact path="/menu" element={<Menu />} />
         <Route
           exact
           path="/login"

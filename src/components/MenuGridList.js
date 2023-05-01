@@ -95,7 +95,7 @@ const MenuGridList = ({ items }) => {
           <ArrowDown>
             <BsChevronDoubleDown
               onClick={onShowMenu}
-              style={{ cursor: "pointer", width: "100%", fontSize: "45px" }}
+              style={{ cursor: "pointer", width: "auto", fontSize: "45px" }}
             />
           </ArrowDown>
         </MenuCatMobileList>
@@ -278,9 +278,11 @@ const MobileMenuCatLink = styled.button`
 
 const ArrowDown = styled.div`
   display: none;
+  width: 100%;
+  justify-content: center;
 
   @media screen and (max-width: 1220px) {
-    display: block;
+    display: flex;
   }
 `;
 

@@ -42,49 +42,52 @@ const Slider = () => {
   };
 
   return (
-    <Container>
-      <Arrow direction="left" onClick={() => handleClick("left")}>
-        <ArrowLeftOutlined />
-      </Arrow>
-      <Wrapper slideIndex={slideIndex}>
-        {SliderItems.map((item) => (
-          <Slide bg={item.bg} key={item.id}>
-            <ImgContainer>
-              <Image src={item.img} />
-            </ImgContainer>
-            <InfoContainer>
-              <Title>{item.title}</Title>
-              <Desc>{item.desc}</Desc>
-              <div className="container">
-                <div className="center">
-                  <Button onClick={() => handleOrderNow(item)}>
-                    Order Now
-                    <svg
-                      width="180px"
-                      height="60px"
-                      viewBox="0 0 180 60"
-                      class="border"
-                    >
-                      <polyline
-                        points="179,1 179,59 1,59 1,1 179,1"
-                        class="bg-line"
-                      />
-                      <polyline
-                        points="179,1 179,59 1,59 1,1 179,1"
-                        class="hl-line"
-                      />
-                    </svg>
-                  </Button>
+    <>
+      <MobileLandingSection></MobileLandingSection>
+      <Container>
+        <Arrow direction="left" onClick={() => handleClick("left")}>
+          <ArrowLeftOutlined />
+        </Arrow>
+        <Wrapper slideIndex={slideIndex}>
+          {SliderItems.map((item) => (
+            <Slide bg={item.bg} key={item.id}>
+              <ImgContainer>
+                <Image src={item.img} />
+              </ImgContainer>
+              <InfoContainer>
+                <Title>{item.title}</Title>
+                <Desc>{item.desc}</Desc>
+                <div className="container">
+                  <div className="center">
+                    <Button onClick={() => handleOrderNow(item)}>
+                      Order Now
+                      <svg
+                        width="180px"
+                        height="60px"
+                        viewBox="0 0 180 60"
+                        class="border"
+                      >
+                        <polyline
+                          points="179,1 179,59 1,59 1,1 179,1"
+                          class="bg-line"
+                        />
+                        <polyline
+                          points="179,1 179,59 1,59 1,1 179,1"
+                          class="hl-line"
+                        />
+                      </svg>
+                    </Button>
+                  </div>
                 </div>
-              </div>
-            </InfoContainer>
-          </Slide>
-        ))}
-      </Wrapper>
-      <Arrow direction="right" onClick={() => handleClick("right")}>
-        <ArrowRightOutlined />
-      </Arrow>
-    </Container>
+              </InfoContainer>
+            </Slide>
+          ))}
+        </Wrapper>
+        <Arrow direction="right" onClick={() => handleClick("right")}>
+          <ArrowRightOutlined />
+        </Arrow>
+      </Container>
+    </>
   );
 };
 
@@ -94,7 +97,18 @@ const Container = styled.div`
   display: flex;
   position: relative;
   overflow: hidden;
-  ${mobile({ display: "none" })}
+  @media screen and (max-width: 950px) {
+    display: none;
+  }
+`;
+
+const MobileLandingSection = styled.div`
+  display: none;
+  width: 100%;
+  height: 100vh;
+  @media screen and (max-width: 950px) {
+    display: flex;
+  }
 `;
 
 const Arrow = styled.div`

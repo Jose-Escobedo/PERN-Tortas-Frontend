@@ -255,6 +255,7 @@ const MobileMenuCatLink = styled.button`
   cursor: pointer;
   transition: 0.2s all ease-in-out;
   background-color: white;
+  border: 1px solid black;
 
   &:hover {
     outline: 1px white solid;
@@ -298,6 +299,12 @@ const MenuItemsGrid = styled.div`
   gap: 20px;
   grid-auto-rows: minmax(100px, auto);
   padding: 2em 2em;
+  @media screen and (max-width: 1220px) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
 `;
 
 const MenuCategoryList = styled.div`

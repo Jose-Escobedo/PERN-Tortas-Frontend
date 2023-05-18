@@ -13,6 +13,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { AiOutlineClose } from "react-icons/ai";
 import { useLocation } from "react-router-dom";
 import { sidebarData } from "../sidebarData";
+import { sidebarDataLoggedIn } from "../sidebarData";
 
 const Navbar = () => {
   const user = useSelector((state) => state.user.currentUser);
@@ -74,7 +75,7 @@ const Navbar = () => {
                 </NavItem>
               ) : null}
 
-              <NavItem id="order-btn">
+              {/* <NavItem id="order-btn">
                 <OrderButton>
                   <Link
                     to="/orders"
@@ -87,10 +88,10 @@ const Navbar = () => {
                     MY ORDERS
                   </Link>
                 </OrderButton>
-              </NavItem>
-              <NavItem id="logout-btn">
+              </NavItem> */}
+              {/* <NavItem id="logout-btn">
                 <Button onClick={handleClick}>LOGOUT</Button>
-              </NavItem>
+              </NavItem> */}
             </>
           ) : (
             <>
@@ -108,22 +109,22 @@ const Navbar = () => {
                 </NavItem>
               ) : null}
 
-              <NavItem id="register-btn">
+              {/* <NavItem id="register-btn">
                 <Link
                   to="/register"
                   style={{ textDecoration: "none", color: "black" }}
                 >
                   REGISTER
                 </Link>
-              </NavItem>
-              <NavItem id="login-btn">
+              </NavItem> */}
+              {/* <NavItem id="login-btn">
                 <Link
                   to="/login"
                   style={{ textDecoration: "none", color: "black" }}
                 >
                   SIGN IN
                 </Link>
-              </NavItem>
+              </NavItem> */}
             </>
           )}
 
@@ -155,16 +156,43 @@ const Navbar = () => {
                   <AiOutlineClose />
                 </Link>
               </li>
-              {sidebarData.map((item, index) => {
-                return (
-                  <li key={index} className={item.cName}>
-                    <Link to={item.path}>
-                      {item.icon}
-                      <span>{item.title}</span>
-                    </Link>
-                  </li>
-                );
-              })}
+              {user ? (
+                <>
+                  {sidebarDataLoggedIn.map((item, index) => {
+                    if (item.title === "Logout") {
+                      return (
+                        <li key={index} className={item.cName}>
+                          <ButtonLogout id="logout-btn" onClick={handleClick}>
+                            {item.icon}
+                            <span>{item.title}</span>
+                          </ButtonLogout>
+                        </li>
+                      );
+                    }
+                    return (
+                      <li key={index} className={item.cName}>
+                        <Link to={item.path}>
+                          {item.icon}
+                          <span>{item.title}</span>
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </>
+              ) : (
+                <>
+                  {sidebarData.map((item, index) => {
+                    return (
+                      <li key={index} className={item.cName}>
+                        <Link to={item.path}>
+                          {item.icon}
+                          <span>{item.title}</span>
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </>
+              )}
             </ul>
           </NavItemBurger>
         </Right>
@@ -217,6 +245,16 @@ const Button = styled.button`
   color: white;
   margin-bottom: 10px;
   cursor: pointer;
+`;
+
+const ButtonLogout = styled.a`
+  font-size: 1rem;
+  color: white;
+  cursor: pointer;
+  ${mobile({ fontSize: "12px", marginRight: "25px", marginLeft: "10px" })}
+  @media screen and (max-width: 1238px) {
+    font-size: 1rem;
+  }
 `;
 
 const OrderButton = styled.button`
@@ -367,11 +405,12 @@ const Right = styled.div`
   }
 
   #hamburger {
-    display: none;
+    display: block;
+    color: black;
   }
   @media screen and (max-width: 1168px) {
     //hamburger and cart
-    #hamburger {
+    /* #hamburger {
       display: block;
       color: black;
     }
@@ -380,13 +419,13 @@ const Right = styled.div`
     }
     #order-btn {
       display: none;
-    }
+    } */
     #menu-btn {
       display: none;
     }
-    #register-btn {
+    /* #register-btn {
       display: none;
-    }
+    } */
   }
 `;
 

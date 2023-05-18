@@ -15,6 +15,12 @@ export const sidebarData = [
     cName: "nav-text",
   },
   {
+    title: "Order LookUp",
+    path: "/order-lookup",
+    icon: <MdIcons.MdSearch />,
+    cName: "nav-text",
+  },
+  {
     title: "Login",
     path: "/login",
     icon: <MdIcons.MdLogin />,
@@ -41,8 +47,20 @@ export const sidebarDataLoggedIn = [
     cName: "nav-text",
   },
   {
+    title: "My Orders",
+    path: "/orders",
+    icon: <MdIcons.MdOutlineFastfood />,
+    cName: "nav-text",
+  },
+  {
+    title: "Order Lookup",
+    path: "/order-lookup",
+    icon: <MdIcons.MdSearch />,
+    cName: "nav-text",
+  },
+  {
     title: "Logout",
-    path: "/login",
+    path: "/logout",
     icon: <MdIcons.MdLogout />,
     cName: "nav-text",
   },

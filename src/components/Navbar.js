@@ -204,7 +204,7 @@ const Navbar = () => {
 const Container = styled.div`
   height: 60px;
   padding-bottom: 2em;
-  z-index: 5;
+  z-index: 7;
   background: white;
   border-bottom: 1px solid black;
   position: fixed;

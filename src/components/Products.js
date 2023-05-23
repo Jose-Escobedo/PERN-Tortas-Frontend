@@ -80,6 +80,12 @@ const Container = styled.div`
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
   grid-auto-rows: minmax(100px, auto);
+  @media screen and (max-width: 1115px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media screen and (max-width: 750px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 `;
 
 const CategoryContainer = styled.div`

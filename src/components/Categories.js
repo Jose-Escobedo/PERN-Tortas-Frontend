@@ -17,7 +17,9 @@ const Container = styled.div`
   display: flex;
   padding: 1.3rem;
   justify-content: space-between;
-  ${mobile({ padding: "0px", flexDirection: "column" })}
+  @media screen and (max-width: 672px) {
+    flex-direction: column;
+  }
 `;
 
 export default Categories;

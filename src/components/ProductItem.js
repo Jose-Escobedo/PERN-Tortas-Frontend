@@ -93,6 +93,12 @@ const Container = styled.div`
   &:hover ${Info} {
     opacity: 1;
   }
+  @media screen and (max-width: 750px) {
+    grid-template-columns: repeat(1, 1fr);
+    &:nth-child(even) {
+      display: none;
+    }
+  }
 `;
 
 const Circle = styled.div`

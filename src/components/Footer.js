@@ -86,15 +86,21 @@ const Footer = () => {
 
 const Container = styled.div`
   display: flex;
-  ${mobile({ flexDirection: "column" })}
   border-top: 1px solid black;
   background-color: white;
+  @media screen and (max-width: 760px) {
+    flex-direction: column;
+  }
 `;
 const Left = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
   padding: 1.3em;
+  @media screen and (max-width: 760px) {
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 const AccessibilityLink = styled(Link)`
@@ -128,7 +134,12 @@ const SocialIcon = styled.div`
 const Right = styled.div`
   flex: 1;
   padding: 1.3em;
-  ${mobile({ backgroundColor: "#fff8f8" })}
+  @media screen and (max-width: 760px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
 `;
 
 const ContactItem = styled.div`
@@ -141,6 +152,9 @@ const ContactItem = styled.div`
     padding: 0;
     display: flex;
     align-items: center;
+  }
+  @media screen and (max-width: 760px) {
+    justify-content: center;
   }
 `;
 
@@ -157,6 +171,9 @@ const List = styled.ul`
   list-style: none;
   display: flex;
   flex-wrap: wrap;
+  @media screen and (max-width: 760px) {
+    text-align: center;
+  }
 `;
 
 const ListItem = styled.li`
@@ -168,7 +185,9 @@ const ListItem = styled.li`
 const Center = styled.div`
   flex: 1;
   padding: 1.3em;
-  ${mobile({ display: "none" })}
+  @media screen and (max-width: 760px) {
+    display: none;
+  }
 `;
 
 export default Footer;

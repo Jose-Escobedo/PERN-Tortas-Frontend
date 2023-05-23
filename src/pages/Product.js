@@ -784,9 +784,11 @@ const Product = () => {
       {generic ? (
         <NoImageWrapper>
           <NoImageInfoContainer>
-            <Title>{product.name}</Title>
-            <Desc>{product.desc}</Desc>
-            <Price>$ {productPrice}</Price>
+            <TitleDescPrice>
+              <Title>{product.name}</Title>
+              <Desc>{product.desc}</Desc>
+              <Price>$ {productPrice}</Price>
+            </TitleDescPrice>
             <NoImageFilterContainer>
               <NoImageFilter>
                 {comboCheck ? (
@@ -1136,6 +1138,7 @@ const StyledToastContainer = styled(ToastContainer).attrs({
 
 const Container = styled.div`
   margin-top: 70px;
+  overflow: hidden;
 `;
 const Wrapper = styled.div`
   padding: 50px;
@@ -1169,17 +1172,36 @@ const NoImageWrapper = styled.div`
   align-items: center;
   width: 100%;
   @media screen and (max-width: 1280px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     flex-direction: column;
-    padding: 20px;
+    padding: 20px 0;
+    max-width: 100%;
+    p {
+      width: 50%;
+    }
   }
-  @media screen and (max-width: 660px) {
-    padding: 10px;
+  @media screen and (max-width: 500px) {
+    p {
+      font-size: 0.8rem;
+    }
   }
 `;
 
 const SelectContainer = styled.div`
   padding-top: 0;
   padding-bottom: 20px;
+  @media screen and (max-width: 1280px) {
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+  }
+  @media screen and (max-width: 550px) {
+    width: 100%;
+    padding: 10px;
+  }
 
   Button {
     display: flex;
@@ -1230,6 +1252,10 @@ const SelectContainer = styled.div`
     border-top: none;
     border-right: none;
     border-left: none;
+    @media screen and (max-width: 550px) {
+      width: 80%;
+      padding: 10px;
+    }
   }
   option {
   }
@@ -1259,7 +1285,10 @@ const GenericImage = styled.img`
 
 const NoImageInfoContainer = styled.div`
   width: 35%;
-  ${mobile({ padding: "10px" })}
+  @media screen and (max-width: 1280px) {
+    padding: 20px;
+    width: 100%;
+  }
 `;
 
 const InfoContainer = styled.div`
@@ -1290,6 +1319,7 @@ const Desc = styled.p`
   padding: 20px 0px;
   @media screen and (max-width: 1280px) {
     padding: 10px;
+    text-align: center;
   }
   @media screen and (max-width: 860px) {
     width: 100%;
@@ -1341,12 +1371,19 @@ const NoImageFilterContainer = styled.div`
   justify-content: space-between;
   width: 100%;
   margin: 30px 0px;
-  ${mobile({ width: "100%" })}
+  @media screen and (max-width: 1280px) {
+    padding: 20px 0;
+    margin: 0;
+  }
 `;
 const NoImageFilter = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+  @media screen and (max-width: 1280px) {
+    justify-content: center;
+    align-items: center;
+  }
 `;
 const NoImageFilterTitle = styled.span`
   font-size: 1.3rem;
@@ -1362,12 +1399,13 @@ const NoImageFilterNotes = styled.form`
     margin-left: 0.5em;
     font-weight: bold;
   }
-  @media screen and (max-width: 1100px) {
-    width: 100%;
-    padding: 0.5em;
+  @media screen and (max-width: 1280px) {
+    width: 50%;
+    padding: 20px;
   }
-  @media screen and (max-width: 410px) {
-    padding: 0.4em;
+  @media screen and (max-width: 670px) {
+    width: 80%;
+    padding: 20px;
   }
 
   textarea {
@@ -1409,6 +1447,10 @@ const NoImageFilterExtras = styled.div`
     position: relative;
     *overflow: hidden;
   }
+  @media screen and (max-width: 670px) {
+    padding: 15px;
+    font-size: 0.8rem;
+  }
 `;
 
 const NoImageAddContainer = styled.div`
@@ -1416,7 +1458,13 @@ const NoImageAddContainer = styled.div`
   align-items: center;
   width: 50%;
   justify-content: space-between;
-  ${mobile({ width: "100%" })}
+  @media screen and (max-width: 1280px) {
+    width: 100%;
+    padding: 20px;
+    justify-content: space-evenly;
+  }
+  @media screen and (max-width: 550px) {
+  }
 `;
 
 const FilterContainer = styled.div`

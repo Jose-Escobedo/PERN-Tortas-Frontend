@@ -1039,9 +1039,11 @@ const Product = () => {
             <Image src={product.img}></Image>
           </ImgContainer>
           <InfoContainer>
-            <Title>{product.name}</Title>
-            <Desc>{product.desc}</Desc>
-            <Price>$ {productPrice}</Price>
+            <TitleDescPrice>
+              <Title>{product.name}</Title>
+              <Desc>{product.desc}</Desc>
+              <Price>$ {productPrice}</Price>
+            </TitleDescPrice>
             {tortillas ? (
               <SelectContainer id="tortilla-caldo">
                 <select
@@ -1138,15 +1140,41 @@ const Container = styled.div`
 const Wrapper = styled.div`
   padding: 50px;
   display: flex;
-  ${mobile({ padding: "10px", flexDirection: "column" })}
+  @media screen and (max-width: 1280px) {
+    flex-direction: column;
+    padding: 20px;
+  }
+  @media screen and (max-width: 660px) {
+    padding: 10px;
+  }
 `;
-
+const TitleDescPrice = styled.div`
+  @media screen and (max-width: 1280px) {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  p {
+    @media screen and (max-width: 660px) {
+      font-size: 0.9rem;
+    }
+  }
+`;
 const NoImageWrapper = styled.div`
   display: flex;
   padding: 50px 0;
   justify-content: center;
   align-items: center;
   width: 100%;
+  @media screen and (max-width: 1280px) {
+    flex-direction: column;
+    padding: 20px;
+  }
+  @media screen and (max-width: 660px) {
+    padding: 10px;
+  }
 `;
 
 const SelectContainer = styled.div`
@@ -1209,12 +1237,17 @@ const SelectContainer = styled.div`
 
 const ImgContainer = styled.div`
   flex: 1;
+  @media screen and (max-width: 1280px) {
+    padding: 30px;
+  }
 `;
 const Image = styled.img`
   width: 100%;
   height: 80vh;
   object-fit: contain;
-  ${mobile({ height: "40vh" })}
+  @media screen and (max-width: 1280px) {
+    height: 40vh;
+  }
 `;
 
 const GenericImage = styled.img`
@@ -1232,7 +1265,20 @@ const NoImageInfoContainer = styled.div`
 const InfoContainer = styled.div`
   flex: 1;
   padding: 0px 50px;
-  ${mobile({ padding: "10px" })}
+  @media screen and (max-width: 1280px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+    p {
+      width: 50%;
+    }
+  }
+
+  @media screen and (max-width: 860px) {
+    padding: 10px;
+  }
   #tortilla-caldo {
     padding-top: 20px;
   }
@@ -1241,11 +1287,24 @@ const Title = styled.h1`
   font-weight: 200;
 `;
 const Desc = styled.p`
-  margin: 20px 0px;
+  padding: 20px 0px;
+  @media screen and (max-width: 1280px) {
+    padding: 10px;
+  }
+  @media screen and (max-width: 860px) {
+    width: 100%;
+    flex-wrap: nowrap;
+  }
+  @media screen and (max-width: 670px) {
+    padding: 20px 0px;
+  }
 `;
 const Price = styled.span`
   font-weight: 100;
   font-size: 3em;
+  @media screen and (max-width: 1280px) {
+    font-size: 2.5em;
+  }
 `;
 
 const MenuItemComboWrapper = styled.div`
@@ -1365,12 +1424,19 @@ const FilterContainer = styled.div`
   justify-content: space-between;
   width: 100%;
   margin: 30px 0px;
-  ${mobile({ width: "100%" })}
+  @media screen and (max-width: 1280px) {
+    justify-content: center;
+    align-items: center;
+  }
 `;
 const Filter = styled.div`
   display: flex;
   flex-direction: column;
   width: 60%;
+  @media screen and (max-width: 660px) {
+    width: 100%;
+    padding: 20px;
+  }
 `;
 const FilterTitle = styled.span`
   font-size: 1.3rem;
@@ -1386,12 +1452,8 @@ const FilterNotes = styled.form`
     margin-left: 0.5em;
     font-weight: bold;
   }
-  @media screen and (max-width: 1100px) {
-    width: 100%;
-    padding: 0.5em;
-  }
-  @media screen and (max-width: 410px) {
-    padding: 0.4em;
+  @media screen and (max-width: 1280px) {
+    width: 80%;
   }
 
   textarea {
@@ -1406,7 +1468,15 @@ const FilterNotes = styled.form`
     border: 1px solid black;
     padding: 0.5em 0.5em;
     @media screen and (max-width: 760px) {
-      font-size: 0.9rem;
+      font-size: 0.8rem;
+    }
+    @media screen and (max-width: 660px) {
+      padding: 1em;
+      width: 70%;
+    }
+    @media screen and (max-width: 550px) {
+      font-size: 0.8rem;
+      width: 100%;
     }
 
     @media screen and (max-width: 435px) {
@@ -1433,6 +1503,9 @@ const FilterExtras = styled.div`
     position: relative;
     *overflow: hidden;
   }
+  @media screen and (max-width: 850px) {
+    font-size: 0.8rem;
+  }
 `;
 
 const AddContainer = styled.div`
@@ -1440,7 +1513,10 @@ const AddContainer = styled.div`
   align-items: center;
   width: 50%;
   justify-content: space-between;
-  ${mobile({ width: "100%" })}
+  @media screen and (max-width: 550px) {
+    width: 80%;
+    padding: 10px;
+  }
 `;
 const AmountContainer = styled.div`
   display: flex;

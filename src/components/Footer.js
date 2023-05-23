@@ -225,7 +225,7 @@ const ListItem = styled.li`
 const Center = styled.div`
   flex: 1;
   padding: 1.3em;
-  @media screen and (max-width: 760px) {
+  @media screen and (max-width: 900px) {
     display: none;
   }
 `;

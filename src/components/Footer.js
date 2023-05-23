@@ -43,15 +43,55 @@ const Footer = () => {
       <Center>
         <Title>Useful Links</Title>
         <List>
-          <ListItem>Home</ListItem>
-          <ListItem>Cart</ListItem>
-          <ListItem>Tortas</ListItem>
-          <ListItem>Burritos</ListItem>
-          <ListItem>Tacos</ListItem>
-          <ListItem>My Account</ListItem>
-          <ListItem>Orders</ListItem>
-          <ListItem>Wishlist</ListItem>
-          <ListItem>Wishlist</ListItem>
+          <ListItem>
+            <Link to="/home" style={{ textDecoration: "none", color: "black" }}>
+              Home
+            </Link>
+          </ListItem>
+
+          <ListItem>
+            <Link to="/menu" style={{ textDecoration: "none", color: "black" }}>
+              Menu
+            </Link>
+          </ListItem>
+          <ListItem>
+            <Link
+              to="/order-lookup"
+              style={{ textDecoration: "none", color: "black" }}
+            >
+              Order Lookup
+            </Link>
+          </ListItem>
+          <ListItem>
+            <Link to="/cart" style={{ textDecoration: "none", color: "black" }}>
+              Cart
+            </Link>
+          </ListItem>
+          <ListItem>
+            <Link
+              to="/products/tortas"
+              style={{ textDecoration: "none", color: "black" }}
+            >
+              Tortas
+            </Link>
+          </ListItem>
+          <ListItem>
+            <Link
+              to="/products/burritos"
+              style={{ textDecoration: "none", color: "black" }}
+            >
+              Burritos
+            </Link>
+          </ListItem>
+          <ListItem>
+            <Link
+              to="/products/tacos"
+              style={{ textDecoration: "none", color: "black" }}
+            >
+              Tacos
+            </Link>
+          </ListItem>
+
           <ListItem>
             <AccessibilityLink to="/accessibility">
               Accessibility

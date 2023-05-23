@@ -241,6 +241,7 @@ const MenuCatMobileList = styled.div`
 
   @media screen and (max-width: 1220px) {
     display: flex;
+
     .mobileCatLink:not(:first-child) {
       display: ${(props) => props.showMenu};
     }
@@ -251,7 +252,6 @@ const MobileMenuCatLink = styled.button`
   font-size: 1.3rem;
   text-decoration: none;
   padding: 1em 1em;
-  border: none;
   cursor: pointer;
   transition: 0.2s all ease-in-out;
   background-color: white;
@@ -273,6 +273,9 @@ const MobileMenuCatLink = styled.button`
   }
 
   @media screen and (max-width: 1220px) {
+    width: 50%;
+  }
+  @media screen and (max-width: 480px) {
     width: 80%;
   }
 `;

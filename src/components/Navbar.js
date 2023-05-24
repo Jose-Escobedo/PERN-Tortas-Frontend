@@ -35,6 +35,10 @@ const Navbar = () => {
     setSidebar(!sidebar);
   };
 
+  const handleLogoClick = () => {
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  };
+
   useEffect(() => {
     if (homepath === "/") {
       setHomeCheck(true);
@@ -49,14 +53,22 @@ const Navbar = () => {
     <Container>
       <Wrapper>
         <Left>
-          <Link to="/">
-            <TortasLogo src={tortaLogo}></TortasLogo>
-          </Link>
+          {homeCheck ? (
+            <TortasLogo src={tortaLogo} onClick={handleLogoClick}></TortasLogo>
+          ) : (
+            <Link to="/">
+              <TortasLogo src={tortaLogo}></TortasLogo>
+            </Link>
+          )}
         </Left>
         <Center id="center">
-          <Link to="/" style={{ textDecoration: "none", color: "black" }}>
-            <Logo>Tortas Mexico Studio City</Logo>
-          </Link>
+          {homeCheck ? (
+            <Logo onClick={handleLogoClick}>Tortas Mexico Studio City</Logo>
+          ) : (
+            <Link to="/" style={{ textDecoration: "none", color: "black" }}>
+              <Logo>Tortas Mexico Studio City</Logo>
+            </Link>
+          )}
         </Center>
         <Right>
           {user ? (
@@ -224,6 +236,7 @@ const TortasLogo = styled.img`
   width: 70px;
   height: 70px;
   padding: 0;
+  cursor: pointer;
   @media screen and (max-width: 395px) {
     display: none;
   }
@@ -299,6 +312,7 @@ const Center = styled.div`
 const Logo = styled.h1`
   font-weight: bold;
   width: 100%;
+  cursor: pointer;
   @media screen and (max-width: 1238px) {
     font-size: 1.5rem;
   }

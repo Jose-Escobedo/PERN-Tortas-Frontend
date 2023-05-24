@@ -94,5 +94,8 @@ const CategoryContainer = styled.div`
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
   grid-auto-rows: 1fr;
+  @media screen and (max-width: 840px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
 `;
 export default Products;

@@ -22,7 +22,7 @@ const CustomModalTwo = ({ open, menuComboItems, close, handleSecondItem }) => {
                   value={i.value}
                   name={i.option}
                   id={"Combo-Item-One"}
-                  onChange={(e) => handleFirstItem(e)}
+                  onChange={(e) => handleSecondItem(e)}
                 />
                 {i.option}
               </label>

@@ -26,7 +26,10 @@ const OptionalDelivery = ({}) => {
                     <h3 className="click-btn delivery">Delivery</h3>
                   </DeliveryButton>
                 </DeliveryLink>
-                <img src={deliverySvg}></img>
+                <img
+                  src={deliverySvg}
+                  alt="Illustration featuring a car getting to its delivery destination."
+                ></img>
               </DeliveryWrapper>
             ) : (
               <DeliveryWrapper>
@@ -35,13 +38,21 @@ const OptionalDelivery = ({}) => {
                     <h3 className="click-btn delivery">Delivery</h3>
                   </DeliveryButton>
                 </DeliveryLink>
-                <img src={deliverySvg}></img>
+                <img
+                  src={deliverySvg}
+                  alt="Illustration featuring a car getting to its delivery destination."
+                ></img>
               </DeliveryWrapper>
             )}
             <PickupWrapper>
               <PickupLink to="/pickupcheckout">
                 <PickupButton>
-                  <h3 className="click-btn pickup">Pickup</h3>
+                  <h3
+                    className="click-btn pickup"
+                    alt="An illustration showing a woman and a man sitting down having lunch at a restaurant."
+                  >
+                    Pickup
+                  </h3>
                 </PickupButton>
               </PickupLink>
               <img src={pickupSvg}></img>
@@ -80,6 +91,9 @@ const TwoBoxContainer = styled.div`
   width: 60%;
   align-items: center;
   padding: 3em 0em;
+  @media screen and (max-width: 1000px) {
+    width: 100%;
+  }
 `;
 
 const Wrapper = styled.div`
@@ -100,6 +114,14 @@ const DeliveryWrapper = styled.div`
     width: 175px;
     height: 175px;
   }
+
+  @media screen and (max-width: 550px) {
+    img {
+      width: 100px;
+      height: 100px;
+    }
+    width: 40%;
+  }
 `;
 
 const DeliveryLink = styled(Link)`
@@ -114,7 +136,7 @@ const DeliveryButton = styled.button`
   width: 100%;
   margin-bottom: 1.5rem;
   border-radius: 20px;
-  background: lightgrey;
+  background: white;
   box-shadow: 2 2px 3px rgba(0, 0, 0.1, 0.1);
   -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
   transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
@@ -148,6 +170,9 @@ const DeliveryButton = styled.button`
     text-decoration: none;
     transition: all 0.35s;
     box-sizing: border-box;
+    @media screen and (max-width: 550px) {
+      height: 50px;
+    }
   }
   .delivery {
     position: relative;
@@ -180,6 +205,9 @@ const DeliveryButton = styled.button`
         transition-delay: 0.2s;
       }
     }
+    @media screen and (max-width: 550px) {
+      font-size: 1rem;
+    }
   }
 `;
 
@@ -192,6 +220,15 @@ const PickupWrapper = styled.div`
   img {
     width: 175px;
     height: 175px;
+  }
+  @media screen and (max-width: 550px) {
+    img {
+      width: 100px;
+      height: 100px;
+    }
+  }
+  @media screen and (max-width: 550px) {
+    width: 40%;
   }
 `;
 
@@ -207,7 +244,7 @@ const PickupButton = styled.button`
   width: 100%;
   margin-bottom: 1.5rem;
   border-radius: 20px;
-  background: lightgrey;
+  background: white;
   box-shadow: 2 2px 3px rgba(0, 0, 0.1, 0.1);
   -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
   transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
@@ -241,6 +278,9 @@ const PickupButton = styled.button`
     text-decoration: none;
     transition: all 0.35s;
     box-sizing: border-box;
+    @media screen and (max-width: 550px) {
+      height: 50px;
+    }
   }
   .pickup {
     position: relative;
@@ -271,6 +311,9 @@ const PickupButton = styled.button`
         border-color: black;
         transition-delay: 0.2s;
       }
+    }
+    @media screen and (max-width: 550px) {
+      font-size: 1rem;
     }
   }
 `;

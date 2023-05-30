@@ -732,6 +732,9 @@ const ContactFormStyled = styled.div`
   border-left: none;
   border-bottom: none;
   color: black;
+  @media screen and (max-width: 1100px) {
+    padding: 2em;
+  }
 
   background: white;
 
@@ -747,12 +750,19 @@ const ContactFormStyled = styled.div`
     .delivery-title {
       /* font: 700 2rem "Montserrat", sans-serif; */
       font-size: 3rem;
+      padding-bottom: 20px;
+
+      @media screen and (max-width: 535px) {
+        font-size: 1.5rem;
+        padding-bottom: 10px;
+        padding-top: 10px;
+      }
     }
 
     @media screen and (max-width: 1100px) {
-      flex-direction: column;
       width: 100%;
-      padding-bottom: 3em;
+      padding: 0;
+      min-height: 100vh;
     }
   }
 
@@ -794,10 +804,8 @@ const ContactFormStyled = styled.div`
   #first-name {
     color: black;
     border-color: black;
-    border-top: none;
-    border-right: none;
-    border-left: none;
-
+    border-radius: 10px;
+    margin-bottom: 10px;
     ::placeholder {
       /* Chrome, Firefox, Opera, Safari 10.1+ */
       color: black;
@@ -822,9 +830,8 @@ const ContactFormStyled = styled.div`
   #last-name {
     color: black;
     border-color: black;
-    border-top: none;
-    border-right: none;
-    border-left: none;
+    border-radius: 10px;
+    margin-bottom: 10px;
     ::placeholder {
       /* Chrome, Firefox, Opera, Safari 10.1+ */
       color: black;
@@ -844,9 +851,8 @@ const ContactFormStyled = styled.div`
   #email {
     color: black;
     border-color: black;
-    border-top: none;
-    border-right: none;
-    border-left: none;
+    border-radius: 10px;
+    margin-bottom: 10px;
     ::placeholder {
       /* Chrome, Firefox, Opera, Safari 10.1+ */
       color: black;
@@ -866,9 +872,8 @@ const ContactFormStyled = styled.div`
   #phone {
     color: black;
     border-color: black;
-    border-top: none;
-    border-right: none;
-    border-left: none;
+    border-radius: 10px;
+    margin-bottom: 10px;
     ::placeholder {
       /* Chrome, Firefox, Opera, Safari 10.1+ */
       color: black;
@@ -888,9 +893,8 @@ const ContactFormStyled = styled.div`
   #address {
     color: black;
     border-color: black;
-    border-top: none;
-    border-right: none;
-    border-left: none;
+    border-radius: 10px;
+    margin-bottom: 10px;
     ::placeholder {
       /* Chrome, Firefox, Opera, Safari 10.1+ */
       color: black;
@@ -910,9 +914,8 @@ const ContactFormStyled = styled.div`
   #tip {
     color: black;
     border-color: black;
-    border-top: none;
-    border-right: none;
-    border-left: none;
+    border-radius: 10px;
+    margin-bottom: 10px;
     ::placeholder {
       /* Chrome, Firefox, Opera, Safari 10.1+ */
       color: black;
@@ -954,7 +957,7 @@ const ContactFormStyled = styled.div`
     width: 100%;
     max-width: 100%;
     min-width: 100%;
-    min-height: 20%;
+    min-height: 5vh;
     max-height: 20vh;
     background-color: transparent;
     color: black;

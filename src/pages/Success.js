@@ -532,12 +532,20 @@ const SuccessText = styled.div`
   color: white;
   font-weight: bold;
   font-size: 1.5rem;
+  @media screen and (max-width: 550px) {
+    padding: 10px;
+    font-size: 0.8rem;
+  }
 `;
 
 const OrderSuccessSvgContainer = styled.div`
   svg {
     height: 450px;
     width: 450px;
+    @media screen and (max-width: 550px) {
+      height: 300px;
+      width: 300px;
+    }
   }
 
   #map-arrow {

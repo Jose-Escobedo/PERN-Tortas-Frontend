@@ -35,5 +35,12 @@ const MinimumText = styled.div`
   color: red;
   font-weight: bold;
   font-size: 1.5rem;
+  @media screen and (max-width: 800px) {
+    font-size: 1rem;
+    padding: 10px;
+  }
+  @media screen and (max-width: 550px) {
+    font-size: 0.8rem;
+  }
 `;
 export default InsufficientPickupSubtotal;

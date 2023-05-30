@@ -257,36 +257,43 @@ export const menuComboItems = [
     id: 1,
     option: `ASADA TACO`,
     value: "ASADA-TACO",
+    label: "Asada Taco",
   },
   {
     id: 2,
     option: `CHICKEN TACO`,
     value: "CHICKEN-TACO",
+    label: "Chicken Taco",
   },
   {
     id: 3,
     option: `SHREDDED CHICKEN TACO`,
     value: "SHREDDED-CHICKEN-TACO",
+    label: "Shredded Chicken taco",
   },
   {
     id: 4,
     option: `PASTOR TACO`,
     value: "PASTOR-TACO",
+    label: "Pastor Taco",
   },
   {
     id: 5,
     option: `LENGUA TACO`,
     value: "LENGUA-TACO",
+    label: "Lengua Taco",
   },
   {
     id: 6,
     option: `CARNITAS TACO`,
     value: "CARNITAS-TACO",
+    label: "Carnitas Taco",
   },
   {
     id: 7,
     option: `PICADILLO TACO/GROUND BEEF`,
     value: "PICADILLO-TACO",
+    label: "Picadillo Taco",
   },
   {
     id: 8,

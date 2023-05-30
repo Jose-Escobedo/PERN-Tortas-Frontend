@@ -13,6 +13,7 @@ const Menu = () => {
             src={
               "https://firebasestorage.googleapis.com/v0/b/tortas-bffc7.appspot.com/o/TacoChef.png?alt=media&token=12efb46e-9f85-4be8-a9b1-5f8022cdd779"
             }
+            alt="illustration of a taco that looks like a chef"
           ></img>
         </MenuCatPicture>
       </TitleContainer>

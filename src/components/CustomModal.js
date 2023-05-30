@@ -15,14 +15,17 @@ const CustomModal = ({ open, menuComboItems, close, handleFirstItem }) => {
 
           {menuComboItems.map((i) => (
             <MenuItemComboWrapper>
-              <input
-                type="radio"
-                value={i.value}
-                name={"items"}
-                id={"Combo-Item"}
-                onChange={(e) => handleFirstItem(e)}
-              />
-              <h2 id={"Combo-Item-Selection"}>{`${i.option}`}</h2>
+              <label>
+                <input
+                  type="radio"
+                  value={i.value}
+                  name={i.option}
+                  id={"Combo-Item"}
+                  onChange={(e) => handleFirstItem(e)}
+                />
+                {i.option}
+              </label>
+              {/* <h2 id={"Combo-Item-Selection"}>{`${i.option}`}</h2> */}
             </MenuItemComboWrapper>
           ))}
         </NoImageFilterMenuItems>
@@ -54,18 +57,31 @@ const ModalContainer = styled.div`
   display: flex;
   background-color: #ffffff;
   box-shadow: 0px 0px 18px 0px rgba(0, 0, 0, 0.75);
+  @media screen and (max-width: 930px) {
+    width: 70%;
+  }
+  @media screen and (max-width: 580px) {
+    width: 90%;
+  }
 `;
 
 const CloseButton = styled.div`
   position: absolute;
   top: 7%;
   left: 90%;
+  @media screen and (max-width: 450px) {
+    svg {
+      height: 35px;
+      width: 35px;
+    }
+  }
 `;
 
 const NoImageFilterMenuItems = styled.div`
   display: flex;
   flex-direction: column;
   padding: 10px;
+
   .select-item {
     padding-bottom: 10px;
   }
@@ -92,10 +108,48 @@ const NoImageFilterMenuItems = styled.div`
     position: relative;
     *overflow: hidden;
   }
+  @media screen and (max-width: 450px) {
+    img {
+      width: 35px;
+      height: 35px;
+    }
+    h2 {
+      font-size: 1.1rem;
+    }
+  }
 `;
 const MenuItemComboWrapper = styled.div`
   display: flex;
   align-items: center;
+  input[type="radio"] {
+    margin-right: 10px;
+  }
+  label {
+    font-size: 1.5rem;
+    padding: 10px 0;
+  }
+  @media screen and (max-width: 1105px) {
+    label {
+      font-size: 1.2rem;
+    }
+  }
+
+  @media screen and (max-width: 930px) {
+    label {
+      font-size: 1.5rem;
+    }
+  }
+
+  @media screen and (max-width: 815px) {
+    label {
+      font-size: 1rem;
+    }
+  }
+  @media screen and (max-width: 815px) {
+    label {
+      font-size: 0.8rem;
+    }
+  }
 `;
 
 export default CustomModal;

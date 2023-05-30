@@ -13,16 +13,20 @@ const CustomModalTwo = ({ open, menuComboItems, close, handleSecondItem }) => {
           </CloseButton>
 
           <h2 className="select-item">SELECT AN ITEM</h2>
+
           {menuComboItems.map((i) => (
             <MenuItemComboWrapper>
-              <input
-                type="radio"
-                value={i.value}
-                name={"items-two"}
-                id={"Combo-Item-Two"}
-                onChange={(e) => handleSecondItem(e)}
-              />
-              <h2 id={"Combo-Item-Selection-Two"}>{`${i.option}`}</h2>
+              <label>
+                <input
+                  type="radio"
+                  value={i.value}
+                  name={i.option}
+                  id={"Combo-Item-One"}
+                  onChange={(e) => handleFirstItem(e)}
+                />
+                {i.option}
+              </label>
+              {/* <h2 id={"Combo-Item-Selection"}>{`${i.option}`}</h2> */}
             </MenuItemComboWrapper>
           ))}
         </NoImageFilterMenuItems>

@@ -165,11 +165,7 @@ const Footer = () => {
                   <FaYelp />
                 </a>
               </SocialIcon>
-              <SocialIcon color="f07111">
-                <a href="https://www.grubhub.com/restaurant/tortas-mexico-11040-ventura-blvd-studio-city/141026">
-                  <SiGrubhub style={{ fontSize: "2rem" }} />
-                </a>
-              </SocialIcon>
+
               <SocialIcon color="55ACEE">
                 <a href="https://www.instagram.com/tortasmexico_studiocity/">
                   <FaInstagram />

@@ -30,6 +30,8 @@ const CheckoutInfo = ({ addNewFormData }) => {
   const [emptyTip, setEmptyTip] = useState();
   const [stripeIdentifier, setStripeIdentifier] = useState();
   const [openStore, setOpenStore] = useState();
+  const [isPlaceChange, setIsPlaceChange] = useState(false);
+  const [isPlaceText, setIsPlaceText] = useState(false);
 
   const mapApiJs = "https://maps.googleapis.com/maps/api/js";
   const apiKey = process.env.REACT_APP_PLACES;
@@ -188,6 +190,7 @@ const CheckoutInfo = ({ addNewFormData }) => {
     autocomplete.setFields(["address_component", "geometry"]);
     autocomplete.addListener("place_changed", (e) => {
       var place = autocomplete.getPlace();
+      setIsPlaceChange(true);
 
       handleDirectionsMatrix(autocomplete);
       console.log("Latitude", place.geometry.location.lat());
@@ -229,6 +232,7 @@ const CheckoutInfo = ({ addNewFormData }) => {
 
   //Handle validation for form input
   const enabled =
+    isPlaceChange &&
     email.length > 0 &&
     dropoff_contact_family_name.length > 0 &&
     dropoff_contact_given_name.length > 0 &&
@@ -324,6 +328,11 @@ const CheckoutInfo = ({ addNewFormData }) => {
 
     return address;
   };
+
+  function handleKeyDown() {
+    console.log("Please use Google Maps AutoComplete.");
+    setIsPlaceChange(false);
+  }
 
   const handleAddressChange = (e) => {
     const place = e.getPlace();
@@ -519,6 +528,7 @@ const CheckoutInfo = ({ addNewFormData }) => {
   const redirectToCheckout = (e) => {
     if (!enabled) {
       console.log("!enabled:", newFormData);
+      setIsPlaceText(true);
     } else if (fiveMileRadius) {
       console.log("FiveMileRadius", fiveMileRadius);
     } else {
@@ -539,6 +549,11 @@ const CheckoutInfo = ({ addNewFormData }) => {
             <ContactFormStyled>
               <div className="wrapper">
                 <h1 className="delivery-title">Delivery Information</h1>
+                {isPlaceText ? (
+                  <h1 style={{ color: "red" }}>
+                    Please check if address is correct.
+                  </h1>
+                ) : null}
                 {fiveMileRadius ? (
                   <DistanceImageWrapper>
                     <h1 style={{ color: "red" }} className="check-radius">
@@ -598,6 +613,7 @@ const CheckoutInfo = ({ addNewFormData }) => {
                       type="text"
                       id="address"
                       ref={searchInput}
+                      onKeyDown={(e) => handleKeyDown(e)}
                       placeholder="DELIVERY ADDRESS"
                       name="dropoff_location"
                       required

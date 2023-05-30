@@ -394,9 +394,11 @@ const ProductWithChoice = () => {
       <Navbar />
       <NoImageWrapper>
         <NoImageInfoContainer>
-          <Title>{product.name}</Title>
-          <Desc>{product.desc}</Desc>
-          <Price>$ {productPrice}</Price>
+          <TitleDescPrice>
+            <Title>{product.name}</Title>
+            <Desc>{product.desc}</Desc>
+            <Price>$ {productPrice}</Price>
+          </TitleDescPrice>
           <NoImageFilterContainer>
             <NoImageFilter>
               {chimi ? (
@@ -691,7 +693,13 @@ const Container = styled.div`
 const Wrapper = styled.div`
   padding: 50px;
   display: flex;
-  ${mobile({ padding: "10px", flexDirection: "column" })}
+  @media screen and (max-width: 1280px) {
+    flex-direction: column;
+    padding: 20px;
+  }
+  @media screen and (max-width: 660px) {
+    padding: 10px;
+  }
 `;
 
 const NoImageWrapper = styled.div`
@@ -700,6 +708,36 @@ const NoImageWrapper = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
+  @media screen and (max-width: 1280px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    max-width: 100%;
+    p {
+      width: 50%;
+    }
+  }
+  @media screen and (max-width: 500px) {
+    p {
+      font-size: 0.8rem;
+    }
+  }
+`;
+
+const TitleDescPrice = styled.div`
+  @media screen and (max-width: 1280px) {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  p {
+    @media screen and (max-width: 660px) {
+      font-size: 0.9rem;
+    }
+  }
 `;
 
 const SelectDrinkWrapper = styled.div`
@@ -711,24 +749,34 @@ const SelectDrinkWrapper = styled.div`
 `;
 
 const SelectContainer = styled.div`
-  padding-top: 0;
-  padding-bottom: 20px;
+  padding: 20px;
 
   h2 {
     color: red;
     font-size: 1.2rem;
   }
 
+  @media screen and (max-width: 1280px) {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+  @media screen and (max-width: 550px) {
+    width: 100%;
+    padding: 10px;
+  }
+
   select {
-    width: 50%;
+    width: 100%;
     font-size: 1rem;
     display: inline-block;
     background-color: transparent;
     position: relative;
     cursor: pointer;
-    border-top: none;
-    border-right: none;
-    border-left: none;
+    border: 1px solid black;
+    border-radius: 10px;
     -webkit-border-radius: 4px 4px 4px 4px;
     -moz-border-radius: 4px 4px 4px 4px;
     border-radius: 4px 4px 4px 4px;
@@ -765,7 +813,10 @@ const GenericImage = styled.img`
 
 const NoImageInfoContainer = styled.div`
   width: 35%;
-  ${mobile({ padding: "10px" })}
+  @media screen and (max-width: 1280px) {
+    padding: 20px;
+    width: 100%;
+  }
 `;
 
 const InfoContainer = styled.div`
@@ -789,12 +840,19 @@ const NoImageFilterContainer = styled.div`
   justify-content: space-between;
   width: 100%;
   margin: 30px 0px;
-  ${mobile({ width: "100%" })}
+  @media screen and (max-width: 1280px) {
+    padding: 20px 0;
+    margin: 0;
+  }
 `;
 const NoImageFilter = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+  @media screen and (max-width: 1280px) {
+    justify-content: center;
+    align-items: center;
+  }
 `;
 const NoImageFilterTitle = styled.span`
   font-size: 1.3rem;
@@ -810,12 +868,13 @@ const NoImageFilterNotes = styled.form`
     margin-left: 0.5em;
     font-weight: bold;
   }
-  @media screen and (max-width: 1100px) {
-    width: 100%;
-    padding: 0.5em;
+  @media screen and (max-width: 1280px) {
+    width: 50%;
+    padding: 20px;
   }
-  @media screen and (max-width: 410px) {
-    padding: 0.4em;
+  @media screen and (max-width: 670px) {
+    width: 80%;
+    padding: 20px;
   }
 
   textarea {
@@ -857,6 +916,10 @@ const NoImageFilterExtras = styled.div`
     position: relative;
     *overflow: hidden;
   }
+  @media screen and (max-width: 670px) {
+    padding: 15px;
+    font-size: 0.8rem;
+  }
 `;
 
 const NoImageAddContainer = styled.div`
@@ -864,7 +927,11 @@ const NoImageAddContainer = styled.div`
   align-items: center;
   width: 50%;
   justify-content: space-between;
-  ${mobile({ width: "100%" })}
+  @media screen and (max-width: 1280px) {
+    width: 100%;
+    padding: 20px;
+    justify-content: space-evenly;
+  }
 `;
 
 const FilterContainer = styled.div`

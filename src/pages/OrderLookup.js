@@ -110,6 +110,8 @@ const OrderLookup = () => {
                     </span>
                   ) : (
                     <span>
+                      If Tracking Link does not work please call us at{" "}
+                      <a href="tel:8187602571"> (818-760-2571)</a>.<br></br>
                       For issues with Delivery, please contact Doordash at{" "}
                       <a href="tel:855-431-0459"> (855-431-0459)</a>.<br></br>
                       Please refer to your email (check spam) for more order

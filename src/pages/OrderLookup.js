@@ -58,11 +58,24 @@ const OrderLookup = () => {
               let convertedDate;
               convertedDate = moment(date).format("MM.DD. h:mm A");
               let pickupOrDelivery;
-
               let pickupDate;
               pickupDate = item.pickup_date;
+
               let convertedPickupDate;
-              convertedPickupDate = moment(pickupDate).format("MM.DD.");
+
+              let pickupDateToday;
+              if (item.pickup_date === "today") {
+                pickupDateToday = true;
+              } else {
+                pickupDateToday = false;
+              }
+
+              if (item.pickup_date === "today") {
+                convertedPickupDate = "";
+              } else {
+                convertedPickupDate = moment(pickupDate).format("MM.DD.");
+              }
+
               if (item.pickup === false) {
                 pickupOrDelivery = "DELIVERY";
               } else {
@@ -76,15 +89,25 @@ const OrderLookup = () => {
                   <h1>Name: {item.dropoff_contact_given_name}</h1>
                   <h1>Email: {item.email}</h1>
                   {item.pickup ? (
-                    <h1>
-                      Pickup Date:
-                      <br></br>
-                      {convertedPickupDate}
-                      <br></br>
-                      Pickup Time:
-                      <br></br>
-                      {item.pickup_time}
-                    </h1>
+                    pickupDateToday ? (
+                      <h1>
+                        {convertedPickupDate}
+                        <br></br>
+                        Pickup Time:
+                        <br></br>
+                        {item.pickup_time}
+                      </h1>
+                    ) : (
+                      <h1>
+                        Pickup Date:
+                        <br></br>
+                        {convertedPickupDate}
+                        <br></br>
+                        Pickup Time:
+                        <br></br>
+                        {item.pickup_time}
+                      </h1>
+                    )
                   ) : (
                     <h1>
                       Order Tracking Link:

@@ -1274,11 +1274,6 @@ const SelectContainer = styled.div`
     border: 1px solid black;
     border-radius: 10px;
     cursor: pointer;
-
-    @media screen and (max-width: 550px) {
-      width: 80%;
-      padding: 10px;
-    }
   }
   option {
   }

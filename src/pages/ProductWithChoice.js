@@ -793,6 +793,11 @@ const SelectContainer = styled.div`
     -moz-box-shadow: 0px 8px 3px -9px #000000;
     -webkit-box-shadow: 0px 8px 3px -9px #000000;
     box-shadow: 0px 8px 3px -9px #000000;
+
+    @media screen and (max-width: 550px) {
+      width: 80%;
+      padding: 10px;
+    }
   }
   option {
   }

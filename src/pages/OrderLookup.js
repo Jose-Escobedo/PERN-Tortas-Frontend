@@ -152,6 +152,10 @@ const OrderLookupPageContainer = styled.div`
   #lookup-img {
     width: 450px;
     height: 450px;
+    @media screen and (max-width: 450px) {
+      width: 350px;
+      height: 350px;
+    }
   }
 `;
 
@@ -187,6 +191,12 @@ const OrderInfo = styled.div`
   justify-content: center;
   padding-bottom: 20px;
   margin-top: 20px;
+  h1 {
+    @media screen and (max-width: 630px) {
+      font-size: 1.5rem;
+      padding: 20px;
+    }
+  }
 `;
 const OrderUl = styled.div`
   display: flex;
@@ -200,6 +210,10 @@ const OrderUl = styled.div`
   span {
     padding-bottom: 20px;
     font-size: 1.1rem;
+    @media screen and (max-width: 630px) {
+      font-size: 0.8rem;
+      padding: 20px;
+    }
   }
 `;
 const OrderLookupNumber = styled.input`
@@ -237,6 +251,10 @@ const TitleContainer = styled.div`
 `;
 const Title = styled.h1`
   font-size: 4rem;
+
+  @media screen and (max-width: 450px) {
+    font-size: 2.5rem;
+  }
 `;
 
 export default OrderLookup;

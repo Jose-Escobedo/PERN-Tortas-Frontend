@@ -42,12 +42,13 @@ const ProductItem = ({ item }) => {
     <Container>
       {asadaBoolean ? (
         <Image
+          alt={item.alt}
           src={
             "https://firebasestorage.googleapis.com/v0/b/tortas-bffc7.appspot.com/o/asada-fries-min.jpeg?alt=media&token=074ff610-fae7-442a-a333-bddfc5265649"
           }
         />
       ) : (
-        <Image src={item.img} />
+        <Image src={item.img} alt={item.alt} />
       )}
 
       <Info>

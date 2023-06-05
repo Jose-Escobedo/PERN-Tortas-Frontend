@@ -63,19 +63,14 @@ const ProductList = () => {
 };
 
 const Container = styled.div`
-  background: linear-gradient(
-    90deg,
-    rgba(24, 24, 71, 1) 0%,
-    rgba(10, 10, 23, 1) 35%,
-    rgba(0, 0, 0, 1) 100%
-  );
+  background: white;
 `;
 const TitleAndImageWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: white;
+  color: black;
 `;
 const Title = styled.h1`
   margin-top: 20vh;

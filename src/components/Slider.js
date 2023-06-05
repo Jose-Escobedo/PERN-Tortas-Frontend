@@ -66,11 +66,15 @@ const Slider = () => {
               id="Layer_1"
               x="0px"
               y="0px"
+              role="img"
+              aria-label="Moving Flames - A Moving animation of flames burning."
               width="1016px"
               height="493px"
               viewBox="0 0 1016 493"
               enable-background="new 0 0 1016 493"
             >
+              <title>Moving Flames</title>
+              <desc>A moving animation of flames burning.</desc>
               <g>
                 <path
                   class="flame"

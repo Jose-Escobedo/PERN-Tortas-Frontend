@@ -53,21 +53,16 @@ export const AccessibilityContainer = styled.div`
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  padding: 2em;
-  max-width: 100%;
-
-  background: linear-gradient(
-    90deg,
-    rgba(24, 24, 71, 1) 0%,
-    rgba(10, 10, 23, 1) 35%,
-    rgba(0, 0, 0, 1) 100%
-  );
+  margin-top: 11vh;
+  width: 100%;
+  background: white;
 `;
 
 const AccessibilityText = styled.div`
-  color: white;
+  color: black;
   font-weight: bold;
   font-size: 1rem;
+  padding: 20px;
   a {
     color: red;
   }

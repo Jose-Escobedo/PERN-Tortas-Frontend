@@ -723,7 +723,7 @@ const CheckoutInfo = ({ addNewFormData }) => {
 const ContactFormStyled = styled.div`
   margin-top: 70px;
   min-height: 100%;
-  max-width: 100%;
+  width: 100%;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -733,7 +733,6 @@ const ContactFormStyled = styled.div`
   border-bottom: none;
   color: black;
   @media screen and (max-width: 1100px) {
-    padding: 2em;
   }
 
   background: white;
@@ -743,7 +742,7 @@ const ContactFormStyled = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 3em 1em;
+    margin-top: 10vh;
     position: relative;
     width: 100%;
 
@@ -760,9 +759,6 @@ const ContactFormStyled = styled.div`
     }
 
     @media screen and (max-width: 1100px) {
-      width: 100%;
-      padding: 0;
-      min-height: 100vh;
     }
   }
 
@@ -772,19 +768,14 @@ const ContactFormStyled = styled.div`
     font-weight: 400;
     display: flex;
     flex-direction: column;
-    padding: 2em;
     border-color: black;
     color: black;
     @media screen and (max-width: 1100px) {
-      width: 100%;
       padding: 0.5em;
     }
     @media screen and (max-width: 410px) {
       padding: 0.4em;
     }
-  }
-  .form-group {
-    width: 100%;
   }
 
   .form-group input {
@@ -792,7 +783,7 @@ const ContactFormStyled = styled.div`
     background-color: transparent;
     color: black;
     border: 1px solid black;
-    padding: 0.5em 0.5em;
+    padding: 0.5em;
     @media screen and (max-width: 760px) {
       font-size: 0.9rem;
     }
@@ -981,7 +972,7 @@ const ContactFormStyled = styled.div`
     border-radius: 0.2em;
     border: transparent;
     padding-top: 0.2em;
-    background: linear-gradient(darkcyan, darkblue) padding-box;
+    background: black;
     cursor: pointer;
   }
 

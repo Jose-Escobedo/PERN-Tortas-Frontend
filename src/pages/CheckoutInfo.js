@@ -723,32 +723,26 @@ const CheckoutInfo = ({ addNewFormData }) => {
 const ContactFormStyled = styled.div`
   margin-top: 70px;
   min-height: 100%;
-  width: 100%;
+  max-width: 100%;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  border: 1px solid black;
-  border-right: none;
-  border-left: none;
-  border-bottom: none;
   color: black;
+  background: rgba(255, 255, 255, 1) 100%;
   @media screen and (max-width: 1100px) {
+    padding: 2em;
   }
-
-  background: white;
 
   .wrapper {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 10vh;
+    padding: 3em 1em;
     position: relative;
     width: 100%;
 
     .delivery-title {
-      /* font: 700 2rem "Montserrat", sans-serif; */
-      font-size: 3rem;
       padding-bottom: 20px;
 
       @media screen and (max-width: 535px) {
@@ -759,6 +753,9 @@ const ContactFormStyled = styled.div`
     }
 
     @media screen and (max-width: 1100px) {
+      width: 100%;
+      padding: 0;
+      min-height: 100vh;
     }
   }
 
@@ -768,14 +765,19 @@ const ContactFormStyled = styled.div`
     font-weight: 400;
     display: flex;
     flex-direction: column;
+    padding: 2em;
     border-color: black;
     color: black;
     @media screen and (max-width: 1100px) {
+      width: 100%;
       padding: 0.5em;
     }
     @media screen and (max-width: 410px) {
       padding: 0.4em;
     }
+  }
+  .form-group {
+    width: 100%;
   }
 
   .form-group input {
@@ -783,7 +785,7 @@ const ContactFormStyled = styled.div`
     background-color: transparent;
     color: black;
     border: 1px solid black;
-    padding: 0.5em;
+    padding: 0.5em 0.5em;
     @media screen and (max-width: 760px) {
       font-size: 0.9rem;
     }
@@ -797,6 +799,7 @@ const ContactFormStyled = styled.div`
     border-color: black;
     border-radius: 10px;
     margin-bottom: 10px;
+
     ::placeholder {
       /* Chrome, Firefox, Opera, Safari 10.1+ */
       color: black;
@@ -810,7 +813,7 @@ const ContactFormStyled = styled.div`
 
     :-ms-input-placeholder {
       /* Internet Explorer 10-11 */
-      color: black;
+      color: white;
     }
 
     ::-ms-input-placeholder {
@@ -923,7 +926,7 @@ const ContactFormStyled = styled.div`
       color: black;
     }
   }
-  #dropoff_instructions {
+  #pickup_instructions {
     color: black;
     border-color: black;
     margin-top: 2rem;
@@ -943,7 +946,6 @@ const ContactFormStyled = styled.div`
       color: black;
     }
   }
-
   textarea {
     width: 100%;
     max-width: 100%;

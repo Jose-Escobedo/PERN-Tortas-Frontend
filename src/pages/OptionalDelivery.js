@@ -74,15 +74,10 @@ const OptionalDeliveryContainer = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
-  border: 1px solid black;
+  border-top: 1px solid black;
   color: white;
 
-  background: linear-gradient(
-    90deg,
-    rgba(24, 24, 71, 1) 0%,
-    rgba(10, 10, 23, 1) 35%,
-    rgba(0, 0, 0, 1) 100%
-  );
+  background: white;
 `;
 
 const TwoBoxContainer = styled.div`
@@ -94,6 +89,13 @@ const TwoBoxContainer = styled.div`
   @media screen and (max-width: 1000px) {
     width: 100%;
   }
+  @media screen and (max-width: 400px) {
+    img {
+      display: none;
+    }
+    flex-direction: column;
+    justify-content: center;
+  }
 `;
 
 const Wrapper = styled.div`
@@ -102,6 +104,9 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
+  h1 {
+    color: black;
+  }
 `;
 
 const DeliveryWrapper = styled.div`
@@ -122,6 +127,9 @@ const DeliveryWrapper = styled.div`
     }
     width: 40%;
   }
+  @media screen and (max-width: 400px) {
+    width: 90%;
+  }
 `;
 
 const DeliveryLink = styled(Link)`
@@ -136,7 +144,7 @@ const DeliveryButton = styled.button`
   width: 100%;
   margin-bottom: 1.5rem;
   border-radius: 20px;
-  background: white;
+  background: black;
   box-shadow: 2 2px 3px rgba(0, 0, 0.1, 0.1);
   -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
   transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
@@ -177,7 +185,7 @@ const DeliveryButton = styled.button`
   .delivery {
     position: relative;
     border-color: transparent;
-    color: black;
+    color: white;
     &::before,
     &::after {
       height: 100%;
@@ -195,18 +203,20 @@ const DeliveryButton = styled.button`
       z-index: 1;
     }
     &:hover {
-      color: rgb(116, 13, 24);
       &::before {
         transform: scale(0, 1);
       }
       &::after {
         width: 100%;
-        border-color: black;
+        border-color: white;
         transition-delay: 0.2s;
       }
     }
     @media screen and (max-width: 550px) {
       font-size: 1rem;
+    }
+    @media screen and (max-width: 400px) {
+      font-size: 2rem;
     }
   }
 `;
@@ -230,6 +240,9 @@ const PickupWrapper = styled.div`
   @media screen and (max-width: 550px) {
     width: 40%;
   }
+  @media screen and (max-width: 400px) {
+    width: 90%;
+  }
 `;
 
 const PickupLink = styled(Link)`
@@ -244,7 +257,7 @@ const PickupButton = styled.button`
   width: 100%;
   margin-bottom: 1.5rem;
   border-radius: 20px;
-  background: white;
+  background: black;
   box-shadow: 2 2px 3px rgba(0, 0, 0.1, 0.1);
   -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
   transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
@@ -285,7 +298,7 @@ const PickupButton = styled.button`
   .pickup {
     position: relative;
     border-color: transparent;
-    color: black;
+    color: white;
     &::before,
     &::after {
       height: 100%;
@@ -302,18 +315,20 @@ const PickupButton = styled.button`
       z-index: 1;
     }
     &:hover {
-      color: rgb(13, 34, 116);
       &::before {
         transform: scale(0, 1);
       }
       &::after {
         width: 100%;
-        border-color: black;
+        border-color: white;
         transition-delay: 0.2s;
       }
     }
     @media screen and (max-width: 550px) {
       font-size: 1rem;
+    }
+    @media screen and (max-width: 400px) {
+      font-size: 2rem;
     }
   }
 `;

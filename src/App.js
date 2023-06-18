@@ -21,6 +21,7 @@ import RecentOrder from "./pages/admin/RecentOrder";
 import Error404 from "./pages/Error404";
 import Menu from "./pages/Menu";
 import OrderLookup from "./pages/OrderLookup";
+import Privacy from "./pages/Privacy";
 
 function App() {
   const user = useSelector((state) => state.user.currentUser);
@@ -57,6 +58,7 @@ function App() {
         <Route exact path="/product/:id" element={<Product />} />
 
         <Route exact path="/success" element={<Success />} />
+        <Route exact path="/privacy" element={<Privacy />} />
         <Route exact path="/deliverycheckout" element={<CheckoutInfo />} />
         <Route exact path="/pickupcheckout" element={<PickupInfo />} />
         <Route exact path="/optionaldelivery" element={<OptionalDelivery />} />

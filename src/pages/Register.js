@@ -151,7 +151,10 @@ const Register = () => {
           <Input placeholder="confirm password" />
           <Agreement>
             By creating an account, I consent to the processing of my personal
-            data in accordance with the <b>PRIVACY POLICY</b>
+            data in accordance with the{" "}
+            <Link to={"/privacy"}>
+              <b>PRIVACY POLICY</b>
+            </Link>
           </Agreement>
           <Button disabled={isFetching}>REGISTER</Button>
         </Form>
@@ -202,7 +205,7 @@ const Agreement = styled.span`
   margin: 20px 0px;
 `;
 const Button = styled.button`
-  width: 40%;
+  width: 100%;
   border: none;
   padding: 15px 20px;
   background-color: teal;

@@ -52,7 +52,9 @@ const Login = () => {
           </Button>
           {error && <Error>Wrong Credentials...</Error>}
           <Linka>FORGOT PASSWORD?</Linka>
-          <Linka>CREATE A NEW ACCOUNT</Linka>
+          <Link style={{ color: "black" }} to={"/register"}>
+            CREATE A NEW ACCOUNT
+          </Link>
         </Form>
       </Wrapper>
     </Container>
@@ -98,7 +100,7 @@ const Input = styled.input`
   padding: 10px;
 `;
 const Button = styled.button`
-  width: 40%;
+  width: 100%;
   border: none;
   padding: 15px 20px;
   background-color: teal;

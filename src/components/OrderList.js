@@ -34,13 +34,13 @@ const OrderList = ({ item }) => {
   return (
     <OrderListContainer>
       <OrderWrapper>
-        <OrderLogo>
+        {/* <OrderLogo>
           <img src={tacoHuman} />
-        </OrderLogo>
+        </OrderLogo> */}
         <OrderDetails>
           <h2>{`${item.createdAt.slice(0, 10)}`}</h2>
           <h2>{`${item.products.map(
-            (innerItem) => `${innerItem.quantity} ${innerItem.name} `
+            (innerItem) => `(${innerItem.quantity}) ${innerItem.name} `
           )}`}</h2>
           {tipObj ? <h2>{`Tip: $ ${item.tip}`}</h2> : <h2>{`Tip: $ 0`}</h2>}
           <h2>{`Order Total: ${item.total.toLocaleString("en-US", {
@@ -48,6 +48,8 @@ const OrderList = ({ item }) => {
             currency: "USD",
           })}`}</h2>
           {pickupObj ? <h2>PICKUP</h2> : <h2>DELIVERY</h2>}
+          {pickupObj ? <h2>Pickup Date: {item.pickup_date} </h2> : null}
+          {pickupObj ? <h2>Pickup Time: {item.pickup_time} </h2> : null}
         </OrderDetails>
       </OrderWrapper>
     </OrderListContainer>

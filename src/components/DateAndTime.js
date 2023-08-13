@@ -11,6 +11,7 @@ const DateAndTime = ({
   sundayInt,
   nextDay,
   openStore,
+  orderTime,
 }) => {
   const currentDate = moment().toISOString();
   const tomorrow = moment(currentDate).add(1, "d").toDate();
@@ -47,7 +48,11 @@ const DateAndTime = ({
 
   return (
     <div>
-      <DateTitle>PICKUP TIME (OPTIONAL)</DateTitle>
+      {orderTime ? (
+        <DateTitle>ORDER TIME (OPTIONAL) </DateTitle>
+      ) : (
+        <DateTitle>PICKUP TIME (OPTIONAL)</DateTitle>
+      )}
       <OtherwiseText>
         Otherwise order will be made as soon as possible.
       </OtherwiseText>
@@ -86,18 +91,32 @@ const DateAndTime = ({
             </option>
             {openStore ? (
               <>
-                <option value={fFifteenMinutes}>
+                <option value={orderTime ? fifteenMinutes : fFifteenMinutes}>
                   {String(fFifteenMinutes)}
                 </option>
-                <option value={fThirtyMinutes}>{String(fThirtyMinutes)}</option>
-                <option value={fFortyfiveMinutes}>
+                <option value={orderTime ? thirtyMinutes : fThirtyMinutes}>
+                  {String(fThirtyMinutes)}
+                </option>
+                <option
+                  value={orderTime ? fortyfiveMinutes : fFortyfiveMinutes}
+                >
                   {String(fFortyfiveMinutes)}
                 </option>
-                <option value={fOneHour}>{String(fOneHour)}</option>
-                <option value={fOneHourThirty}>{String(fOneHourThirty)}</option>
-                <option value={fTwoHours}>{String(fTwoHours)}</option>
-                <option value={fThreeHours}>{String(fThreeHours)}</option>
-                <option value={fFourHours}>{String(fFourHours)}</option>
+                <option value={orderTime ? oneHour : fOneHour}>
+                  {String(fOneHour)}
+                </option>
+                <option value={orderTime ? oneHourThirty : fOneHourThirty}>
+                  {String(fOneHourThirty)}
+                </option>
+                <option value={orderTime ? twoHours : fTwoHours}>
+                  {String(fTwoHours)}
+                </option>
+                <option value={orderTime ? threeHours : fThreeHours}>
+                  {String(fThreeHours)}
+                </option>
+                <option value={orderTime ? fourHours : fFourHours}>
+                  {String(fFourHours)}
+                </option>
               </>
             ) : (
               <>

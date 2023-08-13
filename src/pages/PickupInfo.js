@@ -118,7 +118,6 @@ const PickupInfo = () => {
       ...dateAndTime,
       pickupTime: e.target.value,
     });
-    console.log("Time", dateAndTime);
   };
 
   function checkForEmptyTip() {
@@ -482,6 +481,7 @@ const PickupInfo = () => {
                       todaySelect={todaySelect}
                       sundayInt={sundayInt}
                       nextDay={nextDay}
+                      orderTime={false}
                       openStore={openStore}
                     />
                   </DateTimeWrapper>
